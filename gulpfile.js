@@ -1,6 +1,6 @@
 var gulp    = require('gulp'),
     sh      = require('shelljs'),
-    rimraf  = require('gulp-rimraf');
+    del     = require('del');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -18,9 +18,8 @@ gulp.task('copy', ['clean'], function(done) {
     .on('end', done);
 });
 
-gulp.task('clean', function() {
-  return gulp.src('www', {read: false})
-    .pipe(rimraf());
+gulp.task('clean', function(done) {
+  del('www', done);
 });
 
 gulp.task('watch', function() {

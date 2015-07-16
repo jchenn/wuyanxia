@@ -66,7 +66,7 @@ $ gulp build
 $ gulp copy
 ```
 
-通过以下命令可以在模拟器上运行该 apk，在运行之前，Cordova 会再编译一次 apk 文件，以保证它是最新版本。
+最后，通过以下命令可以在模拟器上运行该 apk，在运行之前，Cordova 会再编译一次 apk 文件，以保证它是最新版本。
 
 ```
 $ cordova run android
@@ -74,7 +74,7 @@ $ cordova run android
 
 注意：运行该命令之前，请先打开模拟器！
 
-## Covention
+## Convention
 
 - 所有的代码请放在 app 目录中，需要的第三方包请通过 bower 安装，不要修改 app/lib 中的任何内容。比如
 

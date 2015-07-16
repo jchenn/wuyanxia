@@ -10,7 +10,7 @@
 ## System Requirements
 
 - [Node.js](https://nodejs.org/) 0.12+
-- [Android SDK](http://developer.android.com/sdk/installing/index.html?pkg=tools) (android-22 & android-17)
+- [Android SDK](http://developer.android.com/sdk/installing/index.html?pkg=tools)
 
 在安装完 Node 后，请通过 npm 安装如下全局包：
 
@@ -34,12 +34,13 @@ $ sudo npm install -g gulp bower cordova ionic
 $ git clone https://github.com/meniac/wuyanxia.git
 ```
 
-接下来通过 Cordova CLI  添加 Android 平台的支持，在这之前请确保完成了 Android SDK 的配置。其中 plugin 部分是开发过程中可能用到的 Cordova 插件，所以推荐安装一下。
+接下来通过 Cordova CLI 添加 Android 平台的支持，在这之前请确保完成了 Android SDK 的配置。其中 plugin 部分是开发过程中可能用到的 Cordova 插件，所以推荐安装一下（觉得麻烦的话暂时不装也没关系）。
 
 ```
 $ cd wuyanxia
 $ mkdir www
 $ cordova platform add android
+
 $ cordova plugin add cordova-plugin-device
 $ cordova plugin add cordova-plugin-console
 $ cordova plugin add cordova-plugin-whitelist
@@ -47,7 +48,7 @@ $ cordova plugin add cordova-plugin-splashscreen
 $ cordova plugin add com.ionic.keyboard
 ```
 
-安装项目依赖的第三方包和框架（下面两个命令可以开两个命令行同时运行）：
+安装项目依赖的第三方包和框架（可以同时开两个命令行运行以下命令）：
 
 ```
 $ npm install
@@ -56,11 +57,13 @@ $ bower install
 
 ## Build and Deploy
 
+以后每次修改代码只需要看这部分就可以了。
+
 ```
 $ gulp build
 ```
 
-该命令会把源文件（app目录中的文件）复制到 www 目录中，然后将这些资源打包成 apk 文件。由于打包 apk 需要一定时间（大概 5 秒左右），所以如果只是希望复制文件，可以通过以下命令：
+该命令会把源文件（app 目录中的文件）复制到 www 目录中，然后将这些资源打包成 apk 文件。由于打包 apk 需要一定时间（大概 5 - 10 秒的样子），所以如果只是希望复制文件，可以用以下命令替代 gulp build：
 
 ```
 $ gulp copy

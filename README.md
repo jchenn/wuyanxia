@@ -92,3 +92,4 @@ $ bower install --save jquery
 - [Cordova 官方文档](http://cordova.apache.org/docs/en/5.0.0/)
 - [Ionic 官方文档](http://ionicframework.com/docs/)
 - [AngularJS中文网](http://www.apjs.net)
+- [AngularJS另一个中文网](http://www.ngnice.com/)

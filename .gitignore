@@ -6,3 +6,5 @@ platforms/
 plugins/
 www/
 app/lib/
+# ignore idea file
+.idea/

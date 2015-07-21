@@ -19,6 +19,13 @@ gulp.task('copy', ['useref'], function() {
     .pipe(gulp.dest('www'));
 });
 
+gulp.task('copy:dev', ['useref:dev'], function() {
+  return gulp.src([
+    'app/{img,lib,templates}/**'
+    ], {base: 'app'})
+    .pipe(gulp.dest('www'));
+});
+
 gulp.task('useref', ['clean', 'sass'], function() {
   var assets = useref.assets();
 
@@ -28,6 +35,18 @@ gulp.task('useref', ['clean', 'sass'], function() {
     .pipe(assets)
     .pipe(gulpif('*.js', uglify({mangle: false})))
     .pipe(gulpif('*.css', minifyCss()))
+    .pipe(assets.restore())
+    .pipe(useref())
+    .pipe(gulp.dest('www'));
+});
+
+gulp.task('useref:dev', ['clean', 'sass'], function() {
+  var assets = useref.assets();
+
+  return gulp.src([
+    'app/*.html'
+    ])
+    .pipe(assets)
     .pipe(assets.restore())
     .pipe(useref())
     .pipe(gulp.dest('www'));

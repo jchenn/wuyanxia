@@ -4,6 +4,7 @@
 
 - [系统需求 (System Requirements)](#system-requirements)
 - [安装 (Setup)](#setup)
+- [部署（Build and Deploy）](#build-and-deploy)
 - [约定 (Convention)](#convention)
 - [学习资源 (Resources)](#resources)
 

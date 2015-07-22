@@ -4,6 +4,7 @@
 
 - [系统需求 (System Requirements)](#system-requirements)
 - [安装 (Setup)](#setup)
+- [部署（Build and Deploy）](#build-and-deploy)
 - [约定 (Convention)](#convention)
 - [学习资源 (Resources)](#resources)
 
@@ -76,6 +77,20 @@ $ cordova run android
 ```
 
 注意：运行该命令之前，请先打开模拟器！
+
+在开发过程中，为了方便，我们可以在浏览器端先调试。首先，运行以下命令将代码部署到 www 目录：
+
+```
+$ gulp copy:dev
+```
+
+与 gulp copy 命令不同的是，它只会将 js 和 css 文件合并，而不会压缩，以便在浏览器上调试。然后，使用以下命令启动静态文件服务器：
+
+```
+$ ionic serve
+```
+
+通过 http://localhost:8100 可以在浏览器访问 www 目录下的内容。
 
 ## Convention
 

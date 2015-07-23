@@ -5,7 +5,8 @@ var gulp      = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     uglify    = require('gulp-uglify'),
     gulpif    = require('gulp-if'),
-    useref    = require('gulp-useref');
+    useref    = require('gulp-useref'),
+    connect   = require('gulp-connect');
 
 gulp.task('default', ['copy']);
 
@@ -69,3 +70,9 @@ gulp.task('build', ['copy'], function() {
   sh.exec('cordova build android');
 });
 
+gulp.task('serve', function() {
+  connect.server({
+    root: 'www',
+    port: 3000
+  });
+});

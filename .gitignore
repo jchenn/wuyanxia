@@ -5,6 +5,7 @@ node_modules/
 platforms/
 plugins/
 www/
+.idea/
 .tmp/
 app/lib/
 **/*.swp

@@ -1,0 +1,43 @@
+.filter-group {
+  display: table;
+  position: relative;
+  table-layout: fixed;
+}
+
+.filter-group > li {
+  display: table-cell;
+  width: 1%;
+}
+
+.filter-group .header {
+  text-align: center;
+  line-height: 35px;
+  border-left: 1px solid #ccc;
+}
+
+.filter-group > li:first-child .header {
+  border-left: none;
+}
+
+.filter-group .header > a {
+  display: block;
+  
+}
+
+.filter-group .header .icon {
+  padding-left: 4px;
+}
+
+.filter-list {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  padding-top: 0;
+  height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.filter-list.active {
+  height: auto;
+}

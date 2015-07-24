@@ -15,6 +15,7 @@ gulp.task('copy', ['useref'], function() {
     'app/img/**',
     'app/lib/ionic/fonts/**',
     'app/lib/ionic/js/ionic.bundle.js',
+    'app/lib/angular-resource/angular-resource.min.js*',
     'app/templates/**'
     ], {base: 'app'})
     .pipe(gulp.dest('www'));

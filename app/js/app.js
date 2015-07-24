@@ -40,18 +40,7 @@ angular.module('wuyanxia', ['ionic', 'house','notice','user'])
         }
       }
     })
-
-    // 与消息相关的视图
-    .state('tab.notice', {
-      url: '/notice',
-      views: {
-        'notice': {
-          templateUrl: 'templates/notice/notice-list.html',
-          controller:  'c1'
-        }
-      }
-    })
-
+  
     // 与个人信息相关的视图
     .state('tab.me', {
       url: '/me',
@@ -60,9 +49,7 @@ angular.module('wuyanxia', ['ionic', 'house','notice','user'])
           templateUrl: 'templates/me/me.html'
         }
       }
-    })
- 
-  ;
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/house-list');

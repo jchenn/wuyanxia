@@ -13,7 +13,17 @@ angular.module('notice',[])
             templateUrl:"templates/notice/chart.html",
             controller:'chartCtrl'
         })
-    //
+        // 与消息相关的视图
+        .state('tab.notice', {
+          url: '/notice',
+          views: {
+            'notice': {
+              templateUrl: 'templates/notice/notice-list.html',
+              controller:  'c1'
+            }
+          }
+        })
+        //
         .state('user',{
             url:'/user/:id',
             templateUrl:"templates/user/info.html"

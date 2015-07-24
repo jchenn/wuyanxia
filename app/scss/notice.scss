@@ -131,4 +131,30 @@
     }
 }
 
-
+//header
+.m-header{
+    position: absolute;
+    top:0;
+    left:0;
+    height: 44px;
+    width: 100%;
+    border: 1px solid #444;
+    .m-header-title{
+        text-align: center;
+        color: #444;
+        font-size: 17px;
+        line-height: 44px;
+    }
+    .m-header-back{
+        &:before{
+            position: absolute;
+            top:5px;
+            left:10px;
+            font-size: 30px;
+        }
+    }
+}
+//
+.f-hasheader{
+    top:44px;
+}

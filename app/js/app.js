@@ -30,16 +30,6 @@ angular.module('wuyanxia', ['ionic', 'house'])
       templateUrl: 'templates/tabs.html'
     })
 
-    // 与租房相关的视图
-    .state('tab.house', {
-      url: '/house',
-      views: {
-        'house': {
-          templateUrl: 'templates/house/house-list.html'
-        }
-      }
-    })
-
     // 与室友相关的视图
     .state('tab.people', {
       url: '/people',

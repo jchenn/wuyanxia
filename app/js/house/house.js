@@ -1,5 +1,21 @@
 angular.module('house', ['house.ctrl', 'house.directive', 'house.service'])
 
+.config(function($stateProvider) {
+
+  // 与租房相关的视图
+  $stateProvider
+
+    // 房源列表
+    .state('tab.house', {
+      url: '/house',
+      views: {
+        'house': {
+          templateUrl: 'templates/house/house-list.html'
+        }
+      }
+    });
+})
+
 .constant('AreaList', ['不限', '滨江', '西湖', '江干'])
 
 .constant('PriceList', [

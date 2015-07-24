@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house','notice'])
+angular.module('wuyanxia', ['ionic', 'house','notice','user'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -71,6 +71,11 @@ angular.module('wuyanxia', ['ionic', 'house','notice'])
       url:'/notice/chart',
       templateUrl:"templates/notice/chart.html",
       controller:'chartCtrl'
+  })
+  //
+  .state('user',{
+      url:'/user/:id',
+      templateUrl:"templates/user/info.html"
   })
   ;
 

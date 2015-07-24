@@ -1,3 +1,45 @@
+.m-nitm{
+    font-family: "Microsoft Yahei";
+}
 .m-nitm .item-content{
     padding: 0;
+    height: 50px;
+}
+.m-nitm .m-nitm-icon{
+    position: relative;
+    float: left;
+    padding: 5px;
+}
+.m-nitm .m-nitm-icon img{
+    width: 40px;
+    height: 40px;
+}
+.m-nitm .m-nitm-icon.active:before{
+    content: "";
+    display: block;
+    position: absolute;
+}
+.m-nitm .m-nitm-head{
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    width: 160px;
+}
+.m-nitm .m-nitm-content{
+    position: relative;
+    overflow: hidden;
+    padding: 5px 10px 0 10px;
+}
+.m-nitm .m-nitm-text{
+    font-size: 14px;
+    color: #999;
+    overflow: hidden;
+}
+.m-nitm .m-nitm-time{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 12px;
+    color: #999;
+    
 }

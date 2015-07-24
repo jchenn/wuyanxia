@@ -59,11 +59,12 @@ gulp.task('sass', ['clean'], function() {
     'app/scss/**/*.scss'
     ])
     .pipe(sass())
+    .pipe(gulp.dest('app/css'))
     .pipe(gulp.dest('.tmp/css'));
 });
 
 gulp.task('clean', function(done) {
-  del(['www', '.tmp'], done);
+  del(['www', '.tmp', 'app/css'], done);
 });
 
 gulp.task('build', ['copy'], function() {
@@ -82,4 +83,8 @@ gulp.task('watch', ['copy:dev'], function() {
     'app/{img,js,scss,templates}/**/*',
     'app/index.html'
   ], ['copy:dev']);
+});
+
+gulp.task('watch_self', ['sass'], function() {
+  return gulp.watch(['app/scss/**/*'], ['sass']);
 });

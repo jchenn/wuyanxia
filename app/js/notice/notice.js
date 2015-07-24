@@ -22,11 +22,11 @@ angular.module('notice',['ionic'])
     $scope.locate=function(type){
         //0 邀请回复
         if(type==0){
-            window.location="/#/notice/reply";
+            location="#/notice/reply";
         }
         //1 聊天
         else if(type==1){
-            window.location="/#/notice/chart";
+            location="#/notice/chart";
         }
     };
     $scope.delete=function(id){

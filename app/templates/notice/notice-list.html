@@ -1,8 +1,8 @@
 <ion-view view-title="消息">
   <ion-content>
   <ion-list>
-  <ion-item ng-repeat="item in notices" class="m-nitm">
-        <div class="m-nitm-icon"><img ng-src="{{imgSrc}}"/></div>
+  <ion-item ng-repeat="item in notices" class="m-nitm" ng-click="delete($index)">
+        <div class="m-nitm-icon {{item.active?'active':''}}"><img ng-src="{{imgSrc}}" /></div>
         <div class="m-nitm-content">
             <div class="m-nitm-head">{{item.title}}</div>
             <div class="m-nitm-text">{{item.content}}</div>

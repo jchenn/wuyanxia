@@ -59,7 +59,19 @@ angular.module('wuyanxia', ['ionic', 'house','notice'])
           templateUrl: 'templates/me/me.html'
         }
       }
-    });
+    })
+ 
+  .state('noticereply',{
+      url:'/notice/reply',
+      templateUrl:"templates/notice/reply.html",
+      controller:'replyCtrl'
+  })
+  .state('noticechart',{
+      url:'/notice/chart',
+      templateUrl:"templates/notice/chart.html",
+      controller:'chartCtrl'
+  })
+  ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/house');

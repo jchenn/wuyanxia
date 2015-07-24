@@ -1,4 +1,4 @@
-angular.module('house', ['house.ctrl', 'house.directive'])
+angular.module('house', ['house.ctrl', 'house.directive', 'house.service'])
 
 .constant('AreaList', ['滨江', '西湖', '江干'])
 

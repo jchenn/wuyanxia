@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house'])
+angular.module('wuyanxia', ['ionic', 'house','notice'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -55,7 +55,8 @@ angular.module('wuyanxia', ['ionic', 'house'])
       url: '/notice',
       views: {
         'notice': {
-          templateUrl: 'templates/notice/notice-list.html'
+          templateUrl: 'templates/notice/notice-list.html',
+          controller:  'c1'
         }
       }
     })

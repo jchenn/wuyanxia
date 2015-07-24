@@ -56,7 +56,8 @@ gulp.task('useref:dev', ['clean', 'sass'], function() {
 gulp.task('sass', ['clean'], function() {
   return gulp.src([
     'scss/ionic.app.scss',
-    'app/scss/**/*.scss'
+    'app/scss/**/*.scss',
+    'app/scss/*.scss'
     ])
     .pipe(sass())
     .pipe(gulp.dest('.tmp/css'));

@@ -1,0 +1,134 @@
+//信息列表项
+.m-nitm{
+    font-family: "Microsoft Yahei";
+}
+.m-nitm .item-content{
+    padding: 0;
+    height: 50px;
+}
+.m-nitm .m-nitm-icon{
+    position: relative;
+    float: left;
+    padding: 5px;
+}
+.m-nitm .m-nitm-icon img{
+    width: 40px;
+    height: 40px;
+}
+.m-nitm .m-nitm-icon.active:before{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    top:2.5px;
+    right:2.5px;
+    border-radius: 50%;
+}
+.m-nitm .m-nitm-head{
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    width: 160px;
+}
+.m-nitm .m-nitm-content{
+    position: relative;
+    overflow: hidden;
+    padding: 5px 10px 0 10px;
+}
+.m-nitm .m-nitm-text{
+    font-size: 14px;
+    color: #999;
+    overflow: hidden;
+}
+.m-nitm .m-nitm-time{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 12px;
+    color: #999;
+    
+}
+
+.f-wwb{white-space:normal;word-wrap:break-word;word-break:break-all;}
+.notice-view .reply-content{
+    padding: 30px 20px;
+}
+.notice-view .reply-content .text{
+    text-indent: 2em;
+}
+.notice-view .reply-content .btn{
+    display: block;
+    border: 0;
+    outline: 0;
+    padding: 5px 0;
+    width: 75%;
+    margin: 25px auto;
+    text-align: center;
+    background: #666;
+    color: #fff;
+    
+}
+.notice-view .g-2{
+        position: absolute;
+        bottom: 0;
+    }
+.notice-view .chart-content{
+    padding: 20px;
+    &.g-1{
+        bottom: 35px;
+    }
+    
+}
+
+//聊天信息显示框
+.m-chartbox{
+    white-space:normal;word-wrap:break-word;word-break:break-all;
+    border-radius: 5px;
+    padding: 10px;
+    clear: both;
+    width: 45%;
+    margin-bottom: 15px;
+    background: #eee;
+    color: #999;
+    &.left{
+        float: left;
+    }
+    &.right{
+        float: right;
+    }
+}
+
+//信息输入框
+.m-inputbox{
+    display: flex;
+    height: 35px;
+    background: #666;
+    width: 100%;
+    .input-wrapper{
+        flex: 1;
+        background: transparent;
+        padding: 5px;
+    }
+    .input-text{
+        border-radius: 2px;
+        width: 100%;
+        height: 100%;
+        height: 25px;
+    }
+    .btn-send{
+        width: 40px;
+        text-align: center;
+        line-height: 35px;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        font-size: 12px;
+        padding: 0;
+        margin: 0;
+        
+    }
+}
+
+

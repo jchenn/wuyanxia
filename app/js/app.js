@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house'])
+angular.module('wuyanxia', ['ionic', 'house','notice','user'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -45,7 +45,8 @@ angular.module('wuyanxia', ['ionic', 'house'])
       url: '/notice',
       views: {
         'notice': {
-          templateUrl: 'templates/notice/notice-list.html'
+          templateUrl: 'templates/notice/notice-list.html',
+          controller:  'c1'
         }
       }
     })
@@ -58,7 +59,25 @@ angular.module('wuyanxia', ['ionic', 'house'])
           templateUrl: 'templates/me/me.html'
         }
       }
-    });
+    })
+ //邀请回复界面 
+  .state('noticereply',{
+      url:'/notice/reply',
+      templateUrl:"templates/notice/reply.html",
+      controller:'replyCtrl'
+  })
+  //聊天界面
+  .state('noticechart',{
+      url:'/notice/chart',
+      templateUrl:"templates/notice/chart.html",
+      controller:'chartCtrl'
+  })
+  //
+  .state('user',{
+      url:'/user/:id',
+      templateUrl:"templates/user/info.html"
+  })
+  ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/house-list');

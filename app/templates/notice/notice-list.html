@@ -1,5 +1,15 @@
 <ion-view view-title="消息">
   <ion-content>
-  消息列表（私信、房源、关注、合租邀请）
+  <ion-list>
+  <ion-item ng-repeat="item in notices" class="m-nitm" ng-click="locate(item.type)">
+        <div class="m-nitm-icon {{item.active?'active':''}}"><img ng-src="{{imgSrc}}" /></div>
+        <div class="m-nitm-content">
+            <div class="m-nitm-head">{{item.title}}</div>
+            <div class="m-nitm-text">{{item.content}}</div>
+            <div class="m-nitm-time">{{item.time}}</div>
+        </div>
+        <ion-option-button class="button-assertive" ng-click="delete(item.id)">删除</ion-option-button>
+  </ion-item>
+</ion-list>
   </ion-content>
 </ion-view>

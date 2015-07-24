@@ -1,6 +1,6 @@
 angular.module('house.ctrl', [])
 
-.controller('HouseCtrl', function($scope, $location, HouseQuery) {
+.controller('HouseListCtrl', function($scope, $location, HouseQuery) {
 
   $scope.go = function(hash) {
     // console.log(hash);
@@ -20,7 +20,7 @@ angular.module('house.ctrl', [])
   // console.log($stateParams.id);
   HouseDetailQuery.get({id: $stateParams.id}, function(result) {
     if (result.errno === 0) {
-      
+      $scope.house = result.data;
     }
   }, function(err) {
     console.log(err);

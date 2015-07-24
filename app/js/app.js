@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house','notice','user'])
+angular.module('wuyanxia', ['ionic', 'house','notice','people'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -29,16 +29,6 @@ angular.module('wuyanxia', ['ionic', 'house','notice','user'])
       url: '/tab',
       abstract:true,
       templateUrl: 'templates/tabs.html'
-    })
-
-    // 与室友相关的视图
-    .state('tab.people', {
-      url: '/people',
-      views: {
-        'people': {
-          templateUrl: 'templates/people/people-list.html'
-        }
-      }
     })
   
     // 与个人信息相关的视图

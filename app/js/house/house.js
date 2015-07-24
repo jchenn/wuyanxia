@@ -11,7 +11,7 @@ angular.module('house', ['house.ctrl', 'house.directive', 'house.service'])
       views: {
         'house-tab': {
           templateUrl: 'templates/house/house-list.html',
-          controller: 'HouseCtrl'
+          controller: 'HouseListCtrl'
         }
       }
     })

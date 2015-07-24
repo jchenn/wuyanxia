@@ -65,7 +65,7 @@ angular.module('wuyanxia', ['ionic', 'house','notice','user'])
   ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/house');
+  $urlRouterProvider.otherwise('/tab/house-list');
 
   // 强制让标签栏在底部
   $ionicConfigProvider.tabs.position('bottom');

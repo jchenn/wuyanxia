@@ -1,4 +1,4 @@
-<ion-view hide-nav-bar="true">
+<ion-view hide-nav-bar="true" class="m-house">
   <ion-header-bar class="bar-stable item-input-inset">
     <label class="item-input-wrapper">
       <span class="icon ion-search"></span>
@@ -10,10 +10,24 @@
     <w-house-filter></w-house-filter>
   </ion-header-bar>
   <ion-content>
-    <div class="row">
-      <div class="col">图1</div>
-      <div class="col">图2</div>
-    </div>
+    <ul class="grid">
+      <li class="item" ng-repeat="v in list">
+        <div class="content-wrapper" ng-click="go('/tab/house-detail/{{v.houseId}}')">
+          <div class="img-response">
+            <img ng-src="{{ v.imageUrl }}" alt="">
+          </div>
+          <h4 class="title">{{ v.title }}</h4>
+          <p><span class="price">{{ v.price }}</span></p>
+          <div class="footer">
+            <img ng-src="{{ v.jjrimage }}" alt="">
+            <div class="landlord">
+              <p class="name">{{ v.jjrname }}</p>
+              <p><span>{{ v.area }}</span><span>{{ v.community }}</span></p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
   </ion-content>
 
   <script id="directive-house-filter.html" type="text/ng-template">

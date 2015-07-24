@@ -6,11 +6,23 @@ angular.module('house', ['house.ctrl', 'house.directive', 'house.service'])
   $stateProvider
 
     // 房源列表
-    .state('tab.house', {
-      url: '/house',
+    .state('tab.house-list', {
+      url: '/house-list',
       views: {
-        'house': {
-          templateUrl: 'templates/house/house-list.html'
+        'house-tab': {
+          templateUrl: 'templates/house/house-list.html',
+          controller: 'HouseCtrl'
+        }
+      }
+    })
+
+    // 房源详情
+    .state('tab.house-detail', {
+      url: '/house-detail/:id',
+      views: {
+        'house-tab': {
+          templateUrl: 'templates/house/house-detail.html',
+          controller: 'HouseDetailCtrl'
         }
       }
     });
@@ -37,4 +49,6 @@ angular.module('house', ['house.ctrl', 'house.directive', 'house.service'])
   {key: 4, value: '三室'},
   {key: 5, value: '四室'},
   {key: 6, value: '四室以上'}
-]);
+])
+
+.constant('HTTP_PREFIX', 'http://10.242.37.68:4000');

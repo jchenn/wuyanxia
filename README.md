@@ -87,10 +87,16 @@ $ gulp copy:dev
 与 gulp copy 命令不同的是，它只会将 js 和 css 文件合并，而不会压缩，以便在浏览器上调试。然后，使用以下命令启动静态文件服务器：
 
 ```
-$ ionic serve
+$ gulp serve
 ```
 
-通过 http://localhost:8100 可以在浏览器访问 www 目录下的内容。
+通过 http://localhost:3000 可以在浏览器访问 www 目录下的内容。
+
+```
+$ gulp watch
+```
+
+通过该命令可以监控 app 目录中的修改，当修改发生时自动运行 copy:dev 任务，更新 www 目录，因此不需要每次修改后都手动执行 gulp copy:dev 。
 
 ## Convention
 

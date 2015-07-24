@@ -77,3 +77,10 @@ gulp.task('serve', function() {
     port: 3000
   });
 });
+
+gulp.task('watch', ['copy:dev'], function() {
+  return gulp.watch([
+    'app/{img,js,scss,templates}/**/*',
+    'app/index.html'
+  ], ['copy:dev']);
+});

@@ -27,6 +27,7 @@ angular.module('wuyanxia', ['ionic', 'house','notice','user'])
     // setup an abstract state for the tabs directive
     .state('tab', {
       url: '/tab',
+      abstract:true,
       templateUrl: 'templates/tabs.html'
     })
 
@@ -60,23 +61,7 @@ angular.module('wuyanxia', ['ionic', 'house','notice','user'])
         }
       }
     })
- //邀请回复界面 
-  .state('noticereply',{
-      url:'/notice/reply',
-      templateUrl:"templates/notice/reply.html",
-      controller:'replyCtrl'
-  })
-  //聊天界面
-  .state('noticechart',{
-      url:'/notice/chart',
-      templateUrl:"templates/notice/chart.html",
-      controller:'chartCtrl'
-  })
-  //
-  .state('user',{
-      url:'/user/:id',
-      templateUrl:"templates/user/info.html"
-  })
+ 
   ;
 
   // if none of the above states are matched, use this as the fallback

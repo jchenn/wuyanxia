@@ -1,5 +1,27 @@
-angular.module('notice',['ionic'])
-    .controller('c1',function($scope,$http){
+angular.module('notice',[])
+    .config(function($stateProvider){
+    $stateProvider
+     //邀请回复界面 
+        .state('noticereply',{
+            url:'/notice/reply',
+            templateUrl:"templates/notice/reply.html",
+            controller:'replyCtrl'
+        })
+    //聊天界面
+        .state('noticechart',{
+            url:'/notice/chart',
+            templateUrl:"templates/notice/chart.html",
+            controller:'chartCtrl'
+        })
+    //
+        .state('user',{
+            url:'/user/:id',
+            templateUrl:"templates/user/info.html"
+        })
+        ;
+    })
+   
+    .controller('c1',function($scope,$http, $location){
     $scope.imgSrc="a.jpg";
     $scope.notices=[
         {
@@ -22,11 +44,11 @@ angular.module('notice',['ionic'])
     $scope.locate=function(type){
         //0 邀请回复
         if(type==0){
-            location="#/notice/reply";
+           return "#/notice/reply";
         }
         //1 聊天
         else if(type==1){
-            location="#/notice/chart";
+            return "#/notice/chart";
         }
     };
     $scope.delete=function(id){

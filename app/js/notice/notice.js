@@ -6,16 +6,16 @@ angular.module('notice',['ionic'])
             active:1,
             id:1,
             type:0,
-            title:"我是标题",
-            content:"我是内容",
+            title:"邀请回复",
+            content:"木鱼拒绝了您的合租请求",
             time:"13:14 PM"
         },
         {
             active:0,
             id:1,
             type:1,
-            title:"我是标题",
-            content:"我是内容",
+            title:"室友私信",
+            content:"木鱼说很高兴认识你",
             time:"13:14 PM"
         }
     ];

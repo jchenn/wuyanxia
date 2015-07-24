@@ -49,3 +49,24 @@
     color: #999;
     
 }
+
+.f-wwb{white-space:normal;word-wrap:break-word;word-break:break-all;}
+.notice-view .reply-content{
+    padding: 30px 20px;
+}
+.notice-view .reply-content .text{
+    text-indent: 2em;
+}
+.notice-view .reply-content .btn{
+    display: block;
+    border: 0;
+    outline: 0;
+    padding: 5px 0;
+    width: 75%;
+    margin: 25px auto;
+    text-align: center;
+    background: #666;
+    color: #fff;
+    
+}
+

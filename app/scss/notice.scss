@@ -1,3 +1,4 @@
+//信息列表项
 .m-nitm{
     font-family: "Microsoft Yahei";
 }
@@ -69,4 +70,65 @@
     color: #fff;
     
 }
+.notice-view .g-2{
+        position: absolute;
+        bottom: 0;
+    }
+.notice-view .chart-content{
+    padding: 20px;
+    &.g-1{
+        bottom: 35px;
+    }
+    
+}
+
+//聊天信息显示框
+.m-chartbox{
+    white-space:normal;word-wrap:break-word;word-break:break-all;
+    border-radius: 5px;
+    padding: 10px;
+    clear: both;
+    width: 45%;
+    margin-bottom: 15px;
+    background: #eee;
+    color: #999;
+    &.left{
+        float: left;
+    }
+    &.right{
+        float: right;
+    }
+}
+
+//信息输入框
+.m-inputbox{
+    display: flex;
+    height: 35px;
+    background: #666;
+    width: 100%;
+    .input-wrapper{
+        flex: 1;
+        background: transparent;
+        padding: 5px;
+    }
+    .input-text{
+        border-radius: 2px;
+        width: 100%;
+        height: 100%;
+        height: 25px;
+    }
+    .btn-send{
+        width: 40px;
+        text-align: center;
+        line-height: 35px;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        font-size: 12px;
+        padding: 0;
+        margin: 0;
+        
+    }
+}
+
 

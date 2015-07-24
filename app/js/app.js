@@ -60,12 +60,13 @@ angular.module('wuyanxia', ['ionic', 'house','notice'])
         }
       }
     })
- 
+ //邀请回复界面 
   .state('noticereply',{
       url:'/notice/reply',
       templateUrl:"templates/notice/reply.html",
       controller:'replyCtrl'
   })
+  //聊天界面
   .state('noticechart',{
       url:'/notice/chart',
       templateUrl:"templates/notice/chart.html",

@@ -1,6 +1,18 @@
-<ion-view view-title="室友">
+<ion-view view-title="室友" class="m-people">
   <ion-content>
-  <a href="#/tab/people-detail/1">室友1</a>
-  <a href="#/tab/people-detail/2">室友2</a>
+    <ul class="grid">
+      <li class="item" ng-repeat="v in list"> 
+        <div class="content-wrapper" ng-click="go('/tab/people-detail/{{v.id}}')">
+          <div class="img-response">
+            <img ng-src="{{ v.image }}" alt="">
+          </div>
+          <div class="footer">
+            <p><span>{{ v.gender }}</span><span>匹配度：{{ v.match }}</span></p>
+            <p><span>{{ v.job }}</span><span>{{ v.age }}</span></p>
+            <p><span>推荐理由：{{ v.reason }}</span></p>
+          </div>
+        </div>
+      </li>
+    </ul>
   </ion-content>
 </ion-view>

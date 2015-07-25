@@ -1,0 +1,33 @@
+.m-people {
+  .grid {
+    overflow: hidden;
+    padding: 8px;
+
+    .item {
+      float: left;
+      width: 50%;
+      border: none;
+      padding: 8px;
+
+      .content-wrapper {
+        border: none;
+        border-radius: 2px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px #ccc;
+        padding: 0;
+
+        .img-response {
+          text-align: center;
+
+          img {
+            max-width: 100%;
+          }
+        }
+
+        .footer {
+          padding: 8px;
+        }
+      }
+    }
+  }
+}

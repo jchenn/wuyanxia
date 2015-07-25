@@ -15,4 +15,4 @@ angular.module('house.directive', [])
       $scope.showRoom = false;
     }
   };
-})
+});

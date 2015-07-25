@@ -7,7 +7,7 @@ angular.module('people', ['people.ctrl', 'people.service'])
   
     // 室友列表
     .state('tab.people-list', {
-      url: '/people',
+      url: '/people-list',
       views: {
         'people-tab': {
           templateUrl: 'templates/people/people-list.html',
@@ -26,4 +26,6 @@ angular.module('people', ['people.ctrl', 'people.service'])
         }
       }
     })
-});
+})
+
+.constant('HTTP_PREFIX', 'http://10.242.37.68:4000');

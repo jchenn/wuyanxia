@@ -17,7 +17,7 @@ angular.module('people', ['people.ctrl', 'people.service'])
     })
 
     // 室友详情
-    .state('tab.people-detail', {
+    .state('menu.people-detail', {
       url: '/people-detail/:id',
       views: {
         'menu-content': {

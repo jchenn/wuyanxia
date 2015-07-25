@@ -30,4 +30,7 @@ angular.module('wuyanxia', ['ionic', 'house','notice','people'])
 
   // 强制让标签栏在底部
   // $ionicConfigProvider.tabs.position('bottom');
+
+  // 去除标题栏返回按钮的文字
+  $ionicConfigProvider.backButton.text('').previousTitleText(false);
 });

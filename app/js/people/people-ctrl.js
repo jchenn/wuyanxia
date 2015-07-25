@@ -2,7 +2,7 @@ angular.module('people.ctrl', [])
 
 .controller('PeopleListCtrl', function($scope, $location, PeopleListQuery) {
   $scope.go = function(hash) {
-    // console.log(hash);
+    console.log(hash);
     $location.path(hash);
   };
 

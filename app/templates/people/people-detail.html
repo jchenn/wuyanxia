@@ -1,5 +1,14 @@
-<ion-view view-title="帅哥美女">
-    <ion-content>
-        用户详情信息页面
-    </ion-content>
+<ion-view hide-nav-bar="true">
+  <ion-header-bar class="bar-stable">
+    <div class="buttons">
+      <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
+    </div>
+    <h1 class="title">{{ people.name }}</h1>
+    <div class="buttons">
+      <button class="button button-clear button-icon ion-ios-more"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+      用户详情信息页面
+  </ion-content>
 </ion-view>

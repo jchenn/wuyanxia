@@ -18,32 +18,16 @@ angular.module('wuyanxia', ['ionic', 'house','notice','people'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
-
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: '/tab',
-      abstract:true,
-      templateUrl: 'templates/tabs.html'
-    })
-  
-    // 与个人信息相关的视图
-    .state('tab.me', {
-      url: '/me',
-      views: {
-        'me': {
-          templateUrl: 'templates/me/me.html'
-        }
-      }
+    .state('menu', {
+      abstract: true,
+      url: '/menu',
+      templateUrl: 'templates/menu.html'
     });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/people-list');
+  // 暂时默认到室友列表
+  $urlRouterProvider.otherwise('/menu/people-list');
 
   // 强制让标签栏在底部
-  $ionicConfigProvider.tabs.position('bottom');
+  // $ionicConfigProvider.tabs.position('bottom');
 });

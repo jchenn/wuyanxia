@@ -6,10 +6,10 @@ angular.module('people', ['people.ctrl', 'people.service'])
   $stateProvider
   
     // 室友列表
-    .state('tab.people-list', {
+    .state('menu.people-list', {
       url: '/people-list',
       views: {
-        'people-tab': {
+        'menu-content': {
           templateUrl: 'templates/people/people-list.html',
           controller: 'PeopleListCtrl'
         }
@@ -20,12 +20,12 @@ angular.module('people', ['people.ctrl', 'people.service'])
     .state('tab.people-detail', {
       url: '/people-detail/:id',
       views: {
-        'people-tab': {
+        'menu-content': {
           templateUrl: 'templates/people/people-detail.html',
           controller: 'PeopleDetailCtrl'
         }
       }
-    })
+    });
 })
 
 .constant('HTTP_PREFIX', 'http://10.242.37.68:4000');

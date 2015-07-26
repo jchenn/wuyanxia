@@ -1,5 +1,5 @@
 <!-- 侧边栏包裹指令-->
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="false" class="m-menu">
 
   <!-- 主体内容 -->
   <ion-side-menu-content>
@@ -22,13 +22,29 @@
 
   <!-- 菜单内容 -->
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">侧边栏</h1>
-    </ion-header-bar class="bar-stable">
-    <ion-content class="has-header">
+    <ion-content>
+      <div class="header">
+        <div class="avatar"><img src="img/image-m.png" alt=""></div>
+        <p>
+          <span>木鱼</span>
+          <span class="badge badge-stable">中等信用</span>
+          <span class="badge badge-stable">正在寻找</span>
+        </p>
+        <p><span>屋檐下ID：20150722</span></p>
+      </div>
       <ion-list>
-        <ion-item menu-close>关闭</ion-item>
+        <ion-item class="item-icon-left"><span class="icon ion-ionic"></span>我的收藏</ion-item>
+        <ion-item class="item-icon-left"><span class="icon ion-ionic"></span>发布房源</ion-item>
+        <ion-item class="item-icon-left"><span class="icon ion-ionic"></span>关于我们</ion-item>
+        <ion-item class="item-icon-left"><span class="icon ion-ionic"></span>评个分吧</ion-item>
+        <ion-item class="item-icon-left"><span class="icon ion-ionic"></span>设置</ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer-bar class="bar-stable item-input-inset">
+      <label class="item-input-wrapper">
+        <span class="icon ion-search"></span>
+        <input type="text" placeholder="搜索">
+      </label>
+    </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

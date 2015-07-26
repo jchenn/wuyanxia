@@ -1,0 +1,24 @@
+.m-menu {
+  .header {
+    padding: 40px 10px;
+
+    .avatar {
+      float: left;
+      margin-right: 16px;
+
+      img {
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+      }
+    }
+
+    & > p {
+      overflow: hidden;
+
+      .badge {
+        font-size: smaller;
+      }
+    }
+  }
+}

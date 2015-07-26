@@ -1,5 +1,13 @@
 angular.module('people', ['people.ctrl', 'people.service'])
 
+.run(function($rootScope, $location) {
+  
+  $rootScope.go = function(hash) {
+    // console.log(hash);
+    $location.path(hash);
+  };
+})
+
 .config(function($stateProvider) {
 
   // 与室友相关的视图
@@ -11,6 +19,17 @@ angular.module('people', ['people.ctrl', 'people.service'])
       views: {
         'menu-content': {
           templateUrl: 'templates/people/people-list.html',
+          controller: 'PeopleListCtrl'
+        }
+      }
+    })
+
+    // 筛选
+    .state('menu.people-filter', {
+      url: '/people-filter',
+      views: {
+        'menu-content': {
+          templateUrl: 'templates/people/people-filter.html',
           controller: 'PeopleListCtrl'
         }
       }
@@ -28,4 +47,7 @@ angular.module('people', ['people.ctrl', 'people.service'])
     });
 })
 
-.constant('HTTP_PREFIX', 'http://10.242.37.68:4000');
+.constant('HTTP_PREFIX', 'http://192.168.1.105:4000')
+//.constant('HTTP_PREFIX', 'http://10.242.37.68:4000')
+
+;

@@ -5,7 +5,7 @@
     </div>
     <h1 class="title">室友</h1>
     <div class="buttons">
-      <button class="button button-clear">筛选</button>
+      <button class="button button-clear" ng-click="go('/menu/people-filter')">筛选</button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -13,7 +13,7 @@
       <li class="item" ng-repeat="v in list"> 
         <div class="content-wrapper" ng-click="go('/menu/people-detail/{{v.id}}')">
           <div class="img-response">
-            <img ng-src="{{ v.image }}" alt="">
+            <img ng-src="{{ v.image }}" alt="" ng-class="{ribbon: v.house}">
           </div>
           <div class="footer">
             <p><span>{{ v.name }}</span><span>匹配度：{{ v.match }}</span></p>

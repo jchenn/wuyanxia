@@ -1,6 +1,6 @@
-angular.module('wuyanxia', ['ionic','wuww','people'])
+angular.module('wuyanxia', ['ionic','wuww','people', 'me'])
 
-.run(function($ionicPlatform) {
+.run(function($rootScope, $location, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -14,6 +14,13 @@ angular.module('wuyanxia', ['ionic','wuww','people'])
       StatusBar.styleLightContent();
     }
   });
+
+  // 根据 hash 在主内容区域显示页面
+  // @param hash 前面以斜杠开始，如 '/menu/me' 会跳转到 #/menu/me 对应的页面
+  $rootScope.go = function(hash) {
+    // console.log(hash);
+    $location.path(hash);
+  };
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

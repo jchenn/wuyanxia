@@ -1,13 +1,5 @@
 angular.module('people', ['people.ctrl', 'people.service'])
 
-.run(function($rootScope, $location) {
-  
-  $rootScope.go = function(hash) {
-    // console.log(hash);
-    $location.path(hash);
-  };
-})
-
 .config(function($stateProvider) {
 
   // 与室友相关的视图

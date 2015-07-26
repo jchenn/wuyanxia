@@ -1,0 +1,105 @@
+.wuww-view{
+    ion-content{
+        font-size: 20px;
+    }
+    &.new-view{
+        .g-1{
+            margin-top: 20px;
+        }
+        .m-show-content{
+            background: #ccc;
+        }
+        input,button{
+            font-size: 20px
+        }
+        .slider{
+            height: 100%;
+        }
+    }
+    &.desc-view{
+        .m-show{
+            &:before{
+                padding-bottom: 100%;
+            }
+            .m-show-content{
+                padding: 10px;
+                textarea{
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid #999;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+    .clearfix{
+        &:before,&:after{
+            display: table;
+            content: "";
+        }
+        &:after{
+            clear: both;
+        }
+    }
+    .m-backicon{
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        width: 60px;
+        height: 100%;
+        line-height: 44px;
+        font-size: 15px;
+    }
+    .m-show{
+        &:before{
+            content: "";
+            display: block;
+            padding-bottom: 75%;
+        }
+        position: relative;
+        width: 100%;
+        .m-show-content{
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .m-btn{
+        display: block;
+        border: 0;
+        outline: 0;
+        margin: 0;
+        padding: 0;
+    }
+    .m-list{
+        padding-left: 10px;
+        
+        .m-list-item+.m-list-item{
+            border-top: 1px solid #000;
+        }
+        .m-list-item{
+            input,a{
+                display: block;
+                background: transparent;
+                width: 100%;
+            }
+            a{
+                text-decoration: none;
+            }
+            button{
+                display: block;
+                margin: auto;
+                width: 75%;
+                text-align: center;
+                padding: 5px;
+                background: #999;
+            }
+        }
+    }
+}

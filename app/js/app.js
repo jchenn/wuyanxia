@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house','wuww','people'])
+angular.module('wuyanxia', ['ionic','wuww','people'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

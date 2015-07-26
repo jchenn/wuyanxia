@@ -1,4 +1,4 @@
-angular.module('me', [])
+angular.module('me', ['me.ctrl'])
 
 .config(function($stateProvider) {
 
@@ -13,6 +13,13 @@ angular.module('me', [])
           templateUrl: 'templates/me/me.html'
         }
       }
+    })
+
+    // 填写个人标签（问卷）
+    .state('me-q', {
+      url: '/me/q/:id',
+      templateUrl: 'templates/me/q.html',
+      controller: 'QuestionCtrl'
     })
   ;
 })

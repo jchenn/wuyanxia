@@ -25,6 +25,17 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'login'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
+
+  $stateProvider
+
+    // 侧边栏
+    .state('menu', {
+      abstract: true,
+      url: '/menu',
+      templateUrl: 'templates/menu.html'
+    })
+  ;
+
   // 暂时默认到室友列表
   $urlRouterProvider.otherwise('/menu/people-list');
 

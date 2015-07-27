@@ -1,6 +1,6 @@
-angular.module('wuyanxia', ['ionic','house','people', 'me', 'login'])
+angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'login'])
 
-.run(function($ionicPlatform) {
+.run(function($rootScope, $location, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -14,6 +14,13 @@ angular.module('wuyanxia', ['ionic','house','people', 'me', 'login'])
       StatusBar.styleLightContent();
     }
   });
+
+  // 根据 hash 在主内容区域显示页面
+  // @param hash 前面以斜杠开始，如 '/menu/me' 会跳转到 #/menu/me 对应的页面
+  $rootScope.go = function(hash) {
+    // console.log(hash);
+    $location.path(hash);
+  };
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -24,45 +31,12 @@ angular.module('wuyanxia', ['ionic','house','people', 'me', 'login'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: '/tab',
-      templateUrl: 'templates/tabs.html'
-    })
-
-    // 与室友相关的视图
-    .state('tab.people', {
-      url: '/people',
-      views: {
-        'people': {
-          templateUrl: 'templates/people/people-list.html'
-        }
-      }
-    })
-
-    // 与消息相关的视图
-    .state('tab.notice', {
-      url: '/notice',
-      views: {
-        'notice': {
-          templateUrl: 'templates/notice/notice-list.html'
-        }
-      }
-    })
-
-    // 与个人信息相关的视图
-    .state('tab.me', {
-      url: '/me',
-      views: {
-        'me': {
-          templateUrl: 'templates/me/me.html'
-        }
-      }
-    });
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/house');
+    // 暂时默认到室友列表
+  $urlRouterProvider.otherwise('/menu/people-list');
 
   // 强制让标签栏在底部
-  $ionicConfigProvider.tabs.position('bottom');
+  // $ionicConfigProvider.tabs.position('bottom');
+
+  // 去除标题栏返回按钮的文字
+  $ionicConfigProvider.backButton.text('').previousTitleText(false);
 });

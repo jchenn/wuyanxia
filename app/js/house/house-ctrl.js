@@ -51,18 +51,21 @@ angular.module('house.ctrl',[])
         file.hidden="hidden";
         file.addEventListener('change',function(){
             var f=this.files[0];
-            fileList.push(f);
-            $scope.pics.push({
-                src: window.URL.createObjectURL(f),
-                alt: f.name
-            });
             
             
-            $timeout(function(){
+                fileList.push(f);
+                $scope.pics.push({
+                    src: window.URL.createObjectURL(f),
+                    alt: f.name
+                });
+                $timeout(function(){
                 $ionicSlideBoxDelegate.update();
                 
                 $timeout(function(){$ionicSlideBoxDelegate.next();},100);
             },500);
+            
+            
+            
         });
         document.body.appendChild(file);
         return file;
@@ -87,4 +90,5 @@ angular.module('house.ctrl',[])
     $scope.title="描述";
     $scope.back=$back;
 })
+.controller('infoCtrl',function(){})
 ;

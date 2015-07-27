@@ -1,0 +1,13 @@
+.m-menu .header {
+  padding: 40px 10px; }
+  .m-menu .header .avatar {
+    float: left;
+    margin-right: 16px; }
+    .m-menu .header .avatar img {
+      border-radius: 50%;
+      width: 75px;
+      height: 75px; }
+  .m-menu .header > p {
+    overflow: hidden; }
+    .m-menu .header > p .badge {
+      font-size: smaller; }

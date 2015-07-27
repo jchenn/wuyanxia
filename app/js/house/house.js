@@ -10,6 +10,11 @@ angular.module('house',['house.ctrl'])
         templateUrl:'templates/house/house-decoration.html',
         controller:'descCtrl'
     })
+    .state('houseinfo',{
+        url:'/house-info',
+        templateUrl:'templates/house/house-info.html',
+        controller:'infoCtrl'
+    })
     ;
 })
 ;

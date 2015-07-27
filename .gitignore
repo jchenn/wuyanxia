@@ -8,6 +8,6 @@ www/
 .idea/
 .tmp/
 app/lib/
-# app/css/
+app/css/
 **/*.swp
 npm-debug.log

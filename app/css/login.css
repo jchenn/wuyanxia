@@ -1,0 +1,46 @@
+.logo-wrap {
+  position: relative;
+  width: 100%;
+  height: 150px; }
+  .logo-wrap .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 50px;
+    border: 1px solid gray;
+    border-radius: 5px; }
+
+.related-log {
+  margin-bottom: 20px; }
+  .related-log li {
+    float: left;
+    padding-left: 10px;
+    font-size: 18px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 50%; }
+    .related-log li:first-child {
+      border-right: 1px solid gray;
+      padding-right: 10px;
+      text-align: right; }
+
+.m-log .header {
+  display: flex;
+  align-items: center; }
+  .m-log .header:before, .m-log .header:after {
+    content: '';
+    display: block;
+    flex: 1;
+    border-top: 1px solid gray;
+    height: 0; }
+  .m-log .header span {
+    display: inline-block;
+    padding: 0 15px; }
+.m-log .log-list.list .item-input {
+  border-width: 0;
+  border-bottom-width: 1px;
+  margin: 0; }
+.m-log .log-list.list .button {
+  margin-top: 40px; }

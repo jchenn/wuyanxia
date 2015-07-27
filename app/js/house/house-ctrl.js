@@ -4,16 +4,24 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout){
+.factory('Form',function($http){
+    var f=new FormData();
+    return {
+        append:function(key,value){
+            f.append(key,value);
+        },
+        send:function(){
+        }
+    };
+})
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form){
      fileList=[];
     
     $scope.title="发布房源";
     
     $scope.back=$back;
     
-    $scope.pics=[
-        
-    ];
+    $scope.pics=[];
     
     $scope.optionShow=function(){
         $ionicActionSheet.show({
@@ -23,7 +31,7 @@ angular.module('house.ctrl',[])
              ],
              cancelText: '取消',
              cancel: function() {
-                  // add cancel code..
+                  ;;
                 },
              buttonClicked: function(index) {
                  if(index==0){
@@ -35,15 +43,7 @@ angular.module('house.ctrl',[])
                return true;
              }
         });
-    };
-    $scope.do=function(){
-        $scope.pics.push({
-            src:'http://cdn.angularjs.cn/img/logo.png',
-            alt:'ca'
-        });
-        $ionicSlideBoxDelegate.update();
-    };
-    
+    }; 
     function createFile(){
         var file=document.createElement('input');
         file.type="file";

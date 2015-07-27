@@ -10,12 +10,15 @@
   </ion-header-bar>
   <ion-content>
     <div class="button-bar" ng-repeat="v in buttons">
-      <a href="" class="button" ng-repeat="c in v.choices">{{ c.label }}</a>
+      <a class="button" ng-class="{active: params[v.name] == c.value}"
+         ng-repeat="c in v.choices" ng-click="params[v.name] = c.value;">{{ c.label }}</a>
     </div>
     <ion-list>
-      <ion-item class="item-icon-right" ng-repeat="v in list">
-        {{ v.label }}
-        <span class="icon ion-ios-arrow-right"></span>
+      <ion-item class="item-input item-select" ng-repeat="v in list">
+        <div class="input-label">{{ v.label }}</div>
+        <select ng-model="params[v.name]">
+          <option ng-repeat="c in v.choices" value="{{ c.value }}">{{ c.label }}</option>
+        </select>
       </ion-item>
     </ion-list>
   </ion-content>

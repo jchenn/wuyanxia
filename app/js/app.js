@@ -36,7 +36,10 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
   ;
 
   // 暂时默认到室友列表
-  $urlRouterProvider.otherwise('/menu/people-list');
+  // $urlRouterProvider.otherwise('/menu/people-list');
+
+  // 暂时默认到个性问卷
+  $urlRouterProvider.otherwise('/me/q/1');
 
   // 强制让标签栏在底部
   // $ionicConfigProvider.tabs.position('bottom');

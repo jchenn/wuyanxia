@@ -19,7 +19,30 @@ angular.module('people.service', ['ngResource'])
 })
 
 .factory('PeopleFilter', function() {
-  
+  var params = {}, prev = '';
+
+  return {
+    get: function(key) {
+      return key ? params.key : params;
+    },
+    set: function(key, value) {
+      // console.log(params);
+      prev = JSON.stringify(params);
+      if (typeof key === 'object') {
+        params = key;
+      } else {
+        params.key = value;
+      }
+      // console.log(params);
+    },
+    clear: function() {
+      prev = JSON.stringify(params);
+      params = {};
+    },
+    changed: function() {
+      return prev != JSON.stringify(params);
+    }
+  }
 })
 
 .factory('PeopleDetailQuery', function($resource, HTTP_PREFIX) {

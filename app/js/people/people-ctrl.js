@@ -1,49 +1,50 @@
 angular.module('people.ctrl', [])
 
-.controller('PeopleListCtrl', function($scope, $ionicLoading, PeopleListQuery) {
+.controller('PeopleListCtrl', 
+  function($scope, $ionicLoading, PeopleListQuery, PeopleFilter) {
 
   // 显示 loading 动画
   $ionicLoading.show({
     templateUrl: 'templates/people/people-maching.html'
   });
 
-  // TODO 添加参数
-  PeopleListQuery.get(null, function(response) {
+  $scope.loadMore = function() {
 
-    // 关闭 loading 动画
-    // console.log(response);
-    $ionicLoading.hide();
+    console.log('more');
 
-    if (response.errno === 0) {
-      $scope.list = response.data;
-    }
+    // TODO 更新页数
+    PeopleListQuery.get(PeopleFilter.get(), function(response) {
 
-  }, function(err) {
-    // console.log(err);
-    $ionicLoading.hide();
-  });
+      // 关闭 loading 动画
+      // console.log(response);
+      $ionicLoading.hide();
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      if (response.errno === 0) {
+        $scope.list = response.data;
+      }
+
+    }, function(err) {
+      // console.log(err);
+      $ionicLoading.hide();
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  };
 
 })
 
-.controller('PeopleFilterCtrl', function($scope, PeopleFilterSelect, $ionicActionSheet2) {
-  $scope.buttons = PeopleFilterSelect.buttons;
-  $scope.list = PeopleFilterSelect.list;
-
-  $scope.select = function(name, value) {
-    // 
-  };
+.controller('PeopleFilterCtrl', function($scope, $state, PeopleFilterModel, PeopleFilter) {
+  $scope.buttons = PeopleFilterModel.buttons;
+  $scope.list = PeopleFilterModel.list;
+  $scope.params = {f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1};
 
   $scope.finish = function() {
-    //
-    $ionicActionSheet2.show({
-      buttons: [
-        {text: 'xx'}
-      ],
-      buttonClicked: function(index) {
-        // TODO: 实现
-        return true;
-      }
-    });
+    console.log($scope.params);
+    PeopleFilter.set($scope.params);
+
+    // TODO: 判断是否需要重新请求数据
+    $state.go('menu.people-list', null, {reload: true});
+    // $scope.go('/menu/people-list?r=1');
   };
 })
 

@@ -1,4 +1,4 @@
-angular.module('me', ['me.ctrl'])
+angular.module('me', ['me.ctrl', 'me.service'])
 
 .config(function($stateProvider) {
 

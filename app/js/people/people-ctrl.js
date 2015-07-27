@@ -1,31 +1,56 @@
 angular.module('people.ctrl', [])
 
-.controller('PeopleListCtrl', function($scope, PeopleListQuery) {
-  
-  // TODO：显示遮罩
+.controller('PeopleListCtrl', 
+  function($scope, $ionicLoading, PeopleListQuery, PeopleFilter) {
 
-  // TODO 添加参数
-  PeopleListQuery.get(null, function(response) {
-
-    // TODO: 关闭遮罩
-
-    if (response.errno === 0) {
-      $scope.list = response.data;
-    }
-  }, function(err) {
-    console.log(err);
+  // 显示 loading 动画
+  $ionicLoading.show({
+    templateUrl: 'templates/people/people-maching.html'
   });
 
+  $scope.loadMore = function() {
 
+    console.log('more');
 
+    // TODO 更新页数
+    PeopleListQuery.get(PeopleFilter.get(), function(response) {
+
+      // 关闭 loading 动画
+      // console.log(response);
+      $ionicLoading.hide();
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+
+      if (response.errno === 0) {
+        $scope.list = response.data;
+      }
+
+    }, function(err) {
+      // console.log(err);
+      $ionicLoading.hide();
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  };
+
+})
+
+.controller('PeopleFilterCtrl', function($scope, $state, PeopleFilterModel, PeopleFilter) {
+  $scope.buttons = PeopleFilterModel.buttons;
+  $scope.list = PeopleFilterModel.list;
+  $scope.params = {f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1};
+
+  $scope.finish = function() {
+    console.log($scope.params);
+    PeopleFilter.set($scope.params);
+
+    // TODO: 判断是否需要重新请求数据
+    $state.go('menu.people-list', null, {reload: true});
+    // $scope.go('/menu/people-list?r=1');
+  };
 })
 
 .controller('PeopleDetailCtrl', function($scope, $ionicActionSheet, $stateParams, PeopleDetailQuery) {
 
-  // TODO: 显示遮罩
-
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
-    // TODO: 关闭遮罩
     if (response.errno === 0) {
       $scope.people = response.data;
     }

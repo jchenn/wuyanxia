@@ -1,6 +1,5 @@
 .m-people {
   .grid {
-    overflow: hidden;
     padding: 8px;
 
     .item {
@@ -21,6 +20,7 @@
 
           img {
             max-width: 100%;
+            height: auto;
           }
         }
 
@@ -40,6 +40,12 @@
 
     & > .button:last-child {
       border-right: none;
+    }
+
+    button.active {
+      border-color: #A2A2A2;
+      background-color: #E5E5E5;
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1) inset;
     }
   }
 
@@ -106,5 +112,10 @@
 
   .has-footer {
     bottom: 80px;
+  }
+
+  .item-input select {
+    padding-top: 12px;
+    padding-bottom: 14px;
   }
 }

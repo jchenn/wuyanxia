@@ -15,6 +15,7 @@ gulp.task('copy', ['useref'], function() {
     'app/img/**',
     'app/lib/ionic/fonts/**',
     'app/lib/ionic/js/ionic.bundle.js',
+    'app/lib/angular-resource/angular-resource.min.js*',
     'app/templates/**'
     ], {base: 'app'})
     .pipe(gulp.dest('www'));
@@ -56,7 +57,8 @@ gulp.task('useref:dev', ['clean', 'sass'], function() {
 gulp.task('sass', ['clean'], function() {
   return gulp.src([
     'scss/ionic.app.scss',
-    'app/scss/**/*.scss'
+    'app/scss/**/*.scss',
+    'app/scss/*.scss'
     ])
     .pipe(sass())
     .pipe(gulp.dest('app/css'))

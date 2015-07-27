@@ -9,3 +9,4 @@ www/
 .tmp/
 app/lib/
 **/*.swp
+npm-debug.log

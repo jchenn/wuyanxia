@@ -1,0 +1,15 @@
+angular.module('wuww',['wuww.ctrl'])
+.config(function($stateProvider){
+    $stateProvider.state('houseNew',{
+        url:'/house-new',
+        templateUrl:'templates/wuww/house-new.html',
+        controller:'newCtrl'
+    })
+    .state('housedesc',{
+        url:'/house-decoration',
+        templateUrl:'templates/wuww/house-decoration.html',
+        controller:'descCtrl'
+    })
+    ;
+})
+;

@@ -10,14 +10,15 @@
       </button>
     </div>
   </ion-header-bar>
-  <ion-content>
+  <ion-content class="m-question">
     <h2 ng-hide="{{ !showHint }}">请回答以下7个问题，以便为您更精确匹配室友。</h2>
-    <h2>{{ question.label }}</h2>
-    <ul>
-      <li ng-repeat="choice in question.choices">
+    <h2>{{ id + '. ' + question.label }}</h2>
+    <ul class="row">
+      <li ng-repeat="choice in question.choices" class="col">
         <img ng-src="{{ choice.image }}" alt="">
         <label>{{ choice.answer }}</label>
       </li>
     </ul>
+    <div class="progress"><span class="meter icon ion-location" ng-style="{left: styleLeft + '%'}"></span></div>
   </ion-content>
 </ion-view>

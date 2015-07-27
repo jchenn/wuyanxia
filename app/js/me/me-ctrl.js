@@ -6,9 +6,11 @@ angular.module('me.ctrl', [])
   // 问卷序号，从 1 开始
   var id = ~~$stateParams.id;
 
+  $scope.id           = id;
   $scope.nextOrFinish = '下一题';
-  $scope.showHint = false;
-  $scope.question = QuestionList[id - 1];
+  $scope.showHint     = false;
+  $scope.question     = QuestionList[id - 1];
+  $scope.styleLeft    = 16.6667 * id - 16.6667;
 
   // console.log($scope.question);
 

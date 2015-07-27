@@ -61,12 +61,11 @@ gulp.task('sass', ['clean'], function() {
     'app/scss/*.scss'
     ])
     .pipe(sass())
-    .pipe(gulp.dest('app/css'))
     .pipe(gulp.dest('.tmp/css'));
 });
 
 gulp.task('clean', function(done) {
-  del(['www', '.tmp', 'app/css'], done);
+  del(['www', '.tmp'], done);
 });
 
 gulp.task('build', ['copy'], function() {

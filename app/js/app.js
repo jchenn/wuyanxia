@@ -25,13 +25,7 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'login'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
-
-    // 暂时默认到室友列表
+  // 暂时默认到室友列表
   $urlRouterProvider.otherwise('/menu/people-list');
 
   // 强制让标签栏在底部

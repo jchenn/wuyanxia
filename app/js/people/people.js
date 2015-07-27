@@ -39,7 +39,7 @@ angular.module('people', ['people.ctrl', 'people.service'])
     });
 })
 
-.constant('HTTP_PREFIX', 'http://192.168.1.105:4000')
-//.constant('HTTP_PREFIX', 'http://10.242.37.68:4000')
+// .constant('HTTP_PREFIX', 'http://192.168.1.105:4000')
+.constant('HTTP_PREFIX', 'http://10.242.37.68:4000')
 
 ;

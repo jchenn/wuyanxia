@@ -18,6 +18,7 @@ angular.module('me', ['me.ctrl'])
     // 填写个人标签（问卷）
     .state('me-q', {
       url: '/me/q/:id',
+      params: {id: '1'},
       templateUrl: 'templates/me/q.html',
       controller: 'QuestionCtrl'
     })

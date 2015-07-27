@@ -1,31 +1,55 @@
 angular.module('people.ctrl', [])
 
-.controller('PeopleListCtrl', function($scope, PeopleListQuery) {
-  
-  // TODO：显示遮罩
+.controller('PeopleListCtrl', function($scope, $ionicLoading, PeopleListQuery) {
+
+  // 显示 loading 动画
+  $ionicLoading.show({
+    templateUrl: 'templates/people/people-maching.html'
+  });
 
   // TODO 添加参数
   PeopleListQuery.get(null, function(response) {
 
-    // TODO: 关闭遮罩
+    // 关闭 loading 动画
+    // console.log(response);
+    $ionicLoading.hide();
 
     if (response.errno === 0) {
       $scope.list = response.data;
     }
+
   }, function(err) {
-    console.log(err);
+    // console.log(err);
+    $ionicLoading.hide();
   });
 
+})
 
+.controller('PeopleFilterCtrl', function($scope, PeopleFilterSelect, $ionicActionSheet2) {
+  $scope.buttons = PeopleFilterSelect.buttons;
+  $scope.list = PeopleFilterSelect.list;
 
+  $scope.select = function(name, value) {
+    // 
+  };
+
+  $scope.finish = function() {
+    //
+    $ionicActionSheet2.show({
+      buttons: [
+        {text: 'xx'}
+      ],
+      buttonClicked: function(index) {
+        // TODO: 实现
+        return true;
+      }
+    });
+  };
 })
 
 .controller('PeopleDetailCtrl', function($scope, $ionicActionSheet, $stateParams, PeopleDetailQuery) {
 
-  // TODO: 显示遮罩
-
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
-    // TODO: 关闭遮罩
     if (response.errno === 0) {
       $scope.people = response.data;
     }

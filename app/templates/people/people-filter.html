@@ -5,20 +5,18 @@
     </div>
     <h1 class="title">室友</h1>
     <div class="buttons">
-      <button class="button button-clear">完成</button>
+      <button class="button button-clear" ng-click="finish()">完成</button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <div class="button-bar">
-      <a href="" class="button">男</a>
-      <a href="" class="button">女</a>
-      <a href="" class="button">不限</a>
+    <div class="button-bar" ng-repeat="v in buttons">
+      <a href="" class="button" ng-repeat="c in v.choices">{{ c.label }}</a>
     </div>
     <ion-list>
-      <ion-item class="item-icon-right">同公司<span class="icon ion-ios-arrow-right"></span></ion-item>
-      <ion-item class="item-icon-right">抽烟<span class="icon ion-ios-arrow-right"></span></ion-item>
-      <ion-item class="item-icon-right">宠物<span class="icon ion-ios-arrow-right"></span></ion-item>
-      <ion-item class="item-icon-right">作息<span class="icon ion-ios-arrow-right"></span></ion-item>
+      <ion-item class="item-icon-right" ng-repeat="v in list">
+        {{ v.label }}
+        <span class="icon ion-ios-arrow-right"></span>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

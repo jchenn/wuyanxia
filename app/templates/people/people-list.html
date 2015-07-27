@@ -13,7 +13,7 @@
       <li class="item" ng-repeat="v in list"> 
         <div class="content-wrapper" ng-click="go('/menu/people-detail/{{v.id}}')">
           <div class="img-response">
-            <img ng-src="{{ v.image }}" alt="" ng-class="{ribbon: v.house}">
+            <img ng-src="{{ v.image }}" alt="" ng-class="{ribbon: v.house}" width="200" height="200">
           </div>
           <div class="footer">
             <p><span>{{ v.name }}</span><span>匹配度：{{ v.match }}</span></p>

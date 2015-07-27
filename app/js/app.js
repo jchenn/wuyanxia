@@ -25,7 +25,6 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-
   $stateProvider
 
     // 侧边栏

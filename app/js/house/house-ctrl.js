@@ -11,18 +11,42 @@ angular.module('house.ctrl',[])
             f.append(key,value);
         },
         send:function(){
+        },
+        get:function(){
+            return f;
         }
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form){
-     fileList=[];
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,$http,Pop){
+    
+    Pop.init({
+        sure:function(){
+            alert('sure');
+        },
+        cancel:function(){
+            alert('cancel');
+        }
+    });
+    
+    //记录添加的文件
+     var fileList=[];
+    
+    //表单数据
+    $scope.data={};
     
     $scope.title="发布房源";
     
     $scope.back=$back;
     
+    //slide数据
     $scope.pics=[];
     
+    //弹出框
+    $scope.showPop=function(){
+        Pop.show();
+    };
+    
+    //显示选项
     $scope.optionShow=function(){
         $ionicActionSheet.show({
              buttons: [
@@ -44,6 +68,8 @@ angular.module('house.ctrl',[])
              }
         });
     }; 
+    
+    //创建input file，并绑定事件，返回DOM input file
     function createFile(){
         var file=document.createElement('input');
         file.type="file";
@@ -53,14 +79,13 @@ angular.module('house.ctrl',[])
             var f=this.files[0];
             
             
-                fileList.push(f);
-                $scope.pics.push({
-                    src: window.URL.createObjectURL(f),
-                    alt: f.name
-                });
-                $timeout(function(){
+            fileList.push(f);
+            $scope.pics.push({
+                src: window.URL.createObjectURL(f),
+                alt: f.name
+            });
+            $timeout(function(){
                 $ionicSlideBoxDelegate.update();
-                
                 $timeout(function(){$ionicSlideBoxDelegate.next();},100);
             },500);
             
@@ -85,10 +110,28 @@ angular.module('house.ctrl',[])
         }
         
     }
+    
+    //将数据存到FormData中
+    function getData(){
+        
+    }
+    //发送数据
+    $scope.send=function(){
+        Form.append('b','datab');
+        $http.post('/error',Form.get());
+    };
 })
-.controller('descCtrl',function($scope,$back){
+.controller('descCtrl',function($scope,$back,$http,Form){
     $scope.title="描述";
     $scope.back=$back;
+    $scope.add=function(){
+        Form.append('test','test');
+        $http.post('/test',Form.get());
+    };
 })
-.controller('infoCtrl',function(){})
+.controller('infoCtrl',function($scope,Form){
+    
+})
+.controller('testCtrl',function(){
+})
 ;

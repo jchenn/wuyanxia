@@ -1,4 +1,4 @@
-angular.module('house',['house.ctrl'])
+angular.module('house',['house.ctrl','house.service'])
 .config(function($stateProvider){
     $stateProvider.state('houseNew',{
         url:'/house-new',
@@ -14,6 +14,11 @@ angular.module('house',['house.ctrl'])
         url:'/house-info',
         templateUrl:'templates/house/house-info.html',
         controller:'infoCtrl'
+    })
+    .state('housetest',{
+        url:'/house-test',
+        templateUrl:'templates/house/house-test.html',
+        controller:'testCtrl'
     })
     ;
 })

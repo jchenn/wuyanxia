@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'login'])
+angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
 
 .run(function($rootScope, $location, $ionicPlatform) {
   $ionicPlatform.ready(function() {

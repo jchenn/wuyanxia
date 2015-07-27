@@ -1,4 +1,4 @@
-angular.module('wuww.ctrl',[])
+angular.module('house.ctrl',[])
 .factory('$back',function(){
     return function(){
         history.go(-1);
@@ -27,7 +27,10 @@ angular.module('wuww.ctrl',[])
                 },
              buttonClicked: function(index) {
                  if(index==0){
-                     $scope.addPic();
+                     addPic(1);
+                 }
+                 else if(index==1){
+                     addPic(2);
                  }
                return true;
              }
@@ -67,9 +70,18 @@ angular.module('wuww.ctrl',[])
     
     var file=createFile();
     
-    $scope.addPic=function(){
-        file.click();
-    };
+    function addPic(type){
+        //camera
+        if(type==1){
+            file.capture="camera";
+            file.click();
+        }
+        else if(type==2){
+            file.capture="";
+            file.click();
+        }
+        
+    }
 })
 .controller('descCtrl',function($scope,$back){
     $scope.title="描述";

@@ -1,39 +1,52 @@
 angular.module('people.ctrl', [])
 
 .controller('PeopleListCtrl', 
-  function($scope, $ionicLoading, PeopleListQuery, PeopleFilter) {
+  function($scope, $ionicLoading, $ionicScrollDelegate, PeopleListQuery, PeopleFilterModel) {
 
   $scope.list = [];
 
+  var params = PeopleFilterModel.params();
+
   $scope.loadMore = function() {
 
-    if (!PeopleFilter.hasChanged()) {
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+    // 没有更多，不需要更新界面
+    if (!PeopleFilterModel.hasMore()) {
+      console.log('no more');
       return;
     }
-
-    PeopleFilter.setChanged(false);
-    
-    var params = PeopleFilter.get();
-    
-    console.log('more', params);
 
     // 显示 loading 动画
     $ionicLoading.show({
       templateUrl: 'templates/people/people-maching.html'
     });
 
+    // 从服务器加载数据，包括初次加载、加载更多，以及重新筛选
     PeopleListQuery.get(params, function(response) {
+
+      // console.log('request', params);
+
+      var data;
 
       // console.log(response);
 
       if (response.errno === 0) {
 
-        // 追加室友列表并更新页数
-        $scope.list = $scope.list.concat(response.data);
-        PeopleFilter.increase();
-        PeopleFilter.setChanged(true);
-        
+        var data = response.data;
+
+        if (data.length > 0) {
+          // 追加室友列表并更新页数
+          if (params.p === 1) {
+            $ionicScrollDelegate.scrollTop();
+          }
+          $scope.list = params.p === 1 ? data : $scope.list.concat(response.data);
+          PeopleFilterModel.increasePage();
+        } else {
+          PeopleFilterModel.setMore(false);
+        }
+
+        PeopleFilterModel.setUsingCache(true);
+      } else {
+        // TODO error handling
       }
 
       // 关闭 loading 动画
@@ -45,25 +58,35 @@ angular.module('people.ctrl', [])
       console.log('err', err);
       
       $ionicLoading.hide();
-      PeopleFilter.setChanged(true);
-      // $scope.$broadcast('scroll.infiniteScrollComplete');
+      PeopleFilter.setMore(false);
+      $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
 
+  $scope.$on('$stateChangeSuccess', function(event, toState) {
+    if (toState.name === 'menu.people-list' && !PeopleFilterModel.isUsingCache()) {
+      $scope.loadMore();
+      PeopleFilterModel.setUsingCache(true);
+    }
+  });
+
 })
 
-.controller('PeopleFilterCtrl', function($scope, $state, PeopleFilterModel, PeopleFilter) {
-  $scope.buttons = PeopleFilterModel.buttons;
+.controller('PeopleFilterCtrl', function($scope, $state, PeopleFilterModel) {
+  $scope.buttons = PeopleFilterModel.radio;
   $scope.list = PeopleFilterModel.list;
-  $scope.params = {f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1};
+  $scope.params = PeopleFilterModel.params();
 
   $scope.finish = function() {
-    console.log($scope.params);
-    PeopleFilter.setChanged(true);
+    PeopleFilterModel.resetPage();
+    PeopleFilterModel.setMore(true);
+    PeopleFilterModel.setUsingCache(false);
+    $state.go('menu.people-list');
+  };
 
-    // TODO: 判断是否需要重新请求数据
-    $state.go('menu.people-list', null, {reload: true});
-    // $scope.go('/menu/people-list?r=1');
+  $scope.back = function() {
+    PeopleFilterModel.setUsingCache(true);
+    $state.go('menu.people-list');
   };
 })
 

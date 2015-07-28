@@ -12,9 +12,10 @@
   </ion-header-bar>
   <ion-content class="m-question">
     <h2 ng-hide="{{ !showHint }}">请回答以下7个问题，以便为您更精确匹配室友。</h2>
-    <h2>{{ id + '. ' + question.label }}</h2>
+    <h2>{{ number + '. ' + question.label }}</h2>
     <ul class="row">
-      <li ng-repeat="choice in question.choices" class="col" ng-click="select(id, choice.id);">
+      <li ng-repeat="choice in question.choices" class="col" 
+          ng-click="select(question.name, choice.id);">
         <img ng-src="{{ choice.image }}" alt="">
         <label>{{ choice.answer }}</label>
       </li>

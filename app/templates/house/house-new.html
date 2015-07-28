@@ -1,8 +1,16 @@
 <ion-view view-title="{{title}}" class="house-view new-view" hide-nav-bar="true">
     <ion-header-bar align-title="center" class="bar-stable">
         <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
-        <h1 class="title">{{title}}</h1>
+        <h1 class="title" ng-click="test()">{{title}}</h1>
+        <div class="buttons">
+            <button class="button" ng-click="showPop()">撤销房源</button>
+        </div>
     </ion-header-bar>
+    <style ng-if="pics.length<=1">
+        .new-view .slider-pager{
+            display: none;
+        }
+    </style>
     <ion-content>
         <div class="m-show" >
             <div class="m-show-content" ng-click="optionShow()">
@@ -14,19 +22,19 @@
             </div>
         </div>
         <div class="m-list">
-            <div class="m-list-item"><input type="text" placeholder="标题"></div>
-            <div class="m-list-item"><input type="text" placeholder="价格"></div>
+            <div class="m-list-item"><input type="text" placeholder="标题" ng-model="data.title"></div>
+            <div class="m-list-item"><input type="text" placeholder="价格" ng-model="data.price"></div>
         </div>
         <div class="m-list">
-            <div class="m-list-item"><input type="text" placeholder="小区"></div>
-            <div class="m-list-item"><input type="text" placeholder="区域"></div>
+            <div class="m-list-item"><input type="text" placeholder="小区" ng-model="data.community"></div>
+            <div class="m-list-item"><input type="text" placeholder="区域" ng-model="data.area"></div>
         </div>
         <div class="m-list">
-            <div class="m-list-item"><a href="#/house-decoration">描述</a></div>
+            <div class="m-list-item"><a ng-click="toDesc()">描述</a></div>
         </div>
         <div class="m-list g-1">
             <div class="m-list-item">
-                <button class="m-btn">完成</button>
+                <button class="m-btn" ng-click="send()" {{btnStatus}}>{{btnText}}</button>
             </div>
         </div>
     </ion-content>

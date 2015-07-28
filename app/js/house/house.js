@@ -1,4 +1,4 @@
-angular.module('house',['house.ctrl'])
+angular.module('house',['house.ctrl','house.service'])
 .config(function($stateProvider){
     $stateProvider.state('houseNew',{
         url:'/house-new',

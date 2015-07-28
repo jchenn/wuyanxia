@@ -4,13 +4,13 @@
         <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
         <h1 class="title">{{title}}</h1>
         <div class="buttons">
-            <button class="button">完成</button>
+            <button class="button" ng-click="descComplete()">完成</button>
         </div>
     </ion-header-bar>
     <ion-content>
        <div class="m-show">
            <div class="m-show-content">
-               <textarea placeholder="请输入房子描述信息"></textarea>
+               <textarea placeholder="请输入房子描述信息" ng-model="data.description"></textarea>
            </div>
         </div>
     </ion-content>

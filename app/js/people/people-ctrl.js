@@ -3,31 +3,50 @@ angular.module('people.ctrl', [])
 .controller('PeopleListCtrl', 
   function($scope, $ionicLoading, PeopleListQuery, PeopleFilter) {
 
-  // 显示 loading 动画
-  $ionicLoading.show({
-    templateUrl: 'templates/people/people-maching.html'
-  });
+  $scope.list = [];
 
   $scope.loadMore = function() {
 
-    console.log('more');
-
-    // TODO 更新页数
-    PeopleListQuery.get(PeopleFilter.get(), function(response) {
-
-      // 关闭 loading 动画
-      // console.log(response);
-      $ionicLoading.hide();
+    if (!PeopleFilter.hasChanged()) {
       $scope.$broadcast('scroll.infiniteScrollComplete');
+      return;
+    }
+
+    PeopleFilter.setChanged(false);
+    
+    var params = PeopleFilter.get();
+    
+    console.log('more', params);
+
+    // 显示 loading 动画
+    $ionicLoading.show({
+      templateUrl: 'templates/people/people-maching.html'
+    });
+
+    PeopleListQuery.get(params, function(response) {
+
+      // console.log(response);
 
       if (response.errno === 0) {
-        $scope.list = response.data;
+
+        // 追加室友列表并更新页数
+        $scope.list = $scope.list.concat(response.data);
+        PeopleFilter.increase();
+        PeopleFilter.setChanged(true);
+        
       }
 
-    }, function(err) {
-      // console.log(err);
+      // 关闭 loading 动画
       $ionicLoading.hide();
       $scope.$broadcast('scroll.infiniteScrollComplete');
+
+    }, function(err) {
+
+      console.log('err', err);
+      
+      $ionicLoading.hide();
+      PeopleFilter.setChanged(true);
+      // $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
 
@@ -40,7 +59,7 @@ angular.module('people.ctrl', [])
 
   $scope.finish = function() {
     console.log($scope.params);
-    PeopleFilter.set($scope.params);
+    PeopleFilter.setChanged(true);
 
     // TODO: 判断是否需要重新请求数据
     $state.go('menu.people-list', null, {reload: true});

@@ -19,28 +19,23 @@ angular.module('people.service', ['ngResource'])
 })
 
 .factory('PeopleFilter', function() {
-  var params = {}, prev = '';
+  var params = {p: 1}, _changed = true;
 
   return {
-    get: function(key) {
-      return key ? params.key : params;
+    get: function() {
+      return params;
     },
-    set: function(key, value) {
-      // console.log(params);
-      prev = JSON.stringify(params);
-      if (typeof key === 'object') {
-        params = key;
-      } else {
-        params.key = value;
-      }
-      // console.log(params);
+    setChanged: function(changed) {
+      _changed = changed;
     },
-    clear: function() {
-      prev = JSON.stringify(params);
-      params = {};
+    hasChanged: function() {
+      return _changed;
     },
-    changed: function() {
-      return prev != JSON.stringify(params);
+    increase: function() {
+      ++params.p;
+    },
+    reset: function() {
+      params.p = 1;
     }
   }
 })

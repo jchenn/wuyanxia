@@ -1,4 +1,4 @@
-angular.module('auth', ['login.ctrl'])
+angular.module('auth', ['auth.ctrl', 'auth.service'])
 
 .config(function($stateProvider) {
 
@@ -9,12 +9,12 @@ angular.module('auth', ['login.ctrl'])
     .state('login', {
       url: '/login',
       templateUrl: 'templates/auth/login.html',
-      controller: 'PeopleListCtrl'
+      controller: 'LoginCtrl'
     })
     // 注册
     .state('register', {
       url: '/register',
       templateUrl: 'templates/auth/register.html',
-      controller: 'PeopleListCtrl'
+      controller: 'RegisterCtrl'
     });
 });

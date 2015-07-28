@@ -5,20 +5,21 @@
     </div>
     <h1 class="title">室友</h1>
     <div class="buttons">
-      <button class="button button-clear">完成</button>
+      <button class="button button-clear" ng-click="finish()">完成</button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <div class="button-bar">
-      <a href="" class="button">男</a>
-      <a href="" class="button">女</a>
-      <a href="" class="button">不限</a>
+    <div class="button-bar" ng-repeat="v in buttons">
+      <a class="button" ng-class="{active: params[v.name] == c.value}"
+         ng-repeat="c in v.choices" ng-click="params[v.name] = c.value;">{{ c.label }}</a>
     </div>
     <ion-list>
-      <ion-item class="item-icon-right">同公司<span class="icon ion-ios-arrow-right"></span></ion-item>
-      <ion-item class="item-icon-right">抽烟<span class="icon ion-ios-arrow-right"></span></ion-item>
-      <ion-item class="item-icon-right">宠物<span class="icon ion-ios-arrow-right"></span></ion-item>
-      <ion-item class="item-icon-right">作息<span class="icon ion-ios-arrow-right"></span></ion-item>
+      <ion-item class="item-input item-select" ng-repeat="v in list">
+        <div class="input-label">{{ v.label }}</div>
+        <select ng-model="params[v.name]">
+          <option ng-repeat="c in v.choices" value="{{ c.value }}">{{ c.label }}</option>
+        </select>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

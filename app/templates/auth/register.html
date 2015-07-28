@@ -1,26 +1,34 @@
-<ion-view hide-nav-bar="true" class="">
+<ion-view hide-nav-bar="true" class="g-register">
+	<ion-header-bar class="bar-stable">
+	    <div class="buttons">
+	      	<button class="button button-icon button-clear ion-chevron-left" ng-click="go('/login')"></button>
+	    </div>
+	    <h1 class="title">注册</h1>
+	 </ion-header-bar>
 	<ion-content>
 		<div class="logo-wrap">
 			<div class="logo">LOGO</div>
 		</div>
-		<div class="m-log">
-			<div class="log-list list padding">
-				<label class="item item-input">
+		<div class="m-form">
+			<form class="log-list list padding" ng-submit="register()">
+				<label class="item item-input" ng-class="{ 'has-error' : errorEmail }">
 					<span class="input-label">企业邮箱</span>
-    				<input type="text">
+    			<input type="text" name="email" ng-model="formData.email">
+    			<!-- <span class="help-block" ng-show="errorEmail">123123{{errorEmail}}</span> -->
 				</label>
-				<label class="item item-input">
+				<label class="item item-input" ng-class="{ 'has-error' : errorNickName }">
 				    <span class="input-label">昵称</span>
-    				<input type="text">
+    				<input type="text" ng-model="formData.nickName">
 				</label>
-				<label class="item item-input">
-					<span class="input-label">企业邮箱</span>
-    				<input type="text">
+				<label class="item item-input" ng-class="{ 'has-error' : errorPwd }">
+				    <span class="input-label" >登录密码</span>
+    				<input type="password" name="pwd" ng-model="formData.pwd" >
 				</label>
-				<button class="button button-block button-positive">
-					邮箱验证
+				<span class="errorInfo" ng-show="errorData.text">{{errorData.text}}</span>
+				<button type="submit" class="button button-block button-positive">
+					注册
 				</button>
-			</div>
+			</form>
 		</div>
 	</ion-content>
 </ion-view>

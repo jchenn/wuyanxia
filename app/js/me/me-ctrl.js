@@ -1,7 +1,7 @@
 angular.module('me.ctrl', [])
 
 // 处理个性问答的控制器
-.controller('QuestionCtrl', function($scope, $stateParams, QuestionList) {
+.controller('QuestionCtrl', function($scope, $stateParams, $ionicPopup, QuestionList, QuizModel) {
 
   // 问卷序号，从 1 开始
   var id = ~~$stateParams.id;
@@ -38,10 +38,36 @@ angular.module('me.ctrl', [])
     } else {
 
       // 完成问题，跳转到筛选页面
-      $scope.go('/menu/people');
-
+      console.log('完成答题');
+      $scope.go('/menu/people-list');
     }
-  }
+  };
+
+  // 参数是问题的编号和答案的编号
+  $scope.select = function(qid, aid) {
+
+    QuizModel[qid] = aid;
+    console.log(QuizModel);
+
+    // 如果有房源，则要判断是否现在发布
+    if (qid == 1 && aid == 2) {
+      $ionicPopup.confirm({
+        template: '要不要先描述一下房源，为招到合租室友做好准备？',
+        okText: '好的',
+        cancelText: '一会儿再说'
+      }).then(function(res) {
+        console.log(res);
+        if (res) {
+          // TODO: 跳转到发布房源的界面
+          $scope.next();
+        } else {
+          $scope.next();
+        }
+      });
+    } else {
+      $scope.next();
+    }
+  };
 
 })
 ;

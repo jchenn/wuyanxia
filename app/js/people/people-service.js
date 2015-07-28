@@ -18,6 +18,28 @@ angular.module('people.service', ['ngResource'])
   );
 })
 
+.factory('PeopleFilter', function() {
+  var params = {p: 1}, _changed = true;
+
+  return {
+    get: function() {
+      return params;
+    },
+    setChanged: function(changed) {
+      _changed = changed;
+    },
+    hasChanged: function() {
+      return _changed;
+    },
+    increase: function() {
+      ++params.p;
+    },
+    reset: function() {
+      params.p = 1;
+    }
+  }
+})
+
 .factory('PeopleDetailQuery', function($resource, HTTP_PREFIX) {
   return $resource(HTTP_PREFIX + '/people/:id');
 })

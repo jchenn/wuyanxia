@@ -1,33 +1,32 @@
-<ion-view view-title="{{title}}" class="house-view new-view">
-    <ion-header-bar align-title="center" class="bar-stable">
-        <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
-        <h1 class="title">{{title}}</h1>
-    </ion-header-bar>
+<ion-view  class="house-view info-view">
     <ion-content>
         <div class="m-show" >
             <div class="m-show-content" ng-click="optionShow()">
                 <ion-slide-box >
                   <ion-slide ng-repeat=" pic in pics">
-                    <img ng-src="{{pic.src}}" ng-alt="{{pic.alt}}">
+                    <img ng-src="{{pic.src}}" alt="{{pic.alt}}">
                   </ion-slide>
                 </ion-slide-box>
             </div>
         </div>
-        <div class="m-list">
-            <div class="m-list-item"><input type="text" placeholder="标题"></div>
-            <div class="m-list-item"><input type="text" placeholder="价格"></div>
-        </div>
-        <div class="m-list">
-            <div class="m-list-item"><input type="text" placeholder="小区"></div>
-            <div class="m-list-item"><input type="text" placeholder="区域"></div>
-        </div>
-        <div class="m-list">
-            <div class="m-list-item"><a href="#/house-decoration">描述</a></div>
-        </div>
-        <div class="m-list g-1">
-            <div class="m-list-item">
-                <button class="m-btn">完成</button>
+        <div class="g-wrapper">
+            <div class="g-1">
+                <div class="f-fs1 f-fwb g-1-1">{{data.title}}</div>
+                <div class="g-1-2"><em class="f-s2 f-fwb">{{data.price}}</em><span class="f-t1">元/月（押一付三）</span><span class="f-fr f-t1">发布时间1小时前</span></div>
+            </div>
+            <div class="g-2">
+                <div class="f-t1 f-bl">房源地址</div>
+                <div class="g-2-1 f-fs1">地址&nbsp;&nbsp;&nbsp;&nbsp;{{data.area}}</div>
+                <hr>
+                <div class="g-2-2 f-fs1">小区&nbsp;&nbsp;&nbsp;&nbsp;{{data.community}}</div>
+            </div>
+            <div class="g-3">
+                <div class="f-t1 f-bl">来源描述</div>
+                <div class="f-wwa f-fs0 g-3-1">
+                    {{data.description}}
+                </div>
             </div>
         </div>
+        
     </ion-content>
 </ion-view>

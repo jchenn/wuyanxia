@@ -6,6 +6,11 @@
             <button class="button" ng-click="showPop()">撤销房源</button>
         </div>
     </ion-header-bar>
+    <style ng-if="pics.length==0">
+        .new-view .slider-pager{
+            display: none;
+        }
+    </style>
     <ion-content>
         <div class="m-show" >
             <div class="m-show-content" ng-click="optionShow()">

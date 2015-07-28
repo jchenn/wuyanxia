@@ -4,19 +4,6 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.factory('Form',function($http){
-    var f=new FormData();
-    return {
-        append:function(key,value){
-            f.append(key,value);
-        },
-        send:function(){
-        },
-        get:function(){
-            return f;
-        }
-    };
-})
 .controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,$http,Pop){
     
     Pop.init({
@@ -118,6 +105,9 @@ angular.module('house.ctrl',[])
     //发送数据
     $scope.send=function(){
         Form.append('b','datab');
+        for(var i=0;i<fileList.length;i++){
+            Form.append('file',fileList[i]);
+        }
         $http.post('/error',Form.get());
     };
 })
@@ -125,13 +115,46 @@ angular.module('house.ctrl',[])
     $scope.title="描述";
     $scope.back=$back;
     $scope.add=function(){
-        Form.append('test','test');
+        Form.append('desc',$scope.data.text);
         $http.post('/test',Form.get());
+    };
+    $scope.data={
+        text:''
     };
 })
 .controller('infoCtrl',function($scope,Form){
-    
+    $scope.pics=[
+        {
+            src:'a.png',
+            alt:'error'
+        },
+        {
+            src:'a.png',
+            alt:'没有图片'
+        },
+        {
+            src:'a.png',
+            alt:'占个位置'
+        },
+        {
+            src:'a.png',
+            alt:'哇，还是没有'
+        },
+        {
+            src:'a.png',
+            alt:'真没有啊~'
+        }
+    ];
+    $scope.data={
+        title:'半岛国际滨河路233号主卧出租',
+        price:2000,
+        //小区
+        community:'半岛国际花园',
+        //地址
+        area:'长河路滨河路交叉口',
+        description:'我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~'
+    };
 })
-.controller('testCtrl',function(){
+.controller('testCtrl',function($scope){
 })
 ;

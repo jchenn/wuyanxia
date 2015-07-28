@@ -7,6 +7,8 @@ angular.module('house.service',[])
     
     cover.classList.add('m-cover');
     
+    cover.classList.add('house-view');
+    
     cover.innerHTML=
     '<div class="m-cover">'+
         '<div class="m-pop">'+
@@ -32,7 +34,7 @@ angular.module('house.service',[])
          */
         init:function(o){
             var self=this;
-            var parent=document.querySelector('.house-view');
+            var parent=document.body;
             parent.appendChild(cover);
             cover.addEventListener('click',function(event){
                 var ele=event.target;
@@ -59,6 +61,14 @@ angular.module('house.service',[])
         destroy:function(){
             cover.parentNode.removeChild(cover);
             isInited=false;
+        }
+    };
+})
+.factory('Form',function($http){
+    
+    return {
+        update:function(dataxw){
+            $http.put();
         }
     };
 })

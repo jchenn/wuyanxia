@@ -76,10 +76,10 @@ angular.module('me.ctrl', [])
         okText: '好的',
         cancelText: '一会儿再说'
       }).then(function(res) {
-        console.log(res);
+        // console.log(res);
         if (res) {
           // TODO: 跳转到发布房源的界面
-          $scope.next();
+          $scope.go('/house-new');
         } else {
           $scope.next();
         }

@@ -43,5 +43,49 @@ angular.module('me.ctrl', [])
     }
   }
 
-})
+}).controller('InfoRegister', function($scope, $ionicModal,$ionicPopover){
+      /*  var me = $scope.me;
+        $ionicModal.fromTemplateUrl('sex-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal){
+            $scope.modal = modal;
+        });
+        //显示modal
+        $scope.openSex = function(){
+            $scope.modal.show();
+        };
+        //隐藏modal
+        $scope.closeSex = function(){
+            $scope.modal.hide();
+        };
+        //选择性别
+        $scope.selectSex = function(sex){
+            $scope.selectsex = sex;
+            $scope.closeSex();
+        };*/
+
+        $ionicPopover.fromTemplateUrl('birth-modal.html', {
+            scope: $scope
+        }).then(function(popover) {
+            $scope.popover = popover;
+        });
+
+        $scope.openBirth = function($event) {
+            $scope.popover.show($event);
+        };
+        $scope.closeBirth = function() {
+            $scope.popover.hide();
+        };
+        $scope.selectYear = function(year){
+            $scope.year = year;
+        };
+        $scope.selectMonth = function(month){
+            $scope.month = month;
+        };
+        $scope.selectDay = function(day){
+            $scope.day = day;
+        }
+    })
+
 ;

@@ -36,3 +36,49 @@
     }
   }
 }
+.m-me-register{
+  background: #f8f8f8;
+
+  .header{
+    background: #e5e5e5;
+    border:none;
+
+    h1{
+      margin-left:50%;
+      display: inline-block;
+      transform: translate(-50%);
+    }
+    i{
+      float: right;
+
+    }
+  }
+  .head-img{
+    background: #e5e5e5;
+
+    img{
+      width: 80px;
+      height: 80px;
+      vertical-align: top;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+    }
+  }
+  .list{
+    margin-top: 10px;
+
+    .item{
+      border: none;
+      margin-bottom: 2px;
+
+      input{
+        text-align: right;
+      }
+    }
+    .sex, .job{
+      margin-bottom: 30px;
+
+    }
+  }
+}

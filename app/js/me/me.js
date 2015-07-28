@@ -22,6 +22,12 @@ angular.module('me', ['me.ctrl'])
       templateUrl: 'templates/me/q.html',
       controller: 'QuestionCtrl'
     })
+
+    //个人注册信息页面
+      .state('me-register', {
+          url: '/me-register',
+          templateUrl: 'templates/me/register.html'
+      })
   ;
 })
 

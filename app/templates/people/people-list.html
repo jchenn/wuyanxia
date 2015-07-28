@@ -9,8 +9,8 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <ul class="grid">
-      <li class="item" ng-repeat="v in list">
+    <ion-list class="grid">
+      <ion-item ng-repeat="v in list">
         <div class="content-wrapper" ng-click="go('/menu/people-detail/{{v.id}}')">
           <div class="img-response">
             <img ng-src="{{ v.image }}" alt="" ng-class="{ribbon: v.house}" width="156" height="156">
@@ -21,8 +21,8 @@
             <p><span>推荐理由：{{ v.reason }}</span></p>
           </div>
         </div>
-      </li>
-    </ul>
+      </ion-item>
+    </ion-list>
     <ion-infinite-scroll on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

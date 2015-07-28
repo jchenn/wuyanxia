@@ -40,6 +40,10 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
 
   // 暂时默认到个性问卷
   $urlRouterProvider.otherwise('/me/q/1');
+  
+  // 暂时默认到登录页
+  // $urlRouterProvider.otherwise('/register');
+
 
   // 强制让标签栏在底部
   // $ionicConfigProvider.tabs.position('bottom');

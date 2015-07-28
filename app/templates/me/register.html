@@ -1,10 +1,10 @@
 <ion-view class="m-me-register"  ng-controller="InfoRegister">
+    <ion-header-bar align-title="center" class="bar-stable padding">
+        <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
+        <h1 class="title">个人信息</h1>
+    </ion-header-bar>
     <ion-content>
         <div class="header">
-            <header>
-                <h1 class="per-info" align="center">个人信息</h1>
-                <i class="alignright">跳过</i>
-            </header>
             <div class="head-img" align="center">
                 <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
             </div>
@@ -12,30 +12,30 @@
         <div class="list">
             <label class="item item-input">
                 昵称
-                <input type="text" name="name"/>
+                <input type="text" name="name" ng-model="data.name"/>
             </label>
             <label class="item item-input sex">
                 性别
-                <input type="text" name="sex"  ng-click="openSex()" value="{{selectsex}}"/>
+                <input type="text" name="sex"  ng-click="openSex()" value="{{data.sex}}" ng-model="data.sex"/>
             </label>
             <label class="item item-input">
                 出生日期
-                <input type="text" name="birth" ng-click="openBirth()" value="{{year+'-'+month+'-'+day}}"/>
+                <input type="text" name="birth" ng-click="openBirth()" value="{{data.birth}}" ng-model="data.birth"/>
             </label>
             <label class="item item-input">
                 公司
-                <input type="text" name="company"/>
+                <input type="text" name="company" ng-model="data.company"/>
             </label>
             <label class="item item-input job">
                 岗位
-                <input type="text" name="job"/>
+                <input type="text" name="job" ng-model="data.job"/>
             </label>
             <label class="item item-input">
                 电话
-                <input type="tel" name="phone"/>
+                <input type="tel" name="phone" ng-model="data.phone"/>
             </label>
             <div class="padding">
-                <button class="button button-block button-dark">完成</button>
+                <button class="button button-block button-dark" ng-click="finishRegister()">完成</button>
             </div>
         </div>
     </ion-content>
@@ -61,10 +61,10 @@
         <ion-modal-view class="birth-modal">
             <ion-header-bar>
                 <h3 class="title">选择出生日期</h3>
-                <i class="button alignright" ng-click="closeBirth()">完成</i>
+                <i class="button alignright" ng-click="selectBirth()">完成</i>
             </ion-header-bar>
             <ion-content>
-                <select name="year" ng-model="year" ng-change="selectYear(year)">
+                <select name="year" ng-model="data.year">
                     <option value="1985">1985</option>
                     <option value="1986">1986</option>
                     <option value="">1987</option>
@@ -74,7 +74,7 @@
                     <option value="">1991</option>
                     <option value="">1992</option>
                 </select>年
-            <select name="month"  ng-model="month"  ng-change="selectMonth(month)">
+            <select name="month"  ng-model="data.month">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="">3</option>
@@ -88,7 +88,7 @@
                 <option value="">11</option>
                 <option value="">12</option>
             </select>月
-            <select name="day" ng-model="day" ng-change="selectDay(day)" >
+            <select name="day" ng-model="data.day">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="">3</option>

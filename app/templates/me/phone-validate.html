@@ -1,0 +1,27 @@
+<ion-view style="background:#f8f8f8" class="me-validate">
+    <ion-header-bar class="bar-stable bar bar-header disable-user-behavior" align-title="center">
+        <button class="button back-button buttons  button-clear header-item"  ng-click="go('/me')">
+            <i class="icon ion-ios-arrow-back"></i>
+        </button>
+        <div class="title title-center header-item">手机认证</div>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="header">
+            <div class="head-img" align="center">
+                <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
+            </div>
+        </div>
+        <div class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="请输入手机号码" ng-model="data.phone">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="请输入验证码" ng-model="data.validateCode">
+                <button class="button-clear item-button-right" ng-click="getCode()">获取验证码</button>
+            </label>
+        </div>
+        <div class="padding sendvalidate" ng-click="sendValidate()">
+            <button class="button button-block button-dark">完成</button>
+        </div>
+    </ion-content>
+</ion-view>

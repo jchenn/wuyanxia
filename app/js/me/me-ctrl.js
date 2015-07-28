@@ -1,29 +1,33 @@
 angular.module('me.ctrl', [])
 
 // 处理个性问答的控制器
-.controller('QuestionCtrl', function($scope, $stateParams, $ionicPopup, QuestionList, QuizModel) {
+.controller('QuestionCtrl', 
+  function($scope, $stateParams, $ionicPopup, $ionicLoading, $http, QuizModel, QuizSubmit) {
 
   // 问卷序号，从 1 开始
-  var id = ~~$stateParams.id;
+  var number = ~~$stateParams.number,
+      quiz   = QuizModel.quiz;
 
-  $scope.id           = id;
+  // console.log(quiz);
+
+  $scope.number       = number;
   $scope.nextOrFinish = '下一题';
   $scope.showHint     = false;
-  $scope.question     = QuestionList[id - 1];
-  $scope.styleLeft    = 16.6667 * id - 16.6667;
+  $scope.question     = quiz[number - 1];
+  $scope.styleLeft    = 16.6667 * number - 16.6667;
 
   // console.log($scope.question);
 
   // 对第一题和最后一题的界面做额外处理
-  if (id === 1) {
+  if (number === 1) {
 
     // 添加第一页做问题的提示
     $scope.showHint = true;
 
-  } else if (id === QuestionList.length) {
+  } else if (number === quiz.length) {
 
     // 修改最后一题的提示按钮
-    $scope.nextOrFinish = '完成'
+    $scope.nextOrFinish = '完成';
 
   }
 
@@ -31,26 +35,42 @@ angular.module('me.ctrl', [])
     
     // console.log(id);
 
-    if (id >= 1 && id < QuestionList.length) {
+    if (number >= 1 && number < quiz.length) {
 
-      $scope.go('/me/q/' + (id + 1));
+      $scope.go('/me/q/' + (number + 1));
 
     } else {
 
       // 完成问题，跳转到筛选页面
-      console.log('完成答题');
-      $scope.go('/menu/people-list');
+      // console.log('完成答题');
+      $ionicLoading.show({});
+
+      QuizSubmit.submit(QuizModel.get(), function(response) {
+        if (response.errno === 0) {
+
+          $ionicLoading.hide();
+
+          $ionicPopup.alert({
+            template: '完成答题'
+          }).then(function(res) {
+            $scope.go('/menu/people-list');
+          });
+
+        }
+      }, function(err) {
+        console.log('err', err);
+      })
     }
   };
 
-  // 参数是问题的编号和答案的编号
-  $scope.select = function(qid, aid) {
+  $scope.select = function(name, value) {
 
-    QuizModel[qid] = aid;
-    console.log(QuizModel);
+    QuizModel.set(name, value);
+    // console.log(QuizModel.get());
 
     // 如果有房源，则要判断是否现在发布
-    if (qid == 1 && aid == 2) {
+    if (name == 'yf' && value == 2) {
+
       $ionicPopup.confirm({
         template: '要不要先描述一下房源，为招到合租室友做好准备？',
         okText: '好的',

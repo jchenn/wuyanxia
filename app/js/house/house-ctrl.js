@@ -4,7 +4,11 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http){
+    
+    $scope.test=function(){
+        $http.get("http://223.252.223.13/Roommates/api/user/getUser?id=10");
+    };
     
     Pop.init({
         sure:function(){
@@ -20,6 +24,9 @@ angular.module('house.ctrl',[])
     $scope.data={
     };
     
+    $scope.btnText="完成";
+    
+    $scope.btnStatus="";
     
     $scope.title="发布房源";
     
@@ -101,6 +108,10 @@ angular.module('house.ctrl',[])
     
 })
 .controller('infoCtrl',function($scope,Form){
+    Form.getData(1,function(data){
+        $scope.pics=data.pics;
+        $scope.data=data;
+    });
     $scope.pics=[
         {
             src:'a.png',

@@ -1,4 +1,24 @@
+//reset
+.platform-android .action-sheet-cancel {
+    display: block !important;
+}
+ .platform-android .action-sheet .button {
+   text-align: center; 
+   border-color: rgb(209, 211, 214);
+   font-size: 21px; 
+   color: rgb(0, 122, 255); 
+}
+.platform-android .action-sheet {
+   margin: 0 8px; 
+}
+.platform-android .action-sheet-group {
+   margin: 0 0 10px 0; 
+   border-radius: 4px; 
+   background-color: #f1f2f3;
+}
+//reset end
 .house-view{
+
     .f-wwa{
         word-wrap: break-word;
         word-break: break-all;

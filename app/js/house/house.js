@@ -15,11 +15,6 @@ angular.module('house',['house.ctrl','house.service'])
         templateUrl:'templates/house/house-info.html',
         controller:'infoCtrl'
     })
-    .state('housetest',{
-        url:'/house-test',
-        templateUrl:'templates/house/house-test.html',
-        controller:'testCtrl'
-    })
     ;
 })
 ;

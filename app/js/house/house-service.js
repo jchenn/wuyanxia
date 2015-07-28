@@ -70,7 +70,7 @@ angular.module('house.service',[])
 .factory('Form',function($http,Data){
     var host="http://223.252.223.13";
     var updatePath="/api/userhouse/update";
-    var filePath="/api/housePhoto/batchUpload";
+    var filePath="/Roommates/api/housePhoto/batchUpload";
     var addPath="/api/userhouse/insert";
     var getPath="/api/userhouse/";
     return {
@@ -90,7 +90,12 @@ angular.module('house.service',[])
             $http.post(host+addPath,Data.getAll());
         },
         getData:function(id,callback){
-            $http.get(host+getPath+id,callback);
+            $http.get(host+getPath+id).success(function(data){
+                for(var i in data){
+                    Data.set(i,data[i]);
+                }
+                callback(Data.getAll());
+            });
         }
     };
 })

@@ -4,24 +4,25 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,$http,Pop){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File){
     
     Pop.init({
         sure:function(){
-            alert('sure');
+            //alert('sure');
         },
         cancel:function(){
-            alert('cancel');
+            //alert('cancel');
         }
     });
     
-    //记录添加的文件
-     var fileList=[];
     
     //表单数据
-    $scope.data={};
+    $scope.data={
+    };
+    
     
     $scope.title="发布房源";
+    
     
     $scope.back=$back;
     
@@ -42,7 +43,7 @@ angular.module('house.ctrl',[])
              ],
              cancelText: '取消',
              cancel: function() {
-                  ;;
+                  
                 },
              buttonClicked: function(index) {
                  if(index==0){
@@ -54,36 +55,36 @@ angular.module('house.ctrl',[])
                return true;
              }
         });
-    }; 
+    };
     
-    //创建input file，并绑定事件，返回DOM input file
-    function createFile(){
-        var file=document.createElement('input');
-        file.type="file";
-        file.accept="image/*";
-        file.hidden="hidden";
-        file.addEventListener('change',function(){
-            var f=this.files[0];
-            
-            
-            fileList.push(f);
+    //点击完成是执行
+    $scope.send=function(){
+        Form.add();
+        Form.fileUpload();
+    };
+    
+
+    
+    //跳转到描述
+    $scope.toDesc=function(){
+        for(var i in $scope.data){
+            Data.set(i,$scope.data[i]);
+        }
+        location.href="#/house-decoration";
+    };
+    
+    var file=File.getFile(function(){
+        var f=this.files[0];    
+            Data.addFile(f);
             $scope.pics.push({
                 src: window.URL.createObjectURL(f),
                 alt: f.name
             });
             $timeout(function(){
                 $ionicSlideBoxDelegate.update();
-                $timeout(function(){$ionicSlideBoxDelegate.next();},100);
+                //$timeout(function(){$ionicSlideBoxDelegate.slide();},100);
             },500);
-            
-            
-            
-        });
-        document.body.appendChild(file);
-        return file;
-    }
-    
-    var file=createFile();
+    });
     
     function addPic(type){
         //camera
@@ -98,29 +99,6 @@ angular.module('house.ctrl',[])
         
     }
     
-    //将数据存到FormData中
-    function getData(){
-        
-    }
-    //发送数据
-    $scope.send=function(){
-        Form.append('b','datab');
-        for(var i=0;i<fileList.length;i++){
-            Form.append('file',fileList[i]);
-        }
-        $http.post('/error',Form.get());
-    };
-})
-.controller('descCtrl',function($scope,$back,$http,Form){
-    $scope.title="描述";
-    $scope.back=$back;
-    $scope.add=function(){
-        Form.append('desc',$scope.data.text);
-        $http.post('/test',Form.get());
-    };
-    $scope.data={
-        text:''
-    };
 })
 .controller('infoCtrl',function($scope,Form){
     $scope.pics=[
@@ -155,6 +133,14 @@ angular.module('house.ctrl',[])
         description:'我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~'
     };
 })
-.controller('testCtrl',function($scope){
+.controller('descCtrl',function($scope,Data,$back,$location){
+    $scope.data={};
+    $scope.title="描述";
+    $scope.back=$back;
+     //输入描述完成
+    $scope.descComplete=function(){
+        Data.set('description',$scope.data.description);
+        $location.path('/house-new');
+    };
 })
 ;

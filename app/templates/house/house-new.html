@@ -6,7 +6,7 @@
             <button class="button" ng-click="showPop()">撤销房源</button>
         </div>
     </ion-header-bar>
-    <style ng-if="pics.length==0">
+    <style ng-if="pics.length<=1">
         .new-view .slider-pager{
             display: none;
         }
@@ -26,11 +26,11 @@
             <div class="m-list-item"><input type="text" placeholder="价格" ng-model="data.price"></div>
         </div>
         <div class="m-list">
-            <div class="m-list-item"><input type="text" placeholder="小区" ng-model="data.house"></div>
+            <div class="m-list-item"><input type="text" placeholder="小区" ng-model="data.community"></div>
             <div class="m-list-item"><input type="text" placeholder="区域" ng-model="data.area"></div>
         </div>
         <div class="m-list">
-            <div class="m-list-item"><a href="#/house-decoration">描述</a></div>
+            <div class="m-list-item"><a ng-click="toDesc()">描述</a></div>
         </div>
         <div class="m-list g-1">
             <div class="m-list-item">

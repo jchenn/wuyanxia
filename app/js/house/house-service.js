@@ -13,7 +13,7 @@ angular.module('house.service',[])
     '<div class="m-cover">'+
         '<div class="m-pop">'+
             '<div class="m-pop-content f-wwa">'+
-                '我是汉字啊，啦啦啦啦啦啦啦啦拉拉啦啦，我不换行~~~'+
+                '撤销房源后，将变为"我无房源，找室友合租"状态'+
             '</div>'+
             '<div class="m-pop-btns">'+
                 '<button class="m-btn t-cancel">取消</button>'+
@@ -22,7 +22,7 @@ angular.module('house.service',[])
         '</div>'+
     '</div>';
     
-    //貌似没啥用
+    //是否初始化
     var isInited=false;
     
     return {
@@ -33,6 +33,7 @@ angular.module('house.service',[])
          *      -cancel {Function} 点击取消时执行
          */
         init:function(o){
+            if(isInited) return;
             var self=this;
             var parent=document.body;
             parent.appendChild(cover);
@@ -51,8 +52,10 @@ angular.module('house.service',[])
                     }
                 }
             });
+            isInited=true;
         },
         show:function(){
+            if(!isInited) this.init({});
             cover.style.display='block';
         },
         hide:function(){
@@ -64,11 +67,78 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Form',function($http){
-    
+.factory('Form',function($http,Data){
+    var host="http://223.252.223.13";
+    var updatePath="/api/userhouse/update";
+    var filePath="/api/housePhoto/batchUpload";
+    var addPath="/api/userhouse/insert";
+    var getPath="/api/userhouse/";
     return {
-        update:function(dataxw){
-            $http.put();
+        update:function(data){
+            $http.put(host+updatePath,data);
+        },
+        fileUpload:function(){
+            var filelist=Data.getFiles();
+            if(!filelist.length) return;
+            var form=new FormData();
+            for(var i=0;i<filelist.length;i++){
+                form.append('files['+i+']',filelist[i]);
+            }
+            $http.post(host+filePath,form);
+        },
+        add:function(){
+            $http.post(host+addPath,Data.getAll());
+        },
+        getData:function(id,callback){
+            $http.get(host+getPath+id,callback);
+        }
+    };
+})
+.factory('Data',function(){
+    var data={};
+    var fileList=[];
+    return {
+        get:function(key){
+            return data[key]||"";
+        },
+        set:function(key,value){
+            data[key]=value;
+        },
+        getAll:function(){
+            return data;
+        },
+        fillIn:function(target){
+            for(var i in data){
+                target[i]=data[i];
+            }
+        },
+        addFile:function(file){
+            fileList.push(file);
+        },
+        getFiles:function(){
+            return fileList;
+        }
+    };
+})
+.factory('File',function(){
+    //创建input file，并绑定事件，返回DOM input file
+    function createFile(callback){
+        var file=document.createElement('input');
+        file.type="file";
+        file.accept="image/*";
+        file.hidden="hidden";
+        file.addEventListener('change',callback,false);
+        document.body.appendChild(file);
+        return file;
+    }
+    var file;
+    var isInited=false;
+    return {
+        getFile:function(callback){
+            if(isInited) return file;
+            file=createFile(callback);
+            isInited=true;
+            return file;
         }
     };
 })

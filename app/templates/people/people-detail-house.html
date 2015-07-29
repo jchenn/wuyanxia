@@ -7,5 +7,15 @@
       </ion-slide>
     </ion-slide-box>
     <h2 class="title">{{ house.title }}</h2>
+    <p>{{ house.price }} 元/月</p>
+    <div class="item">
+      <h4>房源地址</h4>
+      <p><label>地址</label>{{house.address}}</p>
+      <p><label>小区</label>{{house.community}}</p>
+    </div>
+    <div class="item">
+      <h4>房源描述</h4>
+      <p>{{ house.description }}</p>
+    </div>
   </ion-content>
 </ion-view>

@@ -39,10 +39,10 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.ser
   // $urlRouterProvider.otherwise('/menu/people-list');
 
   // 暂时默认到个性问卷
-  $urlRouterProvider.otherwise('/me/q/1');
-  
-  // 暂时默认到登录页
-  // $urlRouterProvider.otherwise('/register');
+  // $urlRouterProvider.otherwise('/me/q/1');
+
+  $urlRouterProvider.otherwise('/login');
+
 
 
   // 强制让标签栏在底部

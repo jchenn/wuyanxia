@@ -12,7 +12,7 @@
     <div class="list">
         <div class="item" ng-click="showStatus()">
             <p class="">寻找室友状态</p>
-            <p class="">{{data.lookStatus}}</p>
+            <p class="">{{data.lookStatus == 0 ? '正在寻找' : '已经找到'}}</p>
         </div>
       <div class="item identify">
         <p class="">身份认证</p>
@@ -26,7 +26,7 @@
         <p class="">昵称</p>
         <p class="">{{data.name}}</p>
       </div>
-      <div class="item">
+      <div class="item"  ng-click="modify({'title':'性别','val':data.sex,'key':'sex'})">
         <p class="">性别</p>
         <p class="">{{data.sex}}</p>
       </div>
@@ -34,7 +34,7 @@
         <p class="">电话</p>
         <p class="">{{data.phone}}</p>
       </div>
-      <div class="item">
+      <div class="item"  ng-click="modify({'title':'出生日期','val':data.birth,'key':'birth'})">
         <p class="">出生日期</p>
         <p class="">{{data.birth}}</p>
       </div>

@@ -1,16 +1,33 @@
 angular.module('me.service', [])
 
+.factory('PersonalInfo',function(){
+  return {
+    'lookStatus' : '正在寻找',
+    'birth': '1988-10-22',
+    'name': '',
+    'sex': '',
+    'company': '',
+    'job': '',
+    'phone': '',
+    'title': '',
+    'key': '',
+    'val': ''
+  };
+})
 .factory('QuizSubmit', function($resource, HTTP_PREFIX) {
   return $resource(HTTP_PREFIX + '/user/quiz', null, {
     submit: {
       method: 'POST',
       transformRequest: function(obj) {
-        var str = [];
-        for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
+        // var str = [];
+        // for(var p in obj)
+        // str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        // return obj;
+        return JSON.stringify(obj);
+        // return str.join("&");
       },
-      headers: {'content-type': 'application/x-www-form-urlencoded'}
+      // headers: {'content-type': 'application/x-www-form-urlencoded'}
+      headers: {'content-type': 'application/json'}
     }
   });
 })

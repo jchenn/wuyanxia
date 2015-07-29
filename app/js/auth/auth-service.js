@@ -1,11 +1,22 @@
 angular.module('auth.service', ['ngResource'])
 
 .factory('LoginService', function($resource){
-	return $resource('/login');
+	// var url = 'http://223.252.223.13/api/login';
+	// var url = '/api/login';
+	var url = 'http://www.baidu.com';
+	return $resource(url);
 })
 
 .factory('RegisterService', function($resource){
-	return $resource('/register');
+	var url = 'http://223.252.223.13/api/register';
+	// var url = '/api/register';
+	return $resource(url);
+})
+
+.factory('CheckService', function($resource){
+	var url = 'http://223.252.223.13/api/register/check';
+	// var url = '/api/register';
+	return $resource(url);
 })
 
 .factory('Validate', function() {
@@ -42,14 +53,14 @@ console.log(data);
 			} 
 		}
 		// 密码
-		if (!data.pwd) {
+		if (!data.password) {
 			return {
-				name: "pwd",
+				name: "password",
 				text: "密码不能为空"
 			};
-		} else if (data.pwd.length < 6 || data.pwd.length > 20) {
+		} else if (data.password.length < 6 || data.password.length > 20) {
 			return {
-				name: "pwd",
+				name: "password",
 				text: "密码不能少于6个或者大于20个"
 			};
 		}

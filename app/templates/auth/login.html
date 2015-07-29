@@ -22,17 +22,17 @@
 				</label>
 				<label class="item item-input" ng-class="{ 'has-error' : errorPwd }">
 				    <span class="input-label" >登录密码</span>
-    				<input type="password" name="pwd" ng-model="formData.pwd" >
+    				<input type="password" name="password" ng-model="formData.password" >
 				</label>
 				<span class="errorInfo" ng-show="errorData.text">{{errorData.text}}</span>
-				<button type="submit" class="button button-block button-positive" ng-click="login()">
+				<button type="submit" class="button button-block button-positive" >
 					登录
 				</button>
 			</form>
 		</div>
 	</ion-content>
 	<ion-footer-bar  class="m-bar bar bar-footer">
-	  <div class="buttons">
+	  <div class="buttons" ng-click="changePwd()">
 	    <button class="button">忘记密码</button>
 	  </div>
 	  <div class="buttons" ng-click="go('/register')">

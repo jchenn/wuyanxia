@@ -29,6 +29,25 @@ ServiceModule
         'headUrl': 'http://223.252.223.13/Roommates/photo/photo_123.jpg',
         'userId': '1',
         'hasHouse': 0
+})
 
+.factory('PersonalInfoMange', ['PersonalInfo', function(PersonalInfo){
+    function update(obj) {
+        if (typeof obj === "object") {
+            angular.extend(PersonalInfo, obj)
+            localStorage.setItem('PersonalInfo', JSON.stringify(PersonalInfo));
+        }         
+    }
 
-});
+    function remove(item) {
+        if (typeof item === "string") {
+            delete PersonalInfo.item;
+        } 
+        localStorage.setItem('PersonalInfo', JSON.stringify(PersonalInfo));
+    }
+
+    return {
+        update: update,
+        remove: remove
+    };
+}]);

@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange){
     
     $scope.test=function(){
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
@@ -12,7 +12,15 @@ angular.module('house.ctrl',[])
     
     Pop.init({
         sure:function(){
-            Form.delete();
+            Form.delete(function(data){
+                if(data.errno==1){
+                }
+                else if(data.errno==0){
+                    PersonalInfoMange.update({
+                        "hasHouse":0
+                    });
+                }
+            });
         },
         cancel:function(){
             //alert('cancel');
@@ -98,7 +106,7 @@ angular.module('house.ctrl',[])
                 return;
             }
             if(data.errno==0){
-                $location.path('/');
+                location.href="#/me/q/1"
             }
         });
     };
@@ -140,15 +148,16 @@ angular.module('house.ctrl',[])
     }
     
 })
-.controller('infoCtrl',function($scope,Form,$ionicSlideBoxDelegate,$timeout,Cmn){
-    Form.getData(1,function(data,all){
-        if(all.errno==1){
-            Cmn.warn(all.message);
+.controller('infoCtrl',function($scope,Form,$ionicSlideBoxDelegate,$timeout,Cmn,houseInfo){
+    Form.getData(1,function(data){
+        if(data.errno==1){
+            Cmn.warn(data.message);
         }
-        $scope.pics=data.picList;
-        $scope.data=data;
+        $scope.pics=data.data.picList;
+        $scope.data=data.data;
         $ionicSlideBoxDelegate.update();
     });
+
 })
 .controller('descCtrl',function($scope,Data,$back,$location,Check,Cmn){
     $scope.data={
@@ -166,7 +175,101 @@ angular.module('house.ctrl',[])
         $location.path('/house-new');
     };
 })
-.controller('updateCtrl',function($scope){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form){
+    var warn=Cmn.warn;
+        houseInfo.update(function(data){
+            if(typeof data == 'string'){
+                Cmn.warn(data);
+                return;
+            }
+            Data.fill(data);
+            $scope.data=data;
+            $scope.pics=data.picList;
+            $ionicSlideBoxDelegate.update();
+        });
     
+        $scope.btnText="完成";
+     //显示选项
+    $scope.optionShow=function(){
+        $ionicActionSheet.show({
+             buttons: [
+               { text: '拍照' },
+               { text: '从相册中选取' }
+             ],
+             cancelText: '取消',
+             cancel: function() {
+                  
+                },
+             buttonClicked: function(index) {
+                 if(index==0){
+                     addPic(1);
+                 }
+                 else if(index==1){
+                     addPic(2);
+                 }
+               return true;
+             }
+        });
+    };
+    
+    //点击完成是执行
+    $scope.send=function(){
+        if(!Check.checkLen($scope.data.title,30,1)){
+            warn('标题输入错误！');
+            return;
+        }
+        if(!Check.checkPrice($scope.data.price)){
+            warn('价格输入错误');
+            return ;
+        }
+        if(!Check.checkLen($scope.data.community,30,1)){
+            warn('小区输入错误');
+            return;
+        }
+        if(!Check.checkLen($scope.data.area,100,1)){
+            warn('地址输入错误');
+            return;
+        }
+        if(!Data.get('description')){
+            warn('描述信息未填写');
+            return;
+        }
+        Data.fill($scope.data);
+        Form.update(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                location.href="#/me";
+            }
+        });
+    };
+    
+
+    
+    //跳转到描述
+    $scope.toDesc=function(){
+        for(var i in $scope.data){
+            Data.set(i,$scope.data[i]);
+        }
+        location.href="#/house-desc-update";
+    };
+})
+.controller('descupdateCtrl',function($scope,Check,Data,$location,$back){
+    $scope.data={
+        description:''
+    };
+    $scope.title="描述";
+    $scope.back=$back;
+     //输入描述完成
+    $scope.descComplete=function(){
+        if(!Check.checkLen($scope.data.description,100,1)){
+            Cmn.warn('描述信息错误');
+            return;
+        }
+        Data.set('description',$scope.data.description);
+        $location.path('/house-update');
+    };
 })
 ;

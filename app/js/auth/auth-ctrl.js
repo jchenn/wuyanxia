@@ -111,31 +111,31 @@ console.log($scope.formData);
             if ($scope.errorData.text) {
                 if ($scope.errorData.name == "email") {
                     $scope.errorEmail = true;
-                } else if ($scope.errorData.name == "nickName") {
+                } else if ($scope.errorData.name == "nickname") {
                     $scope.errorNickName = true;
-                } else if ($scope.errorData.name == "pwd") {
+                } else if ($scope.errorData.name == "password") {
                     $scope.errorPwd = true;
                 };
                 console.log($scope.errorData);
             } else {
                 console.log("注册");
-                var res = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
-                // RegisterService.save({}, $scope.formData, function(resp){
-                //     console.log(resp);
-                //     if (resp.result == 1) {
-                //         console.log('注册请求发送成功');
-                //         cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
-                //         $scope.showPopup();
-                //     } else if (resp.result == 0) {
-                //         InfoPopupService(resp.info);
-                //     };
-                // }, function(resp){
-                //     //失败
-                //     console.log('注册失败');
-                //     console.log(resp);
-                //     InfoPopupService(resp.info);
-                // })
-                $scope.showPopup();
+                // var res = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
+                RegisterService.save({}, $scope.formData, function(resp){
+                    console.log(resp);
+                    if (resp.result == 1) {
+                        console.log('注册请求发送成功');
+                        cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
+                        $scope.showPopup();
+                    } else if (resp.result == 0) {
+                        InfoPopupService(resp.info);
+                    };
+                }, function(resp){
+                    //失败
+                    console.log('注册失败');
+                    console.log(resp);
+                    InfoPopupService(resp.info);
+                })
+                // $scope.showPopup();
             }
         }
     });

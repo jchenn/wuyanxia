@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn){
     
     $scope.test=function(){
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
@@ -19,9 +19,14 @@ angular.module('house.ctrl',[])
         }
     });
     
+    var warn=Cmn.warn;
     
     //表单数据
     $scope.data={
+        title:'',
+        price:'',
+        area:'',
+        community:''
     };
     
     $scope.btnText="完成";
@@ -66,6 +71,24 @@ angular.module('house.ctrl',[])
     
     //点击完成是执行
     $scope.send=function(){
+        if(!Check.checkLen($scope.data.title,30,1)){
+            warn('标题输入错误！');
+            return;
+        }
+        if(!Check.checkPrice($scope.data.price)){
+            warn('价格输入错误');
+            return ;
+        }
+        if(!Check.checkLen($scope.data.community,30,1)){
+            warn('小区输入错误');
+            return;
+        }
+        if(!Check.checkLen($scope.data.area,100,1)){
+            warn('地址输入错误');
+            return;
+        }
+
+        Data.fill($scope.data);
         Form.add();
         Form.fileUpload();
     };
@@ -113,12 +136,18 @@ angular.module('house.ctrl',[])
         $scope.data=data;
     });
 })
-.controller('descCtrl',function($scope,Data,$back,$location){
-    $scope.data={};
+.controller('descCtrl',function($scope,Data,$back,$location,Check,Cmn){
+    $scope.data={
+        description:''
+    };
     $scope.title="描述";
     $scope.back=$back;
      //输入描述完成
     $scope.descComplete=function(){
+        if(!Check.checkLen($scope.data.description,100,1)){
+            Cmn.warn('描述信息错误');
+            return;
+        }
         Data.set('description',$scope.data.description);
         $location.path('/house-new');
     };

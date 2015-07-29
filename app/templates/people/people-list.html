@@ -10,15 +10,15 @@
   </ion-header-bar>
   <ion-content>
     <ion-list class="grid">
-      <ion-item ng-repeat="v in list">
-        <div class="content-wrapper" ng-click="go('/menu/people-detail/{{v.id}}/info')">
+      <ion-item ng-repeat="p in list">
+        <div class="content-wrapper" ng-click="jumpToDetail('/menu/people-detail/{{p.userId}}/info')">
           <div class="img-response">
-            <img ng-src="{{ v.image }}" alt="" ng-class="{ribbon: v.house}" width="156" height="156">
+            <img ng-src="{{ p.photoId }}" alt="" ng-class="{ribbon: p.hasHouse}" width="156" height="156">
           </div>
           <div class="footer">
-            <p><span>{{ v.name }}</span><span>匹配度：{{ v.match }}</span></p>
-            <p><span>{{ v.job }}</span><span>{{ v.age }}</span></p>
-            <p><span>推荐理由：{{ v.reason }}</span></p>
+            <p><span>{{ p.nickName }}</span><span>匹配度：{{ p.matchScore }}%</span></p>
+            <p><span>{{ p.job }}</span><span>{{ p.age }}</span></p>
+            <p><span>推荐理由：{{ p.matchMessage }}</span></p>
           </div>
         </div>
       </ion-item>

@@ -15,6 +15,11 @@ angular.module('house',['house.ctrl','house.service'])
         templateUrl:'templates/house/house-info.html',
         controller:'infoCtrl'
     })
+    .state('houseUpdate',{
+        url:'/house-update',
+        templateUrl:'templates/house/house-new.html',
+        controller:'updateCtrl'
+    })
     ;
 })
 ;

@@ -1,5 +1,5 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, LoginService, Validate, InfoPopupService) {
+    .controller('LoginCtrl', function($scope, $http, LoginService, Validate, InfoPopupService, PersonalInfo) {
         // 模拟
         $scope.formData = {
             'email': "123@123.com",
@@ -35,9 +35,10 @@ angular.module('auth.ctrl', ['ionic'])
                     //成功
                     console.log(resp.result);
                     if (resp.result == 0) {
-                        InfoPopupService({subTitle:"123"});
-                        // InfoPopupService(resp.info);
+                        // InfoPopupService({subTitle:"123"});
+                        InfoPopupService(resp.info);
                     } else if (resp.result == 1) {
+                        // localStorage.PersonalInfo = JSON.stringify(PersonalInfo);
                         $scope.go('/menu/people-list');
                     }
                 }, function(resp) {
@@ -91,7 +92,7 @@ console.log($scope.formData);
                     if (resp === true) {
                         CheckService.get({userId:'213'}, function(resp){
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $scope.go('/me/register');
+                                $scope.go('/me-register');
                             });
                         }, function(err) {
                             InfoPopupService($scope.emailFailInfo);
@@ -99,28 +100,6 @@ console.log($scope.formData);
                         // $scope.successPopup();
                     }
                 })
-            }
-            // 弹层：验证通过
-            $scope.successPopup = function() {
-                var myPopup = $ionicPopup.show({
-                    title: '验证成功',
-                    subTitle: '恭喜您验证成功，请填写个人信息让未来室友更加了解您吧'
-                });
-                $timeout(function() {
-                    myPopup.close();
-                    // 跳转
-                    // $scope.go('/')
-                }, 1500);
-            }
-            // 弹层：验证失败
-            $scope.failPopup = function() {
-                var myPopup = $ionicPopup.show({
-                    title: '验证失败',
-                    subTitle: '对不起，验证失败了，请检测企业邮箱或重新邮箱验证'
-                });
-                $timeout(function() {
-                    myPopup.close();
-                }, 1500);
             }
             /**
              * 验证表单
@@ -140,22 +119,23 @@ console.log($scope.formData);
                 console.log($scope.errorData);
             } else {
                 console.log("注册");
-                // var ref = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
-                RegisterService.save({}, $scope.formData, function(resp){
-                    console.log(resp);
-                    if (resp.result == 1) {
-                        console.log('注册成功');
-                        $scope.showPopup();
-                    } else if (resp.result == 0) {
-                        InfoPopupService(resp.info);
-                    };
-                }, function(resp){
-                    //失败
-                    console.log('注册失败');
-                    console.log(resp);
-                    InfoPopupService(resp.info);
-                })
-                // $scope.showPopup();
+                var res = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
+                // RegisterService.save({}, $scope.formData, function(resp){
+                //     console.log(resp);
+                //     if (resp.result == 1) {
+                //         console.log('注册请求发送成功');
+                //         cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
+                //         $scope.showPopup();
+                //     } else if (resp.result == 0) {
+                //         InfoPopupService(resp.info);
+                //     };
+                // }, function(resp){
+                //     //失败
+                //     console.log('注册失败');
+                //     console.log(resp);
+                //     InfoPopupService(resp.info);
+                // })
+                $scope.showPopup();
             }
         }
     });

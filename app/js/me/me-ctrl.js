@@ -233,6 +233,7 @@ angular.module('me.ctrl', [])
         }
     })
     //验证控制器
+
     .controller('Validate', function($scope){
         $scope.data = {};
 

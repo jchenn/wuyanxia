@@ -1,5 +1,52 @@
-<ion-view view-title="个人信息">
+<ion-view class="m-me-show" ng-controller="InfoShow">
+  <ion-header-bar align-title="center" class="bar-stable padding">
+    <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
+    <h1 class="title">个人信息</h1>
+  </ion-header-bar>
   <ion-content>
-  我的信息、身份认证、收藏、室友、设置、关于
+    <div class="header">
+      <div class="head-img" align="center">
+        <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
+      </div>
+    </div>
+    <div class="list">
+        <div class="item" ng-click="showStatus()">
+            <p class="">寻找室友状态</p>
+            <p class="">{{data.lookStatus == 0 ? '正在寻找' : '已经找到'}}</p>
+        </div>
+      <div class="item identify">
+        <p class="">身份认证</p>
+        <p class="">
+          <a href="#/phone-validate" class="item-image ion-android-call"></a>
+          <a href="#/id-validate" class="item-image ion-hammer"></a>
+          <a href="#/email-validate" class="item-image ion-email"></a>
+        </p>
+      </div>
+      <div class="item" ng-click="modify({'title':'昵称','val':data.name,'key':'name'})">
+        <p class="">昵称</p>
+        <p class="">{{data.name}}</p>
+      </div>
+      <div class="item"  ng-click="modify({'title':'性别','val':data.sex,'key':'sex'})">
+        <p class="">性别</p>
+        <p class="">{{data.sex}}</p>
+      </div>
+      <div class="item phone"  ng-click="modify({'title':'电话','val':data.phone,'key':'phone'})">
+        <p class="">电话</p>
+        <p class="">{{data.phone}}</p>
+      </div>
+      <div class="item"  ng-click="modify({'title':'出生日期','val':data.birth,'key':'birth'})">
+        <p class="">出生日期</p>
+        <p class="">{{data.birth}}</p>
+      </div>
+      <div class="item"  ng-click="modify({'title':'公司','val':data.company,'key':'company'})">
+        <p class="">公司</p>
+        <p class="">{{data.company}}</p>
+      </div>
+      <div class="item"  ng-click="modify({'title':'岗位','val':data.job,'key':'job'})">
+        <p class="">岗位</p>
+        <p class="">{{data.job}}</p>
+      </div>
+
+    </div>
   </ion-content>
 </ion-view>

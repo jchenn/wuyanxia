@@ -8,29 +8,8 @@
       <button class="button button-clear button-icon ion-ios-more" ng-click="showMenu()"></button>
     </div>
   </ion-header-bar>
-  <ion-content>
-      <section class="banner">
-        <div class="avatar"><img ng-src="{{ people.image }}" alt=""></div>
-        <h1>{{ people.name }} <small>中等信用</small></h1>
-      </section>
-      <section class="item">
-        <h2 class="heading">基本信息</h2>
-        <div class="row">
-          <p class="col">性别：{{ people.gender }}</p>
-          <p class="col">年龄：{{ people.age }}</p>
-        </div>
-        <p>公司：{{ people.company }}</p>
-        <p>职位：{{ people.job }}</p>
-      </section>
-      <section class="item">
-        <h2 class="heading">个人标签</h2>
-        <ul class="tags">
-          <li ng-repeat="v in people.tags">
-            <span>{{ v }}</span>
-          </li>
-        </ul>
-      </section>
-  </ion-content>
+  <!-- <ion-nav-view name="people-detail-nav"></ion-nav-view> -->
+  <ion-nav-view name="people-detail"></ion-nav-view>
   <ion-footer-bar class="bar-stable">
     <div class="row">
       <div class="col col-50">

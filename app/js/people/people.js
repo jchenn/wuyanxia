@@ -28,16 +28,51 @@ angular.module('people', ['people.ctrl', 'people.service'])
       }
     })
 
-    // 室友详情
+    // 室友详情页外围容器
     .state('menu.people-detail', {
       url: '/people-detail/:id',
+      abstract: true,
       views: {
         'menu-content': {
-          templateUrl: 'templates/people/people-detail.html',
-          controller: 'PeopleDetailCtrl'
+          // templateUrl: 'templates/people/people-detail.html',
+          templateUrl: 'templates/people/people-detail-wrapper.html',
+          controller: 'PeopleDetailWrapperCtrl'
         }
       }
-    });
+    })
+
+    // 室友详情页
+    .state('menu.people-detail.info', {
+      url: '/info',
+      views: {
+        'people-detail-nav': {
+          templateUrl: 'templates/people/people-detail-nav.html'
+        },
+        'people-detail': {
+          templateUrl: 'templates/people/people-detail-info.html',
+          controller: 'PeopleDetailInfoCtrl'
+        }
+      }
+    })
+
+    // 房源详情页
+    .state('menu.people-detail.house', {
+      url: '/house',
+      views: {
+        'people-detail': {
+          templateUrl: 'templates/people/people-detail-house.html',
+          controller: 'PeopleDetailHouseCtrl'
+        }
+      }
+    })
+    ;
+})
+
+.directive('peopleDetailNav', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/people/people-detail-nav.html'
+  }
 })
 
 // .constant('HTTP_PREFIX', 'http://192.168.1.105:4000')

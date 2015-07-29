@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
+angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.service'])
 
 .run(function($rootScope, $location, $ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -40,9 +40,9 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
 
   // 暂时默认到个性问卷
   // $urlRouterProvider.otherwise('/me/q/1');
-  
-  // 暂时默认到登录页
-  $urlRouterProvider.otherwise('/register');
+
+  $urlRouterProvider.otherwise('/login');
+
 
 
   // 强制让标签栏在底部
@@ -51,3 +51,4 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
   // 去除标题栏返回按钮的文字
   $ionicConfigProvider.backButton.text('').previousTitleText(false);
 });
+var ServiceModule=angular.module('global.service',[]);

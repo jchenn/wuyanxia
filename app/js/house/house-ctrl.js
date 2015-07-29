@@ -7,7 +7,7 @@ angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http){
     
     $scope.test=function(){
-        $http.get("http://223.252.223.13/Roommates/api/user/getUser?id=10");
+        $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
     };
     
     Pop.init({
@@ -112,37 +112,6 @@ angular.module('house.ctrl',[])
         $scope.pics=data.pics;
         $scope.data=data;
     });
-    $scope.pics=[
-        {
-            src:'a.png',
-            alt:'error'
-        },
-        {
-            src:'a.png',
-            alt:'没有图片'
-        },
-        {
-            src:'a.png',
-            alt:'占个位置'
-        },
-        {
-            src:'a.png',
-            alt:'哇，还是没有'
-        },
-        {
-            src:'a.png',
-            alt:'真没有啊~'
-        }
-    ];
-    $scope.data={
-        title:'半岛国际滨河路233号主卧出租',
-        price:2000,
-        //小区
-        community:'半岛国际花园',
-        //地址
-        area:'长河路滨河路交叉口',
-        description:'我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~我是描述~~~我真是描述~~~~~'
-    };
 })
 .controller('descCtrl',function($scope,Data,$back,$location){
     $scope.data={};

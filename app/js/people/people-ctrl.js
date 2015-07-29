@@ -58,7 +58,7 @@ angular.module('people.ctrl', [])
       console.log('err', err);
       
       $ionicLoading.hide();
-      PeopleFilter.setMore(false);
+      PeopleFilterModel.setMore(false);
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
@@ -90,14 +90,16 @@ angular.module('people.ctrl', [])
   };
 })
 
-.controller('PeopleDetailCtrl', function($scope, $ionicActionSheet, $stateParams, PeopleDetailQuery) {
+.controller('PeopleDetailWrapperCtrl', function($scope, $ionicActionSheet, $stateParams, PeopleDetailQuery) {
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     if (response.errno === 0) {
       $scope.people = response.data;
+      $scope.house = $scope.people.house;
+      console.log($scope.house);
     }
   }, function(err) {
-    console.log(err);
+    console.log('error', err);
   });
 
   $scope.showMenu = function() {
@@ -114,6 +116,15 @@ angular.module('people.ctrl', [])
         return true;
       }
     });
-  }
 
-});
+  }
+})
+
+.controller('PeopleDetailInfoCtrl', function($scope) {
+  $scope.showInfo = true;
+})
+
+.controller('PeopleDetailHouseCtrl', function($scope) {
+  $scope.showHouse = true;
+})
+;

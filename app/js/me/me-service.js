@@ -5,12 +5,15 @@ angular.module('me.service', [])
     submit: {
       method: 'POST',
       transformRequest: function(obj) {
-        var str = [];
-        for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
+        // var str = [];
+        // for(var p in obj)
+        // str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        // return obj;
+        return JSON.stringify(obj);
+        // return str.join("&");
       },
-      headers: {'content-type': 'application/x-www-form-urlencoded'}
+      // headers: {'content-type': 'application/x-www-form-urlencoded'}
+      headers: {'content-type': 'application/json'}
     }
   });
 })

@@ -26,4 +26,5 @@ angular.module('me', ['me.ctrl', 'me.service'])
 })
 
 .constant('HTTP_PREFIX', 'http://10.242.37.68:4000')
+// .constant('HTTP_PREFIX', 'http://223.252.223.13/Roommates/api')
 ;

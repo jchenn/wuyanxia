@@ -43,9 +43,11 @@ angular.module('me.ctrl', [])
 
       // 完成问题，跳转到筛选页面
       // console.log('完成答题');
-      $ionicLoading.show({});
+      $ionicLoading.show();
 
       QuizSubmit.submit(QuizModel.get(), function(response) {
+        // console.log(response);
+
         if (response.errno === 0) {
 
           $ionicLoading.hide();

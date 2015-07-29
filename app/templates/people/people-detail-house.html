@@ -1,0 +1,11 @@
+<ion-view>
+  <ion-content>
+    <people-detail-nav></people-detail-nav>
+    <ion-slide-box>
+      <ion-slide ng-repeat="image in house.images track by $index">
+        <img ng-src="{{ image }}" width="400" height="300">
+      </ion-slide>
+    </ion-slide-box>
+    <h2 class="title">{{ house.title }}</h2>
+  </ion-content>
+</ion-view>

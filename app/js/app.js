@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.service'])
+angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'global.service'])
 
 .run(function($rootScope, $location, $ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -32,9 +32,7 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.ser
       abstract: true,
       url: '/menu',
       templateUrl: 'templates/menu.html',
-      controller: function($scope, PersonalInfo) {
-        $scope.me = PersonalInfo;
-      }
+      controller: 'SideMenuCtrl'
     })
   ;
 

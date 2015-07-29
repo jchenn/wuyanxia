@@ -22,7 +22,7 @@ angular.module('people.ctrl', [])
     });
 
     // 从服务器加载数据，包括初次加载、加载更多，以及重新筛选
-    PeopleListQuery.query(params, function(response) {
+    PeopleListQuery.get(params, function(response) {
 
       // console.log('request', params);
 

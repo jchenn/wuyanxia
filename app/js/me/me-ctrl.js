@@ -93,7 +93,7 @@ angular.module('me.ctrl', [])
 
 })
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover, PersonalInfo){
+    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover, PersonalInfo, PersonalInfoMange){
 
         $scope.data =  PersonalInfo;
 
@@ -148,17 +148,16 @@ angular.module('me.ctrl', [])
             res.success(function(response, status, headers, config){
                 console.log(response);
                 if(response.errno == 0){
-                    PersonalInfo = $scope.data;
+                    PersonalInfoMange.update($scope.data);
                     $scope.go('/me/q/1');
                 }else if(response.errno == 1){
                     console.log('个人资料不能为空');
                 }
             }).error(function(response, status, headers, config){
                 console.log(response);
-                //PubFunction.alertBox('未完成注册');
             });
         }
-    }).controller('InfoShow', function($scope, $ionicActionSheet, $timeout, PersonalInfo ,$http){
+    }).controller('InfoShow', function($scope, $ionicActionSheet, $timeout, PersonalInfo ,$http, PersonalInfoMange){
 
         $scope.data = PersonalInfo;
         $scope.showStatus = function(){
@@ -172,9 +171,8 @@ angular.module('me.ctrl', [])
                     hideSheet();
                 },
                 buttonClicked: function(index){
-                    var temp = PersonalInfo.lookStatus;
+                    var temp = PersonalInfoMange.get('lookStatus');
                     $scope.data.lookStatus = index == 0 ? 0 : 1;
-                    PersonalInfo.lookStatus = $scope.data.lookStatus;
 
                     if(temp != $scope.data.lookStatus){
                         var res = $http({
@@ -184,7 +182,11 @@ angular.module('me.ctrl', [])
                             timeout: 2000
                         });
                         res.success(function(response, status, headers, config){
-                            console.log(response);
+                            if(response.errno == 0){
+                                PersonalInfoMange.update({'lookStatus': $scope.data.lookStatus});
+                            }else if(response.errno == 1){
+                                console.log(response.errno);
+                            }
                         }).error(function(response, status, headers, config){
                             console.log(response);
                         });
@@ -209,7 +211,6 @@ angular.module('me.ctrl', [])
     .controller('EditorInfo', function($scope, $http, PersonalInfo){
         $scope.data = PersonalInfo;
         $scope.saveModify = function(){
-            PersonalInfo[$scope.data.key] = $scope.data.val;
             //给服务器发请求
             var res = $http({
                 method: 'post',
@@ -218,11 +219,17 @@ angular.module('me.ctrl', [])
                 timeout: 2000
             });
             res.success(function(response, status, headers, config){
-                console.log(response);
+                if(response.errno == 0){
+                    var key =  $scope.data.key;
+                    var val = $scope.data.val;
+                    PersonalInfoMange.update({ key : val });
+                    $scope.go('/me');
+                }else if(response.errno == 1){
+                    console.log(response);
+                }
             }).error(function(response, status, headers, config){
                 console.log(response);
             });
-            $scope.go('/me');
         }
     })
     //验证控制器

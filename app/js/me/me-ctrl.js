@@ -138,7 +138,6 @@ angular.module('me.ctrl', [])
 
         //提交数据
         $scope.finishRegister = function(){
-            PersonalInfo = $scope.data;
             //给服务器发请求
             var res = $http({
                 method: 'post',
@@ -148,10 +147,16 @@ angular.module('me.ctrl', [])
             });
             res.success(function(response, status, headers, config){
                 console.log(response);
+                if(response.errno == 1){
+                    PersonalInfo = $scope.data;
+                    $scope.go('/me/q/1');
+                }else{
+                    //PubFunction.alertBox('未完成注册');
+                }
             }).error(function(response, status, headers, config){
-                console.log(response);
+                console.log('服务器错误');
+                //PubFunction.alertBox('未完成注册');
             });
-            $scope.go('/me/q/1');
         }
     }).controller('InfoShow', function($scope, $ionicActionSheet, $timeout, PersonalInfo ,$http){
 

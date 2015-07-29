@@ -21,6 +21,8 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.ser
     // console.log(hash);
     $location.path(hash);
   };
+
+
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

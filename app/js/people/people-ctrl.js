@@ -1,7 +1,8 @@
 angular.module('people.ctrl', [])
 
 .controller('PeopleListCtrl', 
-  function($scope, $ionicLoading, $ionicScrollDelegate, PeopleListQuery, PeopleFilterModel) {
+  function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup,
+    PeopleListQuery, PeopleFilterModel, PersonalInfo) {
 
   $scope.list = [];
 
@@ -21,13 +22,13 @@ angular.module('people.ctrl', [])
     });
 
     // 从服务器加载数据，包括初次加载、加载更多，以及重新筛选
-    PeopleListQuery.get(params, function(response) {
+    PeopleListQuery.query(params, function(response) {
 
       // console.log('request', params);
 
       var data;
 
-      // console.log(response);
+      console.log(response);
 
       if (response.errno === 0) {
 
@@ -46,7 +47,9 @@ angular.module('people.ctrl', [])
 
         PeopleFilterModel.setUsingCache(true);
       } else {
+        
         // TODO error handling
+        PeopleFilterModel.setMore(true);
       }
 
       // 关闭 loading 动画
@@ -69,6 +72,55 @@ angular.module('people.ctrl', [])
       PeopleFilterModel.setUsingCache(true);
     }
   });
+
+  // 在跳转到室友详情之前，先判断是否填完个人信息
+  $scope.jumpToDetail = function(hash) {
+
+    // console.log(PersonalInfo);
+    // PersonalInfo.isInfoAll = false;
+    // PersonalInfo.isQuestionnaireAll = true;
+
+    // TODO 判断是否完成问卷
+    if (PersonalInfo.isInfoAll && PersonalInfo.isQuestionnaireAll) {
+      $scope.go(hash);
+    } else if (!PersonalInfo.isQuestionnaireAll && !PersonalInfo.isInfoAll) {
+      $ionicPopup.confirm({
+        template: '只有填写自己的个人信息和匹配问题才能为您匹配室友，并查看详情信息哟。',
+        okText: '现在填写',
+        cancelText: '稍后再说'
+      }).then(function(res) {
+        if (res) {
+          $scope.go('/me');
+        } else {
+          // do nothing
+        }
+      });
+    } else if (!PersonalInfo.isInfoAll) {
+      $ionicPopup.confirm({
+        template: '只有填写自己的个人信息才能看到室友的详情信息哟。',
+        okText: '现在填写',
+        cancelText: '稍后再说'
+      }).then(function(res) {
+        if (res) {
+          $scope.go('/me');
+        } else {
+          // do nothing
+        }
+      });
+    } else if (!PersonalInfo.isQuestionnaireAll) {
+      $ionicPopup.confirm({
+        template: '请回答以下7个问题，以便为您更精确匹配室友。',
+        okText: '现在回答',
+        cancelText: '稍后再说'
+      }).then(function(res) {
+        if (res) {
+          $scope.go('/me/q/1');
+        } else {
+          // do nothing
+        }
+      });
+    }
+  };
 
 })
 
@@ -96,7 +148,7 @@ angular.module('people.ctrl', [])
     if (response.errno === 0) {
       $scope.people = response.data;
       $scope.house = $scope.people.house;
-      console.log($scope.house);
+      // console.log($scope.house);
     }
   }, function(err) {
     console.log('error', err);

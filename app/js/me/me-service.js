@@ -14,8 +14,10 @@ angular.module('me.service', [])
     'val': ''
   };
 })
-.factory('QuizSubmit', function($resource, HTTP_PREFIX) {
-  return $resource(HTTP_PREFIX + '/user/quiz', null, {
+.factory('QuizSubmit', function($resource) {
+
+  // return $resource('http://10.242.37.68:4000/user/quiz', null, {
+  return $resource('http://223.252.223.13/Roommates/api/user/quiz', null, {
     submit: {
       method: 'POST',
       transformRequest: function(obj) {

@@ -31,7 +31,10 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.ser
     .state('menu', {
       abstract: true,
       url: '/menu',
-      templateUrl: 'templates/menu.html'
+      templateUrl: 'templates/menu.html',
+      controller: function($scope, PersonalInfo) {
+        $scope.me = PersonalInfo;
+      }
     })
   ;
 

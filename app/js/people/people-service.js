@@ -1,8 +1,10 @@
 angular.module('people.service', ['ngResource'])
 
-.factory('PeopleListQuery', function($resource, HTTP_PREFIX, PeopleFilterModel) {
+.factory('PeopleListQuery', function($resource, PeopleFilterModel) {
   var resource = $resource(
-    HTTP_PREFIX + '/people/list?p=:p&xb=:xb&f=:f&gs=:gs&cy=:cy&cw=:cw&zx=:zx&ws=:ws&xg=:xg&fk=:fk',
+    // 'http://10.242.37.68/people/list?' 
+    'http://223.252.223.13/Roommates/api/people/list?' 
+    + 'id=:id&p=:p&xb=:xb&f=:f&gs=:gs&cy=:cy&cw=:cw&zx=:zx&ws=:ws&xg=:xg&fk=:fk',
     PeopleFilterModel.getDefaultChoice());
 
   var _cache = [];
@@ -18,7 +20,7 @@ angular.module('people.service', ['ngResource'])
   return resource;
 })
 
-.factory('PeopleFilterModel', function() {
+.factory('PeopleFilterModel', function(PersonalInfo) {
   var condition = {
     buttons: [
       {name: 'f', choices: [{label: '有房', value: '2'}, {label: '无房', value: '3'}, {label: '不限', value: '1'}]},
@@ -56,7 +58,11 @@ angular.module('people.service', ['ngResource'])
     ]
   };
 
-  var DefaultChoice = {p: 1, f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1};
+  var DefaultChoice = {
+    // id: PersonalInfo.userId,
+    id: 1,
+    p: 1, f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1
+  };
 
   var _choice       = angular.copy(DefaultChoice),
       _isUsingCache = true,
@@ -94,50 +100,19 @@ angular.module('people.service', ['ngResource'])
   return factory;
 })
 
-.factory('PeopleFilter', function() {
-  
-  var DefaultFilter = {p: 1, f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1};
-
-  var params    = null, 
-      _changed  = true;
-
-  var factory =  {
-    get: function() {
-      return params || factory.reset();
-    },
-    setChanged: function(changed) {
-      if (changed) {
-        params.p = 1;
-      }
-      _changed = changed;
-    },
-    hasChanged: function() {
-      return _changed;
-    },
-    increase: function() {
-      ++params.p;
-    },
-    reset: function() {
-       return params = JSON.parse(JSON.stringify(DefaultFilter));
-    }
-  };
-
-  return factory;
+.factory('PeopleDetailQuery', function($resource) {
+  return $resource('http://223.252.223.13/Roommates/api/people/:id');
 })
 
-.factory('PeopleDetailQuery', function($resource, HTTP_PREFIX) {
-  return $resource(HTTP_PREFIX + '/people/:id');
-})
-
-.factory('PeopleMark', function($resource, HTTP_PREFIX) {
+.factory('PeopleMark', function($resource) {
 
   // POST, :id, :token
-  return $resource(HTTP_PREFIX + '/people/mark');
+  return $resource('http://223.252.223.13/Roommates/api/people/mark');
 })
 
-.factory('PeopleForbid', function($resource, HTTP_PREFIX) {
+.factory('PeopleForbid', function($resource) {
 
   // POST, :id, :token
-  return $resource(HTTP_PREFIX + '/people/forbid');
+  return $resource('http://223.252.223.13/Roommates/api/people/forbid');
 })
 ;

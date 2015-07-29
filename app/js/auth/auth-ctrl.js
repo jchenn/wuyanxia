@@ -2,8 +2,8 @@ angular.module('auth.ctrl', ['ionic'])
     .controller('LoginCtrl', function($scope, $http, LoginService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 模拟
         $scope.formData = {
-            'email': "123@123.com",
-            'password': "123123"
+            'email': "hztest@corp.netease.com",
+            'password': "123456"
         };
         // $scope.formData = {};
         $scope.errorData = {};
@@ -38,7 +38,8 @@ angular.module('auth.ctrl', ['ionic'])
                         // InfoPopupService({subTitle:"123"});
                         InfoPopupService(resp.info);
                     } else if (resp.result == 1) {
-                        // localStorage.PersonalInfo = JSON.stringify(PersonalInfo);
+                        PersonalInfoMange.update(resp.data);
+                        console.log(PersonalInfo);
                         $scope.go('/menu/people-list');
                     }
                 }, function(resp) {

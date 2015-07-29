@@ -1,8 +1,5 @@
 ServiceModule
-.factory('PersonalInfo',function(){
-        //title,key,val 作为修改信息参数
-        //lookStatus 0表示正在寻找，1表示已经找到
-    return {
+.value('PersonalInfo',{
         'lookStatus' : 0,
         'birth': '1988-10-22',
         'name': '',
@@ -33,5 +30,5 @@ ServiceModule
         'userId': '',
         'hasHouse': 0
 
-    };
+
 });

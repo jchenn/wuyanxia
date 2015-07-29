@@ -26,7 +26,7 @@
         <p class="">昵称</p>
         <p class="">{{data.name}}</p>
       </div>
-      <div class="item">
+      <div class="item"  ng-click="modify({'title':'性别','val':data.sex,'key':'sex'})">
         <p class="">性别</p>
         <p class="">{{data.sex}}</p>
       </div>
@@ -34,7 +34,7 @@
         <p class="">电话</p>
         <p class="">{{data.phone}}</p>
       </div>
-      <div class="item">
+      <div class="item"  ng-click="modify({'title':'出生日期','val':data.birth,'key':'birth'})">
         <p class="">出生日期</p>
         <p class="">{{data.birth}}</p>
       </div>

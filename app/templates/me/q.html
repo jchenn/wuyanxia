@@ -1,14 +1,10 @@
 <ion-view class="m-me">
   <ion-header-bar class="bar-stable">
-    <div class="buttons">
-      <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
-    </div>
+    <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
     <h1 class="title">个性问答</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="next()">
-        {{ nextOrFinish }}
-      </button>
-    </div>
+    <button class="button button-clear" ng-click="next()">
+      {{ nextOrFinish }}
+    </button>
   </ion-header-bar>
   <ion-content class="m-question">
     <h2 ng-hide="{{ !showHint }}">请回答以下7个问题，以便为您更精确匹配室友。</h2>

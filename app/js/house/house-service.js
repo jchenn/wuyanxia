@@ -4,10 +4,20 @@ angular.module('house.service',[])
         id:1
     };
 })
-.factory('Http',function(callback){
-    function Http(method,data,callback){
+.factory('myHttp',function(){
+    function Http(method,url,data,callback){
+        var xhr=new XMLHttpRequest();
+        xhr.open(method,url);
+        xhr.onreadystatechange=function(){
+            if(xhr.status==200&&xhr.readyState==4){
+                callback(xhr.responseText);
+            }
+        };
+        xhr.send(data);
+        console.log('send');
     }
     return {
+        http:Http
     };
 })
 .factory('Popup',function(){
@@ -131,10 +141,10 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Form',function($http,Data,UserInfo,Check){
+.factory('Form',function($http,Data,PersonalInfo,Check,myHttp){
     var host="http://223.252.223.13";
     var updatePath="/Roommates/api/userhouse/update";
-    var filePath="/Roommates/api/housePhoto/batchUpload";
+    //var filePath="/Roommates/api/housePhoto/batchUpload";
     var addPath="/Roommates/api/userhouse/insert";
     var getPath="/Roommates/api/userhouse/";
     var deletePath="/Roommates/api/userhouse/delete/";
@@ -142,24 +152,28 @@ angular.module('house.service',[])
     
     
     return {
-        update:function(data){
-            data.userId=UserInfo.id;
-            $http.put(host+updatePath,data);
-        },
-        /*fileUpload:function(){
-            var filelist=Data.getFiles();
-            if(!filelist.length) return;
-            var form=new FormData();
-            form.append('userId',UserInfo.id);
-            for(var i=0;i<filelist.length;i++){
-                form.append('files['+i+']',filelist[i]);
+        update:function(callback){
+    
+          /* var form=new FormData();
+            form.append('userId',Number(PersonalInfo.userId));
+            
+            var data=Data.getAll();
+            
+            for(var i in data){
+                if(i=='title'||i=='description'||i=='area'||i=='community'||i=='price')
+                form.append(i,data[i]);
             }
-            $http.post(host+filePath,form);
-        },*/
-        add:function(){
+            $http.post(host+updatePath,form,{
+                 headers: { 
+                     'Content-Type': 'application/x-www-form-urlencoded'
+                 }
+            }).success(callback);*/
+            $http.post(host+updatePath,Data.getAll()).success(callback);
+        },
+        add:function(callback){
             var filelist=Data.getFiles();
             var form=new FormData();
-            form.append('userId',UserInfo.id);
+            form.append('userId',Number(PersonalInfo.userId));
             if(filelist.length) {
                 for(var i=0;i<filelist.length;i++){
                     form.append('files['+i+']',filelist[i]);
@@ -170,22 +184,21 @@ angular.module('house.service',[])
             for(var i in data){
                 form.append(i,data[i]);
             }
-            $http.post(host+addPath,form);
+            $http.post(host+addPath,form,{
+                 headers: { 
+                     'Content-Type': 'application/x-www-form-urlencoded'
+                 }
+            }).success(callback);
+            //myHttp.http('POST',host+addPath,form,function(){});
         },
         getData:function(id,callback){
             $http.get(host+getPath+id).success(function(d){
-                var data=d.data;
-                if(data){
-                    for(var i in data){
-                        Data.set(i,data[i]);
-                    }
-                }
-                
-                callback(Data.getAll(),d);
+                callback(d);
             });
         },
-        delete:function(id,callback){
-            $http.get(host+getPath+id).success(callback);
+        delete:function(callback){
+            var id=PersonalInfo.userId;
+            $http.get(host+deletePath+id).success(callback);
         }
     };
 })
@@ -242,6 +255,32 @@ angular.module('house.service',[])
     return {
         warn:function(str){
             Popup.show(str);
+        }
+    };
+})
+.factory('houseInfo',function(Form,PersonalInfo){
+    var data={};
+    return {
+        dataIn:function(o){
+            for(var i in o){
+                data[i]=o[i];
+            }
+        },
+        dataOut:function(){
+            return data;
+        },
+        update:function(callback){
+            var self=this;
+            var id=PersonalInfo.userId;
+            Form.getData(id,function(data){
+                if(data.errno==0){
+                    self.dataIn(data.data);
+                    callback(data.data);
+                }
+                else if(data.errno==1){
+                    callback(data.message);
+                }
+            });
         }
     };
 })

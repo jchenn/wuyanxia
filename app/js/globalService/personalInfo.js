@@ -25,10 +25,42 @@ ServiceModule
 
         'completeInfo': 0,
         'completeAsk': 0,
-        'credit': 0,
+        'credit': '一般信用',
         'headUrl': 'http://223.252.223.13/Roommates/photo/photo_123.jpg',
-        'userId': '',
+        'userId': '1',
         'hasHouse': 0
+})
 
+.factory('PersonalInfoMange', ['PersonalInfo', function(PersonalInfo){
 
-});
+    function update(obj) {
+        if (typeof obj === "object") {
+            angular.extend(PersonalInfo, obj);
+            localStorage.setItem('PersonalInfo', JSON.stringify(PersonalInfo));
+        }         
+    };
+    function remove(item) {
+        if (typeof item === "string") {
+            delete PersonalInfo.item;
+        } 
+        localStorage.setItem('PersonalInfo', JSON.stringify(PersonalInfo));
+    };
+    function clear() {
+        for( var i in PersonalInfo) {
+            PersonalInfo[i]= "";
+        }
+        localStorage.removeItem('PersonalInfo');
+    };
+    function get(item) {
+        if (typeof item === "string") {
+            return PersonalInfo.item;
+        } 
+    };
+
+    return {
+        update: update,
+        remove: remove,
+        get: get,
+        clear: clear
+    };
+}]);

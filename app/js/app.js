@@ -1,6 +1,6 @@
 angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'global.service'])
 
-.run(function($rootScope, $location, $ionicPlatform) {
+.run(function($rootScope, $location, $ionicPlatform, PersonalInfoMange) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,7 +21,13 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
     // console.log(hash);
     $location.path(hash);
   };
-
+  
+  // 查看localStorage中personalInfo状态，如果有值则跳转
+  // console.log(localStorage.personalInfo);
+  if (localStorage.PersonalInfo) {
+    // PersonalInfoMange.update(JSON.parse(localStorage.PersonalInfo));
+    // $location.path('/menu/people-list');
+  }
 
 })
 

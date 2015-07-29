@@ -18,9 +18,9 @@ ServiceModule
         'key': '',
         'val': '',
 
-        //显示使用
         //completeInfo 是否完成个人资料 0 表示No 1表示 Yes
         //completeAsk 是否完成问卷  0 表示No 1表示 Yes
+
         //信用额度 0 1 2
         //headUrl 头像链接
         //hasHouse 是否有房

@@ -131,7 +131,7 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Form',function($http,Data,UserInfo,Check){
+.factory('Form',function($http,Data,PersonalInfo,Check){
     var host="http://223.252.223.13";
     var updatePath="/Roommates/api/userhouse/update";
     //var filePath="/Roommates/api/housePhoto/batchUpload";
@@ -143,8 +143,8 @@ angular.module('house.service',[])
     
     return {
         update:function(data){
-            data.userId=UserInfo.id;
-            $http.put(host+updatePath,data);
+            data.userId=PersonalInfo.id;
+            $http.post(host+updatePath,data);
         },
         /*fileUpload:function(){
             var filelist=Data.getFiles();
@@ -156,10 +156,10 @@ angular.module('house.service',[])
             }
             $http.post(host+filePath,form);
         },*/
-        add:function(){
+        add:function(callback){
             var filelist=Data.getFiles();
             var form=new FormData();
-            form.append('userId',UserInfo.id);
+            form.append('userId',PersonalInfo.userId);
             if(filelist.length) {
                 for(var i=0;i<filelist.length;i++){
                     form.append('files['+i+']',filelist[i]);
@@ -170,7 +170,7 @@ angular.module('house.service',[])
             for(var i in data){
                 form.append(i,data[i]);
             }
-            $http.post(host+addPath,form);
+            $http.post(host+addPath,form).success(callback);
         },
         getData:function(id,callback){
             $http.get(host+getPath+id).success(function(d){
@@ -184,8 +184,9 @@ angular.module('house.service',[])
                 callback(Data.getAll(),d);
             });
         },
-        delete:function(id,callback){
-            $http.get(host+getPath+id).success(callback);
+        delete:function(callback){
+            var id=PersonalInfo.userId;
+            $http.get(host+deletePath+id).success(callback);
         }
     };
 })
@@ -257,6 +258,8 @@ angular.module('house.service',[])
             return data;
         },
         update:function(){
+            var id=PersonalInfo.userId;
+            
         }
     };
 })

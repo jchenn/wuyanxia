@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location){
     
     $scope.test=function(){
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
@@ -12,7 +12,7 @@ angular.module('house.ctrl',[])
     
     Pop.init({
         sure:function(){
-            //alert('sure');
+            Form.delete();
         },
         cancel:function(){
             //alert('cancel');
@@ -87,9 +87,20 @@ angular.module('house.ctrl',[])
             warn('地址输入错误');
             return;
         }
-
+        if(!Data.get('description')){
+            warn('描述信息未填写');
+            return;
+        }
         Data.fill($scope.data);
-        Form.add();
+        Form.add(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                $location.path('/');
+            }
+        });
     };
     
 

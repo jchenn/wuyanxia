@@ -27,7 +27,7 @@ ServiceModule
         'completeAsk': 0,
         'credit': 0,
         'headUrl': 'http://223.252.223.13/Roommates/photo/photo_123.jpg',
-        'userId': '',
+        'userId': '1',
         'hasHouse': 0
 
 

@@ -2,8 +2,8 @@ angular.module('auth.ctrl', ['ionic'])
     .controller('LoginCtrl', function($scope, $http, LoginService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 模拟
         $scope.formData = {
-            'email': "123@123.com",
-            'password': "123123"
+            'email': "hztest@corp.netease.com",
+            'password': "123456"
         };
         // $scope.formData = {};
         $scope.errorData = {};
@@ -38,7 +38,8 @@ angular.module('auth.ctrl', ['ionic'])
                         // InfoPopupService({subTitle:"123"});
                         InfoPopupService(resp.info);
                     } else if (resp.result == 1) {
-                        // localStorage.PersonalInfo = JSON.stringify(PersonalInfo);
+                        PersonalInfoMange.update(resp.data);
+                        console.log(PersonalInfo);
                         $scope.go('/menu/people-list');
                     }
                 }, function(resp) {
@@ -49,7 +50,7 @@ angular.module('auth.ctrl', ['ionic'])
             }
         }
     })
-    .controller('RegisterCtrl', function($scope, $ionicBackdrop, $ionicPopup, $timeout, RegisterService, CheckService, InfoPopupService, Validate) {
+    .controller('RegisterCtrl', function($scope, $ionicBackdrop, $ionicPopup, $timeout, RegisterService, CheckService, PersonalInfoMange, InfoPopupService, Validate) {
         $scope.formData = {
             'email': "123@123.com",
             'nickname': "黑月",
@@ -90,10 +91,14 @@ console.log($scope.formData);
                 });
                 myPopup.then(function(resp) {
                     if (resp === true) {
-                        CheckService.get({userId:'213'}, function(resp){
-                            InfoPopupService($scope.emailSucInfo, function() {
-                                $scope.go('/me-register');
-                            });
+                        CheckService.get({userId: PersonalInfoMange.get('userId')}, function(resp){
+                            if (resp.result == 1) {
+                                InfoPopupService($scope.emailSucInfo, function() {
+                                    $scope.go('/me-register');
+                                });
+                            } else if (resp.result == 0) {
+                                InfoPopupService(resp.info);
+                            }
                         }, function(err) {
                             InfoPopupService($scope.emailFailInfo);
                         })
@@ -124,7 +129,7 @@ console.log($scope.formData);
                     console.log(resp);
                     if (resp.result == 1) {
                         console.log('注册请求发送成功');
-                        cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
+                        // cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
                         $scope.showPopup();
                     } else if (resp.result == 0) {
                         InfoPopupService(resp.info);

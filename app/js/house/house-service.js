@@ -72,12 +72,15 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Form',function($http,Data,UserInfo){
+.factory('Form',function($http,Data,UserInfo,Check){
     var host="http://223.252.223.13";
     var updatePath="/Roommates/api/userhouse/update";
     var filePath="/Roommates/api/housePhoto/batchUpload";
     var addPath="/Roommates/api/userhouse/insert";
     var getPath="/Roommates/api/userhouse/";
+    
+    
+    
     return {
         update:function(data){
             data.userId=UserInfo.id;
@@ -122,9 +125,9 @@ angular.module('house.service',[])
         getAll:function(){
             return data;
         },
-        fillIn:function(target){
-            for(var i in data){
-                target[i]=data[i];
+        fill:function(target){
+            for(var i in target){
+                data[i]=target[i];
             }
         },
         addFile:function(file){
@@ -154,6 +157,23 @@ angular.module('house.service',[])
             file=createFile(callback);
             isInited=true;
             return file;
+        }
+    };
+})
+.factory('Cmn',function(Check){
+    
+    function CheckForm(data){
+        if(data.title){
+            var str=Check.checkLen(data.title,30,1);
+            if(!str) return "title";
+            data.title=str;
+        }
+        
+    }
+    
+    return {
+        checkData:function(data){
+            
         }
     };
 })

@@ -1,22 +1,7 @@
 angular.module('me.service', [])
 
-.factory('PersonalInfo',function(){
-  return {
-    'lookStatus' : '正在寻找',
-    'birth': '1988-10-22',
-    'name': '',
-    'sex': '',
-    'company': '',
-    'job': '',
-    'phone': '',
-    'title': '',
-    'key': '',
-    'val': ''
-  };
-})
 .factory('QuizSubmit', function($resource) {
-
-  // return $resource('http://10.242.37.68:4000/user/quiz', null, {
+   // return $resource('http://10.242.37.68:4000/user/quiz', null, {
   return $resource('http://223.252.223.13/Roommates/api/user/quiz', null, {
     submit: {
       method: 'POST',

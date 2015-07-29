@@ -45,9 +45,7 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.ser
   // $urlRouterProvider.otherwise('/me/q/1');
 
   $urlRouterProvider.otherwise('/login');
-  
-  // 暂时默认到登录页
-  // $urlRouterProvider.otherwise('/register');
+
 
 
   // 强制让标签栏在底部

@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check){
     
     $scope.test=function(){
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
@@ -66,6 +66,8 @@ angular.module('house.ctrl',[])
     
     //点击完成是执行
     $scope.send=function(){
+        
+        Data.fill($scope.data);
         Form.add();
         Form.fileUpload();
     };

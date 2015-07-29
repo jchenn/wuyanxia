@@ -1,23 +1,44 @@
 angular.module('auth.service', ['ngResource'])
 
 .factory('LoginService', function($resource){
-	// var url = 'http://223.252.223.13/api/login';
-	// var url = '/api/login';
-	var url = 'http://www.baidu.com';
+	var url = 'http://223.252.223.13/Roommates/api/login';
 	return $resource(url);
 })
 
 .factory('RegisterService', function($resource){
-	var url = 'http://223.252.223.13/api/register';
+	var url = 'http://223.252.223.13/Roommates/api/register';
 	// var url = '/api/register';
 	return $resource(url);
 })
 
 .factory('CheckService', function($resource){
-	var url = 'http://223.252.223.13/api/register/check';
+	var url = 'http://223.252.223.13/Roommates/api/register/check';
 	// var url = '/api/register';
 	return $resource(url);
 })
+
+.factory('InfoPopupService', ['$ionicPopup', '$timeout', function($ionicPopup, $timeout){
+	return  function(data, callback) {
+		var title, subTitle;
+		if (typeof data === "object" && (data.title || data.subTitle)) {
+			title = data.title;
+			subTitle = data.subTitle;
+		} else if(typeof data === "string" && data !== "") {
+			title = data;
+		} else {
+			return;
+		}
+		console.log(data);
+        var myPopup = $ionicPopup.show({
+            title: title || "",
+            subTitle: subTitle || ""
+        });
+        $timeout(function() {
+            myPopup.close();
+            if (typeof callback === 'function') callback();
+        }, 1500);
+    }
+}])
 
 .factory('Validate', function() {
 	var emailReg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
@@ -40,14 +61,14 @@ console.log(data);
 		}
 		// 昵称
 		if (hasNickName !== false) {
-			if (!data.nickName) {
+			if (!data.nickname) {
 				return {
-				name: "nickName",
+				name: "nickname",
 				text: "昵称不能为空"
 			};
-			} else if (data.nickName.length > 8) {
+			} else if (data.nickname.length > 8) {
 				return {
-				name: "nickName",
+				name: "nickname",
 				text: "昵称请小于8个字符"
 			};
 			} 

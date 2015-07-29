@@ -12,7 +12,7 @@
     <div class="list">
         <div class="item" ng-click="showStatus()">
             <p class="">寻找室友状态</p>
-            <p class="">{{data.lookStatus}}</p>
+            <p class="">{{data.lookStatus == 0 ? '正在寻找' : '已经找到'}}</p>
         </div>
       <div class="item identify">
         <p class="">身份认证</p>

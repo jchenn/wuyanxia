@@ -142,7 +142,7 @@ angular.module('me.ctrl', [])
             //给服务器发请求
             var res = $http({
                 method: 'post',
-                url: '/personal-info',
+                url: '/api/user/updateUserBasicInfo',
                 data: $scope.data,
                 timeout: 2000
             });
@@ -153,7 +153,7 @@ angular.module('me.ctrl', [])
             });
             $scope.go('/me/q/1');
         }
-    }).controller('InfoShow', function($scope, $ionicActionSheet, $timeout, PersonalInfo){
+    }).controller('InfoShow', function($scope, $ionicActionSheet, $timeout, PersonalInfo ,$http){
 
         $scope.data = PersonalInfo;
         $scope.showStatus = function(){
@@ -167,8 +167,25 @@ angular.module('me.ctrl', [])
                     hideSheet();
                 },
                 buttonClicked: function(index){
-                    $scope.data.lookStatus = index == 0 ? "正在寻找" : "已经找到";
+                    var temp = PersonalInfo.lookStatus;
+                    $scope.data.lookStatus = index == 0 ? 0 : 1;
                     PersonalInfo.lookStatus = $scope.data.lookStatus;
+
+                    if(temp != $scope.data.lookStatus){
+                        var res = $http({
+                            method: 'post',
+                            url: '/api/user/updateUserBasicInfo',
+                            data: $scope.data,
+                            timeout: 2000
+                        });
+                        res.success(function(response, status, headers, config){
+                            console.log(response);
+                        }).error(function(response, status, headers, config){
+                            console.log(response);
+                        });
+                    }
+
+                    hideSheet();
                 }
             });
             $timeout(function() {
@@ -191,7 +208,7 @@ angular.module('me.ctrl', [])
             //给服务器发请求
             var res = $http({
                 method: 'post',
-                url: '/personal-info',
+                url: '/api/user/updateUserBasicInfo',
                 data: $scope.data,
                 timeout: 2000
             });

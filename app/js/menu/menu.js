@@ -2,6 +2,16 @@ angular.module('menu', ['menu.ctrl'])
 
 .config(function($stateProvider) {
   $stateProvider
+
+    .state('menu.fav', {
+      url: '/fav',
+      views: {
+        'menu-content': {
+          templateUrl: 'templates/menu/empty.html'
+        }
+      }
+    })
+    
     .state('menu.about', {
       url: '/about',
       views: {
@@ -26,6 +36,24 @@ angular.module('menu', ['menu.ctrl'])
         'menu-content': {
           templateUrl: 'templates/menu/setting.html',
           controller: 'SettingCtrl'
+        }
+      }
+    })
+
+    .state('menu.faq', {
+      url: '/faq',
+      views: {
+        'menu-content': {
+          templateUrl: 'templates/menu/empty.html'
+        }
+      }
+    })
+
+    .state('menu.feedback', {
+      url: '/feedback',
+      views: {
+        'menu-content': {
+          templateUrl: 'templates/menu/empty.html'
         }
       }
     })

@@ -1,5 +1,5 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, LoginService, Validate, InfoPopupService, PersonalInfo) {
+    .controller('LoginCtrl', function($scope, $http, LoginService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 模拟
         $scope.formData = {
             'email': "123@123.com",

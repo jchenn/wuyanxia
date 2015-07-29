@@ -174,6 +174,9 @@ angular.module('house.service',[])
     return {
         checkData:function(data){
             
+        },
+        warn:function(str){
+            alert(str);
         }
     };
 })

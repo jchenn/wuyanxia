@@ -5,6 +5,9 @@ angular.module('menu.ctrl', [])
 })
 
 .controller('SettingCtrl', function($scope) {
-  
-})
+  $scope.logout = function() {
+    // TODO 删除用户信息
+    $scope.go('/login');
+  }
+});
 ;

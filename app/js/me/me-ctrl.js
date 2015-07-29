@@ -141,20 +141,20 @@ angular.module('me.ctrl', [])
             //给服务器发请求
             var res = $http({
                 method: 'post',
-                url: '/api/user/updateUserBasicInfo',
+                url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
                 data: $scope.data,
                 timeout: 2000
             });
             res.success(function(response, status, headers, config){
                 console.log(response);
-                if(response.errno == 1){
+                if(response.errno == 0){
                     PersonalInfo = $scope.data;
                     $scope.go('/me/q/1');
-                }else{
-                    //PubFunction.alertBox('未完成注册');
+                }else if(response.errno == 1){
+                    console.log('个人资料不能为空');
                 }
             }).error(function(response, status, headers, config){
-                console.log('服务器错误');
+                console.log(response);
                 //PubFunction.alertBox('未完成注册');
             });
         }
@@ -179,7 +179,7 @@ angular.module('me.ctrl', [])
                     if(temp != $scope.data.lookStatus){
                         var res = $http({
                             method: 'post',
-                            url: '/api/user/updateUserBasicInfo',
+                            url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
                             data: $scope.data,
                             timeout: 2000
                         });
@@ -213,7 +213,7 @@ angular.module('me.ctrl', [])
             //给服务器发请求
             var res = $http({
                 method: 'post',
-                url: '/api/user/updateUserBasicInfo',
+                url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
                 data: $scope.data,
                 timeout: 2000
             });

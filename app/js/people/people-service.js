@@ -59,8 +59,7 @@ angular.module('people.service', ['ngResource'])
   };
 
   var DefaultChoice = {
-    // id: PersonalInfo.userId,
-    id: 1,
+    id: PersonalInfo.userId || 1,
     p: 1, f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1
   };
 

@@ -153,30 +153,23 @@ angular.module('house.service',[])
     
     return {
         update:function(callback){
-            var form=new FormData();
+    
+          /* var form=new FormData();
             form.append('userId',Number(PersonalInfo.userId));
             
             var data=Data.getAll();
-            delete data.userId;
+            
             for(var i in data){
+                if(i=='title'||i=='description'||i=='area'||i=='community'||i=='price')
                 form.append(i,data[i]);
             }
             $http.post(host+updatePath,form,{
                  headers: { 
                      'Content-Type': 'application/x-www-form-urlencoded'
                  }
-            }).success(callback);
+            }).success(callback);*/
+            $http.post(host+updatePath,Data.getAll()).success(callback);
         },
-        /*fileUpload:function(){
-            var filelist=Data.getFiles();
-            if(!filelist.length) return;
-            var form=new FormData();
-            form.append('userId',UserInfo.id);
-            for(var i=0;i<filelist.length;i++){
-                form.append('files['+i+']',filelist[i]);
-            }
-            $http.post(host+filePath,form);
-        },*/
         add:function(callback){
             var filelist=Data.getFiles();
             var form=new FormData();

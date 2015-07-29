@@ -4,6 +4,59 @@ angular.module('house.service',[])
         id:1
     };
 })
+.factory('Popup',function(){
+    
+    var cover=document.createElement('div');
+        
+    cover.style.display="none";
+    
+    cover.classList.add('m-cover');
+    
+    cover.classList.add('house-view');
+    
+    cover.innerHTML=
+    '<div class="m-cover">'+
+        '<div class="m-pop">'+
+            '<div class="m-pop-content f-wwa">'+
+            '</div>'+
+        '</div>'+
+    '</div>';
+    
+    //是否初始化
+    var isInited=false;
+    
+    return {
+        
+        /**
+         *@para {Object} options
+         *      -sure {Function} 点击确定时执行
+         *      -cancel {Function} 点击取消时执行
+         */
+        init:function(){
+            if(isInited) return;
+            var self=this;
+            var parent=document.body;
+            parent.appendChild(cover);
+            cover.addEventListener('click',function(event){
+                self.hide();
+            });
+            isInited=true;
+        },
+        show:function(str){
+            if(!isInited) this.init();
+            cover.querySelector('.m-pop-content').innerHTML=str;
+            cover.style.display='block';
+        },
+        hide:function(){
+            cover.style.display='none';
+        },
+        destroy:function(){
+            cover.parentNode.removeChild(cover);
+            isInited=false;
+        }
+    };
+    
+})
 .factory('Pop',function(){
     
     var cover=document.createElement('div');
@@ -160,23 +213,11 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Cmn',function(Check){
-    
-    function CheckForm(data){
-        if(data.title){
-            var str=Check.checkLen(data.title,30,1);
-            if(!str) return "title";
-            data.title=str;
-        }
-        
-    }
+.factory('Cmn',function(Popup){
     
     return {
-        checkData:function(data){
-            
-        },
         warn:function(str){
-            alert(str);
+            Popup.show(str);
         }
     };
 })

@@ -23,7 +23,10 @@ angular.module('house.ctrl',[])
     
     //表单数据
     $scope.data={
-        title:''
+        title:'',
+        price:'',
+        area:'',
+        community:''
     };
     
     $scope.btnText="完成";
@@ -85,7 +88,7 @@ angular.module('house.ctrl',[])
             return;
         }
 
-        Data1.fill($scope.data);
+        Data.fill($scope.data);
         Form.add();
         Form.fileUpload();
     };

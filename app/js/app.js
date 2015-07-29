@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.service'])
+angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'global.service'])
 
 .run(function($rootScope, $location, $ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -33,7 +33,8 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.ser
     .state('menu', {
       abstract: true,
       url: '/menu',
-      templateUrl: 'templates/menu.html'
+      templateUrl: 'templates/menu.html',
+      controller: 'SideMenuCtrl'
     })
   ;
 
@@ -44,9 +45,7 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.ser
   // $urlRouterProvider.otherwise('/me/q/1');
 
   $urlRouterProvider.otherwise('/login');
-  
-  // 暂时默认到登录页
-  // $urlRouterProvider.otherwise('/register');
+
 
 
   // 强制让标签栏在底部

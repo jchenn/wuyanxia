@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
+angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth','global.service'])
 
 .run(function($rootScope, $location, $ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -47,3 +47,4 @@ angular.module('wuyanxia', ['ionic', 'house', 'people', 'me', 'auth'])
   // 去除标题栏返回按钮的文字
   $ionicConfigProvider.backButton.text('').previousTitleText(false);
 });
+var ServiceModule=angular.module('global.service',[]);

@@ -134,7 +134,7 @@ angular.module('house.service',[])
 .factory('Form',function($http,Data,UserInfo,Check){
     var host="http://223.252.223.13";
     var updatePath="/Roommates/api/userhouse/update";
-    var filePath="/Roommates/api/housePhoto/batchUpload";
+    //var filePath="/Roommates/api/housePhoto/batchUpload";
     var addPath="/Roommates/api/userhouse/insert";
     var getPath="/Roommates/api/userhouse/";
     var deletePath="/Roommates/api/userhouse/delete/";
@@ -242,6 +242,21 @@ angular.module('house.service',[])
     return {
         warn:function(str){
             Popup.show(str);
+        }
+    };
+})
+.factory('houseInfo',function(Form,PersonalInfo){
+    var data={};
+    return {
+        dataIn:function(o){
+            for(var i in o){
+                data[i]=o[i];
+            }
+        },
+        dataOut:function(){
+            return data;
+        },
+        update:function(){
         }
     };
 })

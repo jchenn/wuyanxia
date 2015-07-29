@@ -1,4 +1,9 @@
 angular.module('house.service',[])
+.factory('UserInfo',function(){
+    return {
+        id:1
+    };
+})
 .factory('Pop',function(){
     
     var cover=document.createElement('div');
@@ -67,30 +72,35 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Form',function($http,Data){
+.factory('Form',function($http,Data,UserInfo){
     var host="http://223.252.223.13";
-    var updatePath="/api/userhouse/update";
+    var updatePath="/Roommates/api/userhouse/update";
     var filePath="/Roommates/api/housePhoto/batchUpload";
-    var addPath="/api/userhouse/insert";
-    var getPath="/api/userhouse/";
+    var addPath="/Roommates/api/userhouse/insert";
+    var getPath="/Roommates/api/userhouse/";
     return {
         update:function(data){
+            data.userId=UserInfo.id;
             $http.put(host+updatePath,data);
         },
         fileUpload:function(){
             var filelist=Data.getFiles();
             if(!filelist.length) return;
             var form=new FormData();
+            form.append('userId',UserInfo.id);
             for(var i=0;i<filelist.length;i++){
                 form.append('files['+i+']',filelist[i]);
             }
             $http.post(host+filePath,form);
         },
         add:function(){
+            var data=Data.getAll();
+            data.userId=UserInfo.id;
             $http.post(host+addPath,Data.getAll());
         },
         getData:function(id,callback){
             $http.get(host+getPath+id).success(function(data){
+                var data=data.data;
                 for(var i in data){
                     Data.set(i,data[i]);
                 }

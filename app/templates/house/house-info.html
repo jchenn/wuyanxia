@@ -9,7 +9,7 @@
             <div class="m-show-content" ng-click="optionShow()">
                 <ion-slide-box >
                   <ion-slide ng-repeat=" pic in pics">
-                    <img ng-src="{{pic.src}}" alt="{{pic.alt}}">
+                    <img ng-src="{{pic}}" >
                   </ion-slide>
                 </ion-slide-box>
             </div>
@@ -17,7 +17,7 @@
         <div class="g-wrapper">
             <div class="g-1">
                 <div class="f-fs1 f-fwb g-1-1">{{data.title}}</div>
-                <div class="g-1-2"><em class="f-s2 f-fwb">{{data.price}}</em><span class="f-t1">元/月（押一付三）</span><span class="f-fr f-t1">{{data.time}}</span></div>
+                <div class="g-1-2"><em class="f-s2 f-fwb">{{data.price}}</em><span class="f-t1">元/月（押一付三）</span><span class="f-fr f-t1">{{data.updateTime}}</span></div>
             </div>
             <div class="g-2">
                 <div class="f-t1 f-bl">房源地址</div>

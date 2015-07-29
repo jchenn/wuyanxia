@@ -4,6 +4,12 @@ angular.module('house.service',[])
         id:1
     };
 })
+.factory('Http',function(callback){
+    function Http(method,data,callback){
+    }
+    return {
+    };
+})
 .factory('Popup',function(){
     
     var cover=document.createElement('div');
@@ -131,6 +137,7 @@ angular.module('house.service',[])
     var filePath="/Roommates/api/housePhoto/batchUpload";
     var addPath="/Roommates/api/userhouse/insert";
     var getPath="/Roommates/api/userhouse/";
+    var deletePath="/Roommates/api/userhouse/delete/";
     
     
     
@@ -139,7 +146,7 @@ angular.module('house.service',[])
             data.userId=UserInfo.id;
             $http.put(host+updatePath,data);
         },
-        fileUpload:function(){
+        /*fileUpload:function(){
             var filelist=Data.getFiles();
             if(!filelist.length) return;
             var form=new FormData();
@@ -148,20 +155,37 @@ angular.module('house.service',[])
                 form.append('files['+i+']',filelist[i]);
             }
             $http.post(host+filePath,form);
-        },
+        },*/
         add:function(){
+            var filelist=Data.getFiles();
+            var form=new FormData();
+            form.append('userId',UserInfo.id);
+            if(filelist.length) {
+                for(var i=0;i<filelist.length;i++){
+                    form.append('files['+i+']',filelist[i]);
+                }
+            }
+            
             var data=Data.getAll();
-            data.userId=UserInfo.id;
-            $http.post(host+addPath,Data.getAll());
+            for(var i in data){
+                form.append(i,data[i]);
+            }
+            $http.post(host+addPath,form);
         },
         getData:function(id,callback){
-            $http.get(host+getPath+id).success(function(data){
-                var data=data.data;
-                for(var i in data){
-                    Data.set(i,data[i]);
+            $http.get(host+getPath+id).success(function(d){
+                var data=d.data;
+                if(data){
+                    for(var i in data){
+                        Data.set(i,data[i]);
+                    }
                 }
-                callback(Data.getAll());
+                
+                callback(Data.getAll(),d);
             });
+        },
+        delete:function(id,callback){
+            $http.get(host+getPath+id).success(callback);
         }
     };
 })

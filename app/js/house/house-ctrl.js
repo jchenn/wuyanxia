@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo){
     
     $scope.test=function(){
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
@@ -90,7 +90,6 @@ angular.module('house.ctrl',[])
 
         Data.fill($scope.data);
         Form.add();
-        Form.fileUpload();
     };
     
 
@@ -130,10 +129,14 @@ angular.module('house.ctrl',[])
     }
     
 })
-.controller('infoCtrl',function($scope,Form){
-    Form.getData(1,function(data){
-        $scope.pics=data.pics;
+.controller('infoCtrl',function($scope,Form,$ionicSlideBoxDelegate,$timeout,Cmn){
+    Form.getData(1,function(data,all){
+        if(all.errno==1){
+            Cmn.warn(all.message);
+        }
+        $scope.pics=data.picList;
         $scope.data=data;
+        $ionicSlideBoxDelegate.update();
     });
 })
 .controller('descCtrl',function($scope,Data,$back,$location,Check,Cmn){
@@ -151,5 +154,8 @@ angular.module('house.ctrl',[])
         Data.set('description',$scope.data.description);
         $location.path('/house-new');
     };
+})
+.controller('updateCtrl',function($scope){
+    
 })
 ;

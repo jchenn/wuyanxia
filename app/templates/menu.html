@@ -24,13 +24,13 @@
   <ion-side-menu side="left">
     <ion-content>
       <div class="header" ng-click="go('/me')" menu-close>
-        <div class="avatar"><img src="img/image-m.png" alt="头像"></div>
+        <div class="avatar"><img ng-src="{{ me.headUrl }}" alt="头像"></div>
         <p>
           <span>木鱼</span>
-          <span class="badge badge-stable">中等信用</span>
+          <span class="badge badge-stable">{{ me.credit }}</span>
           <span class="badge badge-stable">{{ me.lookStatus }}</span>
         </p>
-        <p><span>屋檐下ID：20150722</span></p>
+        <p><span>屋檐下ID：{{ me.userId }}</span></p>
       </div>
       <ion-list>
         <ion-item class="item-icon-left"><span class="icon ion-ionic"></span>我的收藏</ion-item>

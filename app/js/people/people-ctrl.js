@@ -47,7 +47,7 @@ angular.module('people.ctrl', [])
 
         PeopleFilterModel.setUsingCache(true);
       } else {
-        
+
         // TODO error handling
         PeopleFilterModel.setMore(true);
       }
@@ -76,14 +76,14 @@ angular.module('people.ctrl', [])
   // 在跳转到室友详情之前，先判断是否填完个人信息
   $scope.jumpToDetail = function(hash) {
 
-    // console.log(PersonalInfo);
-    // PersonalInfo.isInfoAll = false;
-    // PersonalInfo.isQuestionnaireAll = true;
+    console.log(PersonalInfo);
+    // PersonalInfo.completeInfo = false;
+    // PersonalInfo.completeAsk = true;
 
     // TODO 判断是否完成问卷
-    if (PersonalInfo.isInfoAll && PersonalInfo.isQuestionnaireAll) {
+    if (PersonalInfo.completeInfo && PersonalInfo.completeAsk) {
       $scope.go(hash);
-    } else if (!PersonalInfo.isQuestionnaireAll && !PersonalInfo.isInfoAll) {
+    } else if (!PersonalInfo.completeAsk && !PersonalInfo.completeInfo) {
       $ionicPopup.confirm({
         template: '只有填写自己的个人信息和匹配问题才能为您匹配室友，并查看详情信息哟。',
         okText: '现在填写',
@@ -95,7 +95,7 @@ angular.module('people.ctrl', [])
           // do nothing
         }
       });
-    } else if (!PersonalInfo.isInfoAll) {
+    } else if (!PersonalInfo.completeInfo) {
       $ionicPopup.confirm({
         template: '只有填写自己的个人信息才能看到室友的详情信息哟。',
         okText: '现在填写',
@@ -107,7 +107,7 @@ angular.module('people.ctrl', [])
           // do nothing
         }
       });
-    } else if (!PersonalInfo.isQuestionnaireAll) {
+    } else if (!PersonalInfo.completeAsk) {
       $ionicPopup.confirm({
         template: '请回答以下7个问题，以便为您更精确匹配室友。',
         okText: '现在回答',

@@ -398,12 +398,23 @@ angular.module('me.ctrl', [])
         //与注册信息页面重复的代码 end
     })
     //修改个人信息控制器
-    .controller('EditorInfo', function($scope, $http, PersonalInfo, PersonalInfoMange){
+    .controller('EditorInfo', function($scope, $http, PersonalInfo, PersonalInfoMange, Check){
         $scope.data = PersonalInfo;
         $scope.saveModify = function(){
 
             var obj = {};
             obj[$scope.data.key] = $scope.data.val;
+
+            if(Check.getLen( $scope.data.val) < 1 || Check.getLen( $scope.data.val) > 30){
+                alert("不能为空或过长");
+                return false;
+            }
+            if($scope.data.key == 'phone'){
+                if(!Check.checkPrice($scope.data.phone)  || Check.getLen($scope.data.phone) != 11){
+                    alert("电话必须为11位的数字");
+                    return false;
+                }
+            }
             //给服务器发请求
             var res = $http({
                 method: 'post',

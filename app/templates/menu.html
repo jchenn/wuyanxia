@@ -28,7 +28,7 @@
         <p>
           <span>{{ me.name }}</span>
           <span class="badge badge-stable">{{ me.credit }}</span>
-          <span class="badge badge-stable">{{ me.lookStatus }}</span>
+          <span class="badge badge-stable">{{ me.lookStatus | lookStatus }}</span>
         </p>
         <p><span>屋檐下ID：{{ me.userId }}</span></p>
       </div>

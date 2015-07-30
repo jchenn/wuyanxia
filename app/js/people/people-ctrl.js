@@ -3,6 +3,8 @@ angular.module('people.ctrl', [])
 .controller('PeopleListCtrl', 
   function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup,
     PeopleListQuery, PeopleFilterModel, PersonalInfo) {
+  
+  $scope.$emit('load.people.list');
 
   $scope.list = [];
 
@@ -28,7 +30,7 @@ angular.module('people.ctrl', [])
 
       var data;
 
-      console.log(response);
+      // console.log(response);
 
       if (response.errno === 0) {
 
@@ -76,7 +78,7 @@ angular.module('people.ctrl', [])
   // 在跳转到室友详情之前，先判断是否填完个人信息
   $scope.jumpToDetail = function(hash) {
 
-    console.log(PersonalInfo);
+    // console.log(PersonalInfo);
     // PersonalInfo.completeInfo = false;
     // PersonalInfo.completeAsk = true;
 
@@ -145,6 +147,8 @@ angular.module('people.ctrl', [])
 .controller('PeopleDetailWrapperCtrl', function($scope, $ionicActionSheet, $stateParams, PeopleDetailQuery) {
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
+    console.log(response);
+    
     if (response.errno === 0) {
       $scope.people = response.data;
       $scope.house = $scope.people.house;
@@ -174,9 +178,11 @@ angular.module('people.ctrl', [])
 
 .controller('PeopleDetailInfoCtrl', function($scope) {
   $scope.showInfo = true;
+  console.log($scope.people);
 })
 
 .controller('PeopleDetailHouseCtrl', function($scope) {
   $scope.showHouse = true;
+  $scope.log($scope.house);
 })
 ;

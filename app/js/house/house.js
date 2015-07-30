@@ -17,8 +17,15 @@ angular.module('house',['house.ctrl','house.service'])
     })
     .state('houseUpdate',{
         url:'/house-update',
+        //cache:false,
         templateUrl:'templates/house/house-new.html',
         controller:'updateCtrl'
+    })
+    .state('housedescUpdate',{
+        url:'/house-desc-update',
+        //cache:false,
+        templateUrl:'templates/house/house-decoration.html',
+        controller:'descupdateCtrl'
     })
     ;
 })

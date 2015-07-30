@@ -58,4 +58,12 @@ angular.module('menu', ['menu.ctrl'])
       }
     })
 })
+
+.filter('lookStatus', function() {
+  var lookStatusMap = ['正在寻找', '已找到']
+  return function(lookStatusNo) {
+    // console.log(lookStatusNo);
+    return lookStatusMap[lookStatusNo];
+  }
+})
 ;

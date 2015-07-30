@@ -154,7 +154,10 @@ console.log($scope.formData);
                         emailStatus.email = $scope.formData.email;
                         
                         PersonalInfoMange.update({name: $scope.formData.nickname})
-                        cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');
+                        //加判断方便本地测试
+                        if(typeof cordova !== "undefined") {
+                            cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');
+                        }     
                         $scope.showPopup();
                     } else if (resp.result == 0) {
                         InfoPopupService(resp.info);

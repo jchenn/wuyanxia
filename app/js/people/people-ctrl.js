@@ -144,7 +144,7 @@ angular.module('people.ctrl', [])
 })
 
 .controller('PeopleDetailWrapperCtrl', 
-  function($scope, $ionicActionSheet, $stateParams, PersonalInfo,
+  function($scope, $ionicActionSheet, $stateParams, PersonalInfo, $ionicPopup,
     PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd) {
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
@@ -159,6 +159,7 @@ angular.module('people.ctrl', [])
     console.log('error', err);
   });
 
+  // 显示 收藏/屏幕 菜单
   $scope.showMenu = function() {
 
     // 返回一个关闭菜单的函数
@@ -217,7 +218,34 @@ angular.module('people.ctrl', [])
         return true;
       }
     });
-  }
+  };
+
+  $scope.sendMessage = function() {
+    
+    if (SMS) {
+      $ionicPopup.prompt({
+        title: '短信',
+        template: '请输入短信内容',
+        inputPlaceholder: '短信内容'
+      }).then(function(res) {
+        console.log(res);
+        
+        if (res || res.trim().length == 0) return;
+
+        SMS.sendSMS($scope.people.tel, res, function() {
+          // console.log('success');
+          $ionicPopup.alert({
+            template: '发送成功'
+          });
+        }, function(){
+          // console('failure');
+          $ionicPopup.alert({
+            template: '发送失败'
+          });
+        });
+      });
+     } 
+  };
 })
 
 .controller('PeopleDetailInfoCtrl', function($scope) {

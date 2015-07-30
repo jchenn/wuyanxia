@@ -256,12 +256,12 @@ angular.module('people.ctrl', [])
 
 .controller('PeopleDetailInfoCtrl', function($scope) {
   $scope.showInfo = true;
-  console.log($scope.people);
+  // console.log($scope.people);
 })
 
 .controller('PeopleDetailHouseCtrl', function($scope) {
   $scope.showHouse = true;
-  $scope.log($scope.house);
+  // console.log($scope.house);
 })
 
 .controller('FavCtrl', function($scope, PersonalInfo, FavQuery) {

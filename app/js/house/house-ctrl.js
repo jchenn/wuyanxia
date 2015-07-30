@@ -186,7 +186,7 @@ angular.module('house.ctrl',[])
 })
 .controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading){
     var warn=Cmn.warn;
-        houseInfo.update(function(data){
+    houseInfo.update(function(data){
             if(typeof data == 'string'){
                 Cmn.warn(data);
                 return;
@@ -195,13 +195,17 @@ angular.module('house.ctrl',[])
             $scope.data=data;
             $scope.pics=data.picList;
             $ionicSlideBoxDelegate.update();
-        });
+    });
     
-        $scope.btnText="完成";
+    $scope.btnText="完成";
     $scope.title="编辑房源";
     //撤销房源按钮是否可以点击（可点击）
     $scope.destroy="";
-    
+    //弹出框
+    $scope.showPop=function(){
+        //return;
+        Pop.show();
+    };
      //显示选项
     $scope.optionShow=function(){
         $ionicActionSheet.show({

@@ -8,7 +8,7 @@ angular.module('auth.service', ['ngResource'])
 	};
 	function hide() {
 		$ionicLoading.hide();
-	}
+	};
 
 	return {
 		show: show,
@@ -67,7 +67,7 @@ angular.module('auth.service', ['ngResource'])
 		var data = data || {},
 			hasNickName = hasNickName || false;
 		// 邮箱
-console.log(data);
+		console.log(data);
 		if (!data.email) {
 			return {
 				name: "email",

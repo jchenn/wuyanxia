@@ -1,15 +1,5 @@
 angular.module('auth', ['auth.ctrl', 'auth.service'])
 
-.run(function($rootScope){
-  var info =  localStorage.PersonalInfo;
-  if (info) {
-    info = JSON.parse(info);
-    if (info.userId) {
-      // $rootScope.go('/menu/people-list');
-    } 
-  } 
-})
-
 .config(function($stateProvider) {
 
   // 与登录注册相关的视图

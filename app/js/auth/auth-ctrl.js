@@ -56,7 +56,7 @@ angular.module('auth.ctrl', ['ionic'])
             }
         }
     })
-    .controller('RegisterCtrl', function($scope, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+    .controller('RegisterCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
         $scope.formData = {
             'email': "@corp.netease.com"
         //     'nickname': "黑月",
@@ -104,7 +104,7 @@ console.log($scope.formData);
                         if (resp.result == 1) {
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $scope.go('/me-register');
+                                $location.path('/me-register').replace()
                             });
                         } else if (resp.result == 0) {
                             // InfoPopupService(resp.info);

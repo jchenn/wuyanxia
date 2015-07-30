@@ -4,11 +4,13 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading){
     
     $scope.test=function(){
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
     };
+    
+    $scope.disable="disable";
     
     Pop.init({
         sure:function(){
@@ -43,7 +45,6 @@ angular.module('house.ctrl',[])
     
     $scope.title="发布房源";
     
-    
     $scope.back=$back;
     
     //slide数据
@@ -51,6 +52,7 @@ angular.module('house.ctrl',[])
     
     //弹出框
     $scope.showPop=function(){
+        return;
         Pop.show();
     };
     
@@ -80,33 +82,40 @@ angular.module('house.ctrl',[])
     //点击完成是执行
     $scope.send=function(){
         if(!Check.checkLen($scope.data.title,30,1)){
-            warn('标题输入错误！');
+            warn('标题长度错误！');
             return;
         }
         if(!Check.checkPrice($scope.data.price)){
-            warn('价格输入错误');
+            warn('价格格式错误');
             return ;
         }
         if(!Check.checkLen($scope.data.community,30,1)){
-            warn('小区输入错误');
+            warn('小区长度错误');
             return;
         }
         if(!Check.checkLen($scope.data.area,100,1)){
-            warn('地址输入错误');
+            warn('区域长度错误');
             return;
         }
         if(!Data.get('description')){
             warn('描述信息未填写');
             return;
         }
+        $ionicLoading.show({
+            template:'提交中~'
+        });
         Data.fill($scope.data);
         Form.add(function(data){
+
+            $ionicLoading.hide();
             if(data.errno==1){
+                
                 warn(data.message);
                 return;
             }
             if(data.errno==0){
-                location.href="#/me/q/1"
+                
+                location.href="#/me/q/2"
             }
         });
     };
@@ -175,7 +184,7 @@ angular.module('house.ctrl',[])
         $location.path('/house-new');
     };
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading){
     var warn=Cmn.warn;
         houseInfo.update(function(data){
             if(typeof data == 'string'){
@@ -189,6 +198,10 @@ angular.module('house.ctrl',[])
         });
     
         $scope.btnText="完成";
+    $scope.title="编辑房源";
+    //撤销房源按钮是否可以点击（可点击）
+    $scope.destroy="";
+    
      //显示选项
     $scope.optionShow=function(){
         $ionicActionSheet.show({
@@ -235,13 +248,17 @@ angular.module('house.ctrl',[])
             return;
         }
         Data.fill($scope.data);
+        $ionicLoading.show({
+            template:'提交中~'
+        });
         Form.update(function(data){
+            $ionicLoading.hide();
             if(data.errno==1){
                 warn(data.message);
                 return;
             }
             if(data.errno==0){
-                location.href="#/me";
+                location.href="#/menu/people-list";
             }
         });
     };

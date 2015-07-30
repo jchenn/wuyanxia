@@ -28,7 +28,7 @@
         <p>
           <span>{{ me.name }}</span>
           <span class="badge badge-stable">{{ me.credit }}</span>
-          <span class="badge badge-stable">{{ me.lookStatus }}</span>
+          <span class="badge badge-stable">{{ me.lookStatus | lookStatus }}</span>
         </p>
         <p><span>屋檐下ID：{{ me.userId }}</span></p>
       </div>
@@ -36,8 +36,11 @@
         <ion-item class="item-icon-left" href="#/menu/fav" menu-toggle>
           <span class="icon ion-ionic"></span>我的收藏
         </ion-item>
-        <ion-item class="item-icon-left" href="#/house-new">
+        <ion-item ng-if="!me.hasHouse" class="item-icon-left" href="#/house-new">
           <span class="icon ion-ionic"></span>发布房源
+        </ion-item>
+        <ion-item ng-if="me.hasHouse" class="item-icon-left" href="#/house-update">
+          <span class="icon ion-ionic"></span>房源编辑
         </ion-item>
         <ion-item class="item-icon-left" href="#/menu/about" menu-toggle>
           <span class="icon ion-ionic"></span>关于我们

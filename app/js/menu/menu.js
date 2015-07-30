@@ -5,9 +5,11 @@ angular.module('menu', ['menu.ctrl'])
 
     .state('menu.fav', {
       url: '/fav',
+      cache: false,
       views: {
         'menu-content': {
-          templateUrl: 'templates/menu/empty.html'
+          templateUrl: 'templates/people/fav-list.html',
+          controller: 'FavCtrl'
         }
       }
     })
@@ -57,5 +59,13 @@ angular.module('menu', ['menu.ctrl'])
         }
       }
     })
+})
+
+.filter('lookStatus', function() {
+  var lookStatusMap = ['正在寻找', '已找到']
+  return function(lookStatusNo) {
+    // console.log(lookStatusNo);
+    return lookStatusMap[lookStatusNo];
+  }
 })
 ;

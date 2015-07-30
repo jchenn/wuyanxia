@@ -58,8 +58,9 @@ angular.module('house.service',[])
             });
             isInited=true;
         },
-        show:function(str){
-            if(!isInited) this.init();
+        show:function(str,callback,tag){
+            var self=this;
+            if(!isInited) this.init(callback,tag);
             cover.querySelector('.m-pop-content').innerHTML=str;
             cover.style.display='block';
         },
@@ -172,8 +173,13 @@ angular.module('house.service',[])
         },
         add:function(callback){
             var filelist=Data.getFiles();
+            
             var form=new FormData();
+            
+            if(!PersonalInfo.userId){alert('UserId 为空~~~');return ;}
+            
             form.append('userId',Number(PersonalInfo.userId));
+
             if(filelist.length) {
                 for(var i=0;i<filelist.length;i++){
                     form.append('files['+i+']',filelist[i]);
@@ -253,8 +259,8 @@ angular.module('house.service',[])
 .factory('Cmn',function(Popup){
     
     return {
-        warn:function(str){
-            Popup.show(str);
+        warn:function(str,callback,tag){
+            return Popup.show(str,callback,tag);
         }
     };
 })
@@ -281,6 +287,34 @@ angular.module('house.service',[])
                     callback(data.message);
                 }
             });
+        }
+    };
+})
+.factory('Camera',function(){
+    return {
+        /**
+         *控制设备拍照
+         *@param {Function} onSuccess
+         *@param {Function} onFail
+         *@param {Object} opts
+         *      -width {Number} 照片的宽
+         *      -height {Number} 照片的高
+         *      -method {Number} 1:通过照相机   0:通过文件系统
+         *      -quality {Number} 控制照片的质量，从1到100.无法对从文件系统中选取的文件起作用
+         */
+        getPic:function(onSuccess,onFail,opts,tag){
+            var data={};
+            if(tag) data.destinationType=Camera.DestinationType.DATA_URL;
+            if(opts){
+                if(opts.width) data.targetWidth=opts.width;
+                if(opts.height) data.targetHeight=opts.height;
+                opts.method?
+                data.sourceType=Camera.PictureSourceType.CAMERA:
+                data.sourceType=Camera.PictureSourceType.PHOTOLIBRARY;
+                
+                if(opts.quality) data.quality=opts.quality;
+            }
+            navigator.camera.getPicture(onSuccess, onFail, data);
         }
     };
 })

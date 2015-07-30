@@ -47,6 +47,7 @@ $ cordova plugin add cordova-plugin-console
 $ cordova plugin add cordova-plugin-whitelist
 $ cordova plugin add cordova-plugin-splashscreen
 $ cordova plugin add com.ionic.keyboard
+$ cordova plugin add cordova-plugin-camera
 ```
 
 安装项目依赖的第三方包和框架（可以同时开两个命令行运行以下命令）：

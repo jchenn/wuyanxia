@@ -1,22 +1,25 @@
 <ion-view hide-nav-bar="true" class="m-people">
   <ion-header-bar class="bar-stable">
     <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
-    <h1 class="title">{{ people.name }}</h1>
+    <h1 class="title">{{ people.nickName }}</h1>
     <button class="button button-clear button-icon ion-ios-more" ng-click="showMenu()"></button>
   </ion-header-bar>
-  <!-- <ion-nav-view name="people-detail-nav"></ion-nav-view> -->
   <ion-nav-view name="people-detail"></ion-nav-view>
   <ion-footer-bar class="bar-stable">
     <div class="row">
       <div class="col col-50">
-        <p>{{ people.name }}</p>
+        <p>{{ people.nickName }}</p>
         <p>{{ people.tel }}</p>
       </div>
       <div class="col">
-        <a class="button button-clear" href=""><span class="icon ion-ios-telephone"></span>电话</a>
+        <a class="button button-clear" href="tel:{{ people.tel }}">
+          <span class="icon ion-ios-telephone"></span>电话
+        </a>
       </div>
       <div class="col">
-        <a class="button button-clear" href=""><span class="icon ion-ios-email"></span>短信</a>
+        <a class="button button-clear" ng-click="sendMessage()">
+          <span class="icon ion-ios-email"></span>短信
+        </a>
       </div>
     </div>
   </ion-footer-bar>

@@ -7,16 +7,6 @@ angular.module('people.service', ['ngResource'])
     + 'id=:id&p=:p&xb=:xb&f=:f&gs=:gs&cy=:cy&cw=:cw&zx=:zx&ws=:ws&xg=:xg&fk=:fk',
     PeopleFilterModel.getDefaultChoice());
 
-  var _cache = [];
-
-  resource.setCache = function(cache) {
-    _cache = cache;
-  };
-
-  resource.getCache = function() {
-    return _cache;
-  }
-
   return resource;
 })
 
@@ -103,15 +93,25 @@ angular.module('people.service', ['ngResource'])
   return $resource('http://223.252.223.13/Roommates/api/people/detail/:id');
 })
 
-.factory('PeopleMark', function($resource) {
-
-  // POST, :id, :token
-  return $resource('http://223.252.223.13/Roommates/api/people/mark');
+.factory('FavQuery', function($resource) {
+  return $resource('http://223.252.223.13/Roommates/api/people/fav?userId=:userId');
 })
 
-.factory('PeopleForbid', function($resource) {
+.factory('FavAdd', function($resource) {
 
-  // POST, :id, :token
+  // POST, userId, favId
+  return $resource('http://223.252.223.13/Roommates/api/people/fav');
+})
+
+.factory('FavRemove', function($resource) {
+
+  // POST, userId, favId
+  return $resource('http://223.252.223.13/Roommates/api/people/fav/del');
+})
+
+.factory('ForbidAdd', function($resource) {
+
+  // POST, userId, forbidId
   return $resource('http://223.252.223.13/Roommates/api/people/forbid');
 })
 ;

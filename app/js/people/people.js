@@ -1,4 +1,4 @@
-angular.module('people', ['people.ctrl', 'people.service'])
+angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
 
 .config(function($stateProvider) {
 
@@ -66,12 +66,5 @@ angular.module('people', ['people.ctrl', 'people.service'])
       }
     })
     ;
-})
-
-.directive('peopleDetailNav', function() {
-  return {
-    restrict: 'E',
-    templateUrl: 'templates/people/people-detail-nav.html'
-  }
 })
 ;

@@ -84,4 +84,10 @@ angular.module('me.service', [])
 
   return factory;
 })
+.factory('ModalBox', function(){
+
+
+
+
+})
 ;

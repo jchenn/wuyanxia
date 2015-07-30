@@ -58,8 +58,9 @@ angular.module('house.service',[])
             });
             isInited=true;
         },
-        show:function(str){
-            if(!isInited) this.init();
+        show:function(str,callback,tag){
+            var self=this;
+            if(!isInited) this.init(callback,tag);
             cover.querySelector('.m-pop-content').innerHTML=str;
             cover.style.display='block';
         },
@@ -172,9 +173,13 @@ angular.module('house.service',[])
         },
         add:function(callback){
             var filelist=Data.getFiles();
+            
             var form=new FormData();
+            
             if(!PersonalInfo.userId){alert('UserId 为空~~~');return ;}
+            
             form.append('userId',Number(PersonalInfo.userId));
+
             if(filelist.length) {
                 for(var i=0;i<filelist.length;i++){
                     form.append('files['+i+']',filelist[i]);
@@ -254,8 +259,8 @@ angular.module('house.service',[])
 .factory('Cmn',function(Popup){
     
     return {
-        warn:function(str){
-            Popup.show(str);
+        warn:function(str,callback,tag){
+            return Popup.show(str,callback,tag);
         }
     };
 })

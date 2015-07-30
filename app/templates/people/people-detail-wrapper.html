@@ -12,10 +12,14 @@
         <p>{{ people.tel }}</p>
       </div>
       <div class="col">
-        <a class="button button-clear" href=""><span class="icon ion-ios-telephone"></span>电话</a>
+        <a class="button button-clear" href="tel:{{ people.tel }}">
+          <span class="icon ion-ios-telephone"></span>电话
+        </a>
       </div>
       <div class="col">
-        <a class="button button-clear" href=""><span class="icon ion-ios-email"></span>短信</a>
+        <a class="button button-clear" ng-click="sendMessage()">
+          <span class="icon ion-ios-email"></span>短信
+        </a>
       </div>
     </div>
   </ion-footer-bar>

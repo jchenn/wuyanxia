@@ -5,10 +5,10 @@ angular.module('people.ctrl', [])
     PeopleListQuery, PeopleFilterModel, PersonalInfo) {
   
   //从登录跳转，则清空跳转历史
-  var history = $ionicHistory.viewHistory();
-  if (history.backView.url === '/login') {
-    $ionicHistory.clearHistory()
-  }
+  // var history = $ionicHistory.viewHistory();
+  // if (history.backView.url === '/login') {
+  //   $ionicHistory.clearHistory()
+  // }
 
   $scope.$emit('load.people.list');
 

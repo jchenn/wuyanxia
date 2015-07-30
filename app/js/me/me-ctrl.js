@@ -96,10 +96,10 @@ angular.module('me.ctrl', [])
     .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover, PersonalInfo, PersonalInfoMange,Check, $ionicHistory){
 
         //从注册跳转，则清空跳转历史
-        var history = $ionicHistory.viewHistory();
-        if (history.backView.url === '/register') {
-            $ionicHistory.clearHistory();
-        }
+        // var history = $ionicHistory.viewHistory();
+        // if (history.backView.url === '/register') {
+        //     $ionicHistory.clearHistory();
+        // }
         $scope.data =  PersonalInfo;
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {

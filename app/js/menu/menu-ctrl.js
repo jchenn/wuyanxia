@@ -1,13 +1,14 @@
 angular.module('menu.ctrl', [])
 
-.controller('SideMenuCtrl', function($scope, PersonalInfo) {
+.controller('SideMenuCtrl', function($scope, PersonalInfo, PeopleFilterModel) {
   $scope.me = PersonalInfo;
 
   $scope.$on('load.people.list', function() {
-    // console.log('update side menu');
+    console.log('update side menu', PersonalInfo);
+    
     $scope.me = PersonalInfo;
 
-    console.log(PersonalInfo);
+    PeopleFilterModel.setUsingCache(false);
   });
 })
 

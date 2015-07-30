@@ -100,7 +100,7 @@ angular.module('people.service', ['ngResource'])
 })
 
 .factory('PeopleDetailQuery', function($resource) {
-  return $resource('http://223.252.223.13/Roommates/api/people/:id');
+  return $resource('http://223.252.223.13/Roommates/api/people/detail/:id');
 })
 
 .factory('PeopleMark', function($resource) {

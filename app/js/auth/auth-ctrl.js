@@ -1,11 +1,11 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, LoginService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
+    .controller('LoginCtrl', function($scope, $http, $location, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 模拟
-        // $scope.formData = {
-        //     'email': "hztest@corp.netease.com",
-        //     'password': "123456"
-        // };
-        $scope.formData = {};
+        $scope.formData = {
+            'email': "hztest@corp.netease.com",
+            'password': "123456"
+        };
+        // $scope.formData = {};
         $scope.errorData = {};
         console.log($scope.myForm);
         $scope.changePwd = function() {
@@ -25,15 +25,18 @@ angular.module('auth.ctrl', ['ionic'])
                 };
                 console.log($scope.errorData);
             } else {
+                // 显示loading
+                Loading.show();
                 // 没有错误信息就登录
                 console.log("登录");
                 console.log($scope.formData);
                 console.log(JSON.stringify($scope.formData));
                 var stringData = JSON.stringify($scope.formData);
 
-                LoginService.save({}, $scope.formData, function(resp) {
+                AjaxService.login().save({}, $scope.formData, function(resp) {
                     //成功
                     console.log(resp.result);
+                    Loading.hide();
                     if (resp.result == 0) {
                         // InfoPopupService({subTitle:"123"});
                         InfoPopupService(resp.info);
@@ -41,23 +44,25 @@ angular.module('auth.ctrl', ['ionic'])
                         PersonalInfoMange.clear();
                         PersonalInfoMange.update(resp.data);
                         console.log(PersonalInfo);
-                        $scope.go('/menu/people-list');
+                        // $scope.go('/menu/people-list').replace();
+                        $location.path('/menu/people-list').replace()
                     }
                 }, function(resp) {
                     //失败
+                    Loading.hide();
                     console.log(resp);
                     InfoPopupService(resp.info);
                 });
             }
         }
     })
-    .controller('RegisterCtrl', function($scope, $ionicBackdrop, $ionicPopup, $timeout, RegisterService, CheckService, PersonalInfoMange, InfoPopupService, Validate) {
-        // $scope.formData = {
-        //     'email': "123@123.com",
+    .controller('RegisterCtrl', function($scope, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+        $scope.formData = {
+            'email': "@corp.netease.com"
         //     'nickname': "黑月",
         //     'password': "123123"
-        // };
-        $scope.formData = {};
+        };
+        // $scope.formData = {};
         $scope.errorData = {};
         $scope.emailSucInfo = {
             title: "验证成功",
@@ -95,7 +100,7 @@ console.log($scope.formData);
             myPopup.then(function(resp) {
                 if (resp === true) {
                     // 已验证检测
-                    CheckService.get({userId: PersonalInfoMange.get('userId')}, function(resp){
+                    AjaxService.checkEmail().get({userId: PersonalInfoMange.get('userId')}, function(resp){
                         if (resp.result == 1) {
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
@@ -125,7 +130,8 @@ console.log($scope.formData);
                 $scope.showPopup();
                 return;
             }
-
+            //转圈圈
+            Loading.show();
             /**
              * 验证表单
              */
@@ -145,8 +151,9 @@ console.log($scope.formData);
             } else {
                 console.log("注册");
                 // var res = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
-                RegisterService.save({}, $scope.formData, function(resp){
+                AjaxService.register().save({}, $scope.formData, function(resp){
                     console.log(resp);
+                    Loading.hide();
                     if (resp.result == 1) {
                         console.log('注册请求发送成功');
                         // 缓存注册状态
@@ -164,6 +171,7 @@ console.log($scope.formData);
                     };
                 }, function(resp){
                     //失败
+                    Loading.hide();
                     console.log('注册失败');
                     console.log(resp);
                     InfoPopupService(resp.info);

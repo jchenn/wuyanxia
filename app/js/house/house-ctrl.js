@@ -1,7 +1,7 @@
 angular.module('house.ctrl',[])
-.factory('$back',function(){
+.factory('$back',function($ionicHistory){
     return function(){
-        history.go(-1);
+        $ionicHistory.goBack();
     };
 })
 .controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading){

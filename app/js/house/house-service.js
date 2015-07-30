@@ -173,6 +173,7 @@ angular.module('house.service',[])
         add:function(callback){
             var filelist=Data.getFiles();
             var form=new FormData();
+            if(!PersonalInfo.userId){alert('UserId 为空~~~');return ;}
             form.append('userId',Number(PersonalInfo.userId));
             if(filelist.length) {
                 for(var i=0;i<filelist.length;i++){
@@ -296,14 +297,19 @@ angular.module('house.service',[])
          *      -method {Number} 1:通过照相机   0:通过文件系统
          *      -quality {Number} 控制照片的质量，从1到100.无法对从文件系统中选取的文件起作用
          */
-        getPic:function(onSuccess,onFail,opts){
+        getPic:function(onSuccess,onFail,opts,tag){
             var data={};
+            if(tag) data.destinationType=Camera.DestinationType.DATA_URL;
             if(opts){
                 if(opts.width) data.targetWidth=opts.width;
                 if(opts.height) data.targetHeight=opts.height;
-                opts.method? data.sourceType=Camera.PictureSourceType.CAMERA
+                opts.method?
+                data.sourceType=Camera.PictureSourceType.CAMERA:
+                data.sourceType=Camera.PictureSourceType.PHOTOLIBRARY;
+                
+                if(opts.quality) data.quality=opts.quality;
             }
-            navigator.camera.getPicture(onSuccess, onFail, { quality: 50});
+            navigator.camera.getPicture(onSuccess, onFail, data);
         }
     };
 })

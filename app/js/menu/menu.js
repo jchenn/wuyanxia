@@ -5,9 +5,11 @@ angular.module('menu', ['menu.ctrl'])
 
     .state('menu.fav', {
       url: '/fav',
+      cache: false,
       views: {
         'menu-content': {
-          templateUrl: 'templates/menu/empty.html'
+          templateUrl: 'templates/people/fav-list.html',
+          controller: 'FavCtrl'
         }
       }
     })

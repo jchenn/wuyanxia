@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         history.go(-1);
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera){
     
     $scope.test=function(){
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
@@ -45,7 +45,6 @@ angular.module('house.ctrl',[])
     $scope.btnStatus="";
     
     $scope.title="发布房源";
-    
     
     $scope.back=$back;
     
@@ -103,7 +102,11 @@ angular.module('house.ctrl',[])
             return;
         }
         Data.fill($scope.data);
+        $scope.btnText="提交中~";
+        $scope.btnStatus="disabled";
         Form.add(function(data){
+            $scope.btnText="完成";
+            $scope.btnStatus="";
             if(data.errno==1){
                 warn(data.message);
                 return;

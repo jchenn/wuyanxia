@@ -1,9 +1,15 @@
 angular.module('people.ctrl', [])
 
 .controller('PeopleListCtrl', 
-  function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup,
+  function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
     PeopleListQuery, PeopleFilterModel, PersonalInfo) {
   
+  //从登录跳转，则清空跳转历史
+  // var history = $ionicHistory.viewHistory();
+  // if (history.backView.url === '/login') {
+  //   $ionicHistory.clearHistory()
+  // }
+
   $scope.$emit('load.people.list');
 
   $scope.list = [];

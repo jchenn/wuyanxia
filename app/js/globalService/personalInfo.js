@@ -1,16 +1,16 @@
 ServiceModule
 .value('PersonalInfo',{
         'lookStatus' : 0,
-        'birth': '1988-10-22',
+        'birth': '1985-1-1',
         'name': '',
         'sex': '',
         'company': '',
         'job': '',
         'phone': '',
         //个人信息交互使用
-        'year': '1988',
-        'month': '10',
-        'day': '22',
+        'year': '1985',
+        'month': '1',
+        'day': '1',
         'title': '',
         'key': '',
         'val': '',

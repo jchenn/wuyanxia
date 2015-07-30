@@ -26,7 +26,7 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   // console.log(localStorage.personalInfo);
   if (localStorage.PersonalInfo) {
     // PersonalInfoMange.update(JSON.parse(localStorage.PersonalInfo));
-    // $location.path('/menu/people-list');
+    $location.path('/menu/people-list');
   }
 
 })

@@ -1,0 +1,17 @@
+<ion-modal-view class="birth-modal">
+    <ion-header-bar>
+        <h3 class="title">选择出生日期</h3>
+        <i class="button alignright" ng-click="selectBirth()">完成</i>
+    </ion-header-bar>
+    <ion-content>
+        <select name="year" ng-model="data.year">
+            <option ng-repeat=" item in data.yearArr" value="{{item}}">{{item}}</option>
+        </select>年
+        <select name="month"  ng-model="data.month" ng-change="selectMonth()">
+            <option ng-repeat=" item in data.monthArr" value="{{item}}">{{item}}</option>
+        </select>月
+        <select name="day" ng-model="data.day">
+            <option ng-repeat=" item in data.dayArr" value="{{item}}">{{item}}</option>
+        </select>日
+    </ion-content>
+</ion-modal-view>

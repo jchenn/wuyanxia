@@ -1,21 +1,41 @@
 angular.module('auth.service', ['ngResource'])
 
-.factory('LoginService', function($resource){
-	var url = 'http://223.252.223.13/Roommates/api/login';
-	return $resource(url);
-})
+.factory('Loading', ['$ionicLoading', function($ionicLoading){
+	function show() {
+		$ionicLoading.show({
+	     	template: 'Loading...'
+	    });
+	};
+	function hide() {
+		$ionicLoading.hide();
+	};
 
-.factory('RegisterService', function($resource){
-	var url = 'http://223.252.223.13/Roommates/api/register';
-	// var url = '/api/register';
-	return $resource(url);
-})
+	return {
+		show: show,
+		hide: hide
+	}
+}])
 
-.factory('CheckService', function($resource){
-	var url = 'http://223.252.223.13/Roommates/api/register/check';
-	// var url = '/api/register';
-	return $resource(url);
-})
+.factory('AjaxService', ['$resource', function($resource){
+	function login() {
+		var url = 'http://223.252.223.13/Roommates/api/login';
+		return $resource(url);
+	};
+	function register() {
+		var url = 'http://223.252.223.13/Roommates/api/register';
+		return $resource(url);
+	};
+	function checkEmail() {
+		var url = 'http://223.252.223.13/Roommates/api/register/check';
+		return $resource(url);
+	};
+
+	return {
+		login: login,
+		register: register,
+		checkEmail: checkEmail
+	};
+}])
 
 .factory('InfoPopupService', ['$ionicPopup', '$timeout', function($ionicPopup, $timeout){
 	return  function(data, callback) {
@@ -47,7 +67,7 @@ angular.module('auth.service', ['ngResource'])
 		var data = data || {},
 			hasNickName = hasNickName || false;
 		// 邮箱
-console.log(data);
+		console.log(data);
 		if (!data.email) {
 			return {
 				name: "email",

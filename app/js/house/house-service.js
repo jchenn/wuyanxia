@@ -301,7 +301,7 @@ angular.module('house.service',[])
             if(opts){
                 if(opts.width) data.targetWidth=opts.width;
                 if(opts.height) data.targetHeight=opts.height;
-                opts.method? data.sourceType=Camera.PictureSourceType.CAMERA
+                opts.method? data.sourceType=Camera.PictureSourceType.CAMERA:0;
             }
             navigator.camera.getPicture(onSuccess, onFail, { quality: 50});
         }

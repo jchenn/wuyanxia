@@ -1,7 +1,7 @@
 <ion-view class="m-me-show" ng-controller="InfoShow">
   <ion-header-bar align-title="center" class="bar-stable padding">
     <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
-    <h1 class="title">个人信息</h1>
+    <h1 class="title padding" style="left:50px;">个人信息</h1>
   </ion-header-bar>
   <ion-content>
     <div class="header">
@@ -26,7 +26,7 @@
         <p class="">昵称</p>
         <p class="">{{data.name}}</p>
       </div>
-      <div class="item"  ng-click="modify({'title':'性别','val':data.sex,'key':'sex'})">
+      <div class="item"  ng-click="openSex()">
         <p class="">性别</p>
         <p class="">{{data.sex}}</p>
       </div>
@@ -34,7 +34,7 @@
         <p class="">电话</p>
         <p class="">{{data.phone}}</p>
       </div>
-      <div class="item"  ng-click="modify({'title':'出生日期','val':data.birth,'key':'birth'})">
+      <div class="item"  ng-click="openBirth()">
         <p class="">出生日期</p>
         <p class="">{{data.birth}}</p>
       </div>

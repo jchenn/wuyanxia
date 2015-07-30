@@ -284,4 +284,27 @@ angular.module('house.service',[])
         }
     };
 })
+.factory('Camera',function(){
+    return {
+        /**
+         *控制设备拍照
+         *@param {Function} onSuccess
+         *@param {Function} onFail
+         *@param {Object} opts
+         *      -width {Number} 照片的宽
+         *      -height {Number} 照片的高
+         *      -method {Number} 1:通过照相机   0:通过文件系统
+         *      -quality {Number} 控制照片的质量，从1到100.无法对从文件系统中选取的文件起作用
+         */
+        getPic:function(onSuccess,onFail,opts){
+            var data={};
+            if(opts){
+                if(opts.width) data.targetWidth=opts.width;
+                if(opts.height) data.targetHeight=opts.height;
+                opts.method? data.sourceType=Camera.PictureSourceType.CAMERA
+            }
+            navigator.camera.getPicture(onSuccess, onFail, { quality: 50});
+        }
+    };
+})
 ;

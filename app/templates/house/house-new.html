@@ -3,7 +3,7 @@
         <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
         <h1 class="title" >{{title}}</h1>
         <div class="buttons">
-            <button class="button" ng-click="showPop()">撤销房源</button>
+            <button class="button" ng-click="showPop()" {{destroy}}>撤销房源</button>
         </div>
     </ion-header-bar>
     <style ng-if="pics.length<=1">

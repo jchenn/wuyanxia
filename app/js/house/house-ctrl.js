@@ -10,6 +10,9 @@ angular.module('house.ctrl',[])
         $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
     };
     
+    //撤销房源按钮是否可以点击
+    $scope.destroy="disabled";
+    
     Pop.init({
         sure:function(){
             Form.delete(function(data){
@@ -189,6 +192,10 @@ angular.module('house.ctrl',[])
         });
     
         $scope.btnText="完成";
+    
+    //撤销房源按钮是否可以点击（可点击）
+    $scope.destroy="";
+    
      //显示选项
     $scope.optionShow=function(){
         $ionicActionSheet.show({

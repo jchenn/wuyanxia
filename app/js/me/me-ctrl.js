@@ -410,7 +410,7 @@ angular.module('me.ctrl', [])
                 return false;
             }
             if($scope.data.key == 'phone'){
-                if(!Check.checkPrice($scope.data.phone)  || Check.getLen($scope.data.phone) != 11){
+                if(!Check.checkPrice($scope.data.val)  || Check.getLen( $scope.data.val) != 11){
                     alert("电话必须为11位的数字");
                     return false;
                 }

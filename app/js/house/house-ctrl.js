@@ -9,22 +9,7 @@ angular.module('house.ctrl',[])
     
     $scope.disable="disable";
     
-    Pop.init({
-        sure:function(){
-            Form.delete(function(data){
-                if(data.errno==1){
-                }
-                else if(data.errno==0){
-                    PersonalInfoMange.update({
-                        "hasHouse":0
-                    });
-                }
-            });
-        },
-        cancel:function(){
-            //alert('cancel');
-        }
-    });
+    
     
     var warn=Cmn.warn;
     
@@ -176,7 +161,7 @@ angular.module('house.ctrl',[])
         $location.path('/house-new');
     };
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,$back){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,$back,Pop){
     var warn=Cmn.warn;
     $scope.back=$back;
      //表单数据
@@ -186,6 +171,25 @@ angular.module('house.ctrl',[])
         area:'',
         community:''
     };
+   Pop.init({
+        sure:function(){
+            Form.delete(function(data){
+                if(data.errno==1){
+                    warn(data.message);
+                    return;
+                }
+                else if(data.errno==0){
+                    PersonalInfoMange.update({
+                        "hasHouse":0
+                    });
+                    location.href="#/menu/people-list";
+                }
+            });
+        },
+        cancel:function(){
+            //alert('cancel');
+        }
+    });
     houseInfo.update(function(data){
             if(typeof data == 'string'){
                 Cmn.warn(data);
@@ -281,7 +285,7 @@ angular.module('house.ctrl',[])
 })
 .controller('descupdateCtrl',function($scope,Check,Data,$location,$back){
     $scope.data={
-        description:''
+        description:Data.get('description')
     };
     $scope.title="描述";
     $scope.back=$back;

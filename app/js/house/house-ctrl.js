@@ -6,9 +6,6 @@ angular.module('house.ctrl',[])
 })
 .controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading){
     
-    $scope.test=function(){
-        $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
-    };
     
     $scope.disable="disable";
     
@@ -49,12 +46,6 @@ angular.module('house.ctrl',[])
     
     //slide数据
     $scope.pics=[];
-    
-    //弹出框
-    $scope.showPop=function(){
-        return;
-        Pop.show();
-    };
     
     //显示选项
     $scope.optionShow=function(){
@@ -110,12 +101,13 @@ angular.module('house.ctrl',[])
             $ionicLoading.hide();
             if(data.errno==1){
                 
-                warn(data.message);
+                warn("你应该已经有房源了，来编辑吧！");
+                location.href="#/house-update";
                 return;
             }
             if(data.errno==0){
                 
-                location.href="#/me/q/2"
+                location.href="#/menu/people-list";
             }
         });
     };
@@ -184,11 +176,20 @@ angular.module('house.ctrl',[])
         $location.path('/house-new');
     };
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,$back){
     var warn=Cmn.warn;
+    $scope.back=$back;
+     //表单数据
+    $scope.data={
+        title:'',
+        price:'',
+        area:'',
+        community:''
+    };
     houseInfo.update(function(data){
             if(typeof data == 'string'){
                 Cmn.warn(data);
+                location.href="#/house-new";
                 return;
             }
             Data.fill(data);
@@ -198,7 +199,7 @@ angular.module('house.ctrl',[])
     });
     
     $scope.btnText="完成";
-    $scope.title="编辑房源";
+    $scope.title="房源编辑";
     //撤销房源按钮是否可以点击（可点击）
     $scope.destroy="";
     //弹出框
@@ -207,7 +208,7 @@ angular.module('house.ctrl',[])
         Pop.show();
     };
      //显示选项
-    $scope.optionShow=function(){
+   /* $scope.optionShow=function(){
         $ionicActionSheet.show({
              buttons: [
                { text: '拍照' },
@@ -227,7 +228,7 @@ angular.module('house.ctrl',[])
                return true;
              }
         });
-    };
+    };*/
     
     //点击完成是执行
     $scope.send=function(){
@@ -259,6 +260,7 @@ angular.module('house.ctrl',[])
             $ionicLoading.hide();
             if(data.errno==1){
                 warn(data.message);
+                
                 return;
             }
             if(data.errno==0){

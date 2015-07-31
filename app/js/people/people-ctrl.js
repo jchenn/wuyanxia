@@ -1,14 +1,9 @@
 angular.module('people.ctrl', [])
 
+// 主页：室友列表
 .controller('PeopleListCtrl', 
   function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
     PeopleListQuery, PeopleFilterModel, PersonalInfo) {
-  
-  //从登录跳转，则清空跳转历史
-  // var history = $ionicHistory.viewHistory();
-  // if (history.backView.url === '/login') {
-  //   $ionicHistory.clearHistory()
-  // }
 
   $scope.$emit('load.people.list');
 
@@ -75,9 +70,16 @@ angular.module('people.ctrl', [])
   };
 
   $scope.$on('$stateChangeSuccess', function(event, toState) {
-    if (toState.name === 'menu.people-list' && !PeopleFilterModel.isUsingCache()) {
-      $scope.loadMore();
-      PeopleFilterModel.setUsingCache(true);
+    if (toState.name === 'menu.people-list') {
+
+      if (!PeopleFilterModel.isUsingCache()) {
+        $scope.loadMore();
+        PeopleFilterModel.setUsingCache(true);
+      }
+
+      console.log('clear history');
+      $ionicHistory.clearHistory();
+      $ionicHistory.clearCache();
     }
   });
 

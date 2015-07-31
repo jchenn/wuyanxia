@@ -8,9 +8,6 @@ ServiceModule
         'job': '',
         'phone': '',
         //个人信息交互使用
-        'year': '1985',
-        'month': '1',
-        'day': '1',
         'title': '',
         'key': '',
         'val': '',
@@ -52,8 +49,8 @@ ServiceModule
         localStorage.removeItem('PersonalInfo');
     };
     function get(item) {
-        if (typeof item === "string") {
-            return PersonalInfo.item;
+        if (item in PersonalInfo) {
+            return PersonalInfo[item];
         } 
     };
 

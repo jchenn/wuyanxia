@@ -28,7 +28,7 @@
       </div>
       <div class="item"  ng-click="openSex()">
         <p class="">性别</p>
-        <p class="">{{data.sex}}</p>
+        <p class="">{{data.sex == 0 ? '女' : '男'}}</p>
       </div>
       <div class="item phone"  ng-click="modify({'title':'电话','val':data.phone,'key':'phone'})">
         <p class="">电话</p>

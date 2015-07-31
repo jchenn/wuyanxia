@@ -2,16 +2,12 @@
   <ion-header-bar class="bar-stable">
     <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
     <h1 class="title">个性问答</h1>
-    <button class="button button-clear" ng-click="next()">
-      {{ nextOrFinish }}
-    </button>
   </ion-header-bar>
   <ion-content class="m-question">
-    <h2 ng-hide="{{ !showHint }}">请回答以下7个问题，以便为您更精确匹配室友。</h2>
-    <h2>{{ number + '. ' + question.label }}</h2>
+    <h2>{{ number + '. ' + quiz.label }}</h2>
     <ul class="row">
-      <li ng-repeat="choice in question.choices" class="col" 
-          ng-click="select(question.name, choice.id);">
+      <li ng-repeat="choice in quiz.choices" class="col" 
+          ng-click="select(quiz.name, choice.id);">
         <img ng-src="{{ choice.image }}" alt="">
         <label>{{ choice.answer }}</label>
       </li>

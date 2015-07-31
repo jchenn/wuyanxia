@@ -1,105 +1,18 @@
 angular.module('me.ctrl', [])
 
-// 处理个性问答的控制器
-.controller('QuestionCtrl', 
-  function($scope, $stateParams, $ionicPopup, $ionicLoading, $http, QuizModel, QuizSubmit) {
-
-  // 问卷序号，从 1 开始
-  var number = ~~$stateParams.number,
-      quiz   = QuizModel.quiz;
-
-  // console.log(quiz);
-
-  $scope.number       = number;
-  $scope.nextOrFinish = '下一题';
-  $scope.showHint     = false;
-  $scope.question     = quiz[number - 1];
-  $scope.styleLeft    = 16.6667 * number - 16.6667;
-
-  // console.log($scope.question);
-
-  // 对第一题和最后一题的界面做额外处理
-  if (number === 1) {
-
-    // 添加第一页做问题的提示
-    $scope.showHint = true;
-
-  } else if (number === quiz.length) {
-
-    // 修改最后一题的提示按钮
-    $scope.nextOrFinish = '完成';
-
-  }
-
-  $scope.next = function() {
-    
-    // console.log(id);
-
-    if (number >= 1 && number < quiz.length) {
-
-      $scope.go('/me/q/' + (number + 1));
-
-    } else {
-
-      // 完成问题，跳转到筛选页面
-      // console.log('完成答题');
-      $ionicLoading.show();
-
-      QuizSubmit.submit(QuizModel.get(), function(response) {
-        // console.log(response);
-
-        if (response.errno === 0) {
-
-          $ionicLoading.hide();
-
-          $ionicPopup.alert({
-            template: '完成答题'
-          }).then(function(res) {
-            $scope.go('/menu/people-list');
-          });
-
-        }
-      }, function(err) {
-        console.log('err', err);
-      })
-    }
-  };
-
-  $scope.select = function(name, value) {
-
-    QuizModel.set(name, value);
-    // console.log(QuizModel.get());
-
-    // 如果有房源，则要判断是否现在发布
-    if (name == 'yf' && value == 2) {
-
-      $ionicPopup.confirm({
-        template: '要不要先描述一下房源，为招到合租室友做好准备？',
-        okText: '好的',
-        cancelText: '一会儿再说'
-      }).then(function(res) {
-        // console.log(res);
-        if (res) {
-          // TODO: 跳转到发布房源的界面
-          $scope.go('/house-new');
-        } else {
-          $scope.next();
-        }
-      });
-    } else {
-      $scope.next();
-    }
-  };
-
-})
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover, PersonalInfo, PersonalInfoMange,Check, $ionicHistory){
+    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
 
         //从注册跳转，则清空跳转历史
         // var history = $ionicHistory.viewHistory();
         // if (history.backView.url === '/register') {
         //     $ionicHistory.clearHistory();
         // }
+        console.log(DayInit);
+        console.log(PersonalInfo);
+
+        PersonalInfoMange.update(DayInit);
+        console.log(PersonalInfo);
         $scope.data =  PersonalInfo;
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
@@ -138,6 +51,15 @@ angular.module('me.ctrl', [])
         $scope.selectBirth = function(){
             $scope.data.birth = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
             $scope.closeBirth();
+        };
+
+        //跳过按钮
+        $scope.ignoreRegister = function(){
+            if($scope.data.completeAsk == 0){
+                $scope.go('/me/q/1');
+            }else{
+                $scope.go('/menu/people-list');
+            }
         };
 
         //日历
@@ -212,7 +134,12 @@ angular.module('me.ctrl', [])
                 console.log(response);
                 if(response.errno == 0){
                     PersonalInfoMange.update($scope.data);
-                    $scope.go('/me/q/1');
+                    PersonalInfoMange.update({'completeInfo' : 1});
+                    if(PersonalInfoMange.get('completeAsk' == 0)){
+                        $scope.go('/me/q/1');
+                    }else{
+                        $scope.go('/menu/people-list');
+                    }
                 }else if(response.errno == 1){
                     alert(response.message);
                 }
@@ -220,9 +147,13 @@ angular.module('me.ctrl', [])
                 console.log(response);
             });
         }
-    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange){
-
+    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
+        console.log(1111);
+        angular.extend(PersonalInfo, DayInit);
         $scope.data = PersonalInfo;
+        //angular.extend(PersonalInfo, DayInit);
+        console.log(PersonalInfo);
+
         $scope.showStatus = function(){
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
@@ -268,7 +199,7 @@ angular.module('me.ctrl', [])
             PersonalInfo.val = obj.val;
             PersonalInfo.key = obj.key;
             $scope.go('/me-editor');
-        }
+        };
 
         //与注册信息页面重复的代码 start
 
@@ -304,6 +235,9 @@ angular.module('me.ctrl', [])
                 });
                 res.success(function(response, status, headers, config){
                     if(response.errno == 0){
+                        if(response.finishInfo == 1){
+                            PersonalInfoMange.update({'completeInfo' : 1});
+                        }
                         return true;
                     }else if(response.errno == 1){
                         alert(response);
@@ -329,7 +263,15 @@ angular.module('me.ctrl', [])
         };
 
         $scope.selectBirth = function(){
+
+            DayInit.year = $scope.data.year;
+            DayInit.month = $scope.data.month;
+            DayInit.day = $scope.data.day;
+
             $scope.data.birth = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
+            DayInit.birth = $scope.data.birth;
+
+
 
             var obj = {};
             obj['birth'] = $scope.data.birth;
@@ -342,7 +284,9 @@ angular.module('me.ctrl', [])
             });
             res.success(function(response, status, headers, config){
                 if(response.errno == 0){
-
+                    if(response.finishInfo == 1){
+                        PersonalInfoMange.update({'completeInfo' : 1});
+                    }
                     PersonalInfoMange.update(obj);
 
                     $scope.go('/me');
@@ -357,9 +301,6 @@ angular.module('me.ctrl', [])
         };
 
         //日历
-        $scope.data.yearArr = [1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995];
-        $scope.data.monthArr = [1,2,3,4,5,6,7,8,9,10,11,12];
-        $scope.data.dayArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
 
         $scope.selectMonth = function() {
             $scope.data.dayArr = [];
@@ -424,7 +365,9 @@ angular.module('me.ctrl', [])
             });
             res.success(function(response, status, headers, config){
                 if(response.errno == 0){
-
+                    if(response.finishInfo == 1){
+                        PersonalInfoMange.update({'completeInfo' : 1});
+                    }
                     PersonalInfoMange.update(obj);
 
                     $scope.go('/me');

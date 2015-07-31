@@ -21,12 +21,12 @@ angular.module('me.service', [])
 
 .factory('QuizModel', function() {
   var quiz = [
-    {name: 'yf', label: '您的身份', 
-      choices: [
-        {id: '2', image: 'img/image-m.png', answer: '我有房源，要招合租室友'},
-        {id: '3', image: 'img/image-m.png', answer: '我无房源，要招人一块合租'}
-      ]
-    },
+    // {name: 'yf', label: '您的身份', 
+    //   choices: [
+    //     {id: '2', image: 'img/image-m.png', answer: '我有房源，要招合租室友'},
+    //     {id: '3', image: 'img/image-m.png', answer: '我无房源，要招人一块合租'}
+    //   ]
+    // },
     {name: 'zx', label: '生活作息上您是一个', 
       choices: [
         {id: '2', image: 'img/image-m.png', answer: '早起鸟'},
@@ -70,7 +70,8 @@ angular.module('me.service', [])
     }
   ];
 
-  var _choice = {};
+  var _choice = {},
+      _byHint = false;
 
   var factory = {
     quiz: quiz,
@@ -79,14 +80,31 @@ angular.module('me.service', [])
     },
     get: function() {
       return _choice;
+    },
+    setByHint: function(byHint) {
+      _byHint = byHint;
+    },
+    byHint: function() {
+      return _byHint;
     }
   };
 
   return factory;
 })
-.factory('ModalBox', function(){
 
+.factory('DayInit', function(){
 
+    return {
+
+        'yearArr' : [1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995],
+        'monthArr' : [1,2,3,4,5,6,7,8,9,10,11,12],
+        'dayArr' : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+        'birth' : '1985-1-1',
+        'year' : 1985,
+        'month' : 1,
+        'day' : 1
+
+    }
 
 
 })

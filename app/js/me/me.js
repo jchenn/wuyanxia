@@ -1,4 +1,4 @@
-angular.module('me', ['me.ctrl', 'me.service'])
+angular.module('me', ['me.ctrl', 'me.service', 'quiz'])
 
 .config(function($stateProvider) {
 
@@ -8,21 +8,15 @@ angular.module('me', ['me.ctrl', 'me.service'])
     // 个人资料
     .state('me', {
       url: '/me',
-      templateUrl: 'templates/me/me.html'
-    })
-
-    // 填写个人标签（问卷）
-    .state('me-q', {
-      url: '/me/q/:number',
-      params: {number: '1'},
-      templateUrl: 'templates/me/q.html',
-      controller: 'QuestionCtrl'
+      templateUrl: 'templates/me/me.html',
+      cache:false
     })
 
     //个人注册信息页面
       .state('me-register', {
           url: '/me-register',
-          templateUrl: 'templates/me/register.html'
+          templateUrl: 'templates/me/register.html',
+          cache:false
       })
       //修改个人信息
       .state('me-editor', {

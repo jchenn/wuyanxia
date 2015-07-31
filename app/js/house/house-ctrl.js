@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         $ionicHistory.goBack();
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading,myHttp){
     
     
     $scope.disable="disable";
@@ -117,14 +117,40 @@ angular.module('house.ctrl',[])
             $timeout(function(){
                 $ionicSlideBoxDelegate.update();
                 //$timeout(function(){$ionicSlideBoxDelegate.slide();},100);
-            },500);
+            },500); 
     });
     
     function addPic(type){
         //camera
         if(type==1){
-            file.capture="camera";
-            file.click();
+            //file.capture="camera";
+            //file.click();
+            var opts={
+                width:100,
+                height:100,
+                method:1,
+                quality:10
+            };
+            
+            $timeout(function(){
+                $ionicSlideBoxDelegate.update();
+                //$timeout(function(){$ionicSlideBoxDelegate.slide();},100);
+            },500);
+            var onSuccess=function(data){
+                $scope.pics.push(
+                     "data:image/jpeg;base64," + data
+                );
+                var form=new FormData();
+                form.append("data",data);
+                myHttp.http('POST','http://10.240.34.242',form,function(){alert('OK');});
+                $timeout(function(){
+                $ionicSlideBoxDelegate.update();
+                //$timeout(function(){$ionicSlideBoxDelegate.slide();},100);
+            },500);
+                
+            };
+            var onFail=function(d){alert(d);};
+           Camera.getPic(onSuccess,onFail,opts,1);
         }
         else if(type==2){
             file.capture="";

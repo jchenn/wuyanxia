@@ -26,7 +26,7 @@ angular.module('auth.ctrl', ['ionic'])
                 console.log($scope.errorData);
             } else {
                 // 显示loading
-                Loading.show();
+                Loading.show('正在登录…');
                 // 没有错误信息就登录
                 console.log("登录");
                 console.log($scope.formData);
@@ -65,6 +65,7 @@ angular.module('auth.ctrl', ['ionic'])
         };
         // $scope.formData = {};
         $scope.errorData = {};
+        // 弹层文案
         $scope.emailSucInfo = {
             title: "验证成功",
             subTitle: "恭喜您验证成功，请填写个人信息让未来室友更加了解您吧"
@@ -73,11 +74,7 @@ angular.module('auth.ctrl', ['ionic'])
             title: "验证失败",
             subTitle: "对不起，验证失败了，请检测企业邮箱或重新邮箱验证"
         };
-        var emailStatus = {
-            email: "",
-            isReg: false
-        };
-
+        // var toBrowserStr = '正在为您跳转';
 console.log($scope.formData);
         /**
          * 弹层
@@ -114,7 +111,6 @@ console.log($scope.formData);
                             // InfoPopupService(resp.info);
                             // 验证失败则重置isReg，允许用户重新发送邮箱验证
                             InfoPopupService($scope.emailFailInfo);
-                            emailStatus.isReg = false;
                         }
                     }, function(err) {
                         InfoPopupService('网络错误，请重试');
@@ -129,13 +125,8 @@ console.log($scope.formData);
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             $scope.errorNickName = false;
-            //已注册，并且没有修改邮箱
-            if (emailStatus.isReg && emailStatus.email === $scope.formData.email ) {
-                $scope.showPopup();
-                return;
-            }
             //转圈圈
-            Loading.show();
+            Loading.show('正在注册…');
             /**
              * 验证表单
              */
@@ -160,19 +151,20 @@ console.log($scope.formData);
                     Loading.hide();
                     if (resp.result == 1) {
                         console.log('注册请求发送成功');
-                        // 缓存注册状态
-                        emailStatus.isReg = true;
-                        emailStatus.email = $scope.formData.email;
-                        
                         PersonalInfoMange.update({
                             name: $scope.formData.nickname,
                             userId: resp.userId
                         })
                         console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试
-                        if(typeof cordova !== "undefined") {
-                            cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');
-                        }     
+                        // if(typeof cordova !== "undefined") {
+                        //     cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');
+                        // }   
+                        window.location.href = 'http://corp.netease.com/coremail/'; 
+                        // window.open('http://corp.netease.com/coremail/', '_blank'); 
+                        // InfoPopupService(toBrowserStr, function() {
+                        //     window.location.href = 'http://www.baidu.com';
+                        // });
                         $scope.showPopup();
                     } else if (resp.result == 0) {
                         InfoPopupService(resp.info);

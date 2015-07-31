@@ -4,7 +4,7 @@ angular.module('house.ctrl',[])
         $ionicHistory.goBack();
     };
 })
-.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading){
+.controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading,myHttp){
     
     
     $scope.disable="disable";
@@ -117,19 +117,30 @@ angular.module('house.ctrl',[])
             $timeout(function(){
                 $ionicSlideBoxDelegate.update();
                 //$timeout(function(){$ionicSlideBoxDelegate.slide();},100);
-            },500);
+            },500); 
     });
     
     function addPic(type){
-        //camera
-        if(type==1){
-            file.capture="camera";
-            file.click();
-        }
-        else if(type==2){
-            file.capture="";
-            file.click();
-        }
+        
+            var opts={
+                width:400,
+                height:300,
+                method:1,
+                quality:50
+            };
+            if(type==2) opts.method=0;
+            
+            var onSuccess=function(data){
+                var url="data:image/jpeg;base64," + data;
+                $scope.pics.push(url);
+                Data.addFile(url);
+                $timeout(function(){
+                    $ionicSlideBoxDelegate.update();
+                    $timeout(function(){$ionicSlideBoxDelegate.next();},100);
+            },500);
+            };
+            var onFail=function(d){alert(d);};
+           Camera.getPic(onSuccess,onFail,opts,1);
         
     }
     

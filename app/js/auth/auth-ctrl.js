@@ -43,6 +43,7 @@ angular.module('auth.ctrl', ['ionic'])
                     } else if (resp.result == 1) {
                         PersonalInfoMange.clear();
                         PersonalInfoMange.update(resp.data);
+                        PersonalInfoMange.update({isLogin: 1});
                         console.log(PersonalInfo);
                         // $scope.go('/menu/people-list').replace();
                         $location.path('/menu/people-list').replace()
@@ -100,8 +101,11 @@ console.log($scope.formData);
             myPopup.then(function(resp) {
                 if (resp === true) {
                     // 已验证检测
-                    AjaxService.checkEmail().get({userId: PersonalInfoMange.get('userId')}, function(resp){
+                    userId = PersonalInfoMange.get('userId');
+                    console.log(userId);
+                    AjaxService.checkEmail().get({userId: userId}, function(resp){
                         if (resp.result == 1) {
+                            PersonalInfoMange.update({isLogin: 1});
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
                                 $location.path('/me-register').replace()
@@ -160,7 +164,11 @@ console.log($scope.formData);
                         emailStatus.isReg = true;
                         emailStatus.email = $scope.formData.email;
                         
-                        PersonalInfoMange.update({name: $scope.formData.nickname})
+                        PersonalInfoMange.update({
+                            name: $scope.formData.nickname,
+                            userId: resp.userId
+                        })
+                        console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试
                         if(typeof cordova !== "undefined") {
                             cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');

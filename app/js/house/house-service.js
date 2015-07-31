@@ -306,6 +306,7 @@ angular.module('house.service',[])
          */
         getPic:function(onSuccess,onFail,opts,tag){
             var data={};
+            data.encodingType=Camera.EncodingType.JPEG;
             if(tag) data.destinationType=Camera.DestinationType.DATA_URL;
             if(opts){
                 if(opts.width) data.targetWidth=opts.width;
@@ -316,6 +317,7 @@ angular.module('house.service',[])
                 
                 if(opts.quality) data.quality=opts.quality;
             }
+            //alert(data);
             navigator.camera.getPicture(onSuccess, onFail, data);
         }
     };

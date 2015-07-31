@@ -9,7 +9,7 @@ angular.module('house.service',[])
         var xhr=new XMLHttpRequest();
         xhr.open(method,url);
         xhr.onreadystatechange=function(){
-            if(xhr.status==200&&xhr.readyState==4){
+            if(xhr.readyState==4){
                 callback(xhr.responseText);
             }
         };
@@ -171,7 +171,16 @@ angular.module('house.service',[])
                  }
             }).success(callback);*/
             myHttp.http('POST',host+updatePath,form,function(data){
-                callback(JSON.parse(data));
+                try{
+                     callback(JSON.parse(data));
+                }
+                catch(e){
+                     callback({
+                         errno:1,
+                         message:data
+                     });
+                }
+               
             });
             //$http.post(host+updatePath,Data.getAll()).success(callback);
         },

@@ -10,6 +10,17 @@
       </div>
     </div>
     <div class="list">
+      <div class="padding">
+        <p class="">个性标签</p>
+        <div class="padding tag">
+          <a class="button button-positive" ng-click="go('/me/q/1')">标签一</a>
+          <a class="button button-balanced" ng-click="go('/me/q/2')">标签二</a>
+          <a class="button button-energized" ng-click="go('/me/q/3')">标签三</a>
+          <a class="button button-assertive" ng-click="go('/me/q/4')">标签四</a>
+          <a class="button button-royal" ng-click="go('/me/q/5')">标签五</a>
+          <a class="button button-calm" ng-click="go('/me/q/6')">标签六</a>
+        </div>
+      </div>
         <div class="item" ng-click="showStatus()">
             <p class="">寻找室友状态</p>
             <p class="">{{data.lookStatus == 0 ? '正在寻找' : '已经找到'}}</p>
@@ -30,8 +41,8 @@
         <p class="">性别</p>
         <p class="">{{data.sex == 0 ? '女' : '男'}}</p>
       </div>
-      <div class="item phone"  ng-click="modify({'title':'电话','val':data.phone,'key':'phone'})">
-        <p class="">电话</p>
+      <div class="item phone"  ng-click="modify({'title':'手机','val':data.phone,'key':'phone'})">
+        <p class="">手机</p>
         <p class="">{{data.phone}}</p>
       </div>
       <div class="item"  ng-click="openBirth()">

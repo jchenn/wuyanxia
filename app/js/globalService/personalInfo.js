@@ -1,7 +1,7 @@
 ServiceModule
 .value('PersonalInfo',{
-        'lookStatus' : 0,
-        'birth': '1985-1-1',
+        'lookStatus' : '',
+        'birth': '',
         'name': '',
         'sex': '',
         'company': '',
@@ -20,12 +20,12 @@ ServiceModule
         //hasHouse 是否有房
         //userId 用户ID
 
-        'completeInfo': 0,
-        'completeAsk': 0,
-        'credit': '一般信用',
+        'completeInfo': '',
+        'completeAsk': '',
+        'credit': '',
         'headUrl': 'http://223.252.223.13/Roommates/photo/photo_123.jpg',
-        'userId': '1',
-        'hasHouse': 0
+        'userId': '',
+        'hasHouse': ''
 })
 
 .factory('PersonalInfoMange', ['PersonalInfo', function(PersonalInfo){

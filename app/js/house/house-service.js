@@ -307,6 +307,8 @@ angular.module('house.service',[])
         getPic:function(onSuccess,onFail,opts,tag){
             var data={};
             data.encodingType=Camera.EncodingType.JPEG;
+            data.allowEdit=true;
+            data.correctOrientation=true;
             if(tag) data.destinationType=Camera.DestinationType.DATA_URL;
             if(opts){
                 if(opts.width) data.targetWidth=opts.width;

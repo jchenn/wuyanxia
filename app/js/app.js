@@ -25,7 +25,7 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   // 检查isLogin状态，判断跳转
   // console.log(localStorage.personalInfo);
   if (localStorage.PersonalInfo && JSON.parse(localStorage.PersonalInfo).isLogin) {
-    $location.path('/menu/people-list');
+   $location.path('/menu/people-list');
   }
 
 })

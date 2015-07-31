@@ -21,12 +21,12 @@ angular.module('me.service', [])
 
 .factory('QuizModel', function() {
   var quiz = [
-    {name: 'yf', label: '您的身份', 
-      choices: [
-        {id: '2', image: 'img/image-m.png', answer: '我有房源，要招合租室友'},
-        {id: '3', image: 'img/image-m.png', answer: '我无房源，要招人一块合租'}
-      ]
-    },
+    // {name: 'yf', label: '您的身份', 
+    //   choices: [
+    //     {id: '2', image: 'img/image-m.png', answer: '我有房源，要招合租室友'},
+    //     {id: '3', image: 'img/image-m.png', answer: '我无房源，要招人一块合租'}
+    //   ]
+    // },
     {name: 'zx', label: '生活作息上您是一个', 
       choices: [
         {id: '2', image: 'img/image-m.png', answer: '早起鸟'},
@@ -70,7 +70,8 @@ angular.module('me.service', [])
     }
   ];
 
-  var _choice = {};
+  var _choice = {},
+      _byHint = false;
 
   var factory = {
     quiz: quiz,
@@ -79,11 +80,18 @@ angular.module('me.service', [])
     },
     get: function() {
       return _choice;
+    },
+    setByHint: function(byHint) {
+      _byHint = byHint;
+    },
+    byHint: function() {
+      return _byHint;
     }
   };
 
   return factory;
 })
+
 .factory('DayInit', function(){
 
     return {

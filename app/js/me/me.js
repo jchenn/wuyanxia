@@ -1,4 +1,4 @@
-angular.module('me', ['me.ctrl', 'me.service'])
+angular.module('me', ['me.ctrl', 'me.service', 'quiz'])
 
 .config(function($stateProvider) {
 
@@ -10,14 +10,6 @@ angular.module('me', ['me.ctrl', 'me.service'])
       url: '/me',
       templateUrl: 'templates/me/me.html',
       cache:false
-    })
-
-    // 填写个人标签（问卷）
-    .state('me-q', {
-      url: '/me/q/:number',
-      params: {number: '1'},
-      templateUrl: 'templates/me/q.html',
-      controller: 'QuestionCtrl'
     })
 
     //个人注册信息页面

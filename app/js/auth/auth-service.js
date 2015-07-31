@@ -1,9 +1,9 @@
 angular.module('auth.service', ['ngResource'])
 
 .factory('Loading', ['$ionicLoading', function($ionicLoading){
-	function show() {
+	function show(str) {
 		$ionicLoading.show({
-	     	template: 'Loading...'
+	     	template: str || 'Loading...'
 	    });
 	};
 	function hide() {

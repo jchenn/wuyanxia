@@ -1,33 +1,15 @@
 angular.module('house.ctrl',[])
-.factory('$back',function(){
+.factory('$back',function($ionicHistory){
     return function(){
-        history.go(-1);
+        $ionicHistory.goBack();
     };
 })
 .controller('newCtrl',function($scope,$back,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Pop,Data,File,$http,Check,Cmn,PersonalInfo,$location,PersonalInfoMange,Camera,$ionicLoading){
     
-    $scope.test=function(){
-        $http.get("http://223.252.223.13/Roommates/api/userhouse/2");
-    };
     
     $scope.disable="disable";
     
-    Pop.init({
-        sure:function(){
-            Form.delete(function(data){
-                if(data.errno==1){
-                }
-                else if(data.errno==0){
-                    PersonalInfoMange.update({
-                        "hasHouse":0
-                    });
-                }
-            });
-        },
-        cancel:function(){
-            //alert('cancel');
-        }
-    });
+    
     
     var warn=Cmn.warn;
     
@@ -49,12 +31,6 @@ angular.module('house.ctrl',[])
     
     //slide数据
     $scope.pics=[];
-    
-    //弹出框
-    $scope.showPop=function(){
-        return;
-        Pop.show();
-    };
     
     //显示选项
     $scope.optionShow=function(){
@@ -110,12 +86,13 @@ angular.module('house.ctrl',[])
             $ionicLoading.hide();
             if(data.errno==1){
                 
-                warn(data.message);
+                warn("你应该已经有房源了，来编辑吧！");
+                location.href="#/house-update";
                 return;
             }
             if(data.errno==0){
                 
-                location.href="#/me/q/2"
+                location.href="#/menu/people-list";
             }
         });
     };
@@ -184,26 +161,58 @@ angular.module('house.ctrl',[])
         $location.path('/house-new');
     };
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,$back,Pop){
     var warn=Cmn.warn;
-        houseInfo.update(function(data){
+    $scope.back=$back;
+     //表单数据
+    $scope.data={
+        title:'',
+        price:'',
+        area:'',
+        community:''
+    };
+   Pop.init({
+        sure:function(){
+            Form.delete(function(data){
+                if(data.errno==1){
+                    warn(data.message);
+                    return;
+                }
+                else if(data.errno==0){
+                    PersonalInfoMange.update({
+                        "hasHouse":0
+                    });
+                    location.href="#/menu/people-list";
+                }
+            });
+        },
+        cancel:function(){
+            //alert('cancel');
+        }
+    });
+    houseInfo.update(function(data){
             if(typeof data == 'string'){
                 Cmn.warn(data);
+                location.href="#/house-new";
                 return;
             }
             Data.fill(data);
             $scope.data=data;
             $scope.pics=data.picList;
             $ionicSlideBoxDelegate.update();
-        });
+    });
     
-        $scope.btnText="完成";
-    $scope.title="编辑房源";
+    $scope.btnText="完成";
+    $scope.title="房源编辑";
     //撤销房源按钮是否可以点击（可点击）
     $scope.destroy="";
-    
+    //弹出框
+    $scope.showPop=function(){
+        //return;
+        Pop.show();
+    };
      //显示选项
-    $scope.optionShow=function(){
+   /* $scope.optionShow=function(){
         $ionicActionSheet.show({
              buttons: [
                { text: '拍照' },
@@ -223,7 +232,7 @@ angular.module('house.ctrl',[])
                return true;
              }
         });
-    };
+    };*/
     
     //点击完成是执行
     $scope.send=function(){
@@ -255,6 +264,7 @@ angular.module('house.ctrl',[])
             $ionicLoading.hide();
             if(data.errno==1){
                 warn(data.message);
+                
                 return;
             }
             if(data.errno==0){
@@ -275,7 +285,7 @@ angular.module('house.ctrl',[])
 })
 .controller('descupdateCtrl',function($scope,Check,Data,$location,$back){
     $scope.data={
-        description:''
+        description:Data.get('description')
     };
     $scope.title="描述";
     $scope.back=$back;

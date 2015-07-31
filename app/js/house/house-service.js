@@ -14,7 +14,7 @@ angular.module('house.service',[])
             }
         };
         xhr.send(data);
-        console.log('send');
+        //console.log('send');
     }
     return {
         http:Http
@@ -143,6 +143,7 @@ angular.module('house.service',[])
     };
 })
 .factory('Form',function($http,Data,PersonalInfo,Check,myHttp){
+    //var host="http://10.240.35.18:8080";    
     var host="http://223.252.223.13";
     var updatePath="/Roommates/api/userhouse/update";
     //var filePath="/Roommates/api/housePhoto/batchUpload";
@@ -155,7 +156,7 @@ angular.module('house.service',[])
     return {
         update:function(callback){
     
-          /* var form=new FormData();
+           var form=new FormData();
             form.append('userId',Number(PersonalInfo.userId));
             
             var data=Data.getAll();
@@ -164,12 +165,15 @@ angular.module('house.service',[])
                 if(i=='title'||i=='description'||i=='area'||i=='community'||i=='price')
                 form.append(i,data[i]);
             }
-            $http.post(host+updatePath,form,{
+            /*$http.post(host+updatePath,form,{
                  headers: { 
                      'Content-Type': 'application/x-www-form-urlencoded'
                  }
             }).success(callback);*/
-            $http.post(host+updatePath,Data.getAll()).success(callback);
+            myHttp.http('POST',host+updatePath,form,function(data){
+                callback(JSON.parse(data));
+            });
+            //$http.post(host+updatePath,Data.getAll()).success(callback);
         },
         add:function(callback){
             var filelist=Data.getFiles();
@@ -190,12 +194,10 @@ angular.module('house.service',[])
             for(var i in data){
                 form.append(i,data[i]);
             }
-            $http.post(host+addPath,form,{
-                 headers: { 
-                     'Content-Type': 'application/x-www-form-urlencoded'
-                 }
-            }).success(callback);
-            //myHttp.http('POST',host+addPath,form,function(){});
+            //$http.post(host+addPath,{a:1,b:2}).success(callback);
+            myHttp.http('POST',host+addPath,form,function(data){
+                callback(JSON.parse(data));
+            });
         },
         getData:function(id,callback){
             $http.get(host+getPath+id).success(function(d){

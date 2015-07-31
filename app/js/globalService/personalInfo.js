@@ -49,8 +49,8 @@ ServiceModule
         localStorage.removeItem('PersonalInfo');
     };
     function get(item) {
-        if (typeof item === "string") {
-            return PersonalInfo.item;
+        if (item in PersonalInfo) {
+            return PersonalInfo[item];
         } 
     };
 

@@ -22,10 +22,9 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
     $location.path(hash);
   };
   
-  // 查看localStorage中personalInfo状态，如果有值则跳转
+  // 检查isLogin状态，判断跳转
   // console.log(localStorage.personalInfo);
-  if (localStorage.PersonalInfo) {
-    // PersonalInfoMange.update(JSON.parse(localStorage.PersonalInfo));
+  if (localStorage.PersonalInfo && JSON.parse(localStorage.PersonalInfo).isLogin) {
     $location.path('/menu/people-list');
   }
 

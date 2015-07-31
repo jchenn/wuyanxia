@@ -1,4 +1,6 @@
 ServiceModule
+
+// PersonalInfo 作为页面之间的共享数据，它包含的字段可以查看登录接口
 .value('PersonalInfo', {})
 
 .factory('PersonalInfoMange', ['PersonalInfo', function(PersonalInfo){

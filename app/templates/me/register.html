@@ -1,7 +1,8 @@
 <ion-view class="m-me-register"  ng-controller="InfoRegister">
     <ion-header-bar align-title="center" class="bar-stable padding">
         <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
-        <h1 class="title">个人信息</h1>
+        <h1 class="title">个人信息填写</h1>
+        <button class="button alignright" ng-click="ignoreRegister()" >跳过</button>
     </ion-header-bar>
     <ion-content>
         <div class="header">
@@ -16,7 +17,7 @@
             </label>
             <label class="item item-input sex">
                 性别
-                <input type="text" name="sex"  ng-click="openSex()" value="{{data.sex}}" ng-model="data.sex"/>
+                <input type="text" name="sex"  ng-click="openSex()" value="{{data.sex == 0 ? '女' : '男'}}" ng-model="data.sex"/>
             </label>
             <label class="item item-input">
                 出生日期

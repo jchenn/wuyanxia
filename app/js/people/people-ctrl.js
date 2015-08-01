@@ -155,6 +155,7 @@ angular.module('people.ctrl', [])
     PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd) {
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
+    
     console.log('detail', response);
     
     if (response.errno === 0) {
@@ -163,8 +164,9 @@ angular.module('people.ctrl', [])
       // console.log($scope.house);
     }
   }, function(err) {
-    $scope.pepple = {};
+    // 无法查看室友详情，返回到上一页
     console.log('detail error', err);
+    $scope.go('/menu/people-list');
   });
 
   // 显示 收藏/屏幕 菜单
@@ -240,6 +242,7 @@ angular.module('people.ctrl', [])
     });
   };
 
+  // @Deprecated use system sms instead
   $scope.sendMessage = function() {
     
     if (SMS) {

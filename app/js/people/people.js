@@ -44,6 +44,7 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
     // 室友详情页
     .state('menu.people-detail.info', {
       url: '/info',
+      cache: false,
       views: {
         'people-detail-nav': {
           templateUrl: 'templates/people/people-detail-nav.html'
@@ -58,6 +59,7 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
     // 房源详情页
     .state('menu.people-detail.house', {
       url: '/house',
+      cache: false,
       views: {
         'people-detail': {
           templateUrl: 'templates/people/people-detail-house.html',

@@ -1,21 +1,28 @@
 <ion-view>
   <ion-content>
     <people-detail-nav></people-detail-nav>
-    <ion-slide-box>
-      <ion-slide ng-repeat="image in house.images track by $index">
-        <img ng-src="{{ image }}" width="400" height="300">
-      </ion-slide>
-    </ion-slide-box>
-    <h2 class="title">{{ house.title }}</h2>
-    <p>{{ house.price }} 元/月</p>
-    <div class="item">
-      <h4>房源地址</h4>
+    <section class="banner">
+      <ion-slide-box>
+        <ion-slide ng-repeat="image in house.images track by $index">
+          <img ng-src="{{ image }}" width="400" height="300">
+        </ion-slide>
+      </ion-slide-box>
+    </section>
+    <section class="item">
+      <h2 class="title">{{ house.title }}</h2>
+      <div class="row">
+        <p class="col"><em>{{ house.price }}</em> 元/月</p>
+        <p class="col">{{ house.publishTime }}</p>
+      </div>
+    </section>
+    <section class="item">
+      <h2 class="heading">房源地址</h2>
       <p><label>地址</label>{{house.address}}</p>
       <p><label>小区</label>{{house.community}}</p>
-    </div>
-    <div class="item">
-      <h4>房源描述</h4>
+    </section>
+    <section class="item">
+      <h2 class="heading">房源描述</h2>
       <p>{{ house.description }}</p>
-    </div>
+    </section>
   </ion-content>
 </ion-view>

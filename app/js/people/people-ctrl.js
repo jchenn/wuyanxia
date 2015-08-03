@@ -5,14 +5,23 @@ angular.module('people.ctrl', [])
   function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
     PeopleListQuery, PeopleFilterModel, PersonalInfo) {
 
+  var _hasMore = true,
+      _fetching = false,
+      params = PeopleFilterModel.params(),
+      data = null;
+
   $scope.$emit('load.people.list');
 
   $scope.list = [];
-  $scope.hasMore = true;
+  
+  $scope.hasMore = function() {
+    // console.log('fetching, more', _fetching, _hasMore);
+    return _fetching ? false : _hasMore;
+  }
 
   $scope.loadMore = function() {
 
-    var params = PeopleFilterModel.params();
+    _fetching = true;
 
     // 显示 loading 动画
     $ionicLoading.show({
@@ -24,38 +33,38 @@ angular.module('people.ctrl', [])
 
       console.log('request', params);
 
-      var data;
-
       // console.log(response);
 
       if (response.errno === 0) {
 
-        var data = response.data;
+        data = response.data;
 
         if (data.length > 0) {
+
           // 追加室友列表并更新页数
           if (params.p === 1) {
+            $scope.list = data;
             $ionicScrollDelegate.scrollTop();
+          } else {
+            $scope.list = $scope.list.concat(data);
           }
-          $scope.list = params.p === 1 ? data : $scope.list.concat(response.data);
-          PeopleFilterModel.increasePage();
-        } else {
 
+          PeopleFilterModel.increasePage();
+
+        } else {
           console.log('no more');
-          $scope.hasMore = false;
-          // PeopleFilterModel.setMore(false);
+          _hasMore = false;
         }
 
         PeopleFilterModel.setUsingCache(true);
       } else {
-
         // TODO error handling
-        $scope.hasMore = true;
-        // PeopleFilterModel.setMore(true);
+        _hasMore = true;
       }
 
       // 关闭 loading 动画
       $ionicLoading.hide();
+      _fetching = false;
       $scope.$broadcast('scroll.infiniteScrollComplete');
 
     }, function(err) {
@@ -63,8 +72,8 @@ angular.module('people.ctrl', [])
       console.log('err', err);
       
       $ionicLoading.hide();
-      // PeopleFilterModel.setMore(false);
-      $scope.hasMore = false;
+      _hasMore = false;
+      _fetching = false;
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };

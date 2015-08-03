@@ -58,6 +58,8 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   // 强制让标签栏在底部
   // $ionicConfigProvider.tabs.position('bottom');
 
+  $ionicConfigProvider.navBar.alignTitle('center');
+
   // 去除标题栏返回按钮的文字
   $ionicConfigProvider.backButton.text('').previousTitleText(false);
 

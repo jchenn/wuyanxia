@@ -1,21 +1,23 @@
 <ion-view class="m-people" hide-nav-bar="true">
-  <ion-header-bar class="bar-stable">
+  <ion-header-bar class="bar-theme">
     <button class="button button-clear" ng-click="back()">取消</button>
     <h1 class="title">室友</h1>
     <button class="button button-clear" ng-click="finish()">完成</button>
   </ion-header-bar>
   <ion-content>
-    <div class="button-bar" ng-repeat="v in buttons">
-      <a class="button" ng-class="{active: params[v.name] == c.value}"
-         ng-repeat="c in v.choices" ng-click="params[v.name] = c.value;">{{ c.label }}</a>
+    <div class="filter-radio">
+      <div class="button-bar" ng-repeat="v in buttons">
+        <a class="button" ng-class="{active: params[v.name] == c.value}"
+           ng-repeat="c in v.choices" ng-click="params[v.name] = c.value;">{{ c.label }}</a>
+      </div>
     </div>
-    <ion-list>
-      <ion-item class="item-input item-select" ng-repeat="v in list">
+    <ul class="list">
+      <li class="item item-input item-select" ng-repeat="v in list">
         <div class="input-label">{{ v.label }}</div>
         <select ng-model="params[v.name]">
           <option ng-repeat="c in v.choices" value="{{ c.value }}">{{ c.label }}</option>
         </select>
-      </ion-item>
-    </ion-list>
+      </li>
+    </ul>
   </ion-content>
 </ion-view>

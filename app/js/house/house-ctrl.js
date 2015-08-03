@@ -121,6 +121,7 @@ angular.module('house.ctrl',[])
             }
             if(data.errno==0){
                 house.resetForm1($scope);
+                Data.clearFormData();
                 PersonalInfoMange.update({hasHouse:1});
                 location.href="#/menu/people-list";
             }
@@ -198,6 +199,7 @@ angular.module('house.ctrl',[])
                     PersonalInfoMange.update({
                         "hasHouse":0
                     });
+                    alert('asdf');
                     location.href="#/menu/people-list";
                 }
             });
@@ -229,7 +231,7 @@ angular.module('house.ctrl',[])
             return;
         }
         $ionicLoading.show({
-            template:'提交中~'
+            template:'提交中……'
         });
         Form.update(function(data){
             $ionicLoading.hide();
@@ -239,6 +241,7 @@ angular.module('house.ctrl',[])
                 return;
             }
             if(data.errno==0){
+                Data.clearFormData();
                 location.href="#/menu/people-list";
             }
         });

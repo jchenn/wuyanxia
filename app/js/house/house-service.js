@@ -430,6 +430,7 @@ angular.module('house.service',[])
             });
         },
         getFormData:function($scope){
+            Data.clearFormData();
             if(!$scope) throw new Error('参数忘加了');
             Data.formDataIn($scope.data);
         }

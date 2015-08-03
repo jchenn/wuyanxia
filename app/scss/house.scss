@@ -53,7 +53,9 @@
         font-size: 20px;
     }
     &.new-view{
-        
+        h1,button{
+            font-family: "Microsoft Yahei" !important;
+        }
         input::-webkit-input-placeholder{
             color: #595758;
             font-family: "Microsoft Yahei";

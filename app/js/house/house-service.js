@@ -12,6 +12,7 @@ angular.module('house.service',[])
             if(xhr.readyState==4){
                 callback(xhr.responseText);
             }
+            //console.log(xhr.readyState);
         };
         xhr.send(data);
         //console.log('send');
@@ -189,7 +190,7 @@ angular.module('house.service',[])
             
             var form=new FormData();
             
-            if(!PersonalInfo.userId){alert('UserId 为空~~~');return ;}
+            if(!PersonalInfo.userId){alert('UserId 为空~~~,我先赋值为1了');PersonalInfo.userId=1;}
             
             form.append('userId',Number(PersonalInfo.userId));
 
@@ -220,7 +221,13 @@ angular.module('house.service',[])
     };
 })
 .factory('Data',function(){
-    var data={};
+    var data={
+        title:'',
+        price:0,
+        community:'',
+        area:'',
+        description:''
+    };
     var fileList=[];
     return {
         get:function(key){
@@ -242,6 +249,23 @@ angular.module('house.service',[])
         },
         getFiles:function(){
             return fileList;
+        },
+        formDataIn:function(form){
+            for(var i in form){
+                if(typeof data[i]!=undefined) data[i]=form[i];
+            }
+        },
+        formDataOut:function(){
+            return data;
+        },
+        clearFormData:function(){
+            data={
+                title:'',
+                price:0,
+                community:'',
+                area:'',
+                description:''
+            };
         }
     };
 })
@@ -267,11 +291,14 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Cmn',function(Popup){
+.factory('Cmn',function(Popup,$ionicHistory){
     
     return {
-        warn:function(str,callback,tag){
-            return Popup.show(str,callback,tag);
+        warn:function(str){
+            return Popup.show(str);
+        },
+        back:function(){
+            $ionicHistory.goBack();
         }
     };
 })
@@ -330,6 +357,79 @@ angular.module('house.service',[])
             }
             //alert(data);
             navigator.camera.getPicture(onSuccess, onFail, data);
+        }
+    };
+})
+.factory('house',function(Check,Data,Cmn){
+    var warn=Cmn.warn;
+    return {
+        resetForm1:function($scope){
+            if(!$scope) throw new Error('参数忘加了');
+            $scope.data={
+                title:'',
+                price:'',
+                area:'',
+                community:''
+            };
+        },
+        resetForm2:function($scope){
+            if(!$scope) throw new Error('参数忘加了');
+            $scope.data={
+                description:''
+            };
+        },
+        resetPics:function($scope){
+            if(!$scope) throw new Error('参数忘加了');
+            $scope.pics=[];
+        },
+        checkForm:function(callback){
+            callback=callback||function(){};
+            if(!Check.checkLen(Data.get('title'),100,1)){
+                callback('title');
+                return 0;
+            }
+            if(!Check.checkPrice(Data.get('price'))){
+               callback('price');
+                return 0;
+            }
+            if(!Check.checkLen(Data.get('community'),300,1)){
+                callback('community');
+                return 0;
+            }
+            if(!Check.checkLen(Data.get('area'),300,1)){
+                callback('area');
+                return 0;
+            }
+            if(!Check.checkLen(Data.get('description'),1000,1)){
+                callback('description');
+                return 0;
+            }
+            return 1;
+        },
+        checkWarnForm:function(){
+            return this.checkForm(function(type){
+                switch(type){
+                    case 'title':
+                        warn('标题长度不对');
+                        break;
+                    case 'price':
+                        warn('价格格式不对');
+                        break;
+                    case 'community':
+                        warn('小区长度不对');
+                        break;
+                    case 'area':
+                        warn('地址或区域长度不对');
+                        break;
+                    case 'description':
+                        warn('描述信息长度不对');
+                        break;
+                }
+            });
+        },
+        getFormData:function($scope){
+            if(!$scope) throw new Error('参数忘加了');
+            Data.formDataIn($scope.data);
         }
     };
 })

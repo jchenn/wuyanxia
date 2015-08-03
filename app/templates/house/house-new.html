@@ -3,7 +3,7 @@
         <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
         <h1 class="title" >{{title}}</h1>
          <div class="buttons">
-            <button class="button {{disable}}" ng-click="showPop()" ng-if="showPop">撤销房源</button>
+            <button class="button" ng-click="showPop()" ng-if="showPop">撤销房源</button>
         </div>
     </ion-header-bar>
     <style ng-if="pics.length<=1">
@@ -13,7 +13,7 @@
     </style>
     <ion-content>
         <div class="m-show" >
-            <div class="m-show-content" ng-click="optionShow()">
+            <div class="m-show-content" ng-click="onSlideboxClick()">
                 <ion-slide-box >
                   <ion-slide ng-repeat=" pic in pics">
                     <img ng-src="{{pic}}" ng-alt="{{pic.alt}}">
@@ -34,7 +34,7 @@
         </div>
         <div class="m-list g-1">
             <div class="m-list-item">
-                <button class="m-btn" ng-click="send()" {{btnStatus}}>{{btnText}}</button>
+                <button class="m-btn" ng-click="send()">完成</button>
             </div>
         </div>
     </ion-content>

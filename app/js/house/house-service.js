@@ -299,6 +299,8 @@ angular.module('house.service',[])
         },
         back:function(){
             $ionicHistory.goBack();
+        },
+        scrollBottom:function(){
         }
     };
 })

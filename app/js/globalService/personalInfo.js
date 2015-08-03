@@ -1,9 +1,6 @@
 ServiceModule
 .value('PersonalInfo',{
         'lookStatus' : '',
-        'birth': '',
-        'name': '',
-        'sex': '',
         'company': '',
         'job': '',
         'phone': '',

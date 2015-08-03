@@ -7,21 +7,21 @@
     <ion-content>
         <div class="header">
             <div class="head-img" align="center">
-                <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
+                <img ng-src="{{data.avatar}}" alt="头像"/>
             </div>
         </div>
         <div class="list">
             <label class="item item-input">
                 昵称
-                <input type="text" name="name" ng-model="data.name" value="{{data.name}}"/>
+                <input type="text" name="name" ng-model="data.nickName" value="{{data.nickName}}"/>
             </label>
             <label class="item item-input sex">
                 性别
-                <input type="text" name="sex"  ng-click="openSex()" value="{{data.sex == 0 ? '女' : '男'}}" ng-model="data.sex"/>
+                <input type="text" name="sex"  ng-click="openSex()" value="{{data.gender}}" ng-model="data.gender"/>
             </label>
             <label class="item item-input">
                 出生日期
-                <input type="text" name="birth" ng-click="openBirth()" value="{{data.birth}}" ng-model="data.birth"/>
+                <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>
             </label>
             <label class="item item-input">
                 公司

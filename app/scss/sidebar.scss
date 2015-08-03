@@ -1,0 +1,43 @@
+.m-menu {
+  .header {
+    padding: 40px 10px;
+
+    .avatar {
+      float: left;
+      margin-right: 16px;
+
+      img {
+        border-radius: 50%;
+        width: 77px;
+        height: 77px;
+        border: 2px solid #eee;
+      }
+    }
+
+    & > p {
+      overflow: hidden;
+      color: #575757;
+      line-height: 77px;
+
+      .badge {
+        font-size: smaller;
+        background-color: #fcf231;
+      }
+    }
+  }
+}
+
+.m-setting {
+  .list {
+    margin-top: 20px;
+  }
+
+  .button-logout {
+    width: 80%;
+    margin: 50px auto 0;
+    border: none;
+    background-color: #63c3d3;
+    color: #fff;
+    display: block;
+  }
+}

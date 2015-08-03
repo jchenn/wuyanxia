@@ -2,7 +2,7 @@ angular.module('people.service', ['ngResource'])
 
 .factory('PeopleListQuery', function($resource, PeopleFilterModel) {
   var resource = $resource(
-    // 'http://10.242.37.68/people/list?' 
+    // 'http://10.242.37.68:4000/people/list?' 
     'http://223.252.223.13/Roommates/api/people/list?' 
     + 'id=:id&p=:p&xb=:xb&f=:f&gs=:gs&cy=:cy&cw=:cw&zx=:zx&ws=:ws&xg=:xg&fk=:fk',
     PeopleFilterModel.getDefaultChoice());

@@ -1,24 +1,21 @@
-.m-menu {
-  .header {
-    padding: 40px 10px;
+.bar.bar-theme {
+  background-color: #63c3d3;
+  color: #fff;
+  border: none;
+}
 
-    .avatar {
-      float: left;
-      margin-right: 16px;
+.bar-theme .button.button-clear {
+  color: #fff;
+}
 
-      img {
-        border-radius: 50%;
-        width: 75px;
-        height: 75px;
-      }
-    }
+.bar.bar-theme .title {
+  color: #fff;
+}
 
-    & > p {
-      overflow: hidden;
+.pane {
+  background-color: #f8f8f8;
+}
 
-      .badge {
-        font-size: smaller;
-      }
-    }
-  }
+.action-sheet .button {
+  color: #000;
 }

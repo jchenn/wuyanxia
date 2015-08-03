@@ -5,30 +5,30 @@ angular.module('auth.service', ['ngResource'])
 		$ionicLoading.show({
 	     	template: str || 'Loading...'
 	    });
-	};
+	}
 	function hide() {
 		$ionicLoading.hide();
-	};
+	}
 
 	return {
 		show: show,
 		hide: hide
-	}
+	};
 }])
 
 .factory('AjaxService', ['$resource', function($resource){
 	function login() {
 		var url = 'http://223.252.223.13/Roommates/api/login';
 		return $resource(url);
-	};
+	}
 	function register() {
 		var url = 'http://223.252.223.13/Roommates/api/register';
 		return $resource(url);
-	};
+	}
 	function checkEmail() {
 		var url = 'http://223.252.223.13/Roommates/api/register/check';
 		return $resource(url);
-	};
+	}
 
 	return {
 		login: login,
@@ -57,7 +57,7 @@ angular.module('auth.service', ['ngResource'])
             myPopup.close();
             if (typeof callback === 'function') callback();
         }, 1500);
-    }
+    };
 }])
 
 .factory('Validate', function() {
@@ -71,7 +71,7 @@ angular.module('auth.service', ['ngResource'])
 		if (!data.email) {
 			return {
 				name: "email",
-				text: "邮箱不能为空"
+				text: "请输入企业邮箱"
 			};
 		} else if (!emailReg.test(data.email)) {
 			return {
@@ -84,7 +84,7 @@ angular.module('auth.service', ['ngResource'])
 			if (!data.nickname) {
 				return {
 				name: "nickname",
-				text: "昵称不能为空"
+				text: "请输入昵称"
 			};
 			} else if (data.nickname.length > 8) {
 				return {
@@ -97,15 +97,15 @@ angular.module('auth.service', ['ngResource'])
 		if (!data.password) {
 			return {
 				name: "password",
-				text: "密码不能为空"
+				text: "请输入登录密码"
 			};
-		} else if (data.password.length < 6 || data.password.length > 20) {
+		} else if (data.password.length < 6) {
 			return {
 				name: "password",
-				text: "密码不能少于6个或者大于20个"
+				text: "为确保账户安全，密码请至少设置6位"
 			};
 		}
 		
 		return {};
-	}
-})
+	};
+});

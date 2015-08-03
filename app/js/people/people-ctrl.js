@@ -86,14 +86,13 @@ angular.module('people.ctrl', [])
   // 在跳转到室友详情之前，先判断是否填完个人信息
   $scope.jumpToDetail = function(hash) {
 
-    // console.log(PersonalInfo);
-    // PersonalInfo.completeInfo = false;
-    // PersonalInfo.completeAsk = true;
+    // $scope.go(hash);
+    // return;
 
-    // TODO 判断是否完成问卷
-    if (PersonalInfo.completeInfo && PersonalInfo.completeAsk) {
+    // 判断是否完成问卷
+    if (PersonalInfo.completeInfo && PersonalInfo.tags) {
       $scope.go(hash);
-    } else if (!PersonalInfo.completeAsk && !PersonalInfo.completeInfo) {
+    } else if (!PersonalInfo.tags && !PersonalInfo.completeInfo) {
       $ionicPopup.confirm({
         template: '只有填写自己的个人信息和匹配问题才能为您匹配室友，并查看详情信息哟。',
         okText: '现在填写',
@@ -117,14 +116,14 @@ angular.module('people.ctrl', [])
           // do nothing
         }
       });
-    } else if (!PersonalInfo.completeAsk) {
+    } else if (!PersonalInfo.tags) {
       $ionicPopup.confirm({
-        template: '请回答以下7个问题，以便为您更精确匹配室友。',
+        template: '请回答以下6个问题，以便为您更精确匹配室友。',
         okText: '现在回答',
         cancelText: '稍后再说'
       }).then(function(res) {
         if (res) {
-          $scope.go('/me/q/1');
+          $scope.go('/quiz/zx');
         } else {
           // do nothing
         }
@@ -133,7 +132,7 @@ angular.module('people.ctrl', [])
   };
 })
 
-.controller('PeopleFilterCtrl', function($scope, $state, PeopleFilterModel) {
+.controller('PeopleFilterCtrl', function($scope, PeopleFilterModel) {
   $scope.buttons = PeopleFilterModel.radio;
   $scope.list = PeopleFilterModel.list;
   $scope.params = PeopleFilterModel.params();
@@ -142,12 +141,12 @@ angular.module('people.ctrl', [])
     PeopleFilterModel.resetPage();
     PeopleFilterModel.setMore(true);
     PeopleFilterModel.setUsingCache(false);
-    $state.go('menu.people-list');
+    $scope.go('/menu/people-list');
   };
 
   $scope.back = function() {
     PeopleFilterModel.setUsingCache(true);
-    $state.go('menu.people-list');
+    $scope.go('/menu/people-list');
   };
 })
 
@@ -156,6 +155,7 @@ angular.module('people.ctrl', [])
     PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd) {
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
+    
     console.log('detail', response);
     
     if (response.errno === 0) {
@@ -164,7 +164,9 @@ angular.module('people.ctrl', [])
       // console.log($scope.house);
     }
   }, function(err) {
-    console.log('error', err);
+    // 无法查看室友详情，返回到上一页
+    console.log('detail error', err);
+    $scope.go('/menu/people-list');
   });
 
   // 显示 收藏/屏幕 菜单
@@ -193,7 +195,7 @@ angular.module('people.ctrl', [])
                   $scope.people.isFav = false;
                 }
               }, function(err) {
-                console.log('err', err);
+                console.log('unfav err', err);
               });
 
           } else {
@@ -205,22 +207,34 @@ angular.module('people.ctrl', [])
                   $scope.people.isFav = true;
                 }
               }, function(err) {
-                console.log('err', err);
+                console.log('fav err', err);
               });
           }
         } else if (index === 1) {
 
-          // 处理屏蔽
+          // TODO 增加一个提示框 处理屏蔽
           console.log('forbid');
 
-          ForbidAdd.save({userId: PersonalInfo.userId, forbidId: $scope.people.userId},
-            function(response) {
-              if (response.errno === 0) {
-                console.log('forbid success');
-              }
-            }, function(err) {
-              console.log('err', err);
-            });
+          $ionicPopup.confirm({
+            templates: '点击不喜欢，你将不会再看到该室友信息了哟！',
+            okText: '不喜欢',
+            cancelText: '我再想想'
+          }).then(function(res) {
+            if (res) {
+              ForbidAdd.save({userId: PersonalInfo.userId, forbidId: $scope.people.userId},
+                function(response) {
+                  if (response.errno === 0) {
+                    console.log('forbid success');
+                  }
+                }, function(err) {
+                  console.log('err', err);
+                });
+            } else {
+              // do nothing
+            }
+          });
+
+          
         }
 
         return true;
@@ -228,6 +242,7 @@ angular.module('people.ctrl', [])
     });
   };
 
+  // @Deprecated use system sms instead
   $scope.sendMessage = function() {
     
     if (SMS) {

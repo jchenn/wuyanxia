@@ -24,9 +24,9 @@
   <ion-side-menu side="left">
     <ion-content>
       <div class="header" ng-click="go('/me')" menu-toggle>
-        <div class="avatar"><img ng-src="{{ me.headUrl }}" alt="头像"></div>
+        <div class="avatar"><img ng-src="{{ me.avatar }}" alt="头像"></div>
         <p>
-          <span>{{ me.name }}</span>
+          <span>{{ me.nickName }}</span>
           <span class="badge badge-stable">{{ me.credit }}</span>
           <span class="badge badge-stable">{{ me.lookStatus | lookStatus }}</span>
         </p>

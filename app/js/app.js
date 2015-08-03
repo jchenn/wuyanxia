@@ -30,7 +30,7 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
 
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
   $stateProvider
 
@@ -51,12 +51,14 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
 
   $urlRouterProvider.otherwise('/login');
 
-
-
   // 强制让标签栏在底部
   // $ionicConfigProvider.tabs.position('bottom');
 
   // 去除标题栏返回按钮的文字
   $ionicConfigProvider.backButton.text('').previousTitleText(false);
+
+  $httpProvider.defaults.withCredentials = true;
+  
+  // $httpProvider.defaults.useXDomain = true;
 });
 var ServiceModule=angular.module('global.service',[]);

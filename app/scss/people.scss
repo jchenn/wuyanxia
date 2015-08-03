@@ -42,11 +42,22 @@
         padding: 0;
 
         .img-response {
+          position: relative;
           text-align: center;
 
           img {
             width: 156px;
             height: 156px;
+          }
+
+          &.ribbon:before {
+            position: absolute;
+            top: 8px;
+            left: 0;
+            content: '有房';
+            color: #c9caca;
+            background-color: #fff100;
+            padding: 1px 3px;
           }
         }
 

@@ -1,7 +1,7 @@
 <ion-view hide-nav-bar="true" class="m-people">
-  <ion-header-bar class="bar-stable">
+  <ion-header-bar class="bar-theme">
     <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
-    <h1 class="title">{{ people.nickName }}</h1>
+    <h1 class="title">室友详情</h1>
     <button class="button button-clear button-icon ion-ios-more" ng-click="showMenu()"></button>
   </ion-header-bar>
   <ion-nav-view name="people-detail"></ion-nav-view>
@@ -11,14 +11,14 @@
         <p>{{ people.nickName }}</p>
         <p>{{ people.tel }}</p>
       </div>
-      <div class="col">
-        <a class="button button-clear" href="tel:{{ people.tel }}">
-          <span class="icon ion-ios-telephone"></span>电话
+      <div class="col active">
+        <a class="button button-block button-clear" href="tel:{{ people.tel }}">
+          <span class="icon ion-ios-telephone"></span>手机
         </a>
       </div>
-      <div class="col">
-        <a class="button button-clear" href="sms:+86{{ people.tel }}?body=短信内容，有了文案再改 people-detail-wrapper.html">
-          <span class="icon ion-ios-email"></span>短信
+      <div class="col active">
+        <a class="button button-block button-clear" href="sms:+86{{ people.tel }}?body=短信内容，有了文案再改 people-detail-wrapper.html">
+          <span class="icon ion-chatbox-working"></span>短信
         </a>
       </div>
     </div>

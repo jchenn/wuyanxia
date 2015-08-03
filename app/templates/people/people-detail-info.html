@@ -3,16 +3,16 @@
     <people-detail-nav></people-detail-nav>
     <section class="banner">
         <div class="avatar"><img ng-src="{{ people.photoId }}" alt=""></div>
-        <h1>{{ people.nickName }} <small class="badge badge-stable">{{ people.credit }}</small></h1>
+        <h1>{{ people.nickName }} <small class="badge">{{ people.credit }}</small></h1>
       </section>
       <section class="item">
         <h2 class="heading">基本信息</h2>
         <div class="row">
-          <p class="col">性别：{{ people.gender }}</p>
-          <p class="col">年龄：{{ people.age }}</p>
+          <p class="col"><label>性别</label>{{ people.gender }}</p>
+          <p class="col"><label>年龄</label>{{ people.age }}</p>
         </div>
-        <p>公司：{{ people.company }}</p>
-        <p>职位：{{ people.job }}</p>
+        <p><label>公司</label>{{ people.company }}</p>
+        <p><label>职位</label>{{ people.job }}</p>
       </section>
       <section class="item">
         <h2 class="heading">个人标签</h2>

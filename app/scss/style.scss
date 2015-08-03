@@ -1,6 +1,7 @@
 .bar.bar-theme {
   background-color: #63c3d3;
   color: #fff;
+  border: none;
 }
 
 .bar-theme .button.button-clear {
@@ -9,6 +10,14 @@
 
 .bar.bar-theme .title {
   color: #fff;
+}
+
+.pane {
+  background-color: #f8f8f8;
+}
+
+.action-sheet .button {
+  color: #000;
 }
 
 .m-menu {

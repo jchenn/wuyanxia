@@ -22,7 +22,7 @@ angular.module('auth.ctrl', ['ionic'])
                     $scope.errorEmail = true;
                 } else if ($scope.errorData.name == "password") {
                     $scope.errorPwd = true;
-                };
+                }
                 console.log($scope.errorData);
             } else {
                 // 显示loading

@@ -1,5 +1,5 @@
 angular.module('house.ctrl',[])
-.controller('newCtrl',function($scope,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data){
+.controller('newCtrl',function($scope,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,$ionicScrollDelegate){
     
     /**控制器中用到的函数**/
     
@@ -8,6 +8,9 @@ angular.module('house.ctrl',[])
             try{
                 $timeout(function(){
                 $ionicSlideBoxDelegate.update();
+                    $timeout(function(){
+                        $ionicSlideBoxDelegate.next();
+                    },100);
             },500);
         }
         catch(e){
@@ -105,7 +108,7 @@ angular.module('house.ctrl',[])
         house.getFormData($scope);
         if(!house.checkWarnForm()) return;
         $ionicLoading.show({
-            template:'提交中~'
+            template:'提交中……'
         });
         Form.add(function(data){
 
@@ -118,11 +121,18 @@ angular.module('house.ctrl',[])
             }
             if(data.errno==0){
                 house.resetForm1($scope);
+                PersonalInfoMange.update({hasHouse:1});
                 location.href="#/menu/people-list";
             }
         });
     };
     
+    $scope.onFocus=function(){
+        $timeout(function(){
+            $ionicScrollDelegate.scrollBottom();
+        },500);
+        
+    };
 
     
     //跳转到描述
@@ -141,18 +151,6 @@ angular.module('house.ctrl',[])
     
 })
 
-//此控制器已经废弃
-.controller('infoCtrl',function($scope,Form,$ionicSlideBoxDelegate,$timeout,Cmn,houseInfo){
-    Form.getData(1,function(data){
-        if(data.errno==1){
-            Cmn.warn(data.message);
-        }
-        $scope.pics=data.data.picList;
-        $scope.data=data.data;
-        $ionicSlideBoxDelegate.update();
-    });
-
-})
 .controller('descCtrl',function($scope,Cmn,house){
     
     /**模板用到的变量、函数**/
@@ -168,7 +166,7 @@ angular.module('house.ctrl',[])
     house.resetForm2($scope);
     /**********/
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate){
     
     
     var warn=Cmn.warn;
@@ -176,6 +174,13 @@ angular.module('house.ctrl',[])
     $scope.back=Cmn.back;
     
     $scope.title="房源编辑";
+    
+    $scope.onFocus=function(){
+        $timeout(function(){
+            $ionicScrollDelegate.scrollBottom();
+        },500);
+        
+    };
    
     //弹出框
     $scope.showPop=function(){

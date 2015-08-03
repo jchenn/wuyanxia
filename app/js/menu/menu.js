@@ -16,6 +16,7 @@ angular.module('menu', ['menu.ctrl'])
     
     .state('menu.about', {
       url: '/about',
+      cache: false,
       views: {
         'menu-content': {
           templateUrl: 'templates/menu/about.html'
@@ -34,6 +35,7 @@ angular.module('menu', ['menu.ctrl'])
 
     .state('menu.setting', {
       url: '/setting',
+      cache: false,
       views: {
         'menu-content': {
           templateUrl: 'templates/menu/setting.html',
@@ -44,6 +46,7 @@ angular.module('menu', ['menu.ctrl'])
 
     .state('menu.faq', {
       url: '/faq',
+      cache: false,
       views: {
         'menu-content': {
           templateUrl: 'templates/menu/empty.html'
@@ -53,6 +56,7 @@ angular.module('menu', ['menu.ctrl'])
 
     .state('menu.feedback', {
       url: '/feedback',
+      cache: false,
       views: {
         'menu-content': {
           templateUrl: 'templates/menu/empty.html'

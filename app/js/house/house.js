@@ -10,11 +10,6 @@ angular.module('house',['house.ctrl','house.service'])
         templateUrl:'templates/house/house-decoration.html',
         controller:'descCtrl'
     })
-    .state('houseinfo',{
-        url:'/house-info',
-        templateUrl:'templates/house/house-info.html',
-        controller:'infoCtrl'
-    })
     .state('houseUpdate',{
         url:'/house-update',
         cache:false,

@@ -55,7 +55,7 @@ angular.module('auth.ctrl', ['ionic'])
                     InfoPopupService(resp.info);
                 });
             }
-        }
+        };
     })
     .controller('RegisterCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
         $scope.formData = {
@@ -105,7 +105,7 @@ console.log($scope.formData);
                             PersonalInfoMange.update({isLogin: 1});
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $location.path('/me-register').replace()
+                                $location.path('/me-register').replace();
                             });
                         } else if (resp.result == 0) {
                             // InfoPopupService(resp.info);
@@ -115,18 +115,17 @@ console.log($scope.formData);
                     }, function(err) {
                         InfoPopupService('网络错误，请重试');
                         console.log(err);
-                    })
+                    });
                     // $scope.successPopup();
                 }
-            })
-        }
+            });
+        };
 
         $scope.register = function() {
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             $scope.errorNickName = false;
-            //转圈圈
-            Loading.show('正在注册…');
+            
             /**
              * 验证表单
              */
@@ -141,10 +140,12 @@ console.log($scope.formData);
                     $scope.errorNickName = true;
                 } else if ($scope.errorData.name == "password") {
                     $scope.errorPwd = true;
-                };
+                }
                 console.log($scope.errorData);
             } else {
                 console.log("注册");
+                //转圈圈
+                Loading.show('正在注册…');
                 // var res = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
                 AjaxService.register().save({}, $scope.formData, function(resp){
                     console.log(resp);
@@ -154,7 +155,7 @@ console.log($scope.formData);
                         PersonalInfoMange.update({
                             name: $scope.formData.nickname,
                             userId: resp.userId
-                        })
+                        });
                         console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试
                         // if(typeof cordova !== "undefined") {
@@ -168,15 +169,15 @@ console.log($scope.formData);
                         $scope.showPopup();
                     } else if (resp.result == 0) {
                         InfoPopupService(resp.info);
-                    };
+                    }
                 }, function(resp){
                     //失败
                     Loading.hide();
                     console.log('注册失败');
                     console.log(resp);
                     InfoPopupService(resp.info);
-                })
+                });
                 // $scope.showPopup();
             }
-        }
+        };
     });

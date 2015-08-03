@@ -1,17 +1,20 @@
 .g-login, .g-register {
+	background: url('../img/bg.png');
+	background-size: cover;
 	.logo-wrap {
 		position: relative;
 		width: 100%;
-		height: 150px;
+		height: 250px;
 		.logo {
+			background: url('../img/logo.png') no-repeat;
+			background-size: cover;
 			position: absolute;
 			left: 50%;
 			top: 50%;
 			transform: translate(-50%, -50%);
 			-webkit-transform: translate(-50%, -50%);
-			width: 100px;
-			height: 50px;
-			border: 1px solid gray;
+			width: 90px;
+			height: 130px;
 			border-radius: 5px;
 		}
 	}
@@ -50,44 +53,89 @@
 			}
 		}
 		.log-list.list {
+			padding: 10px 30px;
+			.input-label.icon {
+				&.icon-email {
+					background: url('../img/email.png');
+					background-size: cover;
+				}
+				&.icon-pwd {
+					background: url('../img/pwd.png');
+					background-size: cover;
+				}
+				&.icon-nickname {
+					background: url('../img/nickname.png');
+					background-size: cover;
+				}
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+			}
 			.item-input {
+				box-sizing: border-box;
+    			height: 38px;
+				border-width: 0;
+				border-left-width: 4px;
 				border-color: transparent;
-				border-bottom-color: #ddd;
-				margin: 0;
+				input {
+					margin-left: 20px;
+				}
+			}
+			.item-input + .item-input {
+				margin-top: 20px;
 			}
 			.button {
-				margin-top: 40px;
+				min-height: 38px;
+				line-height: 35px;
+				margin-top: 25px;
+				background-color: #66C3D2;
+				border-width: 0;
 			}
 			.has-error {
 				border-color: red;
 			}
 			.errorInfo {
 			    position: absolute;
-			    top: 110px;
+			    top: 106px;
 			    color: red;			
+			}
+			.is-focus {
+				border-left-color: #66C3D2;
 			}
 		}
 	}
 
 	.m-bar {
+		padding: 0;
+		height: 60px;
+		opacity: 0.5;
 		& > .buttons {
 			width: 50%;
-			&:first-child .button {
-				border-top-width: 1px;
-			}
 			&:last-child .button {
-				border-top-width: 1px;
 				border-left-width: 1px;
+				border-left-color: #999;
 			}
 			.button {
 				width: 100%;
 				border-radius: 0;
 				border-width: 0;
+			    background-color: #b5b5b6;
+			    color: black;
+			    font-size: 14px;
+			    &:active {
+			    	color: white;
+			    	background-color: black;
+			    }
 			}
 		}
 	}
 }
 
-.g-register .m-form .log-list.list .errorInfo {
-    top: 160px;		
-}
+.g-register {
+	.has-header {
+		top: 0;
+	}
+	.m-form .log-list.list .errorInfo {
+	    top: 160px;		
+	}
+} 

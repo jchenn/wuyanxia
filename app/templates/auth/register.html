@@ -7,21 +7,21 @@
 	 </ion-header-bar>
 	<ion-content>
 		<div class="logo-wrap">
-			<div class="logo">LOGO</div>
+			<div class="logo"></div>
 		</div>
 		<div class="m-form">
-			<form class="log-list list padding" ng-submit="register()">
-				<label class="item item-input" ng-class="{ 'has-error' : errorEmail }">
-					<span class="input-label">企业邮箱</span>
-    			<input type="text" name="email" ng-model="formData.email">
+			<form class="log-list list padding" ng-submit="register()" ng-init="fcousFlag = 0">
+				<label class="item item-input" ng-class="{ 'has-error' : errorEmail, 'is-focus' : fcousFlag==1}">
+					<span class="input-label icon icon-email"></span>
+    				<input type="text" name="email" placeholder="公司邮箱" ng-model="formData.email" ng-focus="fcousFlag = 1" ng-blur="fcousFlag = 0">
 				</label>
-				<label class="item item-input" ng-class="{ 'has-error' : errorNickName }">
-				    <span class="input-label">昵称</span>
-    				<input type="text" ng-model="formData.nickname">
+				<label class="item item-input" ng-class="{ 'has-error' : errorNickName, 'is-focus' : fcousFlag==2}">
+				    <span class="input-label icon icon-nickname"></span>
+    				<input type="text" ng-model="formData.nickname" placeholder="昵称" ng-focus="fcousFlag = 2" ng-blur="fcousFlag = 0">
 				</label>
-				<label class="item item-input" ng-class="{ 'has-error' : errorPwd }">
-				    <span class="input-label" >登录密码</span>
-    				<input type="password" name="password" ng-model="formData.password" >
+				<label class="item item-input" ng-class="{ 'has-error' : errorPwd, 'is-focus' : fcousFlag==3}">
+				    <span class="input-label icon icon-pwd" ></span>
+    				<input type="password" name="password" placeholder="登录密码" ng-model="formData.password" ng-focus="fcousFlag = 3" ng-blur="fcousFlag = 0">
 				</label>
 				<span class="errorInfo" ng-show="errorData.text">{{errorData.text}}</span>
 				<button type="submit" class="button button-block button-positive">

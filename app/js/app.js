@@ -1,6 +1,6 @@
 angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'global.service'])
 
-.run(function($rootScope, $location, $ionicPlatform, PersonalInfoMange) {
+.run(function($rootScope, $location, $ionicPlatform, PersonalInfo) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -24,8 +24,12 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   
   // 检查isLogin状态，判断跳转
   // console.log(localStorage.personalInfo);
-  if (localStorage.PersonalInfo && JSON.parse(localStorage.PersonalInfo).isLogin) {
-   $location.path('/menu/people-list');
+  if (localStorage.PersonalInfo) {
+    var stoPersonalInfo = JSON.parse(localStorage.PersonalInfo);
+    if (stoPersonalInfo.isLogin) {
+      angular.extend(PersonalInfo, stoPersonalInfo);
+      $location.path('/menu/people-list');
+    }
   }
 
 })

@@ -121,41 +121,26 @@ angular.module('house.ctrl',[])
     });
     
     function addPic(type){
-        //camera
-        if(type==1){
-            //file.capture="camera";
-            //file.click();
+        
             var opts={
-                width:100,
-                height:100,
+                width:400,
+                height:300,
                 method:1,
-                quality:10
+                quality:50
             };
+            if(type==2) opts.method=0;
             
-            $timeout(function(){
-                $ionicSlideBoxDelegate.update();
-                //$timeout(function(){$ionicSlideBoxDelegate.slide();},100);
-            },500);
             var onSuccess=function(data){
-                $scope.pics.push(
-                     "data:image/jpeg;base64," + data
-                );
-                var form=new FormData();
-                form.append("data",data);
-                myHttp.http('POST','http://10.240.34.242',form,function(){alert('OK');});
+                var url="data:image/jpeg;base64," + data;
+                $scope.pics.push(url);
+                Data.addFile(url);
                 $timeout(function(){
-                $ionicSlideBoxDelegate.update();
-                //$timeout(function(){$ionicSlideBoxDelegate.slide();},100);
+                    $ionicSlideBoxDelegate.update();
+                    $timeout(function(){$ionicSlideBoxDelegate.next();},100);
             },500);
-                
             };
             var onFail=function(d){alert(d);};
            Camera.getPic(onSuccess,onFail,opts,1);
-        }
-        else if(type==2){
-            file.capture="";
-            file.click();
-        }
         
     }
     

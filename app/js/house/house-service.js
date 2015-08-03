@@ -9,7 +9,7 @@ angular.module('house.service',[])
         var xhr=new XMLHttpRequest();
         xhr.open(method,url);
         xhr.onreadystatechange=function(){
-            if(xhr.status==200&&xhr.readyState==4){
+            if(xhr.readyState==4){
                 callback(xhr.responseText);
             }
         };
@@ -171,7 +171,16 @@ angular.module('house.service',[])
                  }
             }).success(callback);*/
             myHttp.http('POST',host+updatePath,form,function(data){
-                callback(JSON.parse(data));
+                try{
+                     callback(JSON.parse(data));
+                }
+                catch(e){
+                     callback({
+                         errno:1,
+                         message:data
+                     });
+                }
+               
             });
             //$http.post(host+updatePath,Data.getAll()).success(callback);
         },
@@ -307,6 +316,8 @@ angular.module('house.service',[])
         getPic:function(onSuccess,onFail,opts,tag){
             var data={};
             data.encodingType=Camera.EncodingType.JPEG;
+            data.allowEdit=true;
+            data.correctOrientation=true;
             if(tag) data.destinationType=Camera.DestinationType.DATA_URL;
             if(opts){
                 if(opts.width) data.targetWidth=opts.width;

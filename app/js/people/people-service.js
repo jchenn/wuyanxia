@@ -94,7 +94,16 @@ angular.module('people.service', ['ngResource'])
 })
 
 .factory('FavQuery', function($resource) {
-  return $resource('http://223.252.223.13/Roommates/api/people/fav?userId=:userId');
+  return $resource('http://223.252.223.13/Roommates/api/people/fav?userId=:userId', null, {
+    // get: {
+    //   method: 'GET',
+    //   transformResponse: function(response) {
+    //     console.log('transform', response);
+    //     return response;
+    //   },
+    //   withCredentials: true
+    // }
+  });
 })
 
 .factory('FavAdd', function($resource) {
@@ -114,4 +123,6 @@ angular.module('people.service', ['ngResource'])
   // POST, userId, forbidId
   return $resource('http://223.252.223.13/Roommates/api/people/forbid');
 })
+
+.value('People', {})
 ;

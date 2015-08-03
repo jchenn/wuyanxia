@@ -84,7 +84,8 @@ angular.module('quiz', [])
         if (response.errno === 0) {
 
           if (PersonalInfo.tags) {
-            // TODO 到上一页
+            // 修改个人标签，到个人信息页
+            $scope.go('/me');
           } else {
             if (QuizModel.byHint()) {
               // 由注册时引导填写的问卷，跳转到询问房源的页面

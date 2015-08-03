@@ -1,10 +1,36 @@
 .m-people {
   .grid {
-    padding: 8px;
+    padding: 0;
+    margin: 8px auto;
+    width: 344px;
+
+    @media (min-width: 360px) {
+      & { width: 344px; }
+    }
+
+    @media (min-width: 532px) {
+      & { width: 516px; }
+    }
+
+    @media (min-width: 704px) {
+      & { width: 688px; }
+    }
+
+    @media (min-width: 876px) {
+      & { width: 860px; }
+    }
+
+    @media (min-width: 1048px) {
+      & { width: 1032px; }
+    }
+
+    @media (min-width: 1220px) {
+      & { width: 1204px; }
+    }
 
     .item {
       float: left;
-      width: 50%;
+      width: 172px;
       border: none;
       padding: 8px;
 
@@ -16,11 +42,22 @@
         padding: 0;
 
         .img-response {
+          position: relative;
           text-align: center;
 
           img {
             width: 156px;
             height: 156px;
+          }
+
+          &.ribbon:before {
+            position: absolute;
+            top: 8px;
+            left: 0;
+            content: '有房';
+            color: #c9caca;
+            background-color: #fff100;
+            padding: 1px 3px;
           }
         }
 

@@ -5,7 +5,7 @@
   <ion-side-menu-content>
 
     <!-- 标题栏 -->
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-theme">
 
       <!-- 返回按钮 -->
       <ion-nav-back-button></ion-nav-back-button>
@@ -24,38 +24,36 @@
   <ion-side-menu side="left">
     <ion-content>
       <div class="header" ng-click="go('/me')" menu-toggle>
-        <div class="avatar"><img ng-src="{{ me.avatar }}" alt="头像"></div>
+        <div class="avatar"><img ng-src="{{ me.avatar }}" alt="头像" width="75" height="75"></div>
         <p>
           <span>{{ me.nickName }}</span>
           <span class="badge badge-stable">{{ me.credit }}</span>
-          <span class="badge badge-stable">{{ me.lookStatus | lookStatus }}</span>
         </p>
-        <p><span>屋檐下ID：{{ me.userId }}</span></p>
       </div>
       <ion-list>
         <ion-item class="item-icon-left" href="#/menu/fav" menu-toggle>
-          <span class="icon ion-ionic"></span>我的收藏
+          <span class="icon ion-ios-bookmarks-outline"></span>我的收藏
         </ion-item>
         <ion-item ng-if="!me.hasHouse" class="item-icon-left" href="#/house-new">
-          <span class="icon ion-ionic"></span>发布房源
+          <span class="icon ion-ionic"></span>房源发布
         </ion-item>
         <ion-item ng-if="me.hasHouse" class="item-icon-left" href="#/house-update">
           <span class="icon ion-ionic"></span>房源编辑
         </ion-item>
         <ion-item class="item-icon-left" href="#/menu/about" menu-toggle>
-          <span class="icon ion-ionic"></span>关于我们
+          <span class="icon ion-ios-information-outline"></span>关于我们
         </ion-item>
         <ion-item class="item-icon-left" href="#/menu/score" menu-toggle>
           <span class="icon ion-ionic"></span>评个分吧
         </ion-item>
         <ion-item class="item-icon-left" href="#/menu/setting" menu-toggle>
-          <span class="icon ion-ionic"></span>设置
+          <span class="icon ion-ios-gear-outline"></span>设置
         </ion-item>
       </ion-list>
     </ion-content>
     <ion-footer-bar class="bar-stable item-input-inset">
       <label class="item-input-wrapper">
-        <span class="icon ion-search"></span>
+        <span class="icon ion-ios-search"></span>
         <input type="text" placeholder="搜索">
       </label>
     </ion-footer-bar>

@@ -1,11 +1,11 @@
 <ion-view class="m-people" hide-nav-bar="true">
-  <ion-header-bar class="bar-stable">
+  <ion-header-bar class="bar-theme">
     <button class="button button-icon button-clear ion-navicon" menu-toggle></button>
     <h1 class="title">室友</h1>
     <button class="button button-clear" ng-click="go('/menu/people-filter')">筛选</button>
   </ion-header-bar>
   <ion-content>
     <people-list-grid></people-list-grid>
-    <ion-infinite-scroll ng-if="hasMore" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="hasMore()" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

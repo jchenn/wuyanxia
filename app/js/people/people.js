@@ -32,6 +32,7 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
     .state('menu.people-detail', {
       url: '/people-detail/:id',
       abstract: true,
+      cache: false,
       views: {
         'menu-content': {
           // templateUrl: 'templates/people/people-detail.html',

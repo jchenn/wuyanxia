@@ -1,0 +1,44 @@
+.box{
+  width: 100px;
+  margin: 100px auto;
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+
+}
+.year-cover{
+  width: 100px;
+  z-index: 19;
+  background: transparent;
+  position: absolute;
+
+  .show, .up, .down{
+    background: transparent;
+    height: 60px;
+  }
+
+  .show{
+    height: 30px;
+    box-sizing: border-box;
+    border-top: 2px solid #008B8B;
+    border-bottom: 2px solid #008B8B;
+  }
+}
+.year{
+  position: absolute;
+  list-style: none;
+  top: -60px;
+  left: 0;
+  width: 100px;
+  padding: 0;
+  z-index: 9;
+
+
+  li{
+    height: 30px;
+    color: #333333;
+    text-align: center;
+    line-height: 30px;
+    width: 100%;
+  }
+}

@@ -12,8 +12,12 @@ angular.module('me.ctrl', [])
         console.log(PersonalInfo);
 
         PersonalInfoMange.update(DayInit);
+
         console.log(PersonalInfo);
         $scope.data =  PersonalInfo;
+
+        //格式化日期
+        $scope.data.birthday = new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
             scope: $scope,
@@ -31,7 +35,7 @@ angular.module('me.ctrl', [])
         };
         //选择性别
         $scope.selectSex = function(sex){
-            $scope.data.sex = sex;
+            $scope.data.gender = sex;
             $scope.closeSex();
         };
         //出生日期模态框
@@ -49,14 +53,14 @@ angular.module('me.ctrl', [])
         };
 
         $scope.selectBirth = function(){
-            $scope.data.birth = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
+            $scope.data.birthday = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
             $scope.closeBirth();
         };
 
         //跳过按钮
         $scope.ignoreRegister = function(){
-            if($scope.data.completeAsk == 0){
-                $scope.go('/me/q/1');
+            if(!$scope.data.tags){
+                $scope.go('/quiz/hint');
             }else{
                 $scope.go('/menu/people-list');
             }
@@ -107,7 +111,7 @@ angular.module('me.ctrl', [])
         //提交数据
         $scope.finishRegister = function(){
             //检查数据
-            if(Check.getLen($scope.data.sex) < 1){
+            if(Check.getLen($scope.data.gender) < 1){
                 alert("请选择性别");
                 return false;
             }
@@ -123,20 +127,31 @@ angular.module('me.ctrl', [])
                 alert("电话必须为11位的数字");
                 return false;
             }
+
+            var sendData = {
+                'nickName' : $scope.data.nickName,
+                'gender' : $scope.data.gender,
+                'birthday': new Date($scope.data.birthday).valueOf(),
+                'company': $scope.data.company,
+                'job' : $scope.data.job,
+                'phone' : $scope.data.phone
+            };
+
             //给服务器发请求
             var res = $http({
                 method: 'post',
                 url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
-                data: $scope.data,
+                data: sendData,
                 timeout: 2000
             });
+
             res.success(function(response, status, headers, config){
                 console.log(response);
                 if(response.errno == 0){
                     PersonalInfoMange.update($scope.data);
-                    PersonalInfoMange.update({'completeInfo' : 1});
-                    if(PersonalInfoMange.get('completeAsk' == 0)){
-                        $scope.go('/me/q/1');
+                    PersonalInfoMange.update({'completeInfo' : true});
+                    if(!PersonalInfoMange.get('tags')){
+                        $scope.go('/quiz/hint');
                     }else{
                         $scope.go('/menu/people-list');
                     }
@@ -149,10 +164,17 @@ angular.module('me.ctrl', [])
         }
     }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
         console.log(1111);
+        console.log(PersonalInfo);
         angular.extend(PersonalInfo, DayInit);
         $scope.data = PersonalInfo;
-        //angular.extend(PersonalInfo, DayInit);
         console.log(PersonalInfo);
+
+        $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        //angular.extend(PersonalInfo, DayInit);
+        //console.log(PersonalInfo);
+        //console.log(PersonalInfo);
+        console.log($scope.data);
+
 
         $scope.showStatus = function(){
             var hideSheet = $ionicActionSheet.show({
@@ -168,11 +190,15 @@ angular.module('me.ctrl', [])
                     var temp = PersonalInfoMange.get('lookStatus');
                     $scope.data.lookStatus = index == 0 ? 0 : 1;
 
+
                     if(temp != $scope.data.lookStatus){
+                        var obj = {
+                            'lookStatus' : $scope.data.lookStatus
+                        };
                         var res = $http({
                             method: 'post',
                             url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
-                            data: $scope.data,
+                            data: obj,
                             timeout: 2000
                         });
                         res.success(function(response, status, headers, config){
@@ -219,12 +245,12 @@ angular.module('me.ctrl', [])
         };
         //选择性别
         $scope.selectSex = function(sex){
-            var temp = $scope.data.sex;
+            var temp = $scope.data.gender;
             if(temp == sex){
                 $scope.closeSex();
             }else{
                 var obj = {};
-                obj['sex']  = sex;
+                obj['gender']  = sex;
                 PersonalInfoMange.update(obj);
                 //给服务器发请求
                 var res = $http({
@@ -236,7 +262,7 @@ angular.module('me.ctrl', [])
                 res.success(function(response, status, headers, config){
                     if(response.errno == 0){
                         if(response.finishInfo == 1){
-                            PersonalInfoMange.update({'completeInfo' : 1});
+                            PersonalInfoMange.update({'completeInfo' : true});
                         }
                         return true;
                     }else if(response.errno == 1){
@@ -268,13 +294,10 @@ angular.module('me.ctrl', [])
             DayInit.month = $scope.data.month;
             DayInit.day = $scope.data.day;
 
-            $scope.data.birth = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
-            DayInit.birth = $scope.data.birth;
-
-
+            $scope.data.birthday = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
 
             var obj = {};
-            obj['birth'] = $scope.data.birth;
+            obj['birthday'] = new Date($scope.data.birthday).valueOf();
             //给服务器发请求
             var res = $http({
                 method: 'post',
@@ -285,9 +308,9 @@ angular.module('me.ctrl', [])
             res.success(function(response, status, headers, config){
                 if(response.errno == 0){
                     if(response.finishInfo == 1){
-                        PersonalInfoMange.update({'completeInfo' : 1});
+                        PersonalInfoMange.update({'completeInfo' : true});
                     }
-                    PersonalInfoMange.update(obj);
+                    PersonalInfoMange.update($scope.data.birthday);
 
                     $scope.go('/me');
                 }else if(response.errno == 1){
@@ -366,7 +389,7 @@ angular.module('me.ctrl', [])
             res.success(function(response, status, headers, config){
                 if(response.errno == 0){
                     if(response.finishInfo == 1){
-                        PersonalInfoMange.update({'completeInfo' : 1});
+                        PersonalInfoMange.update({'completeInfo' : true});
                     }
                     PersonalInfoMange.update(obj);
 
@@ -378,6 +401,15 @@ angular.module('me.ctrl', [])
                 alert(response.message);
             });
         }
+    }).controller('scrollCalendar',function($scope){
+
+        $scope.scrollUp = function(){
+            alert('scroll up');
+        };
+        $scope.scrollDown = function(){
+            alert('scroll down');
+        }
+
     })
 
 ;

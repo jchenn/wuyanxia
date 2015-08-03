@@ -33,11 +33,13 @@
       width: 172px;
       border: none;
       padding: 8px;
+      background-color: #f8f8f8;
 
       .content-wrapper {
         border: none;
         border-radius: 2px;
         overflow: hidden;
+        background-color: #fff;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         padding: 0;
 
@@ -52,7 +54,7 @@
 
           &.ribbon:before {
             position: absolute;
-            top: 8px;
+            top: 12px;
             left: 0;
             content: '有房';
             color: #575759;
@@ -228,6 +230,31 @@
 
   .has-footer {
     bottom: 80px;
+  }
+
+  .filter-radio {
+    .button-bar {
+      border-bottom: 1px solid #f8f8f8;
+    }
+
+    .button-bar:first-child {
+      margin-top: 20px;
+    }
+
+    .button-bar:last-child {
+      margin-bottom: 20px;
+      border-bottom: none;
+    }
+
+    .button {
+      background-color: #fff;
+      color: #575757;
+    }
+
+    .button.active {
+      background-color: #addee5;
+      color: #575757;
+    }
   }
 
   .item-input select {

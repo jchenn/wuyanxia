@@ -225,7 +225,7 @@ angular.module('people.ctrl', [])
           console.log('forbid');
 
           $ionicPopup.confirm({
-            templates: '点击不喜欢，你将不会再看到该室友信息了哟！',
+            template: '点击不喜欢，你将不会再看到该室友信息了哟。',
             okText: '不喜欢',
             cancelText: '我再想想'
           }).then(function(res) {

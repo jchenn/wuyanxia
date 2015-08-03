@@ -109,11 +109,12 @@
 		padding: 0;
 		height: 60px;
 		opacity: 0.5;
+		border-top-width: 0;
 		& > .buttons {
 			width: 50%;
 			&:last-child .button {
 				border-left-width: 1px;
-				border-left-color: #999;
+				border-left-color: #ccc;
 			}
 			.button {
 				width: 100%;

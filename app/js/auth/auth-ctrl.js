@@ -1,5 +1,5 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, $location, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
+    .controller('LoginCtrl', function($scope, $http, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 模拟
         $scope.formData = {
             'email': "hztest@corp.netease.com",
@@ -8,6 +8,11 @@ angular.module('auth.ctrl', ['ionic'])
         // $scope.formData = {};
         $scope.errorData = {};
         console.log($scope.myForm);
+        $scope.$on('$stateChangeSuccess', function(event, toState) {
+            console.log('clear history 1');
+            $ionicHistory.clearHistory();
+            $ionicHistory.clearCache();
+        });
         $scope.changePwd = function() {
             InfoPopupService('老子还没被整出来');
         };

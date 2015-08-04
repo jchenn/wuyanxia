@@ -159,17 +159,56 @@
   background: #f8f8f8;
 
   .header{
-    background: #e5e5e5;
-    border:none;
-    padding: 20px;
+    background: url("../img/person-bg.png") no-repeat;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    height: 220px;
+    overflow: hidden;
+
+    .nav{
+      height: 43px;
+      font-size: 16px;
+      color: #fff;
+      margin-top: 29px;
+
+      i{
+        float: left;
+        height: 43px;
+        line-height: 44px;
+        padding: 0 ;
+        margin: 0;
+        margin-left: 5.6%;
+      }
+
+      .title{
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        color: #fff;
+        font-weight: normal;
+        overflow: hidden;
+        text-align: center;
+        height: 43px;
+        line-height: 44px;
+        font-family: "Microsoft Yahe";
+
+      }
+    }
 
   }
   .head-img{
-    background: #e5e5e5;
+    border: 3px solid #f0f3fd;
+    width: 100px;
+    height: 100px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 8px auto 0;
 
     img{
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       vertical-align: top;
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
@@ -184,78 +223,251 @@
     padding: 2px 15px;
   }
 
-  .item{
-    display: flex;
-    justify-content: space-between;
-    padding: 0px;
-    height: 50px;
-    line-height: 50px;
-    padding: 5px 20px;
+  .tags{
+     margin-top: 12px;
+    background: #fff;
+    padding-left: 18px;
 
-    a{
-      display: inline-block;
-      width: 40px;
-      height: 40px;
 
+    p{
+      height: 30px;
+      color: #565354;
+      line-height: 30px;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0;
+
+    }
+    .tag{
+      margin-top: 5px;
+      overflow: hidden;
+
+      a{
+        padding: 3px 3.9%;
+        border: 1px solid #eee;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        background: #fff;
+        margin-bottom: 10px;
+        font-size: 16px;
+        line-height: 16px;
+        text-align: center;
+        min-width: 35px;
+        float: left;
+        margin-right: 10%;
+        font-size: 12px;
+        font-family: "Microsoft Yahe";
+      }
     }
 
   }
-  .tag{
 
-    a{
-      display: inline-block;
-      width: 30%;
-      min-height: 35px;
-      line-height: 35px;
-      height: 35px;
-      min-width: 50px;
-      margin-top: 3px;
-      margin-left: 2%;
+  .info-list{
+    background: #f8f8f8;
+
+    .part1, .part2, .part3{
+      background: #fff;
+      height: 76px;
+      padding-left: 6.2%;
+    }
+    .part2,.part3{
+      height: 116px;
+    }
+    .part3{
+      margin-top: 20px;
+    }
+    .warn{
+      height: 30px;
+      background: transparent;
+      color: #cdcdcd;
+      font-size: 11px;
+      padding-left: 6.2%;
+      margin: 0;
+    }
+
+    .item{
+      height: 36px;
+      line-height: 36px;
+      border: none;
+      background: url("../img/arrow-bg.png") no-repeat ;
+      background-position: 95.3% center;
+      -webkit-background-size: 7px 12px;
+      background-size: 7px 12px;
+      padding: 0 ;
+      border-top: 4px solid #f8f8f8;
+      padding-right: 10.6%;
+
+      :nth-child(1){
+        float: left;
+      }
+      :nth-child(2){
+        float: right;
+      }
+      p{
+        margin: 0;
+        height: 36px;
+        line-height: 36px;
+        color: #585657;
+      }
+
+      a{
+        width: 25px;
+        height: 25px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        float: right;
+        margin-left: 6px;
+        margin-top: 5px;
+        background: url("../img/dentify-bg.png") no-repeat 0 0;
+        background-size: 25px 75px;
+      }
+      .grade-id{
+        background-position: 0 -25px ;
+      }
+      .grade-email{
+        background-position: 0 -50px;
+      }
+
+    }
+    .nickName{
+      border-top: 0;
+    }
+    .identify{
+      background: none;
+      padding-right: 6.2%;
+    }
+    .company{
+      background: none;
     }
   }
 
-  .phone, .identify{
-    margin-bottom: 20px;
   }
-}
 
 .me-validate{
-
+  background: #f8f8f8;
   .header{
-    padding: 30px 0;
+    height: 262px;
+    background: #63c3d3;
+    .nav{
+      height: 44px;
+      margin-top: 30px;
+      float: left;
+      width: 100%;
+      
+      .icon{
+        float: left;
+        height: 44px;
+        line-height: 44px;
+        padding: 0 5%;
+        font-size: 16px;
+        color: #fff;
+      }
+      .title{
+        overflow: hidden;
+        line-height: 44px;
+        text-indent: 30%;
+        color: #fff;
+        font-size: 16px;
+        margin: 0;
+      }
+    }
 
-    img{
-      width: 80px;
-      height: 80px;
+    .head{
+      overflow: hidden;
+      width: 106px;
+      height: 106px;
+      border: 3px solid #fff;
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       border-radius: 50%;
+      margin: 12px auto;
+      float: left;
+      margin-left: 50%;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      -o-transform: translateX(-50%);
+      transform: translateX(-50%);
+
+      .img{
+        width: 100px;
+        height: 100px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        background: url("../img/validate-bg-1.png") no-repeat;
+        -webkit-background-size: 100px 300px;
+        background-size: 100px 300px;
+        background-position: 0 0;
+      }
+      .id{
+        background-position: 0 -100px;
+      }
+      .email-bg{
+        background-position: 0 -200px;
+      }
     }
+
   }
   .list{
-    width: 80%;
     background: transparent;
-    margin: 0 auto;
+    margin-top: 48px;
+    padding: 0 13.6%;
+
 
     label{
       padding: 0;
       border:none;
       background: transparent;
-      margin-top:10px;
+      margin-top:28px;
 
       input{
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #e4e4e4;
+        color: #d5d5d5;
         margin:0;
         padding:0;
+        vertical-align: bottom;
+        height: 20px;
       }
-      button{
+      .btn{
         padding:0;
         margin:0;
+        float: right;
+        height: 24px;
+        line-height: 24px;
+        color: #fff;
+        background: #f39801;
+        width: 78%;
+        font-size: 11px;
+        text-align: center;
+      }
+      .getcode{
+        margin-right: 12px;
+
       }
     }
   }
   .sendvalidate{
-    width: 70%;
-    margin: 30px auto;
+    width: 74%;
+    margin: 32px auto;
+    height: 38px;
+    background: #63c3d3;
+    color: #fff;
+    text-align: center;
+    line-height: 38px;
+  }
+  
+  .warn{
+    overflow: hidden;
+    width: 62%;
+    margin: 14px auto;
+    font-size: 11px;
+    color: #d7e7ea;
+
+  }
+  .email{
+    margin: 85px auto 150px;
   }
 }

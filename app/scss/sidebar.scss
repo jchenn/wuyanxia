@@ -12,6 +12,16 @@
         color: #666;
       }
     }
+
+    .bar-footer {
+      height: 61px;
+      border-top-color: #ddd;
+      padding: 0 31px;
+
+      .icon {
+        padding-right: 14px;
+      }
+    }
   }
 
   .header {
@@ -38,16 +48,6 @@
         font-size: smaller;
         background-color: #fcf231;
       }
-    }
-  }
-
-  .bar-footer {
-    height: 61px;
-    border-top-color: #ddd;
-    padding: 0 31px;
-
-    .icon {
-      padding-right: 14px;
     }
   }
 

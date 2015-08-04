@@ -38,6 +38,10 @@ angular.module('me', ['me.ctrl', 'me.service', 'quiz'])
         url: '/email-validate',
         templateUrl: 'templates/me/email-validate.html'
       })
+      .state('calendar', {
+        url: '/calendar',
+        templateUrl: 'templates/me/calendar.html'
+      })
   ;
 })
 

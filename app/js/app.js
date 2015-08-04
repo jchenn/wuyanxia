@@ -66,5 +66,7 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   $httpProvider.defaults.withCredentials = true;
   
   // $httpProvider.defaults.useXDomain = true;
+
+  $ionicConfigProvider.views.transition('none');
 });
 var ServiceModule=angular.module('global.service',[]);

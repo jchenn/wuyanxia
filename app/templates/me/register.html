@@ -1,42 +1,43 @@
 <ion-view class="m-me-register"  ng-controller="InfoRegister">
     <ion-header-bar align-title="center" class="bar-stable padding">
-        <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
+        <!--<i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>-->
         <h1 class="title">个人信息填写</h1>
-        <button class="button alignright" ng-click="ignoreRegister()" >跳过</button>
+        <a class="ignore " ng-click="ignoreRegister()" >跳过</a>
     </ion-header-bar>
     <ion-content>
         <div class="header">
             <div class="head-img" align="center">
-                <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
+                <img ng-src="{{data.avatar}}" alt="头像"/>
+                <i class="camera"></i>
             </div>
         </div>
         <div class="list">
-            <label class="item item-input">
-                昵称
-                <input type="text" name="name" ng-model="data.name" value="{{data.name}}"/>
-            </label>
-            <label class="item item-input sex">
-                性别
-                <input type="text" name="sex"  ng-click="openSex()" value="{{data.sex == 0 ? '女' : '男'}}" ng-model="data.sex"/>
-            </label>
-            <label class="item item-input">
-                出生日期
-                <input type="text" name="birth" ng-click="openBirth()" value="{{data.birth}}" ng-model="data.birth"/>
-            </label>
-            <label class="item item-input">
-                公司
+            <p class="item item-input">
+                <label class="input-label">昵称</label>
+                <input type="text" name="name" ng-model="data.nickName" value="{{data.nickName}}"/>
+            </p>
+            <p class="item item-input sex">
+                <label class="input-label">性别</label>
+                <input type="text" name="sex"  ng-click="openSex()" value="{{data.gender}}" ng-model="data.gender"/>
+            </p>
+            <p class="item item-input">
+                <label class="input-label">出生日期</label>
+                <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>
+            </p>
+            <p class="item item-input">
+                <label class="input-label">公司</label>
                 <input type="text" name="company" ng-model="data.company"/>
-            </label>
-            <label class="item item-input job">
-                岗位
+            </p>
+            <p class="item item-input job">
+                <label class="input-label">岗位</label>
                 <input type="text" name="job" ng-model="data.job"/>
-            </label>
-            <label class="item item-input">
-                手机
-                <input type="tel" name="phone" ng-model="data.phone"/>
-            </label>
+
+            <p class="item item-input phone">
+                <label class="input-label">手机</label>
+            <input type="tel" name="phone" ng-model="data.phone"/>
+            </p>
             <div class="padding">
-                <button class="button button-block button-dark" ng-click="finishRegister()">完成</button>
+                <button class="button button-block" ng-click="finishRegister()">完成</button>
             </div>
         </div>
     </ion-content>

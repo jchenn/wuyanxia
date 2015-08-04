@@ -21,12 +21,13 @@
   </ion-side-menu-content>
 
   <!-- 菜单内容 -->
-  <ion-side-menu side="left">
+  <ion-side-menu side="left" class="side-menu">
     <ion-content>
       <div class="header" ng-click="go('/me')" menu-toggle>
         <div class="avatar"><img ng-src="{{ me.avatar }}" alt="头像" width="75" height="75"></div>
         <p>
           <span>{{ me.nickName }}</span>
+          <br/>
           <span class="badge badge-stable">{{ me.credit }}</span>
         </p>
       </div>

@@ -1,14 +1,14 @@
-<ion-view style="background:#f8f8f8" class="me-validate">
-    <ion-header-bar class="bar-stable bar bar-header disable-user-behavior" align-title="center">
-        <button class="button back-button buttons  button-clear header-item"  ng-click="go('/me')">
-            <i class="icon ion-ios-arrow-back"></i>
-        </button>
-        <div class="title title-center header-item">邮箱认证</div>
-    </ion-header-bar>
-    <ion-content class="padding">
+<ion-view class="me-validate">
+    <ion-content class="">
         <div class="header">
-            <div class="head-img" align="center">
-                <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
+            <div class="nav">
+                <i class="icon ion-ios-arrow-back" ng-click="go('/me')"></i>
+                <h1 class="title title-center header-item">邮箱认证</h1>
+            </div>
+            <div class="head">
+                <div class="head-img" align="center">
+                    <p class="img email-bg"></p>
+                </div>
             </div>
         </div>
         <div class="list">
@@ -16,8 +16,6 @@
                 <input type="text" placeholder="请输入您的企业邮箱">
             </label>
         </div>
-        <div class="padding sendvalidate">
-            <button class="button button-block button-dark">发送验证链接</button>
-        </div>
+        <p class="sendvalidate email">发送验证链接</p>
     </ion-content>
 </ion-view>

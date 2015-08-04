@@ -111,11 +111,10 @@ console.log($scope.formData);
                             PersonalInfoMange.update({isLogin: 1});
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $location.path('/me-register').replace();
+                                $location.path('/me-register');
                             });
                         } else if (resp.result == 0) {
                             // InfoPopupService(resp.info);
-                            // 验证失败则重置isReg，允许用户重新发送邮箱验证
                             InfoPopupService($scope.emailFailInfo);
                         }
                     }, function(err) {

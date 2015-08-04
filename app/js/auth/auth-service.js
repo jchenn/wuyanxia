@@ -39,19 +39,19 @@ angular.module('auth.service', ['ngResource'])
 
 .factory('InfoPopupService', ['$ionicPopup', '$timeout', function($ionicPopup, $timeout){
 	return  function(data, callback) {
-		var title, subTitle;
-		if (typeof data === "object" && (data.title || data.subTitle)) {
+		var title, template;
+		if (typeof data === "object" && (data.title || data.template)) {
 			title = data.title;
-			subTitle = data.subTitle;
+			template = data.template;
 		} else if(typeof data === "string" && data !== "") {
-			title = data;
+			template = data;
 		} else {
 			return;
 		}
 		console.log(data);
         var myPopup = $ionicPopup.show({
             title: title || "",
-            subTitle: subTitle || ""
+            template: template || ""
         });
         $timeout(function() {
             myPopup.close();
@@ -86,10 +86,10 @@ angular.module('auth.service', ['ngResource'])
 				name: "nickname",
 				text: "请输入昵称"
 			};
-			} else if (data.nickname.length > 8) {
+			} else if (data.nickname.length > 20) {
 				return {
 				name: "nickname",
-				text: "昵称请小于8个字符"
+				text: "昵称请小于20个字符"
 			};
 			} 
 		}

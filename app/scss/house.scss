@@ -116,8 +116,65 @@
         
     }
     &.picedit-view{
+        .btn-wrapper{
+            position: absolute;
+            width: 100%;
+            bottom: 25px;
+            button{
+                display: block;
+                height: 37px;
+                line-height: 37px;
+                margin: auto;
+                width: 83.3333%;
+                text-align: center;
+                background: #63c3d3;
+                color: #fff;
+                font-size: 16px;
+            }
+        }
         .m-backicon:before{
             content: "\f124\20\20取消";
+        }
+        .m-square{
+            position: relative;
+            &:before{
+                display: block;
+                content: "";
+                padding-bottom: 100%;
+            }
+            .m-square-content{
+                position: absolute;
+                top:0;
+                left:0;
+                bottom: 0;
+                right: 0;
+                background: #ccc;
+                overflow: hidden;
+                img{
+                    position: absolute;
+                    top:50%;
+                    left:50%;
+                    -webkit-transform:translate(-50%,-50%);
+                    height: 100%;
+                    width: auto;
+                }
+            }
+        }
+        .m-item{
+            float: left;
+            width: 30.769%;
+            margin-left: 1.923%;
+            margin-top: 1.923%;
+        }
+       
+        .m-delete{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 27%;
+            height: 27%;
+            background: #333;
+            
         }
     }
     .clearfix{

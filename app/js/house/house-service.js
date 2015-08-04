@@ -1,9 +1,4 @@
 angular.module('house.service',[])
-.factory('UserInfo',function(){
-    return {
-        id:1
-    };
-})
 .factory('myHttp',function(){
     function Http(method,url,data,callback){
         var xhr=new XMLHttpRequest();
@@ -301,9 +296,8 @@ angular.module('house.service',[])
             return Popup.show(str);
         },
         back:function(){
+            //console.log('back');
             $ionicHistory.goBack();
-        },
-        scrollBottom:function(){
         }
     };
 })
@@ -367,6 +361,7 @@ angular.module('house.service',[])
 })
 .factory('house',function(Check,Data,Cmn){
     var warn=Cmn.warn;
+    var toDels=[];
     return {
         resetForm1:function($scope){
             if(!$scope) throw new Error('参数忘加了');
@@ -386,6 +381,18 @@ angular.module('house.service',[])
         resetPics:function($scope){
             if(!$scope) throw new Error('参数忘加了');
             $scope.pics=[];
+        },
+        deletePic:function(index){
+            var pics=Data.getFiles();
+            var pic=pics[index];
+            if(!/data:image\/jpeg;base64,/.test(pic)){
+                toDels.push(pic);
+            }
+            pics.splice(index,1);
+        },
+        picsOut:function($scope){
+            if(!$scope) throw new Error('参数忘加了');
+            $scope.pics=Data.getFiles();
         },
         checkForm:function(callback){
             callback=callback||function(){};

@@ -7,6 +7,7 @@ angular.module('quiz', [])
     // 问卷提示页
     .state('quiz-hint', {
       url: '/quiz/hint',
+      cache: false,
       templateUrl: 'templates/me/quiz-hint.html',
       controller: 'QuizCtrl'
     })
@@ -14,6 +15,7 @@ angular.module('quiz', [])
     // 询问是否有房
     .state('quiz-house', {
       url: '/quiz/house',
+      cache: false,
       templateUrl: 'templates/me/quiz-house.html',
       controller: 'QuizCtrl'
     })
@@ -21,6 +23,7 @@ angular.module('quiz', [])
     // 填写个人标签（问卷）
     .state('quiz', {
       url: '/quiz/:name',
+      cache: false,
       templateUrl: 'templates/me/quiz.html',
       controller: 'QuizCtrl'
     })

@@ -35,7 +35,6 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
       cache: false,
       views: {
         'menu-content': {
-          // templateUrl: 'templates/people/people-detail.html',
           templateUrl: 'templates/people/people-detail-wrapper.html',
           controller: 'PeopleDetailWrapperCtrl'
         }
@@ -51,6 +50,7 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
           templateUrl: 'templates/people/people-detail-nav.html'
         },
         'people-detail': {
+          cache: false,
           templateUrl: 'templates/people/people-detail-info.html',
           controller: 'PeopleDetailInfoCtrl'
         }
@@ -62,7 +62,11 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
       url: '/house',
       cache: false,
       views: {
+        'people-detail-nav': {
+          templateUrl: 'templates/people/people-detail-nav.html'
+        },
         'people-detail': {
+          cache: false,
           templateUrl: 'templates/people/people-detail-house.html',
           controller: 'PeopleDetailHouseCtrl'
         }

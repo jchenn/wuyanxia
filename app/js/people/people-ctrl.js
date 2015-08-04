@@ -86,7 +86,7 @@ angular.module('people.ctrl', [])
         PeopleFilterModel.setUsingCache(true);
       }
 
-      console.log('clear history');
+      // console.log('clear history');
       $ionicHistory.clearHistory();
       $ionicHistory.clearCache();
     }
@@ -173,9 +173,8 @@ angular.module('people.ctrl', [])
       // console.log($scope.house);
     }
   }, function(err) {
-    // 无法查看室友详情，返回到上一页
+    // TODO 无法查看室友详情，提示错误信息
     console.log('detail error', err);
-    $scope.go('/menu/people-list');
   });
 
   // 显示 收藏/屏幕 菜单
@@ -251,34 +250,6 @@ angular.module('people.ctrl', [])
         return true;
       }
     });
-  };
-
-  // @Deprecated use system sms instead
-  $scope.sendMessage = function() {
-    
-    if (SMS) {
-      $ionicPopup.prompt({
-        title: '短信',
-        template: '请输入短信内容',
-        inputPlaceholder: '短信内容'
-      }).then(function(res) {
-        console.log(res);
-        
-        if (res || res.trim().length == 0) return;
-
-        SMS.sendSMS($scope.people.tel, res, function() {
-          // console.log('success');
-          $ionicPopup.alert({
-            template: '发送成功'
-          });
-        }, function(){
-          // console('failure');
-          $ionicPopup.alert({
-            template: '发送失败'
-          });
-        });
-      });
-     } 
   };
 })
 

@@ -86,4 +86,10 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
     })
     ;
 })
+
+.filter('nickname', function() {
+  return function(input) {
+    return input && input.length > 4 ? input.substring(0, 4) + '...' : input;
+  }
+})
 ;

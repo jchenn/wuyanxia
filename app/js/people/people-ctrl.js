@@ -5,15 +5,14 @@ angular.module('people.ctrl', [])
   function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
     PeopleListQuery, PeopleFilterModel, PersonalInfo, PermissionChecker) {
 
-  var _hasMore = true,
+  var _hasMore  = true,
       _fetching = false,
-      params = PeopleFilterModel.params(),
-      data = null;
+      params    = PeopleFilterModel.params(),
+      _data;
 
   $scope.list = [];
   
   $scope.hasMore = function() {
-    // console.log('fetching, more', _fetching, _hasMore);
     return _fetching ? false : _hasMore;
   }
 
@@ -29,31 +28,27 @@ angular.module('people.ctrl', [])
     // 从服务器加载数据，包括初次加载、加载更多，以及重新筛选
     PeopleListQuery.get(params, function(response) {
 
-      console.log('request', params);
+      // console.log('request', params);
 
       // console.log(response);
 
       if (response.errno === 0) {
 
-        data = response.data;
+        _data = response.data;
 
-        if (data.length > 0) {
+        if (params.p === 1) {
+          $scope.list = [];
+        }
 
-          // 追加室友列表并更新页数
-          if (params.p === 1) {
-            $scope.list = data;
-            $ionicScrollDelegate.scrollTop();
-          } else {
-            $scope.list = $scope.list.concat(data);
-          }
-
-          PeopleFilterModel.increasePage();
-
+        if (_data.length > 0) {
+          $scope.list = $scope.list.concat(_data);
+          _hasMore = true;
         } else {
           // console.log('no more');
           _hasMore = false;
         }
 
+        PeopleFilterModel.increasePage();
         PeopleFilterModel.setUsingCache(true);
       } else {
         // TODO error handling
@@ -160,7 +155,7 @@ angular.module('people.ctrl', [])
   // 处理添加收藏或者取消收藏
   function handleFav() {
 
-    console.log('handle fav');
+    // console.log('handle fav');
 
     if ($scope.people.isFav) {
 
@@ -202,8 +197,7 @@ angular.module('people.ctrl', [])
 
   function handleForbid() {
 
-    // TODO 增加一个提示框 处理屏蔽
-    console.log('handle forbid');
+    // console.log('handle forbid');
 
     $ionicPopup.confirm(
       {
@@ -315,11 +309,12 @@ angular.module('people.ctrl', [])
           } else {
             _hasMore = false;
           }
-
-          _fetching = false;
-          ++_p;
+        } else {
+          // TODO catched err
         }
 
+        ++_p;
+        _fetching = false;
         $scope.$broadcast('scroll.infiniteScrollComplete');
       },
       function(err) {

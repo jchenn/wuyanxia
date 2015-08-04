@@ -17,7 +17,11 @@ angular.module('me.ctrl', [])
         $scope.data =  PersonalInfo;
 
         //格式化日期
-        $scope.data.birthday = new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        if(PersonalInfoMange.get('birthday') != ""){
+            $scope.data.birthday = new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        }else{
+            $scope.data.birthday = "";
+        }
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
             scope: $scope,
@@ -156,7 +160,7 @@ angular.module('me.ctrl', [])
                         $scope.go('/menu/people-list');
                     }
                 }else if(response.errno == 1){
-                    alert(response.message);
+                    alert(response);
                 }
             }).error(function(response, status, headers, config){
                 console.log(response);
@@ -169,7 +173,11 @@ angular.module('me.ctrl', [])
         $scope.data = PersonalInfo;
         console.log(PersonalInfo);
 
-        $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        if(PersonalInfoMange.get('birthday') != ""){
+            $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        }else{
+            $scope.data.birthday = "";
+        }
         //angular.extend(PersonalInfo, DayInit);
         //console.log(PersonalInfo);
         //console.log(PersonalInfo);

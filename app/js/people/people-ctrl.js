@@ -181,6 +181,8 @@ angular.module('people.ctrl', [])
   // 显示 收藏/屏幕 菜单
   $scope.showMenu = function() {
 
+    console.log('people', $scope.people);
+
     // 返回一个关闭菜单的函数
     $ionicActionSheet.show({
       buttons: [

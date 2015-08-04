@@ -1,12 +1,12 @@
 .g-login, .g-register {
-	background: url('../img/bg.jpg');
+	background: url('../img/auth/bg.jpg') no-repeat;
 	background-size: cover;
 	.logo-wrap {
 		position: relative;
 		width: 100%;
 		height: 250px;
 		.logo {
-			background: url('../img/logo.png') no-repeat;
+			background: url('../img/auth/logo_3.png') no-repeat;
 			background-size: cover;
 			position: absolute;
 			left: 50%;
@@ -56,15 +56,15 @@
 			padding: 10px 30px;
 			.input-label.icon {
 				&.icon-email {
-					background: url('../img/email.png');
+					background: url('../img/auth/email.png') no-repeat;
 					background-size: cover;
 				}
 				&.icon-pwd {
-					background: url('../img/pwd.png');
+					background: url('../img/auth/pwd.png') no-repeat;
 					background-size: cover;
 				}
 				&.icon-nickname {
-					background: url('../img/nickname.png');
+					background: url('../img/auth/nickname.png') no-repeat;
 					background-size: cover;
 				}
 				display: inline-block;
@@ -108,7 +108,7 @@
 	.m-bar {
 		padding: 0;
 		height: 60px;
-		opacity: 0.5;
+		background: transparent;
 		border-top-width: 0;
 		& > .buttons {
 			width: 50%;
@@ -120,12 +120,12 @@
 				width: 100%;
 				border-radius: 0;
 				border-width: 0;
-			    background-color: #b5b5b6;
+				background-color: RGBA(181,181,182,0.5);
 			    color: black;
 			    font-size: 14px;
 			    &:active {
 			    	color: white;
-			    	background-color: black;
+			    	background-color: RGBA(0,0,0,0.5);
 			    }
 			}
 		}
@@ -135,6 +135,19 @@
 .g-register {
 	.has-header {
 		top: 0;
+	}
+	.header-bar {
+		background: transparent;
+		.title {
+			text-align: left;
+			color: #66C3D2;
+		}
+		.buttons .button {
+			width: 15px;
+			margin: 0 5px;
+			background: url('../img/auth/arrow.png') no-repeat;
+			background-size: cover;
+		}
 	}
 	.m-form .log-list.list .errorInfo {
 	    top: 160px;		

@@ -1,56 +1,65 @@
 <ion-view class="m-me-show" ng-controller="InfoShow">
-  <ion-header-bar align-title="center" class="bar-stable padding">
-    <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
-    <h1 class="title padding" style="left:50px;">个人信息</h1>
-  </ion-header-bar>
   <ion-content>
     <div class="header">
+      <div class="nav header-bar">
+        <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
+        <h1 class="title" align="center">个人信息</h1>
+      </div>
       <div class="head-img" align="center">
         <img src="{{data.avatar}}" alt=""/>
       </div>
     </div>
-    <div class="list">
-      <div class="padding">
-        <p class="">个性标签</p>
-        <div class="padding tag">
-          <a class="button button-positive" ng-repeat="(key, value) in data.tags" ng-click="go('quiz/{{key}}')">{{value}}</a>
+    <div class="tags">
+      <p class="">个性标签</p>
+      <div class="tag">
+        <a class="" ng-repeat="(key, value) in data.tags" ng-click="go('quiz/{{key}}')">{{value}}</a>
       </div>
-        <div class="item" ng-click="showStatus()">
-            <p class="">寻找室友状态</p>
+    </div>
+    <div class="info-list">
+      <div class="">
+        <div class="part1">
+          <div class="item" ng-click="showStatus()">
+            <p class="">状态</p>
             <p class="">{{data.lookStatus == 0 ? '正在寻找' : '已经找到'}}</p>
+          </div>
+          <div class="item identify">
+            <p class="">信用等级</p>
+            <p class="">
+              <a href="#/phone-validate" class="grade-phone"></a>
+              <a href="#/id-validate" class="grade-id"></a>
+              <a href="#/email-validate" class="grade-email"></a>
+            </p>
+          </div>
         </div>
-      <div class="item identify">
-        <p class="">身份认证</p>
-        <p class="">
-          <a href="#/phone-validate" class="item-image ion-android-call"></a>
-          <a href="#/id-validate" class="item-image ion-hammer"></a>
-          <a href="#/email-validate" class="item-image ion-email"></a>
-        </p>
-      </div>
-      <div class="item" ng-click="modify({'title':'昵称','val':data.nickName,'key':'nickName'})">
-        <p class="">昵称</p>
-        <p class="">{{data.nickName}}</p>
-      </div>
-      <div class="item"  ng-click="openSex()">
-        <p class="">性别</p>
-        <p class="">{{data.gender}}</p>
-      </div>
-      <div class="item phone"  ng-click="modify({'title':'手机','val':data.phone,'key':'phone'})">
-        <p class="">手机</p>
-        <p class="">{{data.phone}}</p>
-      </div>
-      <div class="item"  ng-click="openBirth()">
-        <p class="">出生日期</p>
-        <p class="">{{data.birthday ? data.birthday : ''}}</p>
-      </div>
-      <div class="item">
-        <p class="">公司</p>
-        <p class="">{{data.company}}</p>
-      </div>
-      <div class="item"  ng-click="modify({'title':'岗位','val':data.job,'key':'job'})">
-        <p class="">岗位</p>
-        <p class="">{{data.job}}</p>
-      </div>
+        <p class="warn">提高自己的信用等级, 结交更多值得信任的室友</p>
+        <div class="part2">
+          <div class="item nickName" ng-click="modify({'title':'昵称','val':data.nickName,'key':'nickName'})">
+            <p class="">昵称</p>
+            <p class="">{{data.nickName}}</p>
+          </div>
+          <div class="item"  ng-click="openSex()">
+            <p class="">性别</p>
+            <p class="">{{data.gender}}</p>
+          </div>
+          <div class="item phone"  ng-click="modify({'title':'手机','val':data.phone,'key':'phone'})">
+            <p class="">手机</p>
+            <p class="">{{data.phone}}</p>
+          </div>
+        </div>
+        <div class="part3">
+          <div class="item"  ng-click="openBirth()">
+            <p class="">出生日期</p>
+            <p class="">{{data.birthday ? data.birthday : ''}}</p>
+          </div>
+          <div class="item company">
+            <p class="">公司</p>
+            <p class="">{{data.company}}</p>
+          </div>
+          <div class="item"  ng-click="modify({'title':'岗位','val':data.job,'key':'job'})">
+            <p class="">岗位</p>
+            <p class="">{{data.job}}</p>
+          </div>
+        </div>
     </div>
     </div>
   </ion-content>

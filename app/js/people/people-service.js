@@ -74,6 +74,10 @@ angular.module('people.service', ['ngResource'])
     },
     setUsingCache: function(isUsingCache) {
       _isUsingCache = isUsingCache;
+
+      if (!_isUsingCache) {
+        factory.resetPage();
+      }
     },
     isUsingCache: function() {
       return _isUsingCache;

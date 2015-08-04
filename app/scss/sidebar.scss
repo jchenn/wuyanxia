@@ -25,6 +25,35 @@
       }
     }
   }
+
+  .u-icon {
+    position: absolute;
+    top: 0;
+    left: 11px;
+    height: 100%;
+    width: 32px;
+    background: 50% 50% / contain no-repeat;
+  }
+
+  .icon-bookmark {
+    background-image: url(../img/icon-bookmark.png);
+  }
+
+  .icon-house {
+    background-image: url(../img/icon-house.png);
+  }
+
+  .icon-about {
+    background-image: url(../img/icon-about.png);
+  }
+
+  .icon-pencil {
+    background-image: url(../img/icon-pencil.png);
+  }
+
+  .icon-gear {
+    background-image: url(../img/icon-gear.png);
+  }
 }
 
 .m-setting {

@@ -52,7 +52,7 @@ angular.module('people.ctrl', [])
           PeopleFilterModel.increasePage();
 
         } else {
-          console.log('no more');
+          // console.log('no more');
           _hasMore = false;
         }
 
@@ -78,12 +78,16 @@ angular.module('people.ctrl', [])
     });
   };
 
-  $scope.$on('$stateChangeSuccess', function(event, toState) {
+  // 当切换到室友列表时，需要判断是使用已有数据还是从数据库重新加载
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
     if (toState.name === 'menu.people-list') {
+
+      if (fromState.name === 'login') {
+        PeopleFilterModel.setUsingCache(false);
+      }
 
       if (!PeopleFilterModel.isUsingCache()) {
         $scope.loadMore();
-        PeopleFilterModel.setUsingCache(true);
       }
 
       // console.log('clear history');
@@ -147,7 +151,6 @@ angular.module('people.ctrl', [])
   $scope.params = PeopleFilterModel.params();
 
   $scope.finish = function() {
-    PeopleFilterModel.resetPage();
     PeopleFilterModel.setMore(true);
     PeopleFilterModel.setUsingCache(false);
     $scope.go('/menu/people-list');
@@ -190,67 +193,87 @@ angular.module('people.ctrl', [])
       ],
       cancelText: '取消',
       buttonClicked: function(index) {
-        
-        if (index === 0) {
-
-          // 处理添加收藏或者取消收藏
-          console.log('fav');
-
-          if ($scope.people.isFav) {
-
-            // 取消收藏
-            FavRemove.save({userId: PersonalInfo.userId, favId: $scope.people.userId},
-              function(response) {
-                if (response.errno === 0) {
-                  $scope.people.isFav = false;
-                }
-              }, function(err) {
-                console.log('unfav err', err);
-              });
-
-          } else {
-
-            // 添加收藏
-            FavAdd.save({userId: PersonalInfo.userId, favId: $scope.people.userId}, 
-              function(response) {
-                if (response.errno === 0) {
-                  $scope.people.isFav = true;
-                }
-              }, function(err) {
-                console.log('fav err', err);
-              });
-          }
-        } else if (index === 1) {
-
-          // TODO 增加一个提示框 处理屏蔽
-          console.log('forbid');
-
-          $ionicPopup.confirm({
-            template: '点击不喜欢，你将不会再看到该室友信息了哟。',
-            okText: '不喜欢',
-            cancelText: '我再想想'
-          }).then(function(res) {
-            if (res) {
-              ForbidAdd.save({userId: PersonalInfo.userId, forbidId: $scope.people.userId},
-                function(response) {
-                  if (response.errno === 0) {
-                    console.log('forbid success');
-                  }
-                }, function(err) {
-                  console.log('err', err);
-                });
-            } else {
-              // do nothing
-            }
-          });
-
-          
-        }
-
+        index ? handleForbid() : handleFav();
         return true;
       }
     });
   };
+
+  // 处理添加收藏或者取消收藏
+  function handleFav() {
+
+    console.log('handle fav');
+
+    if ($scope.people.isFav) {
+
+      // 取消收藏
+      FavRemove.save(
+        {
+          userId: PersonalInfo.userId, 
+          favId: $scope.people.userId
+        }, 
+        function(response) {
+          if (response.errno === 0) {
+            $scope.people.isFav = false;
+          }
+        }, 
+        function(err) {
+          console.log('unfav err', err);
+        }
+      );
+
+    } else {
+
+      // 添加收藏
+      FavAdd.save(
+        {
+          userId: PersonalInfo.userId, 
+          favId: $scope.people.userId
+        }, 
+        function(response) {
+          if (response.errno === 0) {
+            $scope.people.isFav = true;
+          }
+        }, 
+        function(err) {
+          console.log('fav err', err);
+        }
+      );
+    }
+  }
+
+  function handleForbid() {
+
+    // TODO 增加一个提示框 处理屏蔽
+    console.log('handle forbid');
+
+    $ionicPopup.confirm(
+      {
+        template: '点击不喜欢，你将不会再看到该室友信息了哟。',
+        okText: '不喜欢',
+        cancelText: '我再想想'
+      })
+      .then(function(res) {
+        if (res) {
+          ForbidAdd.save(
+            {
+              userId: PersonalInfo.userId, 
+              forbidId: $scope.people.userId
+            },
+            function(response) {
+              if (response.errno === 0) {
+                console.log('forbid success');
+              }
+            }, 
+            function(err) {
+              console.log('err', err);
+            }
+          );
+        } else {
+          // do nothing
+        }
+      });
+  }
 })
 
 .controller('PeopleDetailInfoCtrl', function($scope) {

@@ -14,7 +14,7 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearCache();
         });
         $scope.changePwd = function() {
-            InfoPopupService('老子还没被整出来');
+            InfoPopupService('窝还没被整出来%>_<%');
         };
         $scope.login = function() {
             $scope.errorEmail = false;
@@ -111,11 +111,10 @@ console.log($scope.formData);
                             PersonalInfoMange.update({isLogin: 1});
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $location.path('/me-register').replace();
+                                $location.path('/me-register');
                             });
                         } else if (resp.result == 0) {
                             // InfoPopupService(resp.info);
-                            // 验证失败则重置isReg，允许用户重新发送邮箱验证
                             InfoPopupService($scope.emailFailInfo);
                         }
                     }, function(err) {
@@ -131,9 +130,6 @@ console.log($scope.formData);
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             $scope.errorNickName = false;
-                        $scope.showPopup();
-
-            
             /**
              * 验证表单
              */

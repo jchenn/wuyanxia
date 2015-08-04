@@ -1,7 +1,7 @@
-angular.module('me.ctrl', [])
+angular.module('me.ctrl', ['house.service'])
 
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
+    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover,$ionicActionSheet, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit, Camera){
 
         //从注册跳转，则清空跳转历史
         // var history = $ionicHistory.viewHistory();
@@ -22,6 +22,52 @@ angular.module('me.ctrl', [])
         }else{
             $scope.data.birthday = "";
         }
+
+        //选择拍照或者上传照片
+
+        $scope.showCamera = function(){
+            var opts={
+                width:400,
+                height:300,
+                method:1,
+                quality:50
+            };
+            var hideSheet = $ionicActionSheet.show({
+                buttons: [
+                    {text: '拍照'},
+                    {text: '从相册中选取'}
+                ],
+                cancelText: '取消',
+                cancel: function(){
+                    hideSheet();
+                },
+                buttonClicked: function(index){
+                    if(index == 0){
+                        alert('拍照');
+                        Camera.getPic(function(){
+                            alert('success');
+                        }, function(){
+                            alert('fail');
+                        }, opts, 1);
+                    }else if(index == 1){
+                        alert('选照片');
+                        Camera.getPic(function(){
+                            alert('success');
+                        }, function(){
+                            alert('fail');
+                        }, opts, 0);
+
+                    }
+                    hideSheet();
+                }
+            });
+            $timeout(function() {
+                hideSheet();
+            }, 2000);
+        };
+
+
+
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
             scope: $scope,

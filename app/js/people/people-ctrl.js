@@ -181,6 +181,8 @@ angular.module('people.ctrl', [])
   // 显示 收藏/屏幕 菜单
   $scope.showMenu = function() {
 
+    console.log('people', $scope.people);
+
     // 返回一个关闭菜单的函数
     $ionicActionSheet.show({
       buttons: [
@@ -225,7 +227,7 @@ angular.module('people.ctrl', [])
           console.log('forbid');
 
           $ionicPopup.confirm({
-            templates: '点击不喜欢，你将不会再看到该室友信息了哟！',
+            template: '点击不喜欢，你将不会再看到该室友信息了哟。',
             okText: '不喜欢',
             cancelText: '我再想想'
           }).then(function(res) {

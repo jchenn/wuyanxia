@@ -6,20 +6,14 @@
   <ion-content>
     <div class="header">
       <div class="head-img" align="center">
-        <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
+        <img src="{{data.avatar}}" alt=""/>
       </div>
     </div>
     <div class="list">
       <div class="padding">
         <p class="">个性标签</p>
         <div class="padding tag">
-          <a class="button button-positive" ng-click="go('/me/q/1')">标签一</a>
-          <a class="button button-balanced" ng-click="go('/me/q/2')">标签二</a>
-          <a class="button button-energized" ng-click="go('/me/q/3')">标签三</a>
-          <a class="button button-assertive" ng-click="go('/me/q/4')">标签四</a>
-          <a class="button button-royal" ng-click="go('/me/q/5')">标签五</a>
-          <a class="button button-calm" ng-click="go('/me/q/6')">标签六</a>
-        </div>
+          <a class="button button-positive" ng-repeat="(key, value) in data.tags" ng-click="go('quiz/{{key}}')">{{value}}</a>
       </div>
         <div class="item" ng-click="showStatus()">
             <p class="">寻找室友状态</p>
@@ -33,13 +27,13 @@
           <a href="#/email-validate" class="item-image ion-email"></a>
         </p>
       </div>
-      <div class="item" ng-click="modify({'title':'昵称','val':data.name,'key':'name'})">
+      <div class="item" ng-click="modify({'title':'昵称','val':data.nickName,'key':'nickName'})">
         <p class="">昵称</p>
-        <p class="">{{data.name}}</p>
+        <p class="">{{data.nickName}}</p>
       </div>
       <div class="item"  ng-click="openSex()">
         <p class="">性别</p>
-        <p class="">{{data.sex == 0 ? '女' : '男'}}</p>
+        <p class="">{{data.gender}}</p>
       </div>
       <div class="item phone"  ng-click="modify({'title':'手机','val':data.phone,'key':'phone'})">
         <p class="">手机</p>
@@ -47,9 +41,9 @@
       </div>
       <div class="item"  ng-click="openBirth()">
         <p class="">出生日期</p>
-        <p class="">{{data.birth}}</p>
+        <p class="">{{data.birthday ? data.birthday : ''}}</p>
       </div>
-      <div class="item"  ng-click="modify({'title':'公司','val':data.company,'key':'company'})">
+      <div class="item">
         <p class="">公司</p>
         <p class="">{{data.company}}</p>
       </div>
@@ -57,7 +51,7 @@
         <p class="">岗位</p>
         <p class="">{{data.job}}</p>
       </div>
-
+    </div>
     </div>
   </ion-content>
 </ion-view>

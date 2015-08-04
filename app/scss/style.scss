@@ -19,3 +19,46 @@
 .action-sheet .button {
   color: #000 !important;
 }
+
+.popup-container {
+  .popup {
+    background-color: #fff;
+    border-radius: 4px;
+  }
+
+  .popup-head {
+    border-bottom: none;
+  }
+
+  .popup-body {
+    padding: 10px 40px 40px;
+    color: #575757;
+  }
+
+  .popup-buttons {
+    padding: 0;
+    min-height: 40px;
+
+    .button {
+      margin: 0;
+      min-height: 40px;
+      border-radius: 0;
+      border: none;
+      background-color: #ddd;
+      color: #575757;
+    }
+
+    .button.button-positive {
+      background-color: #63c3d3;
+      color: #fff;
+    }
+
+    .button:first-child {
+      border-radius: 0 0 0 2px;
+    }
+
+    .button:last-child {
+      border-radius: 0 0 2px 0;
+    }
+  }
+}

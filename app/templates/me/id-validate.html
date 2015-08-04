@@ -1,17 +1,17 @@
-<ion-view style="background:#f8f8f8" class="me-validate">
-    <ion-header-bar class="bar-stable bar bar-header disable-user-behavior" align-title="center">
-        <button class="button back-button buttons  button-clear header-item"  ng-click="go('/me')">
-            <i class="icon ion-ios-arrow-back"></i>
-        </button>
-        <div class="title title-center header-item">身份证认证</div>
-    </ion-header-bar>
-    <ion-content class="padding">
+<ion-view class="me-validate">
+    <ion-content class="">
         <div class="header">
-            <div class="head-img" align="center">
-                <img src=" http://223.252.223.13/Roommates/photo/photo_123.jpg" alt=""/>
+            <div class="nav">
+                <i class="icon ion-ios-arrow-back" ng-click="go('/me')"></i>
+                <h1 class="title title-center header-item">身份证认证</h1>
             </div>
+            <div class="head">
+                <div class="head-img" align="center">
+                    <p class="img id"></p>
+                </div>
+            </div>
+            <p class="warn">我们会保证您身份信息的安全，请放心</p>
         </div>
-        <p align="center">我们会保证您身份信息的安全，请放心</p>
         <div class="list">
             <label class="item item-input">
                 <input type="text" placeholder="请输入真实姓名">
@@ -20,8 +20,6 @@
                 <input type="text" placeholder="请输入身份证号">
             </label>
         </div>
-        <div class="padding sendvalidate">
-            <button class="button button-block button-dark">完成</button>
-        </div>
+        <p class="sendvalidate">完成</p>
     </ion-content>
 </ion-view>

@@ -14,7 +14,7 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearCache();
         });
         $scope.changePwd = function() {
-            InfoPopupService('老子还没被整出来');
+            InfoPopupService('窝还没被整出来%>_<%');
         };
         $scope.login = function() {
             $scope.errorEmail = false;
@@ -131,9 +131,6 @@ console.log($scope.formData);
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             $scope.errorNickName = false;
-                        $scope.showPopup();
-
-            
             /**
              * 验证表单
              */

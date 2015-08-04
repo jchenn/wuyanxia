@@ -3,14 +3,12 @@ angular.module('people.ctrl', [])
 // 主页：室友列表
 .controller('PeopleListCtrl', 
   function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
-    PeopleListQuery, PeopleFilterModel, PersonalInfo) {
+    PeopleListQuery, PeopleFilterModel, PersonalInfo, PermissionChecker) {
 
   var _hasMore = true,
       _fetching = false,
       params = PeopleFilterModel.params(),
       data = null;
-
-  $scope.$emit('load.people.list');
 
   $scope.list = [];
   
@@ -69,7 +67,7 @@ angular.module('people.ctrl', [])
 
     }, function(err) {
 
-      console.log('err', err);
+      console.log('list err', err);
       
       $ionicLoading.hide();
       _hasMore = false;
@@ -83,6 +81,11 @@ angular.module('people.ctrl', [])
     if (toState.name === 'menu.people-list') {
 
       if (fromState.name === 'login') {
+
+        // 登录后更新侧边栏
+        $scope.$emit('load.people.list');
+
+        // 将缓存置为无效
         PeopleFilterModel.setUsingCache(false);
       }
 
@@ -97,52 +100,7 @@ angular.module('people.ctrl', [])
   });
 
   // 在跳转到室友详情之前，先判断是否填完个人信息
-  $scope.jumpToDetail = function(hash) {
-
-    // $scope.go(hash);
-    // return;
-
-    // 判断是否完成问卷
-    if (PersonalInfo.completeInfo && PersonalInfo.tags) {
-      $scope.go(hash);
-    } else if (!PersonalInfo.tags && !PersonalInfo.completeInfo) {
-      $ionicPopup.confirm({
-        template: '只有填写自己的个人信息和匹配问题才能为您匹配室友，并查看详情信息哟。',
-        okText: '现在填写',
-        cancelText: '稍后再说'
-      }).then(function(res) {
-        if (res) {
-          $scope.go('/me-register');
-        } else {
-          // do nothing
-        }
-      });
-    } else if (!PersonalInfo.completeInfo) {
-      $ionicPopup.confirm({
-        template: '只有填写自己的个人信息才能看到室友的详情信息哟。',
-        okText: '现在填写',
-        cancelText: '稍后再说'
-      }).then(function(res) {
-        if (res) {
-          $scope.go('/me-register');
-        } else {
-          // do nothing
-        }
-      });
-    } else if (!PersonalInfo.tags) {
-      $ionicPopup.confirm({
-        template: '请回答以下6个问题，以便为您更精确匹配室友。',
-        okText: '现在回答',
-        cancelText: '稍后再说'
-      }).then(function(res) {
-        if (res) {
-          $scope.go('/quiz/zx');
-        } else {
-          // do nothing
-        }
-      });
-    }
-  };
+  $scope.jumpToDetail = PermissionChecker.goto;
 })
 
 .controller('PeopleFilterCtrl', function($scope, PeopleFilterModel) {
@@ -300,5 +258,79 @@ angular.module('people.ctrl', [])
 
   // 可以直接查看详情，不需要其他权限
   $scope.jumpToDetail = $scope.go;
+})
+
+.controller('PeopleSearchCtrl', 
+  function($scope, PersonalInfo, PeopleSearchQuery, PermissionChecker) {
+
+  var _fetching   = false,
+      _hasMore    = false,
+      _p          = 1,
+      _data;
+
+  $scope.list = [];
+  $scope.q = '';
+
+  // 触发搜索
+  $scope.search = function() {
+    console.log('key words', $scope.q);
+
+    if ($scope.q.trim()) {
+      _p = 1;
+      $scope.loadMore();
+    }
+
+  };
+
+  // 判断是否需要加载更多
+  $scope.hasMore = function() {
+    return _fetching ? false : _hasMore;
+  };
+
+  $scope.loadMore = function() {
+
+    _fetching = true;
+
+    PeopleSearchQuery.get(
+      {
+        id: PersonalInfo.userId,
+        q:  $scope.q,
+        p:  _p
+      },
+      function(response) {
+
+        console.log('search response', response);
+
+        if (response.errno === 0) {
+
+          _data = response.data;
+
+          if (_p === 1) {
+            $scope.list = [];
+          }
+
+          if (_data.length > 0) {
+            $scope.list = $scope.list.concat(_data);
+            _hasMore = true;
+          } else {
+            _hasMore = false;
+          }
+
+          _fetching = false;
+          ++_p;
+        }
+
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      },
+      function(err) {
+        console.log('search err', err);
+        _hasMore = false;
+        _fetching = false;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      }
+    );
+  };
+
+  $scope.jumpToDetail = PermissionChecker.goto;
 })
 ;

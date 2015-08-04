@@ -10,6 +10,10 @@ angular.module('people.service', ['ngResource'])
   return resource;
 })
 
+.factory('PeopleSearchQuery', function($resource) {
+    return $resource('http://223.252.223.13/Roommates/api/people/list?id=:id&q=:q&p=:p');
+})
+
 .factory('PeopleFilterModel', function(PersonalInfo) {
   var condition = {
     buttons: [
@@ -128,5 +132,52 @@ angular.module('people.service', ['ngResource'])
   return $resource('http://223.252.223.13/Roommates/api/people/forbid');
 })
 
-.value('People', {})
+.factory('PermissionChecker', function(PersonalInfo, $ionicPopup, $rootScope) {
+  var factory = {
+    goto: function(hash) {
+      
+      if (PersonalInfo.completeInfo && PersonalInfo.tags) {
+        $rootScope.go(hash);
+      } else if (!PersonalInfo.tags && !PersonalInfo.completeInfo) {
+        $ionicPopup.confirm({
+          template: '只有填写自己的个人信息和匹配问题才能为您匹配室友，并查看详情信息哟。',
+          okText: '现在填写',
+          cancelText: '稍后再说'
+        }).then(function(res) {
+          if (res) {
+            $rootScope.go('/me-register');
+          } else {
+            // do nothing
+          }
+        });
+      } else if (!PersonalInfo.completeInfo) {
+        $ionicPopup.confirm({
+          template: '只有填写自己的个人信息才能看到室友的详情信息哟。',
+          okText: '现在填写',
+          cancelText: '稍后再说'
+        }).then(function(res) {
+          if (res) {
+            $rootScope.go('/me-register');
+          } else {
+            // do nothing
+          }
+        });
+      } else if (!PersonalInfo.tags) {
+        $ionicPopup.confirm({
+          template: '请回答以下6个问题，以便为您更精确匹配室友。',
+          okText: '现在回答',
+          cancelText: '稍后再说'
+        }).then(function(res) {
+          if (res) {
+            $rootScope.go('/quiz/zx');
+          } else {
+            // do nothing
+          }
+        });
+      }
+    }
+  };
+
+  return factory;
+})
 ;

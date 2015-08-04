@@ -19,7 +19,7 @@
 
     .avatar {
       float: left;
-      margin-right: 16px;
+      margin-right: 20px;
 
       img {
         border-radius: 50%;
@@ -41,8 +41,14 @@
     }
   }
 
-  .item-input-wrapper {
-    background-color: transparent;
+  .bar-footer {
+    height: 61px;
+    border-top-color: #ddd;
+    padding: 0 31px;
+
+    .icon {
+      padding-right: 14px;
+    }
   }
 
   .u-icon {

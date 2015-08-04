@@ -250,6 +250,9 @@ angular.module('house.service',[])
         getFiles:function(){
             return fileList;
         },
+        clearPics:function(){
+            fileList=[];
+        },
         formDataIn:function(form){
             for(var i in form){
                 if(typeof data[i]!=undefined) data[i]=form[i];
@@ -345,8 +348,8 @@ angular.module('house.service',[])
         getPic:function(onSuccess,onFail,opts,tag){
             var data={};
             data.encodingType=Camera.EncodingType.JPEG;
-            data.allowEdit=true;
-            data.correctOrientation=true;
+            //data.allowEdit=true;
+            //data.correctOrientation=true;
             if(tag) data.destinationType=Camera.DestinationType.DATA_URL;
             if(opts){
                 if(opts.width) data.targetWidth=opts.width;
@@ -430,7 +433,6 @@ angular.module('house.service',[])
             });
         },
         getFormData:function($scope){
-            Data.clearFormData();
             if(!$scope) throw new Error('参数忘加了');
             Data.formDataIn($scope.data);
         }

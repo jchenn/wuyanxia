@@ -58,7 +58,7 @@ angular.module('house.ctrl',[])
                 width:400,
                 height:300,
                 method:1,
-                quality:50
+                quality:70
             };
             if(type==2){ opts.method=0;opts.width=300;opts.height=400;}
             
@@ -96,6 +96,10 @@ angular.module('house.ctrl',[])
     
     //缓存弹窗函数，方便调用
     var warn=Cmn.warn;
+    
+    //清空缓存数据
+    Data.clearFormData();
+    Data.clearPics();
     
     //表单清空
     house.resetForm1($scope);
@@ -167,7 +171,7 @@ angular.module('house.ctrl',[])
     house.resetForm2($scope);
     /**********/
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout){
     
     
     var warn=Cmn.warn;
@@ -179,6 +183,7 @@ angular.module('house.ctrl',[])
     $scope.onFocus=function(){
         $timeout(function(){
             $ionicScrollDelegate.scrollBottom();
+            //console.log('focus');
         },500);
         
     };
@@ -191,6 +196,7 @@ angular.module('house.ctrl',[])
     Pop.init({
         sure:function(){
             Form.delete(function(data){
+                console.log(data);
                 if(data.errno==1){
                     warn(data.message);
                     return;
@@ -199,7 +205,7 @@ angular.module('house.ctrl',[])
                     PersonalInfoMange.update({
                         "hasHouse":0
                     });
-                    alert('asdf');
+                    
                     location.href="#/menu/people-list";
                 }
             });
@@ -266,5 +272,8 @@ angular.module('house.ctrl',[])
         Data.set('description',$scope.data.description);
         $location.path('/house-update');
     };
+})
+.controller('piceditCtrl',function($scope){
+    $scope.title="房源图片";
 })
 ;

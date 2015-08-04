@@ -23,17 +23,23 @@
     background: #f8f8f8;
     .bar-header{
             height: 40px;
-            line-height: 40px;
+            line-height: 40px ;
             background: #63c3d3;
             color: #fcfeff;
+            padding: 0;
+            border: 0;
             h1{
                 color: #fcfeff !important;
                 height: 100%;
-                line-height: 40px;
+                line-height: 38px !important;
                 font-size: 16px !important;
             }
             .buttons{
                 right:18px;
+                height: 100%;
+                line-height: 40px;
+                top: 0px !important;
+                bottom: 0px !important;
             }
             .m-btn{
                 color: #fff;
@@ -109,6 +115,11 @@
         }
         
     }
+    &.picedit-view{
+        .m-backicon:before{
+            content: "\f124\20\20取消";
+        }
+    }
     .clearfix{
         &:before,&:after{
             display: table;
@@ -124,7 +135,7 @@
         left: 13px;
         width: 60px;
         height: 100%;
-        line-height: 44px;
+        line-height: 40px;
         font-size: 16px;
     }
     .m-show{
@@ -141,8 +152,21 @@
             bottom: 0;
             left: 0;
             right: 0;
-            img{
+           
+            .img-wrapper{
+                position: relative;
                 width: 100%;
+                height: 100%;
+                background: #fff;
+            }
+            img{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                width: auto;
                 height: 100%;
             }
         }

@@ -16,7 +16,8 @@
             <div class="m-show-content" ng-click="onSlideboxClick()">
                 <ion-slide-box >
                   <ion-slide ng-repeat=" pic in pics">
-                    <img ng-src="{{pic}}" ng-alt="{{pic.alt}}">
+                        <div class="img-wrapper"><img ng-src="{{pic}}" ng-alt="{{pic.alt}}"></div>
+                        
                   </ion-slide>
                 </ion-slide-box>
             </div>

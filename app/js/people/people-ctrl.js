@@ -121,7 +121,7 @@ angular.module('people.ctrl', [])
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     
-    console.log('detail', response);
+    // console.log('detail', response);
     
     if (response.errno === 0) {
       $scope.people = response.data;
@@ -136,7 +136,7 @@ angular.module('people.ctrl', [])
   // 显示 收藏/屏幕 菜单
   $scope.showMenu = function() {
 
-    console.log('people', $scope.people);
+    // console.log('people', $scope.people);
 
     // 返回一个关闭菜单的函数
     $ionicActionSheet.show({
@@ -214,11 +214,11 @@ angular.module('people.ctrl', [])
             },
             function(response) {
               if (response.errno === 0) {
-                console.log('forbid success');
+                // console.log('forbid success');
               }
             }, 
             function(err) {
-              console.log('err', err);
+              console.log('forbid err', err);
             }
           );
         } else {
@@ -241,13 +241,13 @@ angular.module('people.ctrl', [])
 .controller('FavCtrl', function($scope, PersonalInfo, FavQuery) {
 
   FavQuery.get({userId: PersonalInfo.userId}, function(response) {
-    console.log('fav list', response);
+    // console.log('fav list', response);
 
     if (response.errno === 0) {
       $scope.list = response.data;
     }
   }, function(err) {
-    console.log('err', err);
+    console.log('fav list err', err);
   });
 
   // 可以直接查看详情，不需要其他权限
@@ -267,7 +267,7 @@ angular.module('people.ctrl', [])
 
   // 触发搜索
   $scope.search = function() {
-    console.log('key words', $scope.q);
+    // console.log('key words', $scope.q);
 
     if ($scope.q.trim()) {
       _p = 1;
@@ -293,7 +293,7 @@ angular.module('people.ctrl', [])
       },
       function(response) {
 
-        console.log('search response', response);
+        // console.log('search response', response);
 
         if (response.errno === 0) {
 
@@ -318,7 +318,7 @@ angular.module('people.ctrl', [])
         $scope.$broadcast('scroll.infiniteScrollComplete');
       },
       function(err) {
-        console.log('search err', err);
+        // console.log('search err', err);
         _hasMore = false;
         _fetching = false;
         $scope.$broadcast('scroll.infiniteScrollComplete');

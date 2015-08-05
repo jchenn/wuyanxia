@@ -4,7 +4,7 @@ angular.module('menu.ctrl', [])
   $scope.me = PersonalInfo;
 
   $scope.$on('load.people.list', function() {
-    console.log('update side menu', PersonalInfo);
+    // console.log('update side menu', PersonalInfo);
     
     $scope.me = PersonalInfo;
 
@@ -12,10 +12,15 @@ angular.module('menu.ctrl', [])
   });
 })
 
-.controller('SettingCtrl', function($scope) {
+.controller('SettingCtrl', function($scope, $ionicHistory, PersonalInfoMange) {
   $scope.logout = function() {
+    
     // 删除用户信息
-    localStorage.removeItem('PersonalInfo');
+    PersonalInfoMange.clear();
+    
+    $ionicHistory.clearHistory();
+    $ionicHistory.clearCache();
+
     $scope.go('/login');
   }
 });

@@ -5,7 +5,7 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
   // 与室友相关的视图
   $stateProvider
   
-    // 室友列表
+    // 室友列表，点详情后需要返回，所以必须缓存
     .state('menu.people-list', {
       url: '/people-list',
       // cache: false,
@@ -13,6 +13,18 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
         'menu-content': {
           templateUrl: 'templates/people/people-list.html',
           controller: 'PeopleListCtrl'
+        }
+      }
+    })
+
+    // 室友搜索页，点详情后需要返回，所以必须缓存
+    .state('menu.people-search', {
+      url: '/search',
+      // cache: false,
+      views: {
+        'menu-content': {
+          templateUrl: 'templates/people/people-search.html',
+          controller: 'PeopleSearchCtrl'
         }
       }
     })
@@ -35,7 +47,6 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
       cache: false,
       views: {
         'menu-content': {
-          // templateUrl: 'templates/people/people-detail.html',
           templateUrl: 'templates/people/people-detail-wrapper.html',
           controller: 'PeopleDetailWrapperCtrl'
         }
@@ -51,6 +62,7 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
           templateUrl: 'templates/people/people-detail-nav.html'
         },
         'people-detail': {
+          cache: false,
           templateUrl: 'templates/people/people-detail-info.html',
           controller: 'PeopleDetailInfoCtrl'
         }
@@ -62,12 +74,22 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
       url: '/house',
       cache: false,
       views: {
+        'people-detail-nav': {
+          templateUrl: 'templates/people/people-detail-nav.html'
+        },
         'people-detail': {
+          cache: false,
           templateUrl: 'templates/people/people-detail-house.html',
           controller: 'PeopleDetailHouseCtrl'
         }
       }
     })
     ;
+})
+
+.filter('nickname', function() {
+  return function(input) {
+    return input && input.length > 4 ? input.substring(0, 4) + '...' : input;
+  }
 })
 ;

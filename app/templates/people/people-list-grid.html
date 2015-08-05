@@ -4,7 +4,7 @@
       <div class="img-response" ng-class="{ 'ribbon': p.hasHouse }">
         <img ng-src="{{ p.photoId }}" alt=""  width="156" height="156">
       </div>
-      <p>{{ p.nickName }} / {{ p.company }} / {{ p.age }}</p>
+      <p>{{ p.nickName | nickname }} / {{ p.company }} / {{ p.age }}</p>
       <p>匹配度 <em>{{ p.matchScore }}%</em></p>
       <div class="footer">
         <p>{{ '"' + p.matchMessage + '"' }}</p>

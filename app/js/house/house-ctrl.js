@@ -44,10 +44,10 @@ angular.module('house.ctrl',[])
     //缓存弹窗函数，方便调用
     var warn=Cmn.warn;
     
+    //初始化表单数据
+    house.refreshForm1($scope);
     
-    $scope.data=Data.formDataOut();
-    
-    //清空图片列表
+    //初始化图片列表
     $scope.pics=Data.getFiles();
     
     
@@ -143,7 +143,7 @@ angular.module('house.ctrl',[])
     Pop.init({
         sure:function(){
             Form.delete(function(data){
-                console.log(data);
+                
                 if(data.errno==1){
                     warn(data.message);
                     return;
@@ -162,7 +162,7 @@ angular.module('house.ctrl',[])
         }
     });
     
-    house.resetForm1($scope);
+    house.refreshForm1($scope);
     
     
     houseInfo.update(function(data){
@@ -222,7 +222,7 @@ angular.module('house.ctrl',[])
         $location.path('/house-update');
     };
 })
-.controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data){
+.controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data,PersonalInfo){
     
     
     //拍照
@@ -237,7 +237,12 @@ angular.module('house.ctrl',[])
                 
                 var url="data:image/jpeg;base64," + data;
                 
-                $scope.$apply(function(){Data.addFile(url);});
+                Data.addFile(url);
+                
+                
+                $scope.$apply(function(){
+                    $scope.pics=Data.getFiles();
+                });
 
                
             };
@@ -265,6 +270,15 @@ angular.module('house.ctrl',[])
         });
     }
     
+    function toEdit(){
+        if(PersonalInfo.hasHouse==0){
+            location.href="#/house-new";
+        }
+        else if(PersonalInfo.hasHouse==1){
+            location.href="#/house-update";
+        }
+    }
+    
     function deleteImage(index){
         house.deletePic(index);
     }
@@ -279,8 +293,6 @@ angular.module('house.ctrl',[])
     
     $scope.pics=Data.getFiles();
     
-    $scope.onSureClick=function(){
-        
-    };
+    $scope.onSureClick=toEdit;
 })
 ;

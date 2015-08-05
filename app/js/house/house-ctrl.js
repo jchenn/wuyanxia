@@ -1,6 +1,8 @@
 angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,$ionicScrollDelegate){
     
+    console.log('new');
+    
     /**控制器中用到的函数**/
     
     //刷新图片轮播插件
@@ -22,6 +24,7 @@ angular.module('house.ctrl',[])
     
     
     function toPicEdit(){
+        house.getFormData($scope);
         location.href="#/pic-edit";
     }
   
@@ -101,7 +104,7 @@ angular.module('house.ctrl',[])
 })
 
 .controller('descCtrl',function($scope,Cmn,house){
-    
+    console.log('desc');
     /**模板用到的变量、函数**/
     $scope.title="描述";
     $scope.back=Cmn.back;
@@ -112,11 +115,11 @@ angular.module('house.ctrl',[])
     /********************/
     
     /**执行部分**/
-    house.resetForm2($scope);
+    house.refreshForm2($scope);
     /**********/
 })
 .controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout){
-    
+    console.log('update');
     function toPicEdit(){
         location.href="#/pic-edit";
     }
@@ -211,6 +214,7 @@ angular.module('house.ctrl',[])
     };
 })
 .controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn){
+    console.log('descupdate');
     $scope.data={
         description:Data.get('description')
     };
@@ -223,7 +227,7 @@ angular.module('house.ctrl',[])
     };
 })
 .controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data,PersonalInfo){
-    
+    console.log('picedit');
     
     //拍照
     function addPic(type){
@@ -281,6 +285,7 @@ angular.module('house.ctrl',[])
     
     function deleteImage(index){
         house.deletePic(index);
+        $scope.pics=Data.getFiles();
     }
 
     $scope.title="房源图片";

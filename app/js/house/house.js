@@ -2,7 +2,7 @@ angular.module('house',['house.ctrl','house.service'])
 .config(function($stateProvider){
     $stateProvider.state('houseNew',{
         url:'/house-new',
-        
+        cache:false,
         templateUrl:'templates/house/house-new.html',
         controller:'newCtrl'
     })

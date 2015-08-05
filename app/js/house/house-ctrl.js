@@ -280,21 +280,21 @@ angular.module('house.ctrl',[])
 })
 .controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data){
     
+    
     //拍照
     function addPic(type){
         var opts={
                 method:1,
-                quality:70
+                quality:10
             };
             if(type==2){ opts.method=0;}
             
             var onSuccess=function(data){
                 
                 var url="data:image/jpeg;base64," + data;
-                $scope.pics.push(url);
-                console.log($scope.pics);
-                Data.addFile(url);
                 
+                $scope.$apply(function(){Data.addFile(url);});
+
                
             };
             var onFail=function(d){alert(d);};
@@ -323,7 +323,6 @@ angular.module('house.ctrl',[])
     
     function deleteImage(index){
         house.deletePic(index);
-        house.picsOut($scope);
     }
 
     $scope.title="房源图片";
@@ -337,7 +336,7 @@ angular.module('house.ctrl',[])
     $scope.pics=Data.getFiles();
     
     $scope.onSureClick=function(){
-        $scope.pics.push('a.'+Math.random());
+        
     };
 })
 ;

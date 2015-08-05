@@ -146,7 +146,8 @@ angular.module('house.service',[])
     var addPath="/Roommates/api/userhouse/insert";
     var getPath="/Roommates/api/userhouse/";
     var deletePath="/Roommates/api/userhouse/delete/";
-    
+    var delpicPath="/Roommates/api/userhouse/deleteimage";
+    var addpicPath="/Roommates/api/userhouse/addimage";
     
     
     return {
@@ -212,6 +213,19 @@ angular.module('house.service',[])
         delete:function(callback){
             var id=PersonalInfo.userId;
             $http.get(host+deletePath+id).success(callback);
+        },
+        deletePics:function(data,callback){
+           var d={
+               imgId:data,
+               userId:PersonalInfo.userId
+           }; $http.post(host+delpicPath,d).success(callback);
+        },
+        addPics:function(data,callback){
+            var d={
+                userId:PersonalInfo.userId,
+                images:data
+            };
+            $http.post(host+addpicPath,d).success(callback);
         }
     };
 })
@@ -359,7 +373,7 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('house',function(Check,Data,Cmn){
+.factory('house',function(Check,Data,Cmn,Form){
     var warn=Cmn.warn;
     var toDels=[];
     return {
@@ -389,6 +403,26 @@ angular.module('house.service',[])
                 toDels.push(pic);
             }
             pics.splice(index,1);
+        },
+        updatePic:function(){
+            //删除
+            var arr=[];
+            for(var i=0;i<toDels.length;i++){
+                var index=toDels[i].lastIndexOf('/');
+                arr.push(toDels[i].slice(index));
+            }
+            Form.deletePics(arr,function(data){
+                console.log(data);
+            });
+            var pics=Data.getFiles();
+            arr=[];
+            for(i=0;i<pics.length;i++){
+                if(/data:image\/jpeg;base64,/.test(pics[i]))
+                arr.push(pics[i]);
+            }
+            Form.addPics(arr,function(data){
+                console.log(data);
+            });
         },
         picsOut:function($scope){
             if(!$scope) throw new Error('参数忘加了');

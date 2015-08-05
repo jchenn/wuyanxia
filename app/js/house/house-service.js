@@ -153,7 +153,7 @@ angular.module('house.service',[])
     return {
         update:function(callback){
     
-           var form=new FormData();
+          /* var form=new FormData();
             form.append('userId',Number(PersonalInfo.userId));
             
             var data=Data.getAll();
@@ -162,11 +162,6 @@ angular.module('house.service',[])
                 if(i=='title'||i=='description'||i=='area'||i=='community'||i=='price')
                 form.append(i,data[i]);
             }
-            /*$http.post(host+updatePath,form,{
-                 headers: { 
-                     'Content-Type': 'application/x-www-form-urlencoded'
-                 }
-            }).success(callback);*/
             myHttp.http('POST',host+updatePath,form,function(data){
                 try{
                      callback(JSON.parse(data));
@@ -178,11 +173,17 @@ angular.module('house.service',[])
                      });
                 }
                
-            });
+            });*/
             //$http.post(host+updatePath,Data.getAll()).success(callback);
+            var data={
+                userId:PersonalInfo.userId
+            };
+            var form=Data.getAll();
+            for(var i in form) data[i]=form[i];
+            $http.post(host+updatePath,data).success(callback);
         },
         add:function(callback){
-            var filelist=Data.getFiles();
+          /*  var filelist=Data.getFiles();
             
             var form=new FormData();
             
@@ -203,7 +204,16 @@ angular.module('house.service',[])
             //$http.post(host+addPath,{a:1,b:2}).success(callback);
             myHttp.http('POST',host+addPath,form,function(data){
                 callback(JSON.parse(data));
-            });
+            });*/
+            
+            var data={
+                userId:PersonalInfo.userId,
+                files:Data.getFiles()
+            };
+            var form=Data.getAll();
+            for(var i in form) data[i]=form[i];
+            
+            $http.post(host+addPath,data).success(callback);
         },
         getData:function(id,callback){
             $http.get(host+getPath+id).success(function(d){
@@ -232,7 +242,7 @@ angular.module('house.service',[])
 .factory('Data',function(){
     var data={
         title:'',
-        price:0,
+        price:'',
         community:'',
         area:'',
         description:''
@@ -263,6 +273,9 @@ angular.module('house.service',[])
         getFiles:function(){
             return fileList.slice(0);
         },
+        deleteFile:function(index){
+            return fileList.splice(index,1)[0];
+        },
         clearPics:function(){
             fileList=[];
         },
@@ -277,7 +290,7 @@ angular.module('house.service',[])
         clearFormData:function(){
             data={
                 title:'',
-                price:0,
+                price:'',
                 community:'',
                 area:'',
                 description:''
@@ -402,17 +415,27 @@ angular.module('house.service',[])
                 description:''
             };
         },
+        refreshForm2:function($scope){
+            if(!$scope) throw new Error('参数忘加了');
+            var res=Data.getAll();
+            $scope.data={
+                description:res.description
+            };
+        },
         resetPics:function($scope){
             if(!$scope) throw new Error('参数忘加了');
             $scope.pics=[];
         },
         deletePic:function(index){
-            var pics=Data.getFiles();
-            var pic=pics[index];
-            if(!/data:image\/jpeg;base64,/.test(pic)){
-                toDels.push(pic);
-            }
-            pics.splice(index,1);
+    
+            var pic=Data.deleteFile(index);
+            /*if(!/data:image\/jpeg;base64,/.test(pic)){
+                var i=pic.lastIndexOf('/');
+                var picId=pic.slice(i+1);
+                Form.deletePics([picId],function(data){
+                    console.log(data);
+                });
+            }*/
         },
         updatePic:function(){
             //删除

@@ -255,7 +255,7 @@ angular.module('people.ctrl', [])
 })
 
 .controller('PeopleSearchCtrl', 
-  function($scope, PersonalInfo, PeopleSearchQuery, PermissionChecker) {
+  function($scope, $ionicLoading, PersonalInfo, PeopleSearchQuery, PermissionChecker) {
 
   var _fetching   = false,
       _hasMore    = false,
@@ -282,6 +282,11 @@ angular.module('people.ctrl', [])
   };
 
   $scope.loadMore = function() {
+
+    // 显示 loading 动画
+    $ionicLoading.show({
+      templateUrl: 'templates/people/people-maching.html'
+    });
 
     _fetching = true;
 
@@ -315,12 +320,14 @@ angular.module('people.ctrl', [])
 
         ++_p;
         _fetching = false;
+        $ionicLoading.hide();
         $scope.$broadcast('scroll.infiniteScrollComplete');
       },
       function(err) {
         // console.log('search err', err);
         _hasMore = false;
         _fetching = false;
+        $ionicLoading.hide();
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     );

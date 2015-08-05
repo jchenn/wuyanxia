@@ -121,6 +121,7 @@ angular.module('house.ctrl',[])
 .controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout){
     console.log('update');
     function toPicEdit(){
+        house.getFormData($scope);
         location.href="#/pic-edit";
     }
     
@@ -169,15 +170,19 @@ angular.module('house.ctrl',[])
     
     
     houseInfo.update(function(data){
-            if(typeof data == 'string'){
-                Cmn.warn(data);
-                location.href="#/house-new";
-                return;
-            }
-            Data.formDataIn(data);
-            $scope.data=data;
-            $scope.pics=data.picList;
-            $ionicSlideBoxDelegate.update();
+        if(typeof data == 'string'){
+            Cmn.warn(data);
+            location.href="#/house-new";
+            return;
+        }
+        Data.formDataIn(data);
+        var pics=data.picList;
+        for(var i=0;i<pics.length;i++){
+            Data.addFile(pics[i]);
+        }
+        house.refreshForm1($scope);
+        $scope.pics=Data.getFiles();
+        $ionicSlideBoxDelegate.update();
     });
   
   

@@ -166,10 +166,9 @@ angular.module('house.ctrl',[])
         }
     });
     
-    house.refreshForm1($scope);
-    
     
     houseInfo.update(function(data){
+        console.log('to update');
         if(typeof data == 'string'){
             Cmn.warn(data);
             location.href="#/house-new";
@@ -177,10 +176,12 @@ angular.module('house.ctrl',[])
         }
         Data.formDataIn(data);
         var pics=data.picList;
+        Data.clearPics();
         for(var i=0;i<pics.length;i++){
             Data.addFile(pics[i]);
         }
         house.refreshForm1($scope);
+        //console.log(Data.getFiles());
         $scope.pics=Data.getFiles();
         $ionicSlideBoxDelegate.update();
     });
@@ -284,7 +285,16 @@ angular.module('house.ctrl',[])
             location.href="#/house-new";
         }
         else if(PersonalInfo.hasHouse==1){
-            location.href="#/house-update";
+            var tag=0;
+            house.deletePics(function(){
+                tag++;
+                if(tag>=2) location.href="#/house-update";
+            });
+            house.uploadPics(function(){
+                tag++;
+                if(tag>=2) location.href="#/house-update";
+            });
+            
         }
     }
     

@@ -486,6 +486,20 @@ angular.module('house.service',[])
         getFormData:function($scope){
             if(!$scope) throw new Error('参数忘加了');
             Data.formDataIn($scope.data);
+        },
+        deletePics:function(callback){
+            var arr=Data.getDeletes();
+            Form.deletePics(arr,callback);
+        },
+        uploadPics:function(callback){
+            var files=Data.getFiles();
+            var toupload=[];
+            for(var i=0;i<files.length;i++){
+                if(/data:image\/jpeg;base64,/.test(files[i])){
+                    toupload.push(files[i]);
+                }
+            }
+            Form.addPics(toupload,callback);
         }
     };
 })

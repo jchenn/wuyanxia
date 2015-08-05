@@ -1,37 +1,12 @@
-angular.module('quiz', [])
+angular.module('quiz.ctrl', [])
 
-.config(function($stateProvider) {
+// 一次性填写个性标签的控制器
+.controller('QuizCtrl', function() {
 
-  $stateProvider
-
-    // 问卷提示页
-    .state('quiz-hint', {
-      url: '/quiz/hint',
-      cache: false,
-      templateUrl: 'templates/me/quiz-hint.html',
-      controller: 'QuizCtrl'
-    })
-
-    // 询问是否有房
-    .state('quiz-house', {
-      url: '/quiz/house',
-      cache: false,
-      templateUrl: 'templates/me/quiz-house.html',
-      controller: 'QuizHouseCtrl'
-    })
-
-    // 填写个人标签（问卷）
-    .state('quiz', {
-      url: '/quiz/:name',
-      cache: false,
-      templateUrl: 'templates/me/quiz.html',
-      controller: 'QuizCtrl'
-    })
-  ;
 })
 
-// 处理个性问答的控制器
-.controller('QuizCtrl', 
+// 修改个性问答的控制器
+.controller('QuizEditCtrl', 
   function($scope, $stateParams, $ionicPopup, $ionicLoading, $ionicHistory,
     QuizModel, QuizSubmit, PersonalInfo, PersonalInfoMange) {
 
@@ -158,5 +133,4 @@ angular.module('quiz', [])
 .controller('QuizHouseCtrl', function($ionicHistory) {
   $ionicHistory.clearHistory();
 })
-
 ;

@@ -1,22 +1,17 @@
 angular.module('house.ctrl',[])
-.controller('newCtrl',function($scope,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,$ionicScrollDelegate){
+.controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,$ionicScrollDelegate){
     
     /**控制器中用到的函数**/
     
     //刷新图片轮播插件
     function refreshSlidebox(){
-            try{
-                $timeout(function(){
-                $ionicSlideBoxDelegate.update();
-                    $timeout(function(){
-                        $ionicSlideBoxDelegate.next();
-                    },100);
-            },500);
-        }
-        catch(e){
             
-            alert(e);
-        }
+        $timeout(function(){
+            $ionicSlideBoxDelegate.update();
+                $timeout(function(){
+                    $ionicSlideBoxDelegate.next();
+                },100);
+        },500);
         
     }
     
@@ -25,59 +20,11 @@ angular.module('house.ctrl',[])
         //todo
     }
     
-    //显示选项菜单
-    function optionShow(){
-        $ionicActionSheet.show({
-             buttons: [
-               { text: '拍照' },
-               { text: '从相册中选取' }
-             ],
-             cancelText: '取消',
-             cancel: function() {
-                  
-                },
-             buttonClicked: function(index) {
-                 if(index==0){
-                     addPic(1);
-                 }
-                 else if(index==1){
-                     addPic(2);
-                 }
-               return true;
-             }
-        });
-    }
     
-    /**
-     *照相
-     *@param type 1 照相  2 从相册选
-     *
-     */
-    function addPic(type){
-            var opts={
-                width:400,
-                height:300,
-                method:1,
-                quality:50
-            };
-            if(type==2){ opts.method=0;opts.width=300;opts.height=400;}
-            
-            var onSuccess=function(data){
-                try{
-                    var url="data:image/jpeg;base64," + data;
-                    $scope.pics.push(url);
-                    Data.addFile(url);
-                    refreshSlidebox();
-                }catch(e){
-                    alert(e);
-                }
-               
-            };
-            var onFail=function(d){alert(d);};
-           Camera.getPic(onSuccess,onFail,opts,1);
-        
+    function toPicEdit(){
+        location.href="#/pic-edit";
     }
-    
+  
     /*******************/
     
     /**模板中用到的变量、函数**/
@@ -89,7 +36,7 @@ angular.module('house.ctrl',[])
     //设置返回函数
     $scope.back=Cmn.back;
     
-    $scope.onSlideboxClick=optionShow;
+    $scope.onSlideboxClick=toPicEdit;
     /**********************/
     
     /**执行部分**/
@@ -97,11 +44,12 @@ angular.module('house.ctrl',[])
     //缓存弹窗函数，方便调用
     var warn=Cmn.warn;
     
-    //表单清空
-    house.resetForm1($scope);
+    
+    $scope.data=Data.formDataOut();
     
     //清空图片列表
-    house.resetPics($scope);
+    $scope.pics=Data.getFiles();
+    
     
      //点击完成是执行
     $scope.send=function(){
@@ -121,6 +69,7 @@ angular.module('house.ctrl',[])
             }
             if(data.errno==0){
                 house.resetForm1($scope);
+                Data.clearFormData();
                 PersonalInfoMange.update({hasHouse:1});
                 location.href="#/menu/people-list";
             }
@@ -166,8 +115,11 @@ angular.module('house.ctrl',[])
     house.resetForm2($scope);
     /**********/
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout){
     
+    function toPicEdit(){
+        location.href="#/pic-edit";
+    }
     
     var warn=Cmn.warn;
     
@@ -178,6 +130,7 @@ angular.module('house.ctrl',[])
     $scope.onFocus=function(){
         $timeout(function(){
             $ionicScrollDelegate.scrollBottom();
+            //console.log('focus');
         },500);
         
     };
@@ -190,6 +143,7 @@ angular.module('house.ctrl',[])
     Pop.init({
         sure:function(){
             Form.delete(function(data){
+                console.log(data);
                 if(data.errno==1){
                     warn(data.message);
                     return;
@@ -198,6 +152,7 @@ angular.module('house.ctrl',[])
                     PersonalInfoMange.update({
                         "hasHouse":0
                     });
+                    
                     location.href="#/menu/people-list";
                 }
             });
@@ -208,7 +163,8 @@ angular.module('house.ctrl',[])
     });
     
     house.resetForm1($scope);
-   
+    
+    
     houseInfo.update(function(data){
             if(typeof data == 'string'){
                 Cmn.warn(data);
@@ -229,7 +185,7 @@ angular.module('house.ctrl',[])
             return;
         }
         $ionicLoading.show({
-            template:'提交中~'
+            template:'提交中……'
         });
         Form.update(function(data){
             $ionicLoading.hide();
@@ -239,11 +195,13 @@ angular.module('house.ctrl',[])
                 return;
             }
             if(data.errno==0){
+                Data.clearFormData();
                 location.href="#/menu/people-list";
             }
         });
     };
     
+    $scope.onSlideboxClick=toPicEdit;
 
     
     //跳转到描述
@@ -262,6 +220,67 @@ angular.module('house.ctrl',[])
     $scope.descComplete=function(){
         Data.set('description',$scope.data.description);
         $location.path('/house-update');
+    };
+})
+.controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data){
+    
+    
+    //拍照
+    function addPic(type){
+        var opts={
+                method:1,
+                quality:10
+            };
+            if(type==2){ opts.method=0;}
+            
+            var onSuccess=function(data){
+                
+                var url="data:image/jpeg;base64," + data;
+                
+                $scope.$apply(function(){Data.addFile(url);});
+
+               
+            };
+            var onFail=function(d){alert(d);};
+           Camera.getPic(onSuccess,onFail,opts,1);
+    }
+    
+    //显示菜单
+    function optionShow(){
+        $ionicActionSheet.show({
+             buttons: [
+               { text: '拍照' },
+               { text: '从相册中选取' }
+             ],
+             cancelText: '取消',
+             buttonClicked: function(index) {
+                 if(index==0){
+                     addPic(1);
+                 }
+                 else if(index==1){
+                     addPic(2);
+                 }
+               return true;
+             }
+        });
+    }
+    
+    function deleteImage(index){
+        house.deletePic(index);
+    }
+
+    $scope.title="房源图片";
+    
+    $scope.onAddClick=optionShow;
+    
+    $scope.onDeleteClick=deleteImage;
+    
+    $scope.back=Cmn.back;
+    
+    $scope.pics=Data.getFiles();
+    
+    $scope.onSureClick=function(){
+        
     };
 })
 ;

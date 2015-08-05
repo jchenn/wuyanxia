@@ -96,6 +96,8 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
 .filter('smsbody', function(PersonalInfo) {
   return function(people) {
 
+    if (!people) return '';
+
     if (people.hasHouse) {
       var house = people.matchUserHouse;
 

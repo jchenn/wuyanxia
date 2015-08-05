@@ -111,3 +111,17 @@
     }
   }
 }
+
+.m-feedback {
+  .wrapper {
+    width: 100%;
+    padding: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 250px;
+    padding: 16px;
+    resize: none;
+  }
+}

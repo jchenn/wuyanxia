@@ -60,7 +60,8 @@ angular.module('menu', ['menu.ctrl'])
       cache: false,
       views: {
         'menu-content': {
-          templateUrl: 'templates/menu/empty.html'
+          templateUrl: 'templates/menu/feedback.html',
+          controller: 'FeedbackCtrl'
         }
       }
     })

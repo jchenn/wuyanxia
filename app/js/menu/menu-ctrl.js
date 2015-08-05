@@ -44,4 +44,37 @@ angular.module('menu.ctrl', [])
 .controller('FaqCtrl', function($scope, Faq) {
   $scope.list = Faq;
 })
+
+.factory('FeedbackSubmit', function($resource) {
+  return $resource('http://223.252.223.13/Roommates/api/feedback');
+})
+
+.controller('FeedbackCtrl', function($scope, FeedbackSubmit, $ionicPopup) {
+  $scope.body = {content: ''};
+
+  $scope.send = function() {
+    // console.log($scope.body);
+
+    if ($scope.body.content.trim().length > 0) {
+      FeedbackSubmit.save(
+        {
+          body: $scope.body.content
+        },
+        function(response) {
+
+          // 发送成功
+          $scope.body.content = '';
+
+          $ionicPopup.alert({
+            template: '发送成功',
+            okText:'确定'
+          });
+        },
+        function(err) {
+          console.log('feedback err', err);
+        }
+      );
+    }
+  };
+})
 ;

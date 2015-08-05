@@ -1,7 +1,7 @@
 angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,$ionicScrollDelegate){
     
-    console.log('new');
+    
     
     /**控制器中用到的函数**/
     
@@ -104,7 +104,7 @@ angular.module('house.ctrl',[])
 })
 
 .controller('descCtrl',function($scope,Cmn,house){
-    console.log('desc');
+    
     /**模板用到的变量、函数**/
     $scope.title="描述";
     $scope.back=Cmn.back;
@@ -118,8 +118,8 @@ angular.module('house.ctrl',[])
     house.refreshForm2($scope);
     /**********/
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout){
-    console.log('update');
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout,$ionicPopup){
+    
     function toPicEdit(){
         house.getFormData($scope);
         location.href="#/pic-edit";
@@ -141,10 +141,34 @@ angular.module('house.ctrl',[])
    
     //弹出框
     $scope.showPop=function(){
-        Pop.show();
+        
+        $ionicPopup.confirm(
+          {
+            template: '撤销房源后，将变为“我无房源，找室友合租”状态呦。',
+            okText: '确定',
+            cancelText: '取消'
+          })
+            .then(function(res){
+                if(res){
+                    Form.delete(function(data){
+                
+                if(data.errno==1){
+                    warn(data.message);
+                    return;
+                }
+                else if(data.errno==0){
+                    PersonalInfoMange.update({
+                        "hasHouse":0
+                    });
+                    
+                    location.href="#/menu/people-list";
+                }
+            });
+                }
+            });
     };
     
-    Pop.init({
+    /*Pop.init({
         sure:function(){
             Form.delete(function(data){
                 
@@ -164,12 +188,12 @@ angular.module('house.ctrl',[])
         cancel:function(){
             //alert('cancel');
         }
-    });
+    });*/
     
-    house.refreshForm1($scope);
     
     
     houseInfo.update(function(data){
+        
         if(typeof data == 'string'){
             Cmn.warn(data);
             location.href="#/house-new";
@@ -177,10 +201,12 @@ angular.module('house.ctrl',[])
         }
         Data.formDataIn(data);
         var pics=data.picList;
+        Data.clearPics();
         for(var i=0;i<pics.length;i++){
             Data.addFile(pics[i]);
         }
         house.refreshForm1($scope);
+        //console.log(Data.getFiles());
         $scope.pics=Data.getFiles();
         $ionicSlideBoxDelegate.update();
     });
@@ -219,7 +245,7 @@ angular.module('house.ctrl',[])
     };
 })
 .controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn){
-    console.log('descupdate');
+    
     $scope.data={
         description:Data.get('description')
     };
@@ -232,7 +258,7 @@ angular.module('house.ctrl',[])
     };
 })
 .controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data,PersonalInfo){
-    console.log('picedit');
+    
     
     //拍照
     function addPic(type){
@@ -284,7 +310,16 @@ angular.module('house.ctrl',[])
             location.href="#/house-new";
         }
         else if(PersonalInfo.hasHouse==1){
-            location.href="#/house-update";
+            var tag=0;
+            house.deletePics(function(){
+                tag++;
+                if(tag>=2) location.href="#/house-update";
+            });
+            house.uploadPics(function(){
+                tag++;
+                if(tag>=2) location.href="#/house-update";
+            });
+            
         }
     }
     

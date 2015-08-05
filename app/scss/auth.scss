@@ -108,16 +108,19 @@
 	.m-bar {
 		padding: 0;
 		height: 60px;
+		width: 100%;
 		background: transparent;
 		border-top-width: 0;
 		& > .buttons {
 			width: 50%;
+			height: 100%;
 			&:last-child .button {
 				border-left-width: 1px;
 				border-left-color: #ccc;
 			}
 			.button {
 				width: 100%;
+				height: 100%;
 				border-radius: 0;
 				border-width: 0;
 				background-color: RGBA(181,181,182,0.5);
@@ -138,15 +141,18 @@
 	}
 	.header-bar {
 		background: transparent;
-		.title {
-			text-align: left;
-			color: #66C3D2;
-		}
+
 		.buttons .button {
-			width: 15px;
-			margin: 0 5px;
-			background: url('../img/auth/arrow.png') no-repeat;
-			background-size: cover;
+			color: #66C3D2;
+			&:before {
+				content: '';
+				display: inline-block;
+				width: 12px;
+			    height: 34px;
+			    margin-right: 5px;
+				background: url('../img/auth/arrow.png') no-repeat;
+				background-size: cover;
+			}
 		}
 	}
 	.m-form .log-list.list .errorInfo {

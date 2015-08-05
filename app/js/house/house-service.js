@@ -246,7 +246,11 @@ angular.module('house.service',[])
             data[key]=value;
         },
         getAll:function(){
-            return data;
+            var res={};
+            for(var i in data){
+                res[i]=data[i];
+            }
+            return res;
         },
         fill:function(target){
             for(var i in target){
@@ -257,7 +261,7 @@ angular.module('house.service',[])
             fileList.push(file);
         },
         getFiles:function(){
-            return fileList;
+            return fileList.slice(0);
         },
         clearPics:function(){
             fileList=[];
@@ -268,7 +272,7 @@ angular.module('house.service',[])
             }
         },
         formDataOut:function(){
-            return data;
+            return this.getAll();
         },
         clearFormData:function(){
             data={
@@ -385,6 +389,12 @@ angular.module('house.service',[])
                 area:'',
                 community:''
             };
+        },
+        refreshForm1:function($scope){
+            if(!$scope) throw new Error('参数忘加了');
+            var res=Data.getAll();
+            delete res.description;
+            $scope.data=res;
         },
         resetForm2:function($scope){
             if(!$scope) throw new Error('参数忘加了');

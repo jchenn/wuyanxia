@@ -8,7 +8,9 @@
     <ion-content>
         <div class="m-square m-item " ng-repeat="pic in pics">
             <div class="m-square-content">
-                <div class="m-delete" ng-click="onDeleteClick($index)"></div>
+                <div class="m-delete" ng-click="onDeleteClick($index)">
+                    <img src="img/house/icon-delete.png">
+                </div>
                 <img ng-src="{{pic}}">
             </div>
         </div>

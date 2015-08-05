@@ -1,7 +1,7 @@
-angular.module('me.ctrl', ['house.service'])
+angular.module('me.ctrl', [])
 
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover,$ionicActionSheet, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit, Camera){
+    .controller('InfoRegister', function($scope, $timeout, $http, $ionicModal, $ionicPopover,$ionicActionSheet, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit, Camera){
 
         //从注册跳转，则清空跳转历史
         // var history = $ionicHistory.viewHistory();
@@ -32,6 +32,20 @@ angular.module('me.ctrl', ['house.service'])
                 method:1,
                 quality:50
             };
+
+            var onSuccess=function(data){
+                try{
+                    var url="data:image/jpeg;base64," + data;
+                    $scope.pics.push(url);
+                    Data.addFile(url);
+                    refreshSlidebox();
+                }catch(e){
+                    alert(e);
+                }
+
+            };
+            var onFail=function(d){alert(d);};
+
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                     {text: '拍照'},
@@ -44,18 +58,10 @@ angular.module('me.ctrl', ['house.service'])
                 buttonClicked: function(index){
                     if(index == 0){
                         alert('拍照');
-                        Camera.getPic(function(){
-                            alert('success');
-                        }, function(){
-                            alert('fail');
-                        }, opts, 1);
+                        Camera.getPic(onSuccess,onFail, opts, 1);
                     }else if(index == 1){
                         alert('选照片');
-                        Camera.getPic(function(){
-                            alert('success');
-                        }, function(){
-                            alert('fail');
-                        }, opts, 0);
+                        Camera.getPic(onSuccess,onFail, opts, 0);
 
                     }
                     hideSheet();

@@ -118,7 +118,7 @@ angular.module('house.ctrl',[])
     house.refreshForm2($scope);
     /**********/
 })
-.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout){
+.controller('updateCtrl',function($scope,houseInfo,$ionicSlideBoxDelegate,Data,Check,Cmn,Form,$ionicLoading,Pop,house,$ionicScrollDelegate,PersonalInfoMange,$timeout,$ionicPopup){
     console.log('update');
     function toPicEdit(){
         house.getFormData($scope);
@@ -141,10 +141,34 @@ angular.module('house.ctrl',[])
    
     //弹出框
     $scope.showPop=function(){
-        Pop.show();
+        
+        $ionicPopup.confirm(
+          {
+            template: '撤销房源后，将变为“我无房源，找室友合租”状态呦。',
+            okText: '确定',
+            cancelText: '取消'
+          })
+            .then(function(res){
+                if(res){
+                    Form.delete(function(data){
+                
+                if(data.errno==1){
+                    warn(data.message);
+                    return;
+                }
+                else if(data.errno==0){
+                    PersonalInfoMange.update({
+                        "hasHouse":0
+                    });
+                    
+                    location.href="#/menu/people-list";
+                }
+            });
+                }
+            });
     };
     
-    Pop.init({
+    /*Pop.init({
         sure:function(){
             Form.delete(function(data){
                 
@@ -164,7 +188,8 @@ angular.module('house.ctrl',[])
         cancel:function(){
             //alert('cancel');
         }
-    });
+    });*/
+    
     
     
     houseInfo.update(function(data){

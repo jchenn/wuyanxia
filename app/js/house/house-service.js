@@ -151,30 +151,9 @@ angular.module('house.service',[])
     
     
     return {
+        
+        
         update:function(callback){
-    
-          /* var form=new FormData();
-            form.append('userId',Number(PersonalInfo.userId));
-            
-            var data=Data.getAll();
-            
-            for(var i in data){
-                if(i=='title'||i=='description'||i=='area'||i=='community'||i=='price')
-                form.append(i,data[i]);
-            }
-            myHttp.http('POST',host+updatePath,form,function(data){
-                try{
-                     callback(JSON.parse(data));
-                }
-                catch(e){
-                     callback({
-                         errno:1,
-                         message:data
-                     });
-                }
-               
-            });*/
-            //$http.post(host+updatePath,Data.getAll()).success(callback);
             var data={
                 userId:PersonalInfo.userId
             };
@@ -182,29 +161,9 @@ angular.module('house.service',[])
             for(var i in form) data[i]=form[i];
             $http.post(host+updatePath,data).success(callback);
         },
+        
+        
         add:function(callback){
-          /*  var filelist=Data.getFiles();
-            
-            var form=new FormData();
-            
-            if(!PersonalInfo.userId){alert('UserId 为空~~~,我先赋值为1了');PersonalInfo.userId=1;}
-            
-            form.append('userId',Number(PersonalInfo.userId));
-
-            if(filelist.length) {
-                for(var i=0;i<filelist.length;i++){
-                    form.append('files['+i+']',filelist[i]);
-                }
-            }
-            
-            var data=Data.getAll();
-            for(var i in data){
-                form.append(i,data[i]);
-            }
-            //$http.post(host+addPath,{a:1,b:2}).success(callback);
-            myHttp.http('POST',host+addPath,form,function(data){
-                callback(JSON.parse(data));
-            });*/
             
             var data={
                 userId:PersonalInfo.userId,
@@ -215,21 +174,29 @@ angular.module('house.service',[])
             
             $http.post(host+addPath,data).success(callback);
         },
+        
+        
         getData:function(id,callback){
             $http.get(host+getPath+id).success(function(d){
                 callback(d);
             });
         },
+        
+        
         delete:function(callback){
             var id=PersonalInfo.userId;
             $http.get(host+deletePath+id).success(callback);
         },
+        
+        
         deletePics:function(data,callback){
            var d={
                imgId:data,
                userId:PersonalInfo.userId
            }; $http.post(host+delpicPath,d).success(callback);
         },
+        
+        
         addPics:function(data,callback){
             var d={
                 userId:PersonalInfo.userId,
@@ -248,6 +215,7 @@ angular.module('house.service',[])
         description:''
     };
     var fileList=[];
+    var delList=[];
     return {
         get:function(key){
             return data[key]||"";
@@ -275,6 +243,12 @@ angular.module('house.service',[])
         },
         deleteFile:function(index){
             return fileList.splice(index,1)[0];
+        },
+        addDelete:function(pic){
+            delList.push(pic);
+        },
+        getDeletes:function(){
+            return delList.slice(0);
         },
         clearPics:function(){
             fileList=[];
@@ -344,6 +318,7 @@ angular.module('house.service',[])
             return data;
         },
         update:function(callback){
+            
             var self=this;
             var id=PersonalInfo.userId;
             Form.getData(id,function(data){
@@ -429,13 +404,15 @@ angular.module('house.service',[])
         deletePic:function(index){
     
             var pic=Data.deleteFile(index);
-            /*if(!/data:image\/jpeg;base64,/.test(pic)){
+            
+            if(!/data:image\/jpeg;base64,/.test(pic)){
                 var i=pic.lastIndexOf('/');
                 var picId=pic.slice(i+1);
-                Form.deletePics([picId],function(data){
+                /*Form.deletePics([picId],function(data){
                     console.log(data);
-                });
-            }*/
+                });*/
+                Data.addDelete(picId);
+            }
         },
         updatePic:function(){
             //删除

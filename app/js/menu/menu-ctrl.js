@@ -1,15 +1,25 @@
 angular.module('menu.ctrl', [])
 
 .controller('SideMenuCtrl', function($scope, PersonalInfo, PeopleFilterModel) {
+
+  // bind data
   $scope.me = PersonalInfo;
 
   $scope.$on('load.people.list', function() {
     // console.log('update side menu', PersonalInfo);
     
+    // 更新侧边栏
     $scope.me = PersonalInfo;
 
-    PeopleFilterModel.setUsingCache(false);
   });
+
+  $scope.editInfo = function() {
+    if (PersonalInfo.completeInfo) {
+      $scope.go('/me');
+    } else {
+      $scope.go('/me-register');
+    }
+  };
 })
 
 .controller('SettingCtrl', function($scope, $ionicHistory, PersonalInfoMange) {

@@ -30,4 +30,26 @@ angular.module('quiz', ['quiz.ctrl', 'quiz.service'])
   ;
 })
 
+.directive('quizProgress', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/quiz/quiz-progress.html',
+    controller: function($scope) {
+      $scope.$on('next', next);
+      $scope.$on('previous', previous);
+      $scope.$on('$destroy', function() {
+        console.log('destroy quiz-progress');
+      });
+
+      function next(event, current) {
+        console.log('next', current);
+      }
+
+      function previous(event, current) {
+        console.log('previous', current);
+      }
+    }
+  }
+})
+
 ;

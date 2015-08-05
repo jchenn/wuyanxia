@@ -21,12 +21,6 @@ angular.module('quiz.service', [])
 
 .factory('QuizModel', function() {
   var quiz = [
-    // {name: 'yf', label: '您的身份', 
-    //   choices: [
-    //     {id: '2', image: 'img/image-m.png', answer: '我有房源，要招合租室友'},
-    //     {id: '3', image: 'img/image-m.png', answer: '我无房源，要招人一块合租'}
-    //   ]
-    // },
     {name: 'zx', label: '生活作息上您是一个', 
       choices: [
         {id: '2', image: 'img/quiz/icon-zx2.png', answer: '早睡狗'},
@@ -75,8 +69,14 @@ angular.module('quiz.service', [])
 
   var factory = {
     quiz: quiz,
-    set: function(name, value) {
-      _choice[name] = value;
+    set: function(nameOrIndex, value) {
+      
+      if (typeof nameOrIndex === 'string') {
+        _choice[nameOrIndex] = value;
+      } else {
+        _choice[quiz[nameOrIndex].name] = value;
+      }
+      
     },
     get: function() {
       return _choice;

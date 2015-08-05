@@ -1,8 +1,95 @@
 angular.module('quiz.ctrl', [])
 
 // 一次性填写个性标签的控制器
-.controller('QuizCtrl', function() {
+.controller('QuizCtrl', function($scope, $ionicSlideBoxDelegate, QuizModel) {
 
+  var quiz    = QuizModel.quiz;
+
+  // 当前的问卷序号
+  $scope.index    = 0;
+  $scope.quiz     = quiz;
+
+  // 记录问卷答案，并判断是到下一题，还是提交
+  $scope.select = function(index, value) {
+
+    console.log('quiz select', index, value);
+    QuizModel.set(index, value);
+
+    if (index === quiz.length - 1) {
+      // 最后一题，提交
+      finish();
+    } else {
+      // 到下一题
+      next(index);
+    }
+
+  };
+
+  $scope.prev = prev;
+
+  // 提交问卷，如果有房，跳转到室友列表，如果没房，跳转到房源问卷
+  function finish() {
+
+     // 显示遮罩
+    $ionicLoading.show();
+
+    QuizSubmit.submit(QuizModel.get(), function(response) {
+
+      console.log('quiz submit', QuizModel.get());
+      console.log('quiz response', response);
+
+      if (response.errno === 0) {
+
+        // 修改个人标签
+        PersonalInfo.tags = response.tags;
+        PersonalInfoMange.update(PersonalInfo);
+
+        if (PersonalInfo.hasHouse) {
+
+          // 对于有房源的用户，直接到室友列表页
+          $scope.go('/menu/people-list');
+          
+        } else {
+
+          // 对于未发布房源的用户，跳转到询问房源的页面
+          $scope.go('/quiz/house');
+
+        }
+
+      } else {
+
+        // 服务端错误，到室友列表
+        $scope.go('/menu/people-list');
+
+      }
+
+      // 提交成功后关闭 loading 动画
+      $ionicLoading.hide();
+
+    }, function(err) {
+
+      // 网络错误，提交失败也要关闭 loading 动画
+      console.log('quiz err', err);
+      $ionicLoading.hide();
+      
+    });
+  }
+
+  // 到下一题
+  function next(current) {
+    $ionicSlideBoxDelegate.next();
+    $scope.index = current + 1;
+
+    $scope.$broadcast('next', current);
+  }
+
+  // 到上一题
+  function prev(current) {
+    $ionicSlideBoxDelegate.previous();
+    $scope.index = current - 1;
+
+    $scope.$broadcast('previous', current);
+  }
 })
 
 // 修改个性问答的控制器
@@ -28,106 +115,44 @@ angular.module('quiz.ctrl', [])
     }
   }
 
-  // 处理是否显示返回按钮的逻辑
-  if (PersonalInfo.tags) {
-    // 修改个人标签，显示返回，不显示跳过
-    $scope.showBack = true;
-  } else {
-    // 回答问卷
-    if (index === 0) {
-      // 第一题，显示跳过，不显示返回
-      $scope.showBack = false;
-      $ionicHistory.clearHistory();
-    } else {
-      // 后续题目，显示返回，不显示跳过
-      $scope.showBack = true;
-    }
-  }
-
-  // 处理是否显示第一题的 hint 的逻辑
-  $scope.showHint = (!PersonalInfo.tags && index === 0) ? true : false;
-
-  // 处理是否显示进度条
-  $scope.showProgress = PersonalInfo.tags ? false : true;
-
-  // 记录问卷答案，并判断是到下一题，还是提交
+  // 提交问卷
   $scope.select = function(name, value) {
 
-    QuizModel.set(name, value);
+    var answer = {};
+    answer[name] = value;
 
-    // console.log(QuizModel.get());
+    QuizSubmit.submit(answer, function(response) {
 
-    checkFinish();
+      console.log('quiz update', answer, response);
+
+      if (response.errno === 0) {
+
+        // 修改个人标签
+        PersonalInfo.tags = response.tags;
+        PersonalInfoMange.update(PersonalInfo);
+
+        $scope.go('/me');
+
+      } else {
+
+        // 服务端错误，到室友列表
+        $scope.go('/menu/people-list');
+
+      }
+
+      // 提交成功后关闭 loading 动画
+      $ionicLoading.hide();
+
+    }, function(err) {
+
+      // 网络错误，提交失败也要关闭 loading 动画
+      console.log('quiz err', err);
+      $ionicLoading.hide();
+      
+    });
 
   };
 
-  // 如果是修改问卷，就返回到之前的页面
-  // 如果是第一次做问卷，就到下一题，如果是最后一题，就到室友列表
-  function checkFinish() {
-
-    // console.log('PersonalInfo', PersonalInfo);
-
-    // 存在个人标签表示是修改问卷，或者到最后一题，两种情况都需要提交问卷
-    if (PersonalInfo.tags || index === quiz.length - 1) {
-
-       // 显示遮罩
-      $ionicLoading.show();
-
-      QuizSubmit.submit(QuizModel.get(), function(response) {
-
-        console.log('quiz submit', QuizModel.get());
-        console.log('quiz response', response);
-
-        if (response.errno === 0) {
-
-          if (PersonalInfo.tags) {
-            
-            // 修改个人标签，到个人信息页
-            $scope.go('/me');
-
-          } else if (PersonalInfo.hasHouse) {
-
-            // 对于有房源的用户，可以到室友列表页，而不用做第7题
-            $scope.go('/menu/people-list');
-            
-          } else {
-
-            // 由注册时引导填写的问卷，
-            // 或者是权限限制跳转过来，
-            // 都跳转到询问房源的页面
-            $scope.go('/quiz/house');
-
-          }
-
-          // 修改个人标签
-          PersonalInfo.tags = response.tags;
-          PersonalInfoMange.update(PersonalInfo);
-
-        } else {
-
-          // 服务端错误，到室友列表
-          $scope.go('/menu/people-list');
-
-        }
-
-        // 提交成功后关闭 loading 动画
-        $ionicLoading.hide();
-
-      }, function(err) {
-
-        // 网络错误，提交失败也要关闭 loading 动画
-        console.log('quiz err', err);
-        $ionicLoading.hide();
-        
-      });
-
-    } else if (index >= 0 && index < quiz.length - 1) {
-
-      // 还有下一题
-      $scope.go('/quiz/' + quiz[index + 1].name);
-
-    }
-  }
 })
 
 .controller('QuizHouseCtrl', function($ionicHistory) {

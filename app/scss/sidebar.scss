@@ -95,3 +95,33 @@
     display: block;
   }
 }
+
+.m-faq {
+  .item {
+    border: none;
+    background-color: transparent;
+
+    h2 {
+      color: #0b0b0b;
+    }
+
+    p {
+      text-indent: 2em;
+      color: #7b7b7b;
+    }
+  }
+}
+
+.m-feedback {
+  .wrapper {
+    width: 100%;
+    padding: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 250px;
+    padding: 16px;
+    resize: none;
+  }
+}

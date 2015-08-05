@@ -74,6 +74,8 @@ angular.module('quiz', [])
   // 如果是第一次做问卷，就到下一题，如果是最后一题，就到室友列表
   function checkFinish() {
 
+    // console.log('PersonalInfo', PersonalInfo);
+
     // 存在个人标签，表示是修改问卷
     if (PersonalInfo.tags || index === quiz.length - 1) {
 

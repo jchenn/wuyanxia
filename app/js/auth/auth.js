@@ -16,5 +16,12 @@ angular.module('auth', ['auth.ctrl', 'auth.service'])
       url: '/register',
       templateUrl: 'templates/auth/register.html',
       controller: 'RegisterCtrl'
-    });
+    })
+    // 时间选择test
+    .state('test', {
+      url: '/test',
+      templateUrl: 'templates/auth/test.html',
+      controller: 'TestCtrl'
+    })
+     ;
 });

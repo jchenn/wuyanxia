@@ -80,7 +80,7 @@ angular.module('auth.ctrl', ['ionic'])
             template: "对不起，验证失败了，请检测企业邮箱或重新邮箱验证"
         };
         // var toBrowserStr = '正在为您跳转';
-console.log($scope.formData);
+        console.log($scope.formData);
         /**
          * 弹层
          */
@@ -184,4 +184,103 @@ console.log($scope.formData);
                 // $scope.showPopup();
             }
         };
+    })
+    .controller('TestCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+
+        var data = [
+            {
+                "key":"Swift",
+                "value":"Swift"
+            },
+            {
+                "key":"iOS",
+                "value":"iOS"
+            },
+            {
+                "key":"Objective-C",
+                "value":"Objective-C"
+            },
+            {
+                "key":"back homeTown",
+                "value":"back homeTown"
+            },
+            {
+                "key":"github",
+                "value":"github"
+            },
+            {
+                "key":"icepy",
+                "value":"icepy"
+            }
+        ];
+
+        var up1Data,up2Data;
+
+        $scope.selectYes = function(){
+            animaed.finish();
+            console.log(up1Data);
+            console.log(up2Data);
+
+            //if up1Data or up2Data is empty ,so use UPSelectRowIndexPath and UPThen
+
+            if (!up1Data&& up) {
+                up.UPSelectRowIndexPath(1).UPThen(function(indexPath,value){
+                    console.log(value);
+                });
+            }
+
+            // if (!up2Data&& up1) {
+            //  up1.UPSelectRowIndexPath(1).UPThen(function(indexPath,value){
+            //      console.log(value);
+            //  })
+            // };
+
+            //maybe use your datasource is relatively good
+            //data[0]  //你的数据默认选择第一行
+
+        };
+
+        $scope.selectClose = function(){
+            animaed.finish();
+        };
+
+        $scope.createPicker = function(){
+            up = UIPickerView.createPickerView({
+                dataSource:data,
+                id:'provincePicker',
+                constraintsId:'wower',
+                kUP:{
+                    kUPCELLHEIGHT:26,
+                    kUPFRICTION:0.003
+                },
+                valueChange:function(data){
+                    up1Data = data;
+                }
+            });
+            console.log(up);
+            up1 = UIPickerView.createPickerView({
+                dataSource:data,
+                id:'cityPicker',
+                constraintsId:'wower1',
+                kUP:{
+                    kUPCELLHEIGHT:26,
+                    kUPFRICTION:0.003
+                },
+                valueChange:function(data){
+                    console.log(data);
+                    up2Data = data;
+                }
+            });
+            animaed = CAAnimation.createAnimation({id:'region-picker'});
+            animaed.start();
+            console.log(animaed);
+        };
+
+        $scope.closePicker = function(){
+            animaed.finish();
+        };
+
+        // pickerOpen.addEventListener('click',function(){
+        //     animaed.start();
+        // });
     });

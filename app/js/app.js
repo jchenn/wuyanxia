@@ -1,4 +1,4 @@
-angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'global.service'])
+angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'global.service', 'global.directive'])
 
 .run(function($rootScope, $location, $ionicPlatform, PersonalInfo) {
   $ionicPlatform.ready(function() {
@@ -70,3 +70,4 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   $ionicConfigProvider.views.transition('none');
 });
 var ServiceModule=angular.module('global.service',[]);
+var DirectiveMod=angular.module('global.directive',[]);

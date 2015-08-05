@@ -40,7 +40,7 @@ angular.module('people.ctrl', [])
           $scope.list = [];
         }
 
-        if (_data.length > 0) {
+        if (_data && _data.length > 0) {
           $scope.list = $scope.list.concat(_data);
           _hasMore = true;
         } else {
@@ -303,7 +303,7 @@ angular.module('people.ctrl', [])
             $scope.list = [];
           }
 
-          if (_data.length > 0) {
+          if (_data && _data.length > 0) {
             $scope.list = $scope.list.concat(_data);
             _hasMore = true;
           } else {

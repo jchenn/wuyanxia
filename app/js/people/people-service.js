@@ -11,7 +11,7 @@ angular.module('people.service', ['ngResource'])
 })
 
 .factory('PeopleSearchQuery', function($resource) {
-    return $resource('http://223.252.223.13/Roommates/api/people/list?id=:id&q=:q&p=:p');
+    return $resource('http://223.252.223.13/Roommates/api/people/search?id=:id&q=:q&p=:p');
 })
 
 .factory('PeopleFilterModel', function(PersonalInfo) {

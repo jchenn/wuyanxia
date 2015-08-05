@@ -1,22 +1,17 @@
 angular.module('house.ctrl',[])
-.controller('newCtrl',function($scope,$ionicActionSheet,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,$ionicScrollDelegate){
+.controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,$ionicScrollDelegate){
     
     /**控制器中用到的函数**/
     
     //刷新图片轮播插件
     function refreshSlidebox(){
-            try{
-                $timeout(function(){
-                $ionicSlideBoxDelegate.update();
-                    $timeout(function(){
-                        $ionicSlideBoxDelegate.next();
-                    },100);
-            },500);
-        }
-        catch(e){
             
-            alert(e);
-        }
+        $timeout(function(){
+            $ionicSlideBoxDelegate.update();
+                $timeout(function(){
+                    $ionicSlideBoxDelegate.next();
+                },100);
+        },500);
         
     }
     
@@ -25,62 +20,11 @@ angular.module('house.ctrl',[])
         //todo
     }
     
-    //显示选项菜单
-    function optionShow(){
-        $ionicActionSheet.show({
-             buttons: [
-               { text: '拍照' },
-               { text: '从相册中选取' }
-             ],
-             cancelText: '取消',
-             cancel: function() {
-                  
-                },
-             buttonClicked: function(index) {
-                 if(index==0){
-                     addPic(1);
-                 }
-                 else if(index==1){
-                     addPic(2);
-                 }
-               return true;
-             }
-        });
-    }
     
     function toPicEdit(){
         location.href="#/pic-edit";
     }
-    /**
-     *照相
-     *@param type 1 照相  2 从相册选
-     *
-     */
-    function addPic(type){
-            var opts={
-                width:400,
-                height:300,
-                method:1,
-                quality:70
-            };
-            if(type==2){ opts.method=0;opts.width=300;opts.height=400;}
-            
-            var onSuccess=function(data){
-                try{
-                    var url="data:image/jpeg;base64," + data;
-                    $scope.pics.push(url);
-                    Data.addFile(url);
-                    refreshSlidebox();
-                }catch(e){
-                    alert(e);
-                }
-               
-            };
-            var onFail=function(d){alert(d);};
-           Camera.getPic(onSuccess,onFail,opts,1);
-        
-    }
-    
+  
     /*******************/
     
     /**模板中用到的变量、函数**/

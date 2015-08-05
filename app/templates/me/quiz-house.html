@@ -1,18 +1,18 @@
 <ion-view class="m-me">
-  <ion-header-bar class="bar-stable">
-    <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
+  <ion-header-bar class="bar-theme">
     <h1 class="title">个性问答</h1>
   </ion-header-bar>
   <ion-content class="m-question">
-    <h2>你现在有房源吗？</h2>
+    <h2 class="hint">空</h2>
+    <h2>您的身份</h2>
     <ul class="row">
       <li class="col" ng-click="go('/house-new')">
-        <img src="img/image-m.png" alt="">
-        <label>我有房源我要上传</label>
+        <img src="img/quiz/icon-f2.png" alt="">
+        <label>有房源</label>
       </li>
       <li class="col" ng-click="go('/menu/people-list')">
-        <img src="img/image-m.png" alt="">
-        <label>我没房源我要跳过</label>
+        <img src="img/quiz/icon-f3.png" alt="">
+        <label>无房源</label>
       </li>
     </ul>
   </ion-content>

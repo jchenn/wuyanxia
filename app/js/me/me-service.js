@@ -29,43 +29,43 @@ angular.module('me.service', [])
     // },
     {name: 'zx', label: '生活作息上您是一个', 
       choices: [
-        {id: '2', image: 'img/image-m.png', answer: '早起鸟'},
-        {id: '3', image: 'img/image-m.png', answer: '夜猫子'}
+        {id: '2', image: 'img/quiz/icon-zx2.png', answer: '早睡狗'},
+        {id: '3', image: 'img/quiz/icon-zx3.png', answer: '夜猫子'}
       ]
     },
     {name: 'cy', label: '对抽烟您的感受', 
       choices: [
-        {id: '2', image: 'img/image-m.png', answer: '我也抽烟'},
-        {id: '3', image: 'img/image-m.png', answer: '无所谓'},
-        {id: '4', image: 'img/image-m.png', answer: '讨厌烟味'}
+        {id: '2', image: 'img/quiz/icon-cy2.png', answer: '我也抽烟'},
+        {id: '3', image: 'img/quiz/icon-cy3.png', answer: '无所谓'},
+        {id: '4', image: 'img/quiz/icon-cy4.png', answer: '讨厌烟味'}
       ]
     },
-    {name: 'cw', label: '对小动物您的感受', 
+    {name: 'cw', label: '对小动物您感觉', 
       choices: [
-        {id: '2', image: 'img/image-m.png', answer: '我养宠物'},
-        {id: '3', image: 'img/image-m.png', answer: '都可以'},
-        {id: '4', image: 'img/image-m.png', answer: '讨厌动物'}
+        {id: '2', image: 'img/quiz/icon-cw2.png', answer: '我养宠物'},
+        {id: '3', image: 'img/quiz/icon-cw3.png', answer: '都可以'},
+        {id: '4', image: 'img/quiz/icon-cw4.png', answer: '讨厌动物'}
       ]
     },
     {name: 'ws', label: '平时生活中您的私人物品', 
       choices: [
-        {id: '2', image: 'img/image-m.png', answer: '整整齐齐'},
-        {id: '3', image: 'img/image-m.png', answer: '突击清理'},
-        {id: '4', image: 'img/image-m.png', answer: '随便放放'}
+        {id: '2', image: 'img/quiz/icon-ws2.png', answer: '整整齐齐'},
+        {id: '3', image: 'img/quiz/icon-ws3.png', answer: '突击清理'},
+        {id: '4', image: 'img/quiz/icon-ws4.png', answer: '随便放放'}
       ]
     },
     {name: 'fk', label: '生活中来您家访问的朋友', 
       choices: [
-        {id: '2', image: 'img/image-m.png', answer: '高朋满座'},
-        {id: '3', image: 'img/image-m.png', answer: '偶尔探望'},
-        {id: '4', image: 'img/image-m.png', answer: '基本没有'}
+        {id: '2', image: 'img/quiz/icon-fk2.png', answer: '高朋满座'},
+        {id: '3', image: 'img/quiz/icon-fk3.png', answer: '偶尔探望'},
+        {id: '4', image: 'img/quiz/icon-fk4.png', answer: '基本没有'}
       ]
     },
     {name: 'xg', label: '您认为您的个性', 
       choices: [
-        {id: '2', image: 'img/image-m.png', answer: '开朗大方'},
-        {id: '3', image: 'img/image-m.png', answer: '普普通通'},
-        {id: '4', image: 'img/image-m.png', answer: '沉着稳重'}
+        {id: '2', image: 'img/quiz/icon-xg2.png', answer: '开朗大方'},
+        {id: '3', image: 'img/quiz/icon-xg3.png', answer: '普普通通'},
+        {id: '4', image: 'img/quiz/icon-xg4.png', answer: '沉着稳重'}
       ]
     }
   ];
@@ -87,6 +87,15 @@ angular.module('me.service', [])
     byHint: function() {
       return _byHint;
     }
+  };
+
+  return factory;
+})
+
+// TODO 把QuizCtrl中的判断逻辑放到这里
+.factory('QuizUtil', function() {
+  var factory = {
+
   };
 
   return factory;

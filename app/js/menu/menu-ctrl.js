@@ -17,11 +17,11 @@ angular.module('menu.ctrl', [])
     
     // 删除用户信息
     PersonalInfoMange.clear();
-    
-    $ionicHistory.clearHistory();
-    $ionicHistory.clearCache();
 
     $scope.go('/login');
+
+    // $ionicHistory.clearHistory();
+    // $ionicHistory.clearCache();
   }
 });
 ;

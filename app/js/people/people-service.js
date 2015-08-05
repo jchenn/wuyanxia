@@ -137,8 +137,13 @@ angular.module('people.service', ['ngResource'])
     goto: function(hash) {
       
       if (PersonalInfo.completeInfo && PersonalInfo.tags) {
+
+        // 有个性标签，有个人信息
         $rootScope.go(hash);
+
       } else if (!PersonalInfo.tags && !PersonalInfo.completeInfo) {
+
+        // 无个性标签，无个人信息
         $ionicPopup.confirm({
           template: '只有填写自己的个人信息和匹配问题才能为您匹配室友，并查看详情信息哟。',
           okText: '现在填写',
@@ -150,7 +155,10 @@ angular.module('people.service', ['ngResource'])
             // do nothing
           }
         });
+
       } else if (!PersonalInfo.completeInfo) {
+
+        // 有个性标签，无个人信息
         $ionicPopup.confirm({
           template: '只有填写自己的个人信息才能看到室友的详情信息哟。',
           okText: '现在填写',
@@ -162,7 +170,10 @@ angular.module('people.service', ['ngResource'])
             // do nothing
           }
         });
+
       } else if (!PersonalInfo.tags) {
+
+        // 无个人信息，有个性标签
         $ionicPopup.confirm({
           template: '请回答以下6个问题，以便为您更精确匹配室友。',
           okText: '现在回答',
@@ -174,7 +185,8 @@ angular.module('people.service', ['ngResource'])
             // do nothing
           }
         });
-      }
+
+      } // 结束4种判断
     }
   };
 

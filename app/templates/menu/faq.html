@@ -1,0 +1,14 @@
+<ion-view hide-nav-bar="true" class="m-faq">
+  <ion-header-bar class="bar-theme">
+    <button class="button button-icon button-clear ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
+    <h1 class="title">常见问题</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ul class="list">
+      <li class="item item-body" ng-repeat="v in list">
+        <h2 class="title" ng-bind="v.q"></h2>
+        <div ng-bind-html="v.a"></div>
+      </li>
+    </ul>
+  </ion-content>
+</ion-view>

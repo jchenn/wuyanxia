@@ -158,7 +158,7 @@ console.log($scope.formData);
                         console.log('注册请求发送成功');
                         PersonalInfoMange.update({
                             name: $scope.formData.nickname,
-                            userId: resp.userId
+                            userId: resp.data.userId
                         });
                         console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试

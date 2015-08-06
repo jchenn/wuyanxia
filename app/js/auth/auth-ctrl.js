@@ -280,6 +280,10 @@ angular.module('auth.ctrl', ['ionic'])
             animaed.finish();
         };
 
+        $scope.openPicker = function() {
+            animaed.start();
+        }
+
         // pickerOpen.addEventListener('click',function(){
         //     animaed.start();
         // });

@@ -371,7 +371,7 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('house',function(Check,Data,Cmn,Form){
+.factory('house',function(Check,Data,Cmn,Form,$timeout){
     var warn=Cmn.warn;
     var toDels=[];
     return {
@@ -476,7 +476,8 @@ angular.module('house.service',[])
                 
                 function todo(){
                     var el=document.querySelector('#house-form-'+type);
-                    el.focus();
+                    
+                    $timeout(function(){el.focus();},500);
                 }
                 switch(type){
                     case 'title':

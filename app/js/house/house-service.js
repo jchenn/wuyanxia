@@ -481,21 +481,21 @@ angular.module('house.service',[])
                 }
                 switch(type){
                     case 'title':
-                        warn('标题长度不对',todo,500);
+                        warn('标题长度不对',todo,1000);
                         break;
                     case 'price':
-                        warn('价格格式不对',todo,500);
+                        warn('价格格式不对',todo,1000);
                         break;
                     case 'community':
-                        warn('小区长度不对',todo,500);
+                        warn('小区长度不对',todo,1000);
                         break;
                     case 'area':
-                        warn('地址或区域长度不对',todo,500);
+                        warn('地址或区域长度不对',todo,1000);
                         break;
                     case 'description':
                         warn('描述信息长度不对',function(){
                             location.href="#/house-decoration";
-                        },500);
+                        },1000);
                         break;
                 }
             });

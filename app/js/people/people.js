@@ -40,47 +40,14 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
       }
     })
 
-    // 室友详情页外围容器
+    // 室友详情页
     .state('menu.people-detail', {
-      url: '/people-detail/:id',
-      abstract: true,
+      url: '/people-detail/:id/:hasHouse',
       cache: false,
       views: {
         'menu-content': {
-          templateUrl: 'templates/people/people-detail-wrapper.html',
-          controller: 'PeopleDetailWrapperCtrl'
-        }
-      }
-    })
-
-    // 室友详情页
-    .state('menu.people-detail.info', {
-      url: '/info',
-      cache: false,
-      views: {
-        'people-detail-nav': {
-          templateUrl: 'templates/people/people-detail-nav.html'
-        },
-        'people-detail': {
-          cache: false,
-          templateUrl: 'templates/people/people-detail-info.html',
-          controller: 'PeopleDetailInfoCtrl'
-        }
-      }
-    })
-
-    // 房源详情页
-    .state('menu.people-detail.house', {
-      url: '/house',
-      cache: false,
-      views: {
-        'people-detail-nav': {
-          templateUrl: 'templates/people/people-detail-nav.html'
-        },
-        'people-detail': {
-          cache: false,
-          templateUrl: 'templates/people/people-detail-house.html',
-          controller: 'PeopleDetailHouseCtrl'
+          templateUrl: 'templates/people/people-detail.html',
+          controller: 'PeopleDetailCtrl'
         }
       }
     })

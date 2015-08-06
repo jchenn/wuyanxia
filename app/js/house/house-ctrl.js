@@ -161,7 +161,8 @@ angular.module('house.ctrl',[])
                     PersonalInfoMange.update({
                         "hasHouse":0
                     });
-                    
+                    Data.clearPics();
+                    Data.clearFormData();
                     location.href="#/menu/people-list";
                 }
             });
@@ -198,6 +199,9 @@ angular.module('house.ctrl',[])
         if(typeof data == 'string'){
             Cmn.warn(data);
             //location.href="#/house-new";
+            PersonalInfoMange.update({
+                        "hasHouse":0
+            });
             history.go(-1);
             return;
         }

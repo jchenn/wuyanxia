@@ -14,7 +14,7 @@
                 <img ng-src="{{pic}}">
             </div>
         </div>
-        <div class="m-square m-item" ng-click="onAddClick()">
+        <div class="m-square m-item" ng-click="onAddClick()" ng-if="pics.length<9">
             <div class="m-square-content">
                 <img src="img/house/add-pic.jpg">
             </div>

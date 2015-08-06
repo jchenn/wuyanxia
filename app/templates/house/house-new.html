@@ -28,18 +28,23 @@
             </div>
         </div>
         <div class="m-list">
-            <div class="m-list-item"><input type="text" placeholder="标题" ng-model="data.title" ng-focus="onFocus()"></div>
-            <div class="m-list-item"><input type="text" placeholder="价格" ng-model="data.price" ng-focus="onFocus()"></div>
+            <div class="m-list-item"><label>标题</label><input type="text"  ng-model="data.title" ng-focus="onFocus()" id="house-form-title"></div>
+            <div class="m-list-item"><label>价格</label><input type="text"  ng-model="data.price" ng-focus="onFocus()" id="house-form-price">元/月</div>
         </div>
         <div class="m-list g-1">
-            <div class="m-list-item"><input type="text" placeholder="小区" ng-model="data.community" ng-focus="onFocus()"></div>
-            <div class="m-list-item"><input type="text" placeholder="区域" ng-model="data.area" ng-focus="onFocus()"></div>
-            <div class="m-list-item"><a ng-click="toDesc()">描述</a></div>
+            <div class="m-list-item"><label>小区</label><input type="text"  ng-model="data.community" ng-focus="onFocus()" id="house-form-community"></div>
+            <div class="m-list-item"><label>区域</label><input type="text"  ng-model="data.area" ng-focus="onFocus()" id="house-form-area"></div>
+            <div class="m-list-item"><a ng-click="toDesc()">描述</a><i class="ion-chevron-right"></i></div>
         </div>
         
-        <div class="g-2">
+        <!--<div class="g-2">
             <button class="m-btn" ng-click="send()">发布</button>
-        </div>
+        </div>-->
         
     </ion-content>
+    <ion-footer-bar>
+        <div class="btn-wrapper">
+            <button class="m-btn" ng-click="send()">发布</button>
+        </div>
+    </ion-footer-bar>
 </ion-view>

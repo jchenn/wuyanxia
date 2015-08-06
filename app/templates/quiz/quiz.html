@@ -7,7 +7,7 @@
             ng-if="index === 0">跳过</button>
   </ion-header-bar>
   <ion-content class="m-question">
-    <ion-slide-box show-pager="false">
+    <ion-slide-box show-pager="false" ng-init="disableSlide()">
       <ion-slide ng-repeat="v in quiz">
         <h2 class="hint" ng-class="{'visible': $index === 0}">
           请回答以下6个问题，以便为您更精准地匹配室友。

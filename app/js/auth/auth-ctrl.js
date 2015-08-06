@@ -158,15 +158,15 @@ console.log($scope.formData);
                         console.log('注册请求发送成功');
                         PersonalInfoMange.update({
                             name: $scope.formData.nickname,
-                            userId: resp.userId
+                            userId: resp.data.userId
                         });
                         console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试
                         // if(typeof cordova !== "undefined") {
                         //     cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');
                         // }   
-                        window.location.href = 'http://corp.netease.com/coremail/'; 
-                        // window.open('http://corp.netease.com/coremail/', '_blank'); 
+                        // window.location.href = 'http://corp.netease.com/coremail/'; 
+                        window.open('http://corp.netease.com/coremail/', '_blank'); 
                         // InfoPopupService(toBrowserStr, function() {
                         //     window.location.href = 'http://www.baidu.com';
                         // });

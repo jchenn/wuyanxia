@@ -1,4 +1,4 @@
-<ion-view view-title="{{title}}" class="house-view new-view" hide-nav-bar="true">
+<ion-view view-title="{{title}}" class="house-view new-view" >
     <ion-header-bar align-title="center">
         <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
         <h1 class="title" >{{title}}</h1>
@@ -6,6 +6,11 @@
             <button class="m-btn"  ng-click="showPop()" ng-if="showPop">撤销房源</button>
         </div>
     </ion-header-bar>
+    <!--<ion-header-bar class="bar-theme">
+    <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
+    <h1 class="title">{{title}}</h1>
+    <button class="button button-clear" ng-click="showPop()" ng-if="showPop">撤销房源</button>
+  </ion-header-bar>-->
     <style ng-if="pics.length<=1">
         .new-view .slider-pager{
             display: none; 
@@ -16,7 +21,8 @@
             <div class="m-show-content" ng-click="onSlideboxClick()">
                 <ion-slide-box >
                   <ion-slide ng-repeat=" pic in pics">
-                    <img ng-src="{{pic}}" ng-alt="{{pic.alt}}">
+                        <div class="img-wrapper"><img ng-src="{{pic}}" ng-alt="{{pic.alt}}"></div>
+                        
                   </ion-slide>
                 </ion-slide-box>
             </div>

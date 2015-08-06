@@ -17,7 +17,8 @@
         </a>
       </div>
       <div class="col active">
-        <a class="button button-block button-clear" href="sms:+86{{ people.tel }}">
+        <a class="button button-block button-clear" 
+           href="sms:+86{{ people.tel }}?body={{ people | smsbody }}">
           <span class="icon ion-chatbox-working"></span>短信
         </a>
       </div>

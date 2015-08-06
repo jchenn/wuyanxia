@@ -34,7 +34,8 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
 
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+.config(
+  function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider, $compileProvider) {
 
   $stateProvider
 
@@ -68,5 +69,8 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   // $httpProvider.defaults.useXDomain = true;
 
   $ionicConfigProvider.views.transition('none');
+
+  // 防止 angular 在 sms、tel、mailto 协议之前加上 unsafe 前缀
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(sms|tel|mailto|http):|#/);
 });
 var ServiceModule=angular.module('global.service',[]);

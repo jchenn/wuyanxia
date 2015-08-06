@@ -1,10 +1,35 @@
 .m-menu {
+
+  .side-menu {
+    background-color: #f8f8f8;
+
+    .item {
+      padding-left: 20px;
+      background-color: #f8f8f8;
+
+      .item-content {
+        background-color: #f8f8f8;
+        color: #666;
+      }
+    }
+
+    .bar-footer {
+      height: 61px;
+      border-top-color: #ddd;
+      padding: 0 31px;
+
+      .icon {
+        padding-right: 14px;
+      }
+    }
+  }
+
   .header {
-    padding: 40px 10px;
+    padding: 40px 30px;
 
     .avatar {
       float: left;
-      margin-right: 16px;
+      margin-right: 20px;
 
       img {
         border-radius: 50%;
@@ -17,13 +42,42 @@
     & > p {
       overflow: hidden;
       color: #575757;
-      line-height: 77px;
+      line-height: 38px;
 
       .badge {
         font-size: smaller;
         background-color: #fcf231;
       }
     }
+  }
+
+  .u-icon {
+    position: absolute;
+    top: 0;
+    left: 11px;
+    height: 100%;
+    width: 32px;
+    background: 50% 50% / contain no-repeat;
+  }
+
+  .icon-bookmark {
+    background-image: url(../img/icon-bookmark.png);
+  }
+
+  .icon-house {
+    background-image: url(../img/icon-house.png);
+  }
+
+  .icon-about {
+    background-image: url(../img/icon-about.png);
+  }
+
+  .icon-pencil {
+    background-image: url(../img/icon-pencil.png);
+  }
+
+  .icon-gear {
+    background-image: url(../img/icon-gear.png);
   }
 }
 
@@ -33,11 +87,53 @@
   }
 
   .button-logout {
-    width: 80%;
+    width: 90%;
     margin: 50px auto 0;
     border: none;
     background-color: #63c3d3;
     color: #fff;
     display: block;
+  }
+}
+
+.m-faq {
+  .item {
+    border: none;
+    background-color: transparent;
+
+    h2 {
+      color: #0b0b0b;
+    }
+
+    p {
+      text-indent: 2em;
+      color: #7b7b7b;
+    }
+  }
+}
+
+.m-feedback {
+  .wrapper {
+    width: 100%;
+    padding: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 250px;
+    padding: 16px;
+    resize: none;
+  }
+}
+
+.m-about {
+  background-color: #fff;
+
+  .item {
+    border: none;
+  }
+
+  p {
+    text-indent: 2em;
   }
 }

@@ -1,0 +1,27 @@
+<ion-view hide-nav-bar="true" class="m-me">
+  <ion-header-bar class="bar-theme">
+    <button class="button button-clear button-icon ion-ios-arrow-left" 
+            ng-click="prev(index)" ng-if="index > 0"></button>
+    <h1 class="title">个性问答</h1>
+    <button class="button button-clear" ng-click="go('/menu/people-list')" 
+            ng-if="index === 0">跳过</button>
+  </ion-header-bar>
+  <ion-content class="m-question">
+    <ion-slide-box show-pager="false">
+      <ion-slide ng-repeat="v in quiz">
+        <h2 class="hint" ng-class="{'visible': $index === 0}">
+          请回答以下6个问题，以便为您更精准地匹配室友。
+        </h2>
+        <h2>{{ ($index + 1) + '. ' + v.label }}</h2>
+        <ul class="row">
+          <li ng-repeat="choice in v.choices" class="col" 
+              ng-click="select($parent.$index, choice.id);">
+            <img ng-src="{{ choice.image }}" alt="">
+            <label>{{ choice.answer }}</label>
+          </li>
+        </ul>
+      </ion-slide>
+    </ion-slide-box>
+    <quiz-progress></quiz-progress>
+  </ion-content>
+</ion-view>

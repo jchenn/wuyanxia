@@ -48,7 +48,7 @@ angular.module('menu.ctrl', [])
   {
     q: '3. 那个问卷有六道题，我不想做？',
     a: '<p>在个人信息填写过程中我们设置了“跳过”按钮，用户可以选择“跳过”直接来到室友页面，但是只能看到其他用户的照片而没有详细信息，只有填写自己的个人信息和问卷，才能看到匹配室友的详细信息。</p>'
-  },
+  }
 ])
 
 .controller('FaqCtrl', function($scope, Faq) {
@@ -59,7 +59,7 @@ angular.module('menu.ctrl', [])
   return $resource('http://223.252.223.13/Roommates/api/feedback');
 })
 
-.controller('FeedbackCtrl', function($scope, FeedbackSubmit, $ionicPopup) {
+.controller('FeedbackCtrl', function($scope, FeedbackSubmit, $ionicPopup, PersonalInfo) {
   $scope.body = {content: ''};
 
   $scope.send = function() {
@@ -68,6 +68,7 @@ angular.module('menu.ctrl', [])
     if ($scope.body.content.trim().length > 0) {
       FeedbackSubmit.save(
         {
+          userId: PersonalInfo.userId,
           body: $scope.body.content
         },
         function(response) {

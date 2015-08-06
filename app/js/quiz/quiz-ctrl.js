@@ -42,8 +42,8 @@ angular.module('quiz.ctrl', [])
 
     QuizSubmit.submit(QuizModel.get(), function(response) {
 
-      console.log('quiz submit', QuizModel.get());
-      console.log('quiz response', response);
+      // console.log('quiz submit', QuizModel.get());
+      // console.log('quiz response', response);
 
       if (response.errno === 0) {
 

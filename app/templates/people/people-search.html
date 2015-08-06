@@ -7,6 +7,9 @@
     <button class="button button-clear" ng-click="$ionicGoBack()">返回</button>
   </ion-header-bar>
   <ion-content>
+    <p class="hint" ng-if="showHint">
+      没有搜索到您要找的室友，试试别的“昵称”或“小区名”吧。
+    </p>
     <people-list-grid></people-list-grid>
     <ion-infinite-scroll ng-if="hasMore()" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>

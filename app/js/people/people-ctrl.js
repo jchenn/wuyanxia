@@ -264,6 +264,7 @@ angular.module('people.ctrl', [])
 
   $scope.list = [];
   $scope.q = '';
+  $scope.showHint = false;
 
   // 触发搜索
   $scope.search = function() {
@@ -322,6 +323,12 @@ angular.module('people.ctrl', [])
         _fetching = false;
         $ionicLoading.hide();
         $scope.$broadcast('scroll.infiniteScrollComplete');
+
+        if ($scope.list.length === 0) {
+          $scope.showHint = true;
+        } else {
+          $scope.showHint = false;
+        }
       },
       function(err) {
         // console.log('search err', err);

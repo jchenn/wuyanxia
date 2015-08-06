@@ -67,6 +67,7 @@ angular.module('house.ctrl',[])
             if(data.errno==1){
                 
                 warn("你应该已经有房源了，来编辑吧！");
+                PersonalInfoMange.update({hasHouse:1});
                 location.href="#/house-update";
                 return;
             }
@@ -196,7 +197,8 @@ angular.module('house.ctrl',[])
         
         if(typeof data == 'string'){
             Cmn.warn(data);
-            location.href="#/house-new";
+            //location.href="#/house-new";
+            history.go(-1);
             return;
         }
         Data.formDataIn(data);
@@ -244,7 +246,7 @@ angular.module('house.ctrl',[])
         location.href="#/house-desc-update";
     };
 })
-.controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn){
+.controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn,house){
     
     $scope.data={
         description:Data.get('description')
@@ -253,7 +255,7 @@ angular.module('house.ctrl',[])
     $scope.back=Cmn.back;
      //输入描述完成
     $scope.descComplete=function(){
-        Data.set('description',$scope.data.description);
+        house.getFormData($scope);
         $location.path('/house-update');
     };
 })

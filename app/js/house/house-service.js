@@ -16,7 +16,7 @@ angular.module('house.service',[])
         http:Http
     };
 })
-.factory('Popup',function(){
+.factory('Popup',function($timeout){
     
     var cover=document.createElement('div');
         
@@ -29,6 +29,8 @@ angular.module('house.service',[])
     cover.innerHTML=
     '<div class="m-cover">'+
         '<div class="m-pop">'+
+            '<div class="m-pop-head">提示'+
+            '</div>'+
             '<div class="m-pop-content f-wwa">'+
             '</div>'+
         '</div>'+
@@ -36,14 +38,10 @@ angular.module('house.service',[])
     
     //是否初始化
     var isInited=false;
-    
+    var fn=function(){};
     return {
         
-        /**
-         *@para {Object} options
-         *      -sure {Function} 点击确定时执行
-         *      -cancel {Function} 点击取消时执行
-         */
+        
         init:function(){
             if(isInited) return;
             var self=this;
@@ -51,14 +49,22 @@ angular.module('house.service',[])
             parent.appendChild(cover);
             cover.addEventListener('click',function(event){
                 self.hide();
+                fn();
             });
             isInited=true;
         },
-        show:function(str,callback,tag){
+        show:function(str,callback,time){
+            fn=function(){};
+            if(callback) fn=callback;
             var self=this;
-            if(!isInited) this.init(callback,tag);
+            if(!isInited) this.init();
             cover.querySelector('.m-pop-content').innerHTML=str;
             cover.style.display='block';
+            if(time) 
+                $timeout(function(){
+                    self.hide();
+                    fn();
+                },time);
         },
         hide:function(){
             cover.style.display='none';
@@ -297,8 +303,8 @@ angular.module('house.service',[])
 .factory('Cmn',function(Popup,$ionicHistory){
     
     return {
-        warn:function(str){
-            return Popup.show(str);
+        warn:function(str,callback,time){
+            return Popup.show(str,callback,time);
         },
         back:function(){
             //console.log('back');
@@ -463,22 +469,32 @@ angular.module('house.service',[])
             return 1;
         },
         checkWarnForm:function(){
+            
+            
+            
             return this.checkForm(function(type){
+                
+                function todo(){
+                    var el=document.querySelector('#house-form-'+type);
+                    el.focus();
+                }
                 switch(type){
                     case 'title':
-                        warn('标题长度不对');
+                        warn('标题长度不对',todo,500);
                         break;
                     case 'price':
-                        warn('价格格式不对');
+                        warn('价格格式不对',todo,500);
                         break;
                     case 'community':
-                        warn('小区长度不对');
+                        warn('小区长度不对',todo,500);
                         break;
                     case 'area':
-                        warn('地址或区域长度不对');
+                        warn('地址或区域长度不对',todo,500);
                         break;
                     case 'description':
-                        warn('描述信息长度不对');
+                        warn('描述信息长度不对',function(){
+                            location.href="#/house-decoration";
+                        },500);
                         break;
                 }
             });

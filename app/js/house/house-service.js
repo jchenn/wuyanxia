@@ -259,6 +259,10 @@ angular.module('house.service',[])
         clearPics:function(){
             fileList=[];
         },
+        clear:function(){
+            this.clearPics();
+            this.clearFormData();
+        },
         formDataIn:function(form){
             for(var i in form){
                 if(typeof data[i]!=undefined) data[i]=form[i];
@@ -307,7 +311,7 @@ angular.module('house.service',[])
             return Popup.show(str,callback,time);
         },
         back:function(){
-            //console.log('back');
+            console.log('back');
             $ionicHistory.goBack();
         }
     };

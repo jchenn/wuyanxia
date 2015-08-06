@@ -31,17 +31,23 @@
             padding: 0;
             border: 0;
             h1{
+                position: absolute;
+                top:0;
+                left:0;
+                text-align: center;
+                margin: 0;
                 color: #fcfeff !important;
                 height: 100%;
+                width: 100%;
                 line-height: $hd-h !important;
                 font-size: $hd-fs !important;
             }
             .buttons{
+                position: absolute;
+                z-index: 10;
                 right:18px;
                 height: 100%;
                 line-height: $hd-h;
-                top: 0px !important;
-                bottom: 0px !important;
             }
             .m-btn{
                 color: #fff;
@@ -50,6 +56,7 @@
             }
             .m-backicon{
                 position: absolute;
+                z-index: 10;
                 top: 0px;
                 left: 13px;
                 width: 60px;
@@ -289,6 +296,7 @@
             input{
                 flex: 1;
                 text-align: right;
+                padding: 0px;
                 padding-right: 5px;
             }
             input,a,label{

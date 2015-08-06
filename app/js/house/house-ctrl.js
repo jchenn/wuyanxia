@@ -123,7 +123,19 @@ angular.module('house.ctrl',[])
     
     function toPicEdit(){
         house.getFormData($scope);
-        location.href="#/pic-edit";
+        if(!house.checkWarnForm()){
+            return;
+        }
+        Form.update(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                location.href="#/pic-edit";
+            }
+        });
+        
     }
     
     var warn=Cmn.warn;
@@ -247,10 +259,22 @@ angular.module('house.ctrl',[])
     //跳转到描述
     $scope.toDesc=function(){
         house.getFormData($scope);
-        location.href="#/house-desc-update";
+        if(!house.checkWarnForm()){
+            return;
+        }
+        Form.update(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                location.href="#/house-desc-update";
+            }
+        });
+        
     };
 })
-.controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn,house){
+.controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn,house,Form){
     
     $scope.data={
         description:Data.get('description')
@@ -260,7 +284,18 @@ angular.module('house.ctrl',[])
      //输入描述完成
     $scope.descComplete=function(){
         house.getFormData($scope);
-        $location.path('/house-update');
+        if(!house.checkWarnForm()){
+            return;
+        }
+        Form.update(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                location.href="#/house-update";
+            }
+        });
     };
 })
 .controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data,PersonalInfo){

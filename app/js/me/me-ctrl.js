@@ -64,7 +64,7 @@ angular.module('me.ctrl', [])
         //跳过按钮
         $scope.ignoreRegister = function(){
             if(!$scope.data.tags){
-                $scope.go('/quiz/hint');
+                $scope.go('/quiz/zx');
             }else{
                 $scope.go('/menu/people-list');
             }
@@ -155,7 +155,7 @@ angular.module('me.ctrl', [])
                     PersonalInfoMange.update($scope.data);
                     PersonalInfoMange.update({'completeInfo' : true});
                     if(!PersonalInfoMange.get('tags')){
-                        $scope.go('/quiz/hint');
+                        $scope.go('/quiz/zx');
                     }else{
                         $scope.go('/menu/people-list');
                     }

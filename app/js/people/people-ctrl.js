@@ -123,9 +123,7 @@ angular.module('people.ctrl', [])
   $scope.isShowHouse = false;
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
 
-  $ionicLoading.show({
-    templateUrl: 'templates/people/people-maching.html'
-  });
+  $ionicLoading.show();
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     

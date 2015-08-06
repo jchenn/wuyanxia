@@ -112,7 +112,8 @@
       background-color: #fff;
       color: #575757;
       border: none;
-      transition: all ease-in .15s;
+      -webkit-transition: all ease-in .15s;
+              transition: all ease-in .15s;
     }
 
     .button.active, .button.activated {
@@ -145,11 +146,12 @@
       .button {
         border: none;
         background-color: #fff;
-        color: #63c3d3;
+        color: #575757;
         border-radius: 0;
       }
 
-      .button.activated {
+      .button.active, .button.activated {
+        color: #63c3d3;
         box-shadow: none;
       }
 
@@ -162,7 +164,8 @@
         width: 50%;
         height: 2px;
         background-color: #63c3d3;
-        transition: all ease-in .3s;
+        -webkit-transition: all ease-in .3s;
+                transition: all ease-in .3s;
       }
 
       &.slide:after {
@@ -206,7 +209,8 @@
             border-radius: 8px;
             background-color: rgba(255,204,0,.7);
             color: #575757;
-            transform: translateX(100%);
+            -webkit-transform: translateX(100%);
+                    transform: translateX(100%);
           }
         }
       }
@@ -286,6 +290,7 @@
     .col-45 {
       -webkit-flex: 0 0 45%;
           -ms-flex: 0 0 45%;
+              -webkit-box-flex: 0;
               flex: 0 0 45%;
       max-width: 45%;
     }

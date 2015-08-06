@@ -180,7 +180,7 @@ angular.module('people.service', ['ngResource'])
           cancelText: '稍后再说'
         }).then(function(res) {
           if (res) {
-            $rootScope.go('/quiz/zx');
+            $rootScope.go('/quiz');
           } else {
             // do nothing
           }

@@ -5,8 +5,8 @@
         <i class="icon ion-chevron-left m-backicon" ng-click="$ionicGoBack()"></i>
         <h1 class="title" align="center">个人信息</h1>
       </div>
-      <div class="head-img" align="center">
-        <img src="{{data.avatar}}" alt=""/>
+      <div class="head-img" align="center" ng-click="showCamera()">
+        <img src="{{data.avatar}}" alt="" id="myImage"/>
       </div>
     </div>
     <div class="tags">

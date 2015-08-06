@@ -1,7 +1,7 @@
 angular.module('me.ctrl', [])
 
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $timeout, $http, $ionicModal, $ionicPopover,$ionicActionSheet, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit, Camera){
+    .controller('InfoRegister', function($scope, $timeout, $http, $ionicModal, $ionicPopover,$ionicActionSheet,TakePhoto, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
 
         //从注册跳转，则清空跳转历史
         // var history = $ionicHistory.viewHistory();
@@ -15,6 +15,10 @@ angular.module('me.ctrl', [])
 
         console.log(PersonalInfo);
         $scope.data =  PersonalInfo;
+        //angular.extend($scope.data, TakePhoto);
+        $scope.showCamera = function(){
+            TakePhoto.showCamera();
+        };
 
         //格式化日期
         if(PersonalInfoMange.get('birthday') != ""){
@@ -22,58 +26,6 @@ angular.module('me.ctrl', [])
         }else{
             $scope.data.birthday = "";
         }
-
-        //选择拍照或者上传照片
-
-        $scope.showCamera = function(){
-            var opts={
-                width:400,
-                height:300,
-                method:1,
-                quality:50
-            };
-
-            var onSuccess=function(data){
-                try{
-                    var url="data:image/jpeg;base64," + data;
-                    $scope.pics.push(url);
-                    Data.addFile(url);
-                    refreshSlidebox();
-                }catch(e){
-                    alert(e);
-                }
-
-            };
-            var onFail=function(d){alert(d);};
-
-            var hideSheet = $ionicActionSheet.show({
-                buttons: [
-                    {text: '拍照'},
-                    {text: '从相册中选取'}
-                ],
-                cancelText: '取消',
-                cancel: function(){
-                    hideSheet();
-                },
-                buttonClicked: function(index){
-                    if(index == 0){
-                        alert('拍照');
-                        Camera.getPic(onSuccess,onFail, opts, 1);
-                    }else if(index == 1){
-                        alert('选照片');
-                        Camera.getPic(onSuccess,onFail, opts, 0);
-
-                    }
-                    hideSheet();
-                }
-            });
-            $timeout(function() {
-                hideSheet();
-            }, 2000);
-        };
-
-
-
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
             scope: $scope,
@@ -218,12 +170,16 @@ angular.module('me.ctrl', [])
                 console.log(response);
             });
         }
-    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
+    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal,TakePhoto, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
         console.log(1111);
         console.log(PersonalInfo);
         angular.extend(PersonalInfo, DayInit);
         $scope.data = PersonalInfo;
         console.log(PersonalInfo);
+
+        $scope.showCamera = function(){
+            TakePhoto.showCamera();
+        };
 
         if(PersonalInfoMange.get('birthday') != ""){
             $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");

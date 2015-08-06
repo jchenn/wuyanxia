@@ -1,5 +1,5 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, $location, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
+    .controller('LoginCtrl', function($scope, $http, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 模拟
         $scope.formData = {
             'email': "hztest@corp.netease.com",
@@ -8,8 +8,13 @@ angular.module('auth.ctrl', ['ionic'])
         // $scope.formData = {};
         $scope.errorData = {};
         console.log($scope.myForm);
+        $scope.$on('$stateChangeSuccess', function(event, toState) {
+            console.log('clear history 1');
+            $ionicHistory.clearHistory();
+            $ionicHistory.clearCache();
+        });
         $scope.changePwd = function() {
-            InfoPopupService('老子还没被整出来');
+            InfoPopupService('窝还没被整出来%>_<%');
         };
         $scope.login = function() {
             $scope.errorEmail = false;
@@ -38,7 +43,7 @@ angular.module('auth.ctrl', ['ionic'])
                     console.log(resp.result);
                     Loading.hide();
                     if (resp.result == 0) {
-                        // InfoPopupService({subTitle:"123"});
+                        // InfoPopupService({text:"123"});
                         InfoPopupService(resp.info);
                     } else if (resp.result == 1) {
                         PersonalInfoMange.clear();
@@ -68,11 +73,11 @@ angular.module('auth.ctrl', ['ionic'])
         // 弹层文案
         $scope.emailSucInfo = {
             title: "验证成功",
-            subTitle: "恭喜您验证成功，请填写个人信息让未来室友更加了解您吧"
+            template: "恭喜您验证成功，请填写个人信息让未来室友更加了解您吧"
         };
         $scope.emailFailInfo = {
             title: "验证失败",
-            subTitle: "对不起，验证失败了，请检测企业邮箱或重新邮箱验证"
+            template: "对不起，验证失败了，请检测企业邮箱或重新邮箱验证"
         };
         // var toBrowserStr = '正在为您跳转';
 console.log($scope.formData);
@@ -83,7 +88,8 @@ console.log($scope.formData);
         $scope.showPopup = function() {
             $scope.data = {};
             var myPopup = $ionicPopup.show({
-                title: '已向您的企业邮箱中发出认证邮件，请查收完成邮箱验证',
+                // title: '已向您的企业邮箱中发出认证邮件，请查收完成邮箱验证',
+                template: '已向您的企业邮箱中发出认证邮件，请查收完成邮箱验证',
                 scope: $scope,
                 buttons: [{
                     text: '还未验证'
@@ -105,11 +111,10 @@ console.log($scope.formData);
                             PersonalInfoMange.update({isLogin: 1});
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $location.path('/me-register').replace();
+                                $location.path('/me-register');
                             });
                         } else if (resp.result == 0) {
                             // InfoPopupService(resp.info);
-                            // 验证失败则重置isReg，允许用户重新发送邮箱验证
                             InfoPopupService($scope.emailFailInfo);
                         }
                     }, function(err) {
@@ -125,7 +130,6 @@ console.log($scope.formData);
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             $scope.errorNickName = false;
-            
             /**
              * 验证表单
              */

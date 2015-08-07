@@ -31,7 +31,6 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   //   }
   // }
 
-  console.log(typeof $window.localStorage.access_token);
   if ($window.localStorage.access_token) {
     // 自动登录
     console.log('token', $window.localStorage.access_token);
@@ -50,18 +49,21 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
     request: function (config) {
       config.headers = config.headers || {};
       if ($window.localStorage.access_token) {
-        config.headers.Authorization = 'Bearer ' + $window.localStorage.access_token;
+        // config.headers.Authorization = 'Bearer ' + $window.localStorage.access_token;
+        config.headers.Authorization = $window.localStorage.access_token;
       }
       return config;
     },
-    response: function (response) {
-      // console.log('intercept response', response);
-      if (response.status === 401 || response.status === 403) {
+    responseError: function (response) {
+      // console.log('intercept error response', response.status);
+      // if (response.status === 401 || response.status === 403) {
+      if (response.status === 0) {
         
         // 用户无权限时跳转到登录页
         $rootScope.go('/login');
       }
-      return response || $q.when(response);
+
+      return $q.reject(response);
     }
   };
 })

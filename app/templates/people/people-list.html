@@ -5,6 +5,7 @@
     <button class="button button-clear" ng-click="go('/menu/people-filter')">筛选</button>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()"></ion-refresher>
     <people-list-grid></people-list-grid>
     <ion-infinite-scroll ng-if="hasMore()" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>

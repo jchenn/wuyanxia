@@ -22,11 +22,22 @@ angular.module('menu.ctrl', [])
   };
 })
 
-.controller('SettingCtrl', function($scope, $ionicHistory, PersonalInfoMange) {
+.factory('LogoutSubmit', function($resource) {
+  return $resource('http://223.252.223.13/Roommates/api/logout');
+})
+
+.controller('SettingCtrl', function($scope, $window, $ionicHistory, PersonalInfoMange, LogoutSubmit) {
   $scope.logout = function() {
+
+    LogoutSubmit.save({
+      access_token: $window.localStorage.access_token
+    });
     
     // 删除用户信息
     PersonalInfoMange.clear();
+
+    // 删除 access_token
+    $window.localStorage.removeItem('access_token');
 
     $scope.go('/login');
 

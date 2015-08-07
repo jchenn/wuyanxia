@@ -22,8 +22,8 @@ angular.module('people.service', ['ngResource'])
     ],
     list: [
       {name: 'gs', label: '公司', choices: [
-        {label: '不限', value: '1'}, {label: '网易', value: '2'}, {label: '阿里', value: '3'}
-        // {label: '大华', value: '4'}, {label: 'UC 斯达康', value: '5'}, {label: '海康威视', value: '6'}
+        {label: '不限', value: '1'}, {label: '网易', value: '2'}, {label: '阿里', value: '3'},
+        {label: '大华', value: '4'}, {label: 'UT斯达康', value: '5'}, {label: '海康威视', value: '6'}
       ]},
       {name: 'cy', label: '抽烟', choices: [
         {label: '不限', value: '1'}, {label: '抽烟', value: '2'}, 
@@ -180,7 +180,7 @@ angular.module('people.service', ['ngResource'])
           cancelText: '稍后再说'
         }).then(function(res) {
           if (res) {
-            $rootScope.go('/quiz/zx');
+            $rootScope.go('/quiz');
           } else {
             // do nothing
           }

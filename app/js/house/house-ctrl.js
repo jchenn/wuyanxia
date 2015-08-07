@@ -67,6 +67,7 @@ angular.module('house.ctrl',[])
             if(data.errno==1){
                 
                 warn("你应该已经有房源了，来编辑吧！");
+                PersonalInfoMange.update({hasHouse:1});
                 location.href="#/house-update";
                 return;
             }
@@ -122,7 +123,19 @@ angular.module('house.ctrl',[])
     
     function toPicEdit(){
         house.getFormData($scope);
-        location.href="#/pic-edit";
+        if(!house.checkWarnForm()){
+            return;
+        }
+        Form.update(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                location.href="#/pic-edit";
+            }
+        });
+        
     }
     
     var warn=Cmn.warn;
@@ -160,7 +173,8 @@ angular.module('house.ctrl',[])
                     PersonalInfoMange.update({
                         "hasHouse":0
                     });
-                    
+                    Data.clearPics();
+                    Data.clearFormData();
                     location.href="#/menu/people-list";
                 }
             });
@@ -196,7 +210,11 @@ angular.module('house.ctrl',[])
         
         if(typeof data == 'string'){
             Cmn.warn(data);
-            location.href="#/house-new";
+            //location.href="#/house-new";
+            PersonalInfoMange.update({
+                        "hasHouse":0
+            });
+            history.go(-1);
             return;
         }
         Data.formDataIn(data);
@@ -241,10 +259,22 @@ angular.module('house.ctrl',[])
     //跳转到描述
     $scope.toDesc=function(){
         house.getFormData($scope);
-        location.href="#/house-desc-update";
+        if(!house.checkWarnForm()){
+            return;
+        }
+        Form.update(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                location.href="#/house-desc-update";
+            }
+        });
+        
     };
 })
-.controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn){
+.controller('descupdateCtrl',function($scope,Check,Data,$location,Cmn,house,Form){
     
     $scope.data={
         description:Data.get('description')
@@ -253,8 +283,19 @@ angular.module('house.ctrl',[])
     $scope.back=Cmn.back;
      //输入描述完成
     $scope.descComplete=function(){
-        Data.set('description',$scope.data.description);
-        $location.path('/house-update');
+        house.getFormData($scope);
+        if(!house.checkWarnForm()){
+            return;
+        }
+        Form.update(function(data){
+            if(data.errno==1){
+                warn(data.message);
+                return;
+            }
+            if(data.errno==0){
+                location.href="#/house-update";
+            }
+        });
     };
 })
 .controller('piceditCtrl',function($scope,Camera,house,$ionicActionSheet,Cmn,Data,PersonalInfo){
@@ -264,7 +305,7 @@ angular.module('house.ctrl',[])
     function addPic(type){
         var opts={
                 method:1,
-                quality:10
+                quality:50
             };
             if(type==2){ opts.method=0;}
             

@@ -53,13 +53,11 @@ angular.module('people.service', ['ngResource'])
   };
 
   var DefaultChoice = {
-    id: PersonalInfo.userId || 1,
     p: 1, f: 1, xb: 1, gs: 1, cy: 1, cw: 1, zx: 1, ws: 1, xg: 1, fk: 1
   };
 
   var _choice       = angular.copy(DefaultChoice),
-      _isUsingCache = true,
-      _hasMore      = true;
+      _isUsingCache = true;
 
   var factory = {
     radio: condition.buttons,
@@ -68,6 +66,7 @@ angular.module('people.service', ['ngResource'])
       return DefaultChoice;
     },
     params: function() {
+      _choice.id = PersonalInfo.userId;
       return _choice;
     },
     resetPage: function() {
@@ -86,11 +85,8 @@ angular.module('people.service', ['ngResource'])
     isUsingCache: function() {
       return _isUsingCache;
     },
-    setMore: function(hasMore) {
-      _hasMore = hasMore;
-    },
-    hasMore: function() {
-      return _hasMore;
+    resetFilter: function() {
+      _choice = angular.copy(DefaultChoice);
     }
   };
 

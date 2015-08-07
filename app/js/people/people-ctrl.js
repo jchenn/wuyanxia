@@ -109,7 +109,6 @@ angular.module('people.ctrl', [])
   $scope.params = PeopleFilterModel.params();
 
   $scope.finish = function() {
-    PeopleFilterModel.setMore(true);
     PeopleFilterModel.setUsingCache(false);
     $scope.go('/menu/people-list');
   };

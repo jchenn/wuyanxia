@@ -25,11 +25,7 @@
     <ion-content>
       <div class="header" ng-click="editInfo()" menu-toggle>
         <div class="avatar"><img ng-src="{{ me.avatar }}" alt="头像" width="75" height="75"></div>
-        <p>
-          <span>{{ me.nickName }}</span>
-          <br/>
-          <span class="badge badge-stable">{{ me.credit }}</span>
-        </p>
+        <h1>{{ me.nickName }}<small></small></h1>
       </div>
       <ion-list>
         <ion-item class="item-icon-left" href="#/menu/fav" menu-toggle>
@@ -52,10 +48,9 @@
         </ion-item>
       </ion-list>
     </ion-content>
-    <ion-footer-bar class="bar-stable">
-      <a href="#/menu/search" class="button button-block button-clear" menu-toggle>
-        <span class="icon ion-ios-search"></span>
-        <span>搜索</span>
+    <ion-footer-bar>
+      <a href="#/menu/search" class="search-bar button button-clear" menu-toggle>
+        <span class="icon ion-ios-search"></span>搜索
       </a>
     </ion-footer-bar>
   </ion-side-menu>

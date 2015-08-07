@@ -16,6 +16,7 @@ gulp.task('copy', ['useref'], function() {
     'app/lib/ionic/fonts/**',
     'app/lib/ionic/js/ionic.bundle.js',
     'app/lib/angular-resource/angular-resource.min.js*',
+    'app/lib/UIPickerView/UIPickerView.js',
     'app/templates/**'
     ], {base: 'app'})
     .pipe(gulp.dest('www'));

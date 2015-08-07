@@ -10,6 +10,10 @@ angular.module('people.service', ['ngResource'])
   return resource;
 })
 
+.factory('PeopleSearchQuery', function($resource) {
+    return $resource('http://223.252.223.13/Roommates/api/people/search?id=:id&q=:q&p=:p');
+})
+
 .factory('PeopleFilterModel', function(PersonalInfo) {
   var condition = {
     buttons: [
@@ -18,8 +22,8 @@ angular.module('people.service', ['ngResource'])
     ],
     list: [
       {name: 'gs', label: '公司', choices: [
-        {label: '不限', value: '1'}, {label: '网易', value: '2'}, {label: '阿里', value: '3'}, 
-        {label: '大华', value: '4'}, {label: 'UC 斯达康', value: '5'}, {label: '海康威视', value: '6'}
+        {label: '不限', value: '1'}, {label: '网易', value: '2'}, {label: '阿里', value: '3'},
+        {label: '大华', value: '4'}, {label: 'UT斯达康', value: '5'}, {label: '海康威视', value: '6'}
       ]},
       {name: 'cy', label: '抽烟', choices: [
         {label: '不限', value: '1'}, {label: '抽烟', value: '2'}, 
@@ -74,6 +78,10 @@ angular.module('people.service', ['ngResource'])
     },
     setUsingCache: function(isUsingCache) {
       _isUsingCache = isUsingCache;
+
+      if (!_isUsingCache) {
+        factory.resetPage();
+      }
     },
     isUsingCache: function() {
       return _isUsingCache;
@@ -124,5 +132,64 @@ angular.module('people.service', ['ngResource'])
   return $resource('http://223.252.223.13/Roommates/api/people/forbid');
 })
 
-.value('People', {})
+.factory('PermissionChecker', function(PersonalInfo, $ionicPopup, $rootScope) {
+  var factory = {
+    goto: function(hash) {
+      
+      if (PersonalInfo.completeInfo && PersonalInfo.tags) {
+
+        // 有个性标签，有个人信息
+        $rootScope.go(hash);
+
+      } else if (!PersonalInfo.tags && !PersonalInfo.completeInfo) {
+
+        // 无个性标签，无个人信息
+        $ionicPopup.confirm({
+          template: '只有填写自己的个人信息和匹配问题才能为您匹配室友，并查看详情信息哟。',
+          okText: '现在填写',
+          cancelText: '稍后再说'
+        }).then(function(res) {
+          if (res) {
+            $rootScope.go('/me-register');
+          } else {
+            // do nothing
+          }
+        });
+
+      } else if (!PersonalInfo.completeInfo) {
+
+        // 有个性标签，无个人信息
+        $ionicPopup.confirm({
+          template: '只有填写自己的个人信息才能看到室友的详情信息哟。',
+          okText: '现在填写',
+          cancelText: '稍后再说'
+        }).then(function(res) {
+          if (res) {
+            $rootScope.go('/me-register');
+          } else {
+            // do nothing
+          }
+        });
+
+      } else if (!PersonalInfo.tags) {
+
+        // 无个人信息，有个性标签
+        $ionicPopup.confirm({
+          template: '请回答以下6个问题，以便为您更精确匹配室友。',
+          okText: '现在回答',
+          cancelText: '稍后再说'
+        }).then(function(res) {
+          if (res) {
+            $rootScope.go('/quiz');
+          } else {
+            // do nothing
+          }
+        });
+
+      } // 结束4种判断
+    }
+  };
+
+  return factory;
+})
 ;

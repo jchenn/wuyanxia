@@ -1,0 +1,105 @@
+<ion-view hide-nav-bar="true" class="m-people">
+  <ion-header-bar class="bar-theme">
+    <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
+    <h1 class="title">室友详情</h1>
+    <button class="button button-clear button-icon ion-ios-more" ng-click="showMenu()"></button>
+  </ion-header-bar>
+
+  <ion-content class="m-detail">
+    <!-- 顶部标签栏 -->
+    <div class="button-bar" ng-if="isShowTab" ng-class="{slide: isShowHouse}">
+      <a class="button" ng-class="{active: isShowInfo}" ng-click="showInfo()">个人信息</a>
+      <a class="button" ng-class="{active: isShowHouse}" ng-click="showHouse()">房源信息</a>
+    </div>
+
+    <!-- 个人信息栏 -->
+    <section class="info" ng-class="{active: isShowInfo}">
+      <section class="banner">
+        <div class="avatar">
+          <img ng-src="{{ people.photoId }}" alt="" width="100" height="100">
+        </div>
+        <h1>
+          <span class="posr">
+            {{ people.nickName }}
+            <small>{{ people.credit }}</small>
+          </span>
+        </h1>
+      </section>
+      <section class="item">
+        <h2 class="heading">基本信息</h2>
+        <div class="row">
+          <p class="col"><label>性别</label>{{ people.gender }}</p>
+          <p class="col"><label>年龄</label>{{ people.age }}</p>
+          <p class="col"><label>星座</label>{{ people.constellation }}</p>
+        </div>
+        <div class="row">
+          <p class="col"><label>公司</label>{{ people.company }}</p>
+          <p class="col"><label>职位</label>{{ people.job }}</p>
+          <p class="col"></p>
+        </div>
+      </section>
+      <section class="item">
+        <h2 class="heading">个人标签</h2>
+        <ul class="tags">
+          <li ng-repeat="v in people.tags">
+            <span>{{ v }}</span>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- 房源详情栏 -->
+    <section class="house" ng-if="people.hasHouse" ng-class="{active: isShowHouse}">
+      <section class="banner">
+        <ion-slide-box>
+          <ion-slide ng-repeat="image in house.images track by $index">
+            <img ng-src="{{ image }}" width="400" height="300">
+          </ion-slide>
+        </ion-slide-box>
+      </section>
+      <section class="item">
+        <h2 class="title">{{ house.title }}</h2>
+        <div class="row">
+          <p class="col"><em>{{ house.price }}</em> 元/月</p>
+          <p class="col">{{ house.updateTime }}</p>
+        </div>
+      </section>
+      <section class="item">
+        <h2 class="heading">房源地址</h2>
+        <div class="row">
+          <p><label>地址</label>{{ house.address }}</p>
+        </div>
+        <div class="row">
+          <p><label>小区</label>{{ house.community }}</p>
+        </div>
+      </section>
+      <section class="item">
+        <h2 class="heading">房源描述</h2>
+        <div class="row">
+          <p>{{ house.description }}</p>
+        </div>
+      </section>
+    </section>
+  </ion-content>
+
+  <!-- 手机短信栏 -->
+  <div class="bar bar-footer">
+    <div class="row">
+      <div class="col col-45">
+        <p>{{ people.nickName }}</p>
+        <p>{{ people.tel }}</p>
+      </div>
+      <div class="col active">
+        <a class="button button-block button-clear" href="tel:{{ people.tel }}">
+          <span class="icon ion-ios-telephone"></span>手机
+        </a>
+      </div>
+      <div class="col active">
+        <a class="button button-block button-clear" 
+           href="sms:+86{{ people.tel }}?body={{ people | smsbody }}">
+          <span class="icon ion-chatbox-working"></span>短信
+        </a>
+      </div>
+    </div>
+  </div>
+</ion-view>

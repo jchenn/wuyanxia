@@ -1,8 +1,8 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
-        // 模拟
+    .controller('LoginCtrl', function($scope, $http, $window, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
+        // 数据
         $scope.formData = {
-            'email': "hztest@corp.netease.com",
+            'email': "hzlbl4@corp.netease.com",
             'password': "123456"
         };
         // $scope.formData = {};
@@ -13,56 +13,67 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearHistory();
             $ionicHistory.clearCache();
         });
+        /**
+         * 忘记密码函数
+         * @return {[type]} [description]
+         */
         $scope.changePwd = function() {
             InfoPopupService('窝还没被整出来%>_<%');
         };
+        /**
+         * 登录函数
+         * @return {[type]} [description]
+         */
         $scope.login = function() {
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             // 验证表单
-            $scope.errorData = Validate($scope.formData, false);
-            if ($scope.errorData.text) {
-                //如果有错误信息；
-                if ($scope.errorData.name == "email") {
-                    $scope.errorEmail = true;
-                } else if ($scope.errorData.name == "password") {
-                    $scope.errorPwd = true;
-                }
-                console.log($scope.errorData);
-            } else {
+            console.log($scope.formData);
+            var flag = Validate($scope, $scope.formData, false);
+            if (!flag) {
+
                 // 显示loading
                 Loading.show('正在登录…');
-                // 没有错误信息就登录
+                
                 console.log("登录");
                 console.log($scope.formData);
                 console.log(JSON.stringify($scope.formData));
+                //数据字符化
                 var stringData = JSON.stringify($scope.formData);
-
-                AjaxService.login().save({}, $scope.formData, function(resp) {
+                //ajax
+                AjaxService.login($scope.formData).success(function(resp) {
                     //成功
                     console.log(resp.result);
                     Loading.hide();
                     if (resp.result == 0) {
-                        // InfoPopupService({text:"123"});
-                        InfoPopupService(resp.info);
+                        // 答应服务器返回的错误信息
+                        InfoPopupService(resp.data.info);
                     } else if (resp.result == 1) {
+                        //返回正确
+                        
+                        // 在 LocalStorage 中加入 access_token
+                        $window.localStorage.setItem('access_token', resp.access_token || '');
+                        //更新PersonalInfo
                         PersonalInfoMange.clear();
                         PersonalInfoMange.update(resp.data);
                         PersonalInfoMange.update({isLogin: 1});
                         console.log(PersonalInfo);
+
                         // $scope.go('/menu/people-list').replace();
-                        $location.path('/menu/people-list').replace()
+                        // $location.path('/menu/people-list').replace()
+                        $scope.go('/menu/people-list');
                     }
-                }, function(resp) {
-                    //失败
+                }).error(function(resp){
+                    //请求失败
                     Loading.hide();
                     console.log(resp);
-                    InfoPopupService(resp.info);
+                    InfoPopupService(resp);
                 });
+                
             }
         };
     })
-    .controller('RegisterCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+    .controller('RegisterCtrl', function($scope, $window, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
         $scope.formData = {
             'email': "@corp.netease.com"
         //     'nickname': "黑月",
@@ -106,22 +117,25 @@ angular.module('auth.ctrl', ['ionic'])
                     // 已验证检测
                     userId = PersonalInfoMange.get('userId');
                     console.log(userId);
-                    AjaxService.checkEmail().get({userId: userId}, function(resp){
+                    AjaxService.checkEmail({userId: userId}).success(function(resp) {
                         if (resp.result == 1) {
                             PersonalInfoMange.update({isLogin: 1});
+
+                            // 在 LocalStorage 中加入 access_token
+                            $window.localStorage.setItem('access_token', resp.access_token || '');
+
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
                                 $location.path('/me-register');
                             });
                         } else if (resp.result == 0) {
-                            // InfoPopupService(resp.info);
+                            // InfoPopupService(resp.data.info);
                             InfoPopupService($scope.emailFailInfo);
                         }
-                    }, function(err) {
+                    }).error(function(resp) {
                         InfoPopupService('网络错误，请重试');
-                        console.log(err);
-                    });
-                    // $scope.successPopup();
+                        console.log(resp);
+                    })
                 }
             });
         };
@@ -133,32 +147,23 @@ angular.module('auth.ctrl', ['ionic'])
             /**
              * 验证表单
              */
-            $scope.errorData = Validate($scope.formData, true);
+            var flag = Validate($scope, $scope.formData, true);
             // 模拟
             // $scope.errorData = {};
             //验证结果
-            if ($scope.errorData.text) {
-                if ($scope.errorData.name == "email") {
-                    $scope.errorEmail = true;
-                } else if ($scope.errorData.name == "nickname") {
-                    $scope.errorNickName = true;
-                } else if ($scope.errorData.name == "password") {
-                    $scope.errorPwd = true;
-                }
-                console.log($scope.errorData);
-            } else {
+            if (!flag) {
                 console.log("注册");
                 //转圈圈
                 Loading.show('正在注册…');
                 // var res = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
-                AjaxService.register().save({}, $scope.formData, function(resp){
+                AjaxService.register($scope.formData).success(function(resp) {
                     console.log(resp);
                     Loading.hide();
                     if (resp.result == 1) {
                         console.log('注册请求发送成功');
                         PersonalInfoMange.update({
                             name: $scope.formData.nickname,
-                            userId: resp.userId
+                            userId: resp.data.userId
                         });
                         console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试
@@ -172,16 +177,16 @@ angular.module('auth.ctrl', ['ionic'])
                         // });
                         $scope.showPopup();
                     } else if (resp.result == 0) {
-                        InfoPopupService(resp.info);
+                        InfoPopupService(resp.data.info);
                     }
-                }, function(resp){
+                }).error(function(resp) {
                     //失败
                     Loading.hide();
                     console.log('注册失败');
                     console.log(resp);
-                    InfoPopupService(resp.info);
+                    InfoPopupService(resp);
                 });
-                // $scope.showPopup();
+                
             }
         };
     })

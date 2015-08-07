@@ -1,0 +1,29 @@
+<ion-view view-title="{{title}}" class="house-view picedit-view">
+    <ion-header-bar align-title="center" class="bar-stable">
+        
+        <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
+        <h1 >{{title}}</h1>
+        
+    </ion-header-bar>
+    <ion-content>
+        <div class="m-square m-item " ng-repeat="pic in pics">
+            <div class="m-square-content">
+                <div class="m-delete" ng-click="onDeleteClick($index)">
+                    <img src="img/house/icon-delete.png">
+                </div>
+                <img ng-src="{{pic}}">
+            </div>
+        </div>
+        <div class="m-square m-item" ng-click="onAddClick()" ng-if="pics.length<9">
+            <div class="m-square-content">
+                <img src="img/house/add-pic.jpg">
+            </div>
+        </div>
+        
+    </ion-content>
+    <ion-footer-bar>
+        <div class="btn-wrapper">
+            <button class="m-btn" ng-click="onSureClick()">确定</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

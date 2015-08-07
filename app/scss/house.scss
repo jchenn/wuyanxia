@@ -18,31 +18,55 @@
 }
 //reset end
 .house-view{
-    font-size: 16px;
+    $hd-h: 44px;
+    $hd-fs: 16.6666px ;
+    $bd-fs:  15.3333px;
     font-family: "Microsoft Yahei";
     background: #f8f8f8;
     .bar-header{
-            height: 40px;
-            line-height: 40px;
+            height: $hd-h;
+            line-height: $hd-h;
             background: #63c3d3;
             color: #fcfeff;
+            padding: 0;
+            border: 0;
             h1{
+                position: absolute;
+                top:0;
+                left:0;
+                text-align: center;
+                margin: 0;
                 color: #fcfeff !important;
                 height: 100%;
-                line-height: 40px;
-                font-size: 16px !important;
+                width: 100%;
+                line-height: $hd-h !important;
+                font-size: $hd-fs !important;
             }
             .buttons{
+                position: absolute;
+                z-index: 10;
                 right:18px;
+                height: 100%;
+                line-height: $hd-h;
             }
             .m-btn{
                 color: #fff;
                 background: transparent;
-                font-size: 16px;
+                font-size: $hd-fs;
+            }
+            .m-backicon{
+                position: absolute;
+                z-index: 10;
+                top: 0px;
+                left: 13px;
+                width: 60px;
+                height: 100%;
+                line-height: $hd-h;
+                font-size: $hd-fs;
             }
         }
         .has-header{
-            top:40px;
+            top:$hd-h;
         }
 
     .f-wwa{
@@ -50,10 +74,35 @@
         word-break: break-all;
     }
     ion-content{
-        font-size: 20px;
+        font-size: $bd-fs;
     }
     &.new-view{
-        
+        .has-footer{
+            bottom: 87px;
+        }
+        .bar-footer{
+            height: 87px;
+            background: #f8f8f8;
+        }
+        .btn-wrapper{
+            position: absolute;
+            width: 100%;
+            bottom: 25px;
+            button{
+                display: block;
+                height: 37px;
+                line-height: 37px;
+                margin: auto;
+                width: 83.3333%;
+                text-align: center;
+                background: #63c3d3;
+                color: #fff;
+                font-size: 16px;
+            }
+        }
+        h1,button{
+            font-family: "Microsoft Yahei" !important;
+        }
         input::-webkit-input-placeholder{
             color: #595758;
             font-family: "Microsoft Yahei";
@@ -74,13 +123,13 @@
                 text-align: center;
                 background: #63c3d3;
                 color: #fff;
-                font-size: 16px;
+                font-size: $bd-fs;
             }
         }
         .m-show-content{
             background: url("../img/house/bg-pic.jpg");
             background-size: 100% 100%;
-            background-position-y: -1px;
+            background-position-y: 0px;
         }
         .slider{
             height: 100%;
@@ -107,6 +156,79 @@
         }
         
     }
+    &.picedit-view{
+        .has-footer{
+            bottom: 87px;
+        }
+        .bar-footer{
+            height: 87px;
+            background: #f8f8f8;
+        }
+        .btn-wrapper{
+            position: absolute;
+            width: 100%;
+            bottom: 25px;
+            button{
+                display: block;
+                height: 37px;
+                line-height: 37px;
+                margin: auto;
+                width: 83.3333%;
+                text-align: center;
+                background: #63c3d3;
+                color: #fff;
+                font-size: 16px;
+            }
+        }
+        .m-backicon:before{
+            content: "\f124\20\20取消";
+        }
+        .m-square{
+            position: relative;
+            &:before{
+                display: block;
+                content: "";
+                padding-bottom: 100%;
+            }
+            .m-square-content{
+                position: absolute;
+                top:0;
+                left:0;
+                bottom: 0;
+                right: 0;
+                background: #ccc;
+                overflow: hidden;
+                img{
+                    position: absolute;
+                    top:50%;
+                    left:50%;
+                    -webkit-transform:translate(-50%,-50%);
+                    height: 100%;
+                    width: auto;
+                }
+            }
+        }
+        .m-item{
+            float: left;
+            width: 30.769%;
+            margin-left: 1.923%;
+            margin-top: 1.923%;
+        }
+       
+        .m-delete{
+            position: absolute;
+            z-index:1;
+            top: 0;
+            right: 0;
+            width: 27%;
+            height: 27%;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+            
+        }
+    }
     .clearfix{
         &:before,&:after{
             display: table;
@@ -116,15 +238,7 @@
             clear: both;
         }
     }
-    .m-backicon{
-        position: absolute;
-        top: 0px;
-        left: 13px;
-        width: 60px;
-        height: 100%;
-        line-height: 44px;
-        font-size: 16px;
-    }
+
     .m-show{
         &:before{
             content: "";
@@ -139,8 +253,22 @@
             bottom: 0;
             left: 0;
             right: 0;
-            img{
+           
+            .img-wrapper{
+                position: relative;
                 width: 100%;
+                height: 100%;
+                background: #fff;
+                overflow: hidden;
+            }
+            img{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                width: auto;
                 height: 100%;
             }
         }
@@ -153,29 +281,45 @@
         padding: 0;
     }
     .m-list{
-        padding-left: 18px;
+        padding-left: 19px;
         background: #fff;
         .m-list-item+.m-list-item{
             border-top: 1px solid #b7b7b7;
         }
         .m-list-item{
+            display: flex;
+            padding-right: 19px;
             height: 37px;
             line-height: 37px;
             box-sizing: content-box;
-            input,a{
+            label{width: 66.66px;}
+            input{
+                flex: 1;
+                text-align: right;
+                padding: 0px;
+                padding-right: 5px;
+            }
+            input,a,label{
                 display: block;
                 height: 100%;
+                line-height: 37px;
                 background: transparent;
-                width: 100%;
-                font-size: 16px;
+                font-size: $bd-fs;
                 font-family: "Microsoft Yahei";
                 color: #595758;
             }
+            input:focus{
+                text-align: left;
+            }
+            
             a{
                 text-decoration: none;
+                width: 100%;
                 
             }
-            button{
+            i{
+                display: block;
+                
                 
             }
         }
@@ -196,11 +340,23 @@
         transform: translate(-50%,-50%);
         -webkit-transform: translate(-50%,-50%);
         background: #ccc;
-        width: 70%;
+        width: 64.81%;
         background: #fff;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+        .m-pop-head{
+            height: 37px;
+            background: #64c3d2;
+            color: #fff;
+            line-height: 37px;
+            text-align: center;
+            font-size: 16px;
+        }
         .m-pop-content{
-            margin: 10px;
-            text-indent: 2em;
+            padding: 21px 12px;
+            font-size: 13.3333px;
+            line-height: 20px;
+            color: #595757;
         }
         .m-pop-btns{
             button{

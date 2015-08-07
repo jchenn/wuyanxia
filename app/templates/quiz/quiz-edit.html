@@ -1,10 +1,12 @@
-<ion-view class="m-me">
-  <ion-header-bar class="bar-stable">
-    <button class="button button-clear button-icon ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
+<ion-view hide-nav-bar="true" class="m-me">
+  <ion-header-bar class="bar-theme">
+    <button class="button button-clear button-icon ion-ios-arrow-left" 
+            ng-click="$ionicGoBack()"></button>
     <h1 class="title">个性问答</h1>
   </ion-header-bar>
   <ion-content class="m-question">
-    <h2>{{ number + '. ' + quiz.label }}</h2>
+    <h2 class="hint">请回答以下6个问题，以便为您更精准地匹配室友。</h2>
+    <h2>{{ quiz.label }}</h2>
     <ul class="row">
       <li ng-repeat="choice in quiz.choices" class="col" 
           ng-click="select(quiz.name, choice.id);">
@@ -12,6 +14,5 @@
         <label>{{ choice.answer }}</label>
       </li>
     </ul>
-    <div class="progress"><span class="meter icon ion-location" ng-style="{left: styleLeft + '%'}"></span></div>
   </ion-content>
 </ion-view>

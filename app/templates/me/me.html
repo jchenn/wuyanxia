@@ -2,11 +2,11 @@
   <ion-content>
     <div class="header">
       <div class="nav header-bar">
-        <i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>
+        <i class="icon ion-chevron-left m-backicon" ng-click="$ionicGoBack()"></i>
         <h1 class="title" align="center">个人信息</h1>
       </div>
-      <div class="head-img" align="center">
-        <img src="{{data.avatar}}" alt=""/>
+      <div class="head-img" align="center" ng-click="showCamera()">
+        <img src="{{data.avatar}}" alt="" id="myImage"/>
       </div>
     </div>
     <div class="tags">
@@ -49,7 +49,7 @@
         <div class="part3">
           <div class="item"  ng-click="openBirth()">
             <p class="">出生日期</p>
-            <p class="">{{data.birthday ? data.birthday : ''}}</p>
+            <p class="">{{data.birthday != "" ? data.birthday : ""}}</p>
           </div>
           <div class="item company">
             <p class="">公司</p>

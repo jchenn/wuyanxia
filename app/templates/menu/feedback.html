@@ -1,0 +1,12 @@
+<ion-view hide-nav-bar="true" class="m-feedback">
+  <ion-header-bar class="bar-theme">
+    <button class="button button-icon button-clear ion-ios-arrow-left" ng-click="$ionicGoBack()"></button>
+    <h1 class="title">意见反馈</h1>
+    <button class="button button-clear" ng-click="send()">发送</button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="wrapper">
+      <textarea ng-model="body.content" placeholder="请写下您宝贵的意见和建议~"></textarea>
+    </div>
+  </ion-content>
+</ion-view>

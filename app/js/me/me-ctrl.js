@@ -1,7 +1,7 @@
 angular.module('me.ctrl', [])
 
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $http, $ionicModal, $ionicPopover, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
+    .controller('InfoRegister', function($scope, $timeout, $http, $ionicModal, $ionicPopover,$ionicActionSheet,TakePhoto, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
 
         //从注册跳转，则清空跳转历史
         // var history = $ionicHistory.viewHistory();
@@ -15,9 +15,17 @@ angular.module('me.ctrl', [])
 
         console.log(PersonalInfo);
         $scope.data =  PersonalInfo;
+        //angular.extend($scope.data, TakePhoto);
+        $scope.showCamera = function(){
+            TakePhoto.showCamera();
+        };
 
         //格式化日期
-        $scope.data.birthday = new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        if(PersonalInfoMange.get('birthday') != ""){
+            $scope.data.birthday = new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        }else{
+            $scope.data.birthday = "";
+        }
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
             scope: $scope,
@@ -60,7 +68,7 @@ angular.module('me.ctrl', [])
         //跳过按钮
         $scope.ignoreRegister = function(){
             if(!$scope.data.tags){
-                $scope.go('/quiz/hint');
+                $scope.go('/quiz');
             }else{
                 $scope.go('/menu/people-list');
             }
@@ -151,25 +159,33 @@ angular.module('me.ctrl', [])
                     PersonalInfoMange.update($scope.data);
                     PersonalInfoMange.update({'completeInfo' : true});
                     if(!PersonalInfoMange.get('tags')){
-                        $scope.go('/quiz/hint');
+                        $scope.go('/quiz');
                     }else{
                         $scope.go('/menu/people-list');
                     }
                 }else if(response.errno == 1){
-                    alert(response.message);
+                    alert(response);
                 }
             }).error(function(response, status, headers, config){
                 console.log(response);
             });
         }
-    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
+    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal,TakePhoto, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
         console.log(1111);
         console.log(PersonalInfo);
         angular.extend(PersonalInfo, DayInit);
         $scope.data = PersonalInfo;
         console.log(PersonalInfo);
 
-        $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        $scope.showCamera = function(){
+            TakePhoto.showCamera();
+        };
+
+        if(PersonalInfoMange.get('birthday') != ""){
+            $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
+        }else{
+            $scope.data.birthday = "";
+        }
         //angular.extend(PersonalInfo, DayInit);
         //console.log(PersonalInfo);
         //console.log(PersonalInfo);

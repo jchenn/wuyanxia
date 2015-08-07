@@ -2,10 +2,9 @@ angular.module('auth.ctrl', ['ionic'])
     .controller('LoginCtrl', function($scope, $http, $window, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 数据
         $scope.formData = {
-            'email': "hzlbl4@corp.netease.com",
-            'password': "123456"
+            // 'email': "hzlbl4@corp.netease.com",
+            // 'password': "123456"
         };
-        // $scope.formData = {};
         $scope.errorData = {};
         console.log($scope.myForm);
         $scope.$on('$stateChangeSuccess', function(event, toState) {
@@ -75,7 +74,7 @@ angular.module('auth.ctrl', ['ionic'])
     })
     .controller('RegisterCtrl', function($scope, $window, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
         $scope.formData = {
-            'email': "@corp.netease.com"
+            // 'email': "@corp.netease.com"
         //     'nickname': "黑月",
         //     'password': "123123"
         };

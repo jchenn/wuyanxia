@@ -35,12 +35,8 @@ angular.module('people.ctrl', [])
 
         _data = response.data;
 
-        if (params.p === 1) {
-          $scope.list = [];
-        }
-
         if (_data && _data.length > 0) {
-          $scope.list = $scope.list.concat(_data);
+          $scope.list = (params.p === 1) ? _data : $scope.list.concat(_data);
           _hasMore = true;
         } else {
           // console.log('no more');
@@ -156,12 +152,20 @@ angular.module('people.ctrl', [])
 })
 
 .controller('PeopleDetailCtrl', 
-  function($scope, $ionicActionSheet, $stateParams, $ionicLoading, $ionicPopup,
-    PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd, PersonalInfo) {
+  function($scope, $ionicActionSheet, $stateParams, $ionicLoading, $ionicPopup, $ionicSlideBoxDelegate,
+    $timeout, PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd, PersonalInfo) {
 
   $scope.isShowInfo = true;
   $scope.isShowHouse = false;
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
+
+  // $scope.people = {};
+  // $scope.house = {
+  //   images:["http://223.252.223.13/Roommates/photo/house/29_92087288451520.jpg",
+  //   "http://223.252.223.13/Roommates/photo/house/29_92087972032065.jpg",
+  //   "http://223.252.223.13/Roommates/photo/house/29_92092029115712.jpg"]
+  // };
+  // $ionicSlideBoxDelegate.update();
 
   $ionicLoading.show();
 
@@ -171,7 +175,7 @@ angular.module('people.ctrl', [])
     
     if (response.errno === 0) {
       $scope.people = response.data;
-      $scope.house = $scope.people.matchUserHouse;
+      $scope.house  = response.data.matchUserHouse;
       // console.log($scope.house);
     }
 
@@ -191,6 +195,10 @@ angular.module('people.ctrl', [])
   $scope.showHouse = function() {
     $scope.isShowInfo = false;
     $scope.isShowHouse = true;
+    $timeout(function() {
+      $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
+    });
+    
   };
 
   // 显示 收藏/屏幕 菜单

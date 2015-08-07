@@ -1,6 +1,6 @@
 angular.module('menu.ctrl', [])
 
-.controller('SideMenuCtrl', function($scope, PersonalInfo, PeopleFilterModel) {
+.controller('SideMenuCtrl', function($scope, PersonalInfo, PeopleFilterModel, event) {
 
   // bind data
   $scope.me = PersonalInfo;
@@ -19,6 +19,10 @@ angular.module('menu.ctrl', [])
     } else {
       $scope.go('/me-register');
     }
+  };
+
+  $scope.editHouse = function() {
+    event.trigger('house.init');
   };
 })
 

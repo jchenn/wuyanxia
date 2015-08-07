@@ -8,8 +8,8 @@
   <ion-content class="m-detail">
     <!-- 顶部标签栏 -->
     <div class="button-bar" ng-if="isShowTab" ng-class="{slide: isShowHouse}">
-      <a class="button" ng-click="showInfo()">个人信息</a>
-      <a class="button" ng-click="showHouse()">房源信息</a>
+      <a class="button" ng-class="{active: isShowInfo}" ng-click="showInfo()">个人信息</a>
+      <a class="button" ng-class="{active: isShowHouse}" ng-click="showHouse()">房源信息</a>
     </div>
 
     <!-- 个人信息栏 -->

@@ -71,6 +71,11 @@ angular.module('people.ctrl', [])
     });
   };
 
+  $scope.doRefresh = function() {
+    console.log('do refresh');
+    $scope.$broadcast('scroll.refreshComplete');
+  }
+
   // 当切换到室友列表时，需要判断是使用已有数据还是从数据库重新加载
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
     if (toState.name === 'menu.people-list') {
@@ -123,9 +128,7 @@ angular.module('people.ctrl', [])
   $scope.isShowHouse = false;
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
 
-  $ionicLoading.show({
-    templateUrl: 'templates/people/people-maching.html'
-  });
+  $ionicLoading.show();
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     

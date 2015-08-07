@@ -63,7 +63,7 @@ angular.module('people.service', ['ngResource'])
     radio: condition.buttons,
     list: condition.list,
     getDefaultChoice: function() {
-      return DefaultChoice;
+      return angular.copy(DefaultChoice);
     },
     params: function() {
       _choice.id = PersonalInfo.userId;

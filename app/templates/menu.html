@@ -31,10 +31,10 @@
         <ion-item class="item-icon-left" href="#/menu/fav" menu-toggle>
           <span class="u-icon icon-bookmark"></span>我的收藏
         </ion-item>
-        <ion-item ng-if="!me.hasHouse" class="item-icon-left" href="#/house-new">
+        <ion-item ng-if="!me.hasHouse" class="item-icon-left" ng-click="editHouse()" href="#/house-new">
           <span class="u-icon icon-house"></span>房源发布
         </ion-item>
-        <ion-item ng-if="me.hasHouse" class="item-icon-left" href="#/house-update">
+        <ion-item ng-if="me.hasHouse" class="item-icon-left" ng-click="editHouse()" href="#/house-new">
           <span class="u-icon icon-house"></span>房源编辑
         </ion-item>
         <ion-item class="item-icon-left" href="#/menu/about" menu-toggle>

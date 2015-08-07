@@ -16,6 +16,7 @@ angular.module('people.ctrl', [])
     return _fetching ? false : _hasMore;
   }
 
+  // 加载更多
   $scope.loadMore = function() {
 
     _fetching = true;
@@ -30,18 +31,12 @@ angular.module('people.ctrl', [])
 
       // console.log('request', params);
 
-      // console.log(response);
-
       if (response.errno === 0) {
 
         _data = response.data;
 
-        if (params.p === 1) {
-          $scope.list = [];
-        }
-
         if (_data && _data.length > 0) {
-          $scope.list = $scope.list.concat(_data);
+          $scope.list = (params.p === 1) ? _data : $scope.list.concat(_data);
           _hasMore = true;
         } else {
           // console.log('no more');
@@ -52,7 +47,6 @@ angular.module('people.ctrl', [])
         PeopleFilterModel.setUsingCache(true);
       } else {
         // TODO error handling
-        _hasMore = true;
       }
 
       // 关闭 loading 动画
@@ -71,10 +65,48 @@ angular.module('people.ctrl', [])
     });
   };
 
+  // 下拉刷新
   $scope.doRefresh = function() {
-    console.log('do refresh');
-    $scope.$broadcast('scroll.refreshComplete');
-  }
+
+    // 当下拉刷新失败时不会影响原条件
+    var tmpfilter = angular.copy(params);
+
+    tmpfilter.p = 1;
+
+    PeopleListQuery.get(tmpfilter, function(response) {
+
+      // console.log('request', params);
+
+      if (response.errno === 0) {
+
+        _data = response.data;
+
+        if (_data && _data.length > 0) {
+          $scope.list = _data;
+          _hasMore = true;
+        } else {
+          // console.log('no more');
+          _hasMore = false;
+        }
+
+        // 成功后，之后的加载从第二页开始
+        params.p = 2;
+        PeopleFilterModel.setUsingCache(true);
+      } else {
+        // TODO error handling
+      }
+
+      $scope.$broadcast('scroll.refreshComplete');
+
+    }, function(err) {
+
+      console.log('refresh err', err);
+      
+      _hasMore = false;
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+    
+  };
 
   // 当切换到室友列表时，需要判断是使用已有数据还是从数据库重新加载
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
@@ -120,12 +152,20 @@ angular.module('people.ctrl', [])
 })
 
 .controller('PeopleDetailCtrl', 
-  function($scope, $ionicActionSheet, $stateParams, $ionicLoading, $ionicPopup,
-    PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd, PersonalInfo) {
+  function($scope, $ionicActionSheet, $stateParams, $ionicLoading, $ionicPopup, $ionicSlideBoxDelegate,
+    $timeout, PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd, PersonalInfo) {
 
   $scope.isShowInfo = true;
   $scope.isShowHouse = false;
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
+
+  // $scope.people = {};
+  // $scope.house = {
+  //   images:["http://223.252.223.13/Roommates/photo/house/29_92087288451520.jpg",
+  //   "http://223.252.223.13/Roommates/photo/house/29_92087972032065.jpg",
+  //   "http://223.252.223.13/Roommates/photo/house/29_92092029115712.jpg"]
+  // };
+  // $ionicSlideBoxDelegate.update();
 
   $ionicLoading.show();
 
@@ -135,7 +175,7 @@ angular.module('people.ctrl', [])
     
     if (response.errno === 0) {
       $scope.people = response.data;
-      $scope.house = $scope.people.matchUserHouse;
+      $scope.house  = response.data.matchUserHouse;
       // console.log($scope.house);
     }
 
@@ -155,6 +195,10 @@ angular.module('people.ctrl', [])
   $scope.showHouse = function() {
     $scope.isShowInfo = false;
     $scope.isShowHouse = true;
+    $timeout(function() {
+      $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
+    });
+    
   };
 
   // 显示 收藏/屏幕 菜单

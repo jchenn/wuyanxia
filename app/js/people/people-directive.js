@@ -17,7 +17,16 @@ angular.module('people.directive', [])
       $window.addEventListener('resize', addPadding);
 
       function addPadding() {
-        console.log(grid.offsetWidth);
+        var w = grid.offsetWidth, m, p = 0;
+        for (m = 14; m >= 1; --m) {
+          if (m * 172 <= w) {
+            console.log(m);
+            p = (w - 172 * m) / (2 + 2 * m);
+            break;
+          }
+        }
+        console.log('padding', p);
+        console.log(grid.style.padding = '0 ' + Math.ceil(p) + 'px');
       }
     },
     templateUrl: 'templates/people/people-list-grid.html'

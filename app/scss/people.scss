@@ -2,38 +2,83 @@
   .grid {
     padding: 0;
     margin: 8px auto;
-    width: 344px;
-
-    @media (min-width: 360px) {
-      & { width: 344px; }
-    }
-
-    @media (min-width: 532px) {
-      & { width: 516px; }
-    }
-
-    @media (min-width: 704px) {
-      & { width: 688px; }
-    }
-
-    @media (min-width: 876px) {
-      & { width: 860px; }
-    }
-
-    @media (min-width: 1048px) {
-      & { width: 1032px; }
-    }
-
-    @media (min-width: 1220px) {
-      & { width: 1204px; }
-    }
+    width: 100%;
+    -webkit-transition: all ease-in .3s;
+            transition: all ease-in .3s;
 
     .item {
       float: left;
-      width: 172px;
+      // width: 172px;
       border: none;
       padding: 8px;
       background-color: #f8f8f8;
+      -webkit-transition: all ease-in .3s;
+              transition: all ease-in .3s;
+
+      // n * 172
+      @media (min-width: 344px) {
+        & { width: 50%; }
+      }
+
+      // 3
+      @media (min-width: 516px) {
+        & { width: 33.33%; }
+      }
+
+      // 4
+      @media (min-width: 688px) {
+        & { width: 25%; }
+      }
+
+      // 5
+      @media (min-width: 860px) {
+        & { width: 20%; }
+      }
+
+      // 6
+      @media (min-width: 1032px) {
+        & { width: 16.67%; }
+      }
+
+      // 7
+      @media (min-width: 1204px) {
+        & { width: 14.28%; }
+      }
+
+      // 8
+      @media (min-width: 1376px) {
+        & { width: 12.5%; }
+      }
+
+      // 9
+      @media (min-width: 1548px) {
+        & { width: 11.11%; }
+      }
+
+      // 10
+      @media (min-width: 1720px) {
+        & { width: 10%; }
+      }
+
+      // 11
+      @media (min-width: 1892px) {
+        & { width: 9.09%; }
+      }
+
+      // 12
+      @media (min-width: 2064px) {
+        & { width: 8.33%; }
+      }
+
+      // 13
+      @media (min-width: 2236px) {
+        & { width: 7.69%; }
+      }
+
+      // 14
+      @media (min-width: 2408px) {
+        & { width: 7.14%; }
+      }
 
       .content-wrapper {
         border: none;
@@ -42,6 +87,8 @@
         background-color: #fff;
         box-shadow: 0 1px 4px rgba(0,0,0,0.12), 0 1px 6px rgba(0,0,0,0.24);
         padding: 0;
+        width: 156px;
+        margin: 0 auto;
 
         .img-response {
           position: relative;

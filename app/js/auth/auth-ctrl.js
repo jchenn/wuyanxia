@@ -309,6 +309,5 @@ angular.module('auth.ctrl', ['ionic'])
 
             //maybe use your datasource is relatively good
             //data[0]  //你的数据默认选择第一行
-
         };
     });

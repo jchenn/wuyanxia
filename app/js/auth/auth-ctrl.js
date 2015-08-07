@@ -28,17 +28,9 @@ angular.module('auth.ctrl', ['ionic'])
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             // 验证表单
-            $scope.errorData = Validate($scope.formData, false);
-            if ($scope.errorData.text) {
-                //有错误，则示错；
-                if ($scope.errorData.name == "email") {
-                    $scope.errorEmail = true;
-                } else if ($scope.errorData.name == "password") {
-                    $scope.errorPwd = true;
-                }
-                console.log($scope.errorData);
-            } else {
-                //无错，则走登录流程
+            console.log($scope.formData);
+            var flag = Validate($scope, $scope.formData, false);
+            if (!flag) {
 
                 // 显示loading
                 Loading.show('正在登录…');
@@ -155,20 +147,11 @@ angular.module('auth.ctrl', ['ionic'])
             /**
              * 验证表单
              */
-            $scope.errorData = Validate($scope.formData, true);
+            var flag = Validate($scope, $scope.formData, true);
             // 模拟
             // $scope.errorData = {};
             //验证结果
-            if ($scope.errorData.text) {
-                if ($scope.errorData.name == "email") {
-                    $scope.errorEmail = true;
-                } else if ($scope.errorData.name == "nickname") {
-                    $scope.errorNickName = true;
-                } else if ($scope.errorData.name == "password") {
-                    $scope.errorPwd = true;
-                }
-                console.log($scope.errorData);
-            } else {
+            if (!flag) {
                 console.log("注册");
                 //转圈圈
                 Loading.show('正在注册…');

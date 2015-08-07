@@ -57,7 +57,7 @@ angular.module('auth.service', ['ngResource'])
 .factory('Validate', function() {
 	var emailReg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
 
-	return function(data, hasNickName) {
+	var checkData = function(data, hasNickName) {
 		var data = data || {},
 			hasNickName = hasNickName || false;
 		// 邮箱
@@ -99,7 +99,25 @@ angular.module('auth.service', ['ngResource'])
 				text: "为确保账户安全，密码请至少设置6位"
 			};
 		}
-		
 		return {};
+	};
+
+	return function($scope, data, hasNickName) {
+		
+		$scope.errorData = checkData(data, hasNickName);
+
+		if ($scope.errorData.text) {
+            if ($scope.errorData.name == "email") {
+                $scope.errorEmail =  true;
+                return true;
+            } else if (hasNickName && $scope.errorData.name == "nickname") {
+                $scope.errorNickName =  true;
+                return true;
+            } else if ($scope.errorData.name == "password") {
+                $scope.errorPwd =  true;
+                return true;
+            }
+        } 
+        return false;
 	};
 });

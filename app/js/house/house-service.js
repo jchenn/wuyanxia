@@ -50,6 +50,7 @@ angular.module('house.service',[])
             cover.addEventListener('click',function(event){
                 self.hide();
                 fn();
+                console.log('click');
             });
             isInited=true;
         },
@@ -307,8 +308,8 @@ angular.module('house.service',[])
 .factory('Cmn',function(Popup,$ionicHistory){
     
     return {
-        warn:function(str,callback,time){
-            return Popup.show(str,callback,time);
+        warn:function(str,callback,time,unclick){
+            return Popup.show(str,callback,time,unclick);
         },
         back:function(){
             console.log('back');
@@ -359,7 +360,7 @@ angular.module('house.service',[])
             var data={};
             data.encodingType=Camera.EncodingType.JPEG;
             //data.allowEdit=true;
-            //data.correctOrientation=true;
+            data.correctOrientation=true;
             if(tag) data.destinationType=Camera.DestinationType.DATA_URL;
             if(opts){
                 if(opts.width) data.targetWidth=opts.width;
@@ -485,21 +486,21 @@ angular.module('house.service',[])
                 }
                 switch(type){
                     case 'title':
-                        warn('标题长度不对',todo,1000);
+                        warn('标题长度不对',todo,2000,true);
                         break;
                     case 'price':
-                        warn('价格格式不对',todo,1000);
+                        warn('价格格式不对',todo,2000,true);
                         break;
                     case 'community':
-                        warn('小区长度不对',todo,1000);
+                        warn('小区长度不对',todo,2000,true);
                         break;
                     case 'area':
-                        warn('地址或区域长度不对',todo,1000);
+                        warn('地址或区域长度不对',todo,2000,true);
                         break;
                     case 'description':
                         warn('描述信息长度不对',function(){
                             location.href="#/house-decoration";
-                        },1000);
+                        },2000);
                         break;
                 }
             });

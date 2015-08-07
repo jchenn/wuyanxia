@@ -305,7 +305,7 @@ angular.module('house.ctrl',[])
     function addPic(type){
         var opts={
                 method:1,
-                quality:10
+                quality:50
             };
             if(type==2){ opts.method=0;}
             

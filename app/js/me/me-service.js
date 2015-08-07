@@ -51,7 +51,7 @@ angular.module('me.service', [])
     uploadPic : function(imageData){
 
         var data = {
-            'file' : imageData,
+            'file' : "data:image/jpg:base64," + imageData,
             'userId' : PersonalInfoMange.get('userId')
         };
         var res = $http({

@@ -9,8 +9,9 @@
     .item {
       float: left;
       // width: 172px;
+      // width: 156px;
       border: none;
-      padding: 8px;
+      padding: 10px 8px;
       background-color: #f8f8f8;
       -webkit-transition: all ease-in .3s;
               transition: all ease-in .3s;
@@ -78,6 +79,16 @@
       // 14
       @media (min-width: 2408px) {
         & { width: 7.14%; }
+      }
+
+      // 15
+      @media (min-width: 2580px) {
+        & { width: 6.67%; }
+      }
+
+      // 16
+      @media (min-width: 2752px) {
+        & { width: 6.25%; }
       }
 
       .content-wrapper {

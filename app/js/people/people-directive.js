@@ -18,15 +18,15 @@ angular.module('people.directive', [])
 
       function addPadding() {
         var w = grid.offsetWidth, m, p = 0;
-        for (m = 14; m >= 1; --m) {
+        for (m = 16; m >= 1; --m) {
           if (m * 172 <= w) {
-            console.log(m);
-            p = (w - 172 * m) / (2 + 2 * m);
+            // console.log(m);
+            p = (w - 172 * m - 16) / (2 + 2 * m);
             break;
           }
         }
-        console.log('padding', p);
-        console.log(grid.style.padding = '0 ' + Math.ceil(p) + 'px');
+        // console.log('padding', p);
+        grid.style.padding = '0 ' + (p + 8) + 'px'
       }
     },
     templateUrl: 'templates/people/people-list-grid.html'

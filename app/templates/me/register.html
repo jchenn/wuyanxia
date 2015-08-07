@@ -22,7 +22,8 @@
             </p>
             <p class="item item-input">
                 <label class="input-label">出生日期</label>
-                <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>
+                <input type="text" name="birth" ng-click="showDate()" value="{{data.birthday | date : yyyy-mm-dd}}" ng-model="data.birthday"/>
+           <!--     <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>-->
             </p>
             <p class="item item-input">
                 <label class="input-label">公司</label>

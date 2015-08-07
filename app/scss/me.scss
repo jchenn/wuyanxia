@@ -48,8 +48,8 @@
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 106px;
+    height: 106px;
     position: relative;
     margin: 0 auto;
 
@@ -60,9 +60,10 @@
       -moz-border-radius: 50%;
       border-radius: 50%;
       position: absolute;
-      top: 60px;
-      left: 70px;
-      background: #dbdedd;
+      top: 65px;
+      left: 75px;
+      background: url('../img/camera-bg.png') no-repeat;
+      background-size: cover;
     }
 
 
@@ -230,11 +231,7 @@
 
     .part1, .part2, .part3{
       background: #fff;
-      height: 76px;
       padding-left: 6.2%;
-    }
-    .part2,.part3{
-      height: 116px;
     }
     .part3{
       margin-top: 20px;

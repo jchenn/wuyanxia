@@ -21,11 +21,11 @@ angular.module('me.ctrl', [])
         };
 
         //格式化日期
-        if(PersonalInfoMange.get('birthday') != ""){
+/*       -- if(PersonalInfoMange.get('birthday') != ""){
             $scope.data.birthday = new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
         }else{
             $scope.data.birthday = "";
-        }
+        }*/
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
             scope: $scope,
@@ -46,8 +46,26 @@ angular.module('me.ctrl', [])
             $scope.data.gender = sex;
             $scope.closeSex();
         };
+
+        $scope.showDate = function(){
+
+            var options = {
+                date: new Date(),
+                mode: 'date',
+                allowOldDates: true,
+                allowFutureDates: false,
+                doneButtonLabel: '确定',
+                doneButtonColor: '#F2F3F4',
+                cancelButtonLabel: '取消',
+                cancelButtonColor: '#cccccc'
+            };
+            datePicker.show(options).then(function(date){
+                alert(date);
+            })
+
+        };
         //出生日期模态框
-        $ionicPopover.fromTemplateUrl('templates/me/birth-modal.html', {
+      /* -- $ionicPopover.fromTemplateUrl('templates/me/birth-modal.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.popover = popover;
@@ -63,7 +81,7 @@ angular.module('me.ctrl', [])
         $scope.selectBirth = function(){
             $scope.data.birthday = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
             $scope.closeBirth();
-        };
+        };*/
 
         //跳过按钮
         $scope.ignoreRegister = function(){
@@ -75,7 +93,7 @@ angular.module('me.ctrl', [])
         };
 
         //日历
-        $scope.data.yearArr = [1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995];
+       /*-- $scope.data.yearArr = [1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995];
         $scope.data.monthArr = [1,2,3,4,5,6,7,8,9,10,11,12];
         $scope.data.dayArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
 
@@ -112,7 +130,7 @@ angular.module('me.ctrl', [])
 
             }
 
-        };
+        };*/
 
 
 

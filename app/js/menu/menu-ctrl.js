@@ -15,9 +15,9 @@ angular.module('menu.ctrl', [])
 
   $scope.editInfo = function() {
     if (PersonalInfo.completeInfo) {
-      $scope.go('/me');
+      $scope.go('menu/me');
     } else {
-      $scope.go('/me-register');
+      $scope.go('menu/me-register');
     }
   };
 })

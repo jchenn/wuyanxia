@@ -2,46 +2,71 @@ angular.module('me', ['me.ctrl', 'me.service', 'quiz'])
 
 .config(function($stateProvider) {
 
-  // 个人信息相关页面，包括个人资料设置和标签问卷
-  $stateProvider
+    // 个人信息相关页面，包括个人资料设置和标签问卷
+    $stateProvider
 
     // 个人资料
-    .state('me', {
-      url: '/me',
-      templateUrl: 'templates/me/me.html',
-      cache:false
+    .state('menu.me', {
+        url: '/me',
+        cache:false,
+        views: {
+        'menu-content': {
+          templateUrl: 'templates/me/me.html',
+          controller: 'InfoShow'
+        }
+        }
+    })
+    //个人注册信息页面
+    .state('menu.meRegister', {
+        url: '/me-register',
+        cache:false,
+        views: {
+            'menu-content': {
+                templateUrl: 'templates/me/register.html',
+                controller: 'InfoRegister'
+            }
+        }
     })
 
-    //个人注册信息页面
-      .state('me-register', {
-          url: '/me-register',
-          templateUrl: 'templates/me/register.html',
-          cache:false
-      })
-      //修改个人信息
-      .state('me-editor', {
+    //修改个人信息
+    .state('menu.meEditor', {
         url: '/me-editor',
-        templateUrl: 'templates/me/me-editor.html'
-      })
-      //手机验证
-      .state('phone-validate', {
+        cache:false,
+        views: {
+            'menu-content': {
+                templateUrl: 'templates/me/me-editor.html',
+                controller: 'EditorInfo'
+            }
+        }
+    })
+    //手机验证
+    .state('menu.phoneValidate', {
         url: '/phone-validate',
-        templateUrl: 'templates/me/phone-validate.html'
-      })
-      //身份认证
-      .state('id-validate', {
+        views: {
+            'menu-content': {
+                templateUrl: 'templates/me/phone-validate.html'
+            }
+        }
+    })
+    //身份认证
+    .state('menu.idValidate', {
         url: '/id-validate',
-        templateUrl: 'templates/me/id-validate.html'
-      })
-      //邮箱认证
-      .state('email-validate', {
+        views: {
+            'menu-content': {
+                templateUrl: 'templates/me/id-validate.html'
+            }
+        }
+    })
+
+    //邮箱认证
+    .state('menu.emailValidate', {
         url: '/email-validate',
-        templateUrl: 'templates/me/email-validate.html'
-      })
-      .state('calendar', {
-        url: '/calendar',
-        templateUrl: 'templates/me/calendar.html'
-      })
+        views: {
+            'menu-content': {
+                templateUrl: 'templates/me/email-validate.html'
+            }
+        }
+    })
   ;
 })
 

@@ -1,14 +1,8 @@
 angular.module('me.ctrl', [])
 
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $timeout, $http, $ionicModal, $ionicPopover,$ionicActionSheet,TakePhoto, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
+    .controller('InfoRegister', function($scope, $timeout, $http, $ionicModal, $ionicPopover,$ionicActionSheet,TakePhoto,dateSelect, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
 
-        //从注册跳转，则清空跳转历史
-        // var history = $ionicHistory.viewHistory();
-        // if (history.backView.url === '/register') {
-        //     $ionicHistory.clearHistory();
-        // }
-        console.log(DayInit);
         console.log(PersonalInfo);
 
         PersonalInfoMange.update(DayInit);
@@ -17,15 +11,10 @@ angular.module('me.ctrl', [])
         $scope.data =  PersonalInfo;
         //angular.extend($scope.data, TakePhoto);
         $scope.showCamera = function(){
-            TakePhoto.showCamera();
+            var url = TakePhoto.showCamera();
+            PersonalInfoMange.update({'avatar':url});
+            $scope.data.avatar = url;
         };
-
-        //格式化日期
-/*       -- if(PersonalInfoMange.get('birthday') != ""){
-            $scope.data.birthday = new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
-        }else{
-            $scope.data.birthday = "";
-        }*/
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
             scope: $scope,
@@ -48,40 +37,9 @@ angular.module('me.ctrl', [])
         };
 
         $scope.showDate = function(){
-
-            var options = {
-                date: new Date(),
-                mode: 'date',
-                allowOldDates: true,
-                allowFutureDates: false,
-                doneButtonLabel: '确定',
-                doneButtonColor: '#F2F3F4',
-                cancelButtonLabel: '取消',
-                cancelButtonColor: '#cccccc'
-            };
-            datePicker.show(options).then(function(date){
-                alert(date);
-            })
-
+            dateSelect.showDate($scope);
+            console.log(PersonalInfo);
         };
-        //出生日期模态框
-      /* -- $ionicPopover.fromTemplateUrl('templates/me/birth-modal.html', {
-            scope: $scope
-        }).then(function(popover) {
-            $scope.popover = popover;
-        });
-
-        $scope.openBirth = function($event) {
-            $scope.popover.show($event);
-        };
-        $scope.closeBirth = function() {
-            $scope.popover.hide();
-        };
-
-        $scope.selectBirth = function(){
-            $scope.data.birthday = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
-            $scope.closeBirth();
-        };*/
 
         //跳过按钮
         $scope.ignoreRegister = function(){
@@ -91,47 +49,6 @@ angular.module('me.ctrl', [])
                 $scope.go('/menu/people-list');
             }
         };
-
-        //日历
-       /*-- $scope.data.yearArr = [1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995];
-        $scope.data.monthArr = [1,2,3,4,5,6,7,8,9,10,11,12];
-        $scope.data.dayArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
-
-        $scope.selectMonth = function(){
-            $scope.data.dayArr = [];
-            var curMonth = parseInt($scope.data.month);
-            switch (curMonth) {
-                case 2:
-                    for (var i = 1; i < 29; i++) {
-                        $scope.data.dayArr.push(i);
-                    }
-                    break;
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    for (var k = 1; k < 32; k++) {
-                        $scope.data.dayArr.push(k);
-                    }
-                    break;
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    for (var o = 1; o < 31; o++) {
-                        $scope.data.dayArr.push(o);
-                    }
-                    break;
-                default :
-                    alert('this is a mistake');
-
-            }
-
-        };*/
-
 
 
         //提交数据
@@ -188,7 +105,7 @@ angular.module('me.ctrl', [])
                 console.log(response);
             });
         }
-    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal,TakePhoto, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
+    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal,dateSelect,TakePhoto, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
         console.log(1111);
         console.log(PersonalInfo);
         angular.extend(PersonalInfo, DayInit);
@@ -199,11 +116,17 @@ angular.module('me.ctrl', [])
             TakePhoto.showCamera();
         };
 
-        if(PersonalInfoMange.get('birthday') != ""){
+
+        $scope.showDate = function(){
+            dateSelect.showDate($scope , $http,1);
+
+        };
+
+       /* if(PersonalInfoMange.get('birthday') != ""){
             $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
         }else{
             $scope.data.birthday = "";
-        }
+        }*/
         //angular.extend(PersonalInfo, DayInit);
         //console.log(PersonalInfo);
         //console.log(PersonalInfo);
@@ -258,7 +181,7 @@ angular.module('me.ctrl', [])
             PersonalInfo.title = obj.title;
             PersonalInfo.val = obj.val;
             PersonalInfo.key = obj.key;
-            $scope.go('/me-editor');
+            $scope.go('/menu/me-editor');
         };
 
         //与注册信息页面重复的代码 start
@@ -308,92 +231,6 @@ angular.module('me.ctrl', [])
             }
             $scope.closeSex();
         };
-        //出生日期模态框
-        $ionicPopover.fromTemplateUrl('templates/me/birth-modal.html', {
-            scope: $scope
-        }).then(function(popover) {
-            $scope.popover = popover;
-        });
-
-        $scope.openBirth = function($event) {
-            $scope.popover.show($event);
-        };
-        $scope.closeBirth = function() {
-            $scope.popover.hide();
-        };
-
-        $scope.selectBirth = function(){
-
-            DayInit.year = $scope.data.year;
-            DayInit.month = $scope.data.month;
-            DayInit.day = $scope.data.day;
-
-            $scope.data.birthday = $scope.data.year + "-" + $scope.data.month + "-" + $scope.data.day;
-
-            var obj = {};
-            obj['birthday'] = new Date($scope.data.birthday).valueOf();
-            //给服务器发请求
-            var res = $http({
-                method: 'post',
-                url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
-                data: obj,
-                timeout: 2000
-            });
-            res.success(function(response, status, headers, config){
-                if(response.errno == 0){
-                    if(response.finishInfo == 1){
-                        PersonalInfoMange.update({'completeInfo' : true});
-                    }
-                    PersonalInfoMange.update($scope.data.birthday);
-
-                    $scope.go('/me');
-                }else if(response.errno == 1){
-                    alert(response.message);
-                }
-            }).error(function(response, status, headers, config){
-                alert(response.message);
-            });
-
-            $scope.closeBirth();
-        };
-
-        //日历
-
-        $scope.selectMonth = function() {
-            $scope.data.dayArr = [];
-            var curMonth = parseInt($scope.data.month);
-            switch (curMonth) {
-                case 2:
-                    for (var i = 1; i < 29; i++) {
-                        $scope.data.dayArr.push(i);
-                    }
-                    break;
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    for (var k = 1; k < 32; k++) {
-                        $scope.data.dayArr.push(k);
-                    }
-                    break;
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    for (var o = 1; o < 31; o++) {
-                        $scope.data.dayArr.push(o);
-                    }
-                    break;
-                default :
-                    alert('this is a mistake');
-
-            }
-
-        }
-        //与注册信息页面重复的代码 end
     })
     //修改个人信息控制器
     .controller('EditorInfo', function($scope, $http, PersonalInfo, PersonalInfoMange, Check){
@@ -427,7 +264,7 @@ angular.module('me.ctrl', [])
                     }
                     PersonalInfoMange.update(obj);
 
-                    $scope.go('/me');
+                    $scope.go('/menu/me');
                 }else if(response.errno == 1){
                     alert(response.message);
                 }

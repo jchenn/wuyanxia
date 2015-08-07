@@ -106,5 +106,5 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(sms|tel|mailto|http):|#/);
 });
 
-var ServiceModule=angular.module('global.service',[]);
-var DirectiveMod=angular.module('global.directive',[]);
+var ServiceModule = angular.module('global.service',[]);
+var DirectiveMod = angular.module('global.directive',[]);

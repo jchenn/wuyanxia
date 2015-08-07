@@ -5,9 +5,9 @@
         <a class="ignore " ng-click="ignoreRegister()" >跳过</a>
     </ion-header-bar>
     <ion-content>
-        <div class="header">
+        <div class="header" ng-click="showCamera()">
             <div class="head-img" align="center">
-                <img ng-src="{{data.avatar}}" alt="头像"/>
+                <img src="{{data.avatar}}" alt="头像" id="myImage"/>
                 <i class="camera"></i>
             </div>
         </div>

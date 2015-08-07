@@ -16,31 +16,25 @@ angular.module('auth.service', ['ngResource'])
 	};
 }])
 
-.factory('AjaxService', ['$resource', function($resource){
-	function login() {
-		var url = 'http://223.252.223.13/Roommates/api/login';
-		return $resource(url);
+.factory('AjaxService', ['$http', function($http){
+	var base_url = 'http://223.252.223.13/Roommates/api/';
+	return  {
+		login: function(data) {
+			return $http.post(base_url + 'login', data);
+		},
+		register: function(data) {
+			return $http.post(base_url + 'register', data);
+		},
+		checkEmail: function(data) {
+			return $http.get(base_url + 'check', data);
+		}
 	}
-	function register() {
-		var url = 'http://223.252.223.13/Roommates/api/register';
-		return $resource(url);
-	}
-	function checkEmail() {
-		var url = 'http://223.252.223.13/Roommates/api/register/check';
-		return $resource(url);
-	}
-
-	return {
-		login: login,
-		register: register,
-		checkEmail: checkEmail
-	};
 }])
 
 .factory('InfoPopupService', ['$ionicPopup', '$timeout', function($ionicPopup, $timeout){
 	return  function(data, callback) {
 		var title, template;
-		if (typeof data === "object" && (data.title || data.template)) {
+		if ( typeof data === "object" && data && (data.title || data.template)) {
 			title = data.title;
 			template = data.template;
 		} else if(typeof data === "string" && data !== "") {

@@ -1,6 +1,6 @@
 angular.module('auth.ctrl', ['ionic'])
     .controller('LoginCtrl', function($scope, $http, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
-        // 模拟
+        // 数据
         $scope.formData = {
             'email': "hztest@corp.netease.com",
             'password': "123456"
@@ -13,16 +13,24 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearHistory();
             $ionicHistory.clearCache();
         });
+        /**
+         * 忘记密码函数
+         * @return {[type]} [description]
+         */
         $scope.changePwd = function() {
             InfoPopupService('窝还没被整出来%>_<%');
         };
+        /**
+         * 登录函数
+         * @return {[type]} [description]
+         */
         $scope.login = function() {
             $scope.errorEmail = false;
             $scope.errorPwd = false;
             // 验证表单
             $scope.errorData = Validate($scope.formData, false);
             if ($scope.errorData.text) {
-                //如果有错误信息；
+                //有错误，则示错；
                 if ($scope.errorData.name == "email") {
                     $scope.errorEmail = true;
                 } else if ($scope.errorData.name == "password") {
@@ -30,35 +38,76 @@ angular.module('auth.ctrl', ['ionic'])
                 }
                 console.log($scope.errorData);
             } else {
+                //无错，则走登录流程
+
                 // 显示loading
                 Loading.show('正在登录…');
-                // 没有错误信息就登录
+                
                 console.log("登录");
                 console.log($scope.formData);
                 console.log(JSON.stringify($scope.formData));
+                //数据字符化
                 var stringData = JSON.stringify($scope.formData);
-
-                AjaxService.login().save({}, $scope.formData, function(resp) {
+                //ajax
+                AjaxService.login($scope.formData).success(function(resp) {
                     //成功
                     console.log(resp.result);
                     Loading.hide();
                     if (resp.result == 0) {
-                        // InfoPopupService({text:"123"});
+                        // 答应服务器返回的错误信息
                         InfoPopupService(resp.info);
                     } else if (resp.result == 1) {
+                        //返回正确
+                        
+                        //更新PersonalInfo
                         PersonalInfoMange.clear();
                         PersonalInfoMange.update(resp.data);
                         PersonalInfoMange.update({isLogin: 1});
                         console.log(PersonalInfo);
-                        // $scope.go('/menu/people-list').replace();
-                        $location.path('/menu/people-list').replace()
+
+                        //启动轮训，每25MIN更新session
+                        // AjaxService('keepalive').get({}, function(){});
+
+                        //跳转
+                        // $scope.go('/menu/people-list');
+                        $location.path('/menu/people-list').replace();
                     }
-                }, function(resp) {
-                    //失败
+                }).error(function(resp){
+                    //请求失败
                     Loading.hide();
                     console.log(resp);
-                    InfoPopupService(resp.info);
+                    InfoPopupService(resp);
                 });
+                
+                // AjaxService('login').save({}, $scope.formData, function(resp) {
+                //     //成功
+                //     console.log(resp.result);
+                //     Loading.hide();
+                //     if (resp.result == 0) {
+                //         // 答应服务器返回的错误信息
+                //         InfoPopupService(resp.info);
+                //     } else if (resp.result == 1) {
+                //         //返回正确
+                        
+                //         //更新PersonalInfo
+                //         PersonalInfoMange.clear();
+                //         PersonalInfoMange.update(resp.data);
+                //         PersonalInfoMange.update({isLogin: 1});
+                //         console.log(PersonalInfo);
+
+                //         //启动轮训，每25MIN更新session
+                //         // AjaxService('keepalive').get({}, function(){});
+
+                //         //跳转
+                //         // $scope.go('/menu/people-list');
+                //         $location.path('/menu/people-list').replace();
+                //     }
+                // }, function(resp) {
+                //     //请求失败
+                //     Loading.hide();
+                //     console.log(resp);
+                //     InfoPopupService(resp.info);
+                // });
             }
         };
     })
@@ -106,7 +155,7 @@ console.log($scope.formData);
                     // 已验证检测
                     userId = PersonalInfoMange.get('userId');
                     console.log(userId);
-                    AjaxService.checkEmail().get({userId: userId}, function(resp){
+                    AjaxService.checkEmail({userId: userId}).success(function(resp) {
                         if (resp.result == 1) {
                             PersonalInfoMange.update({isLogin: 1});
                             // 验证成功并跳转
@@ -117,10 +166,25 @@ console.log($scope.formData);
                             // InfoPopupService(resp.info);
                             InfoPopupService($scope.emailFailInfo);
                         }
-                    }, function(err) {
+                    }).error(function(resp) {
                         InfoPopupService('网络错误，请重试');
-                        console.log(err);
-                    });
+                        console.log(resp);
+                    })
+                    // AjaxService('checkEmail').get({userId: userId}, function(resp){
+                    //     if (resp.result == 1) {
+                    //         PersonalInfoMange.update({isLogin: 1});
+                    //         // 验证成功并跳转
+                    //         InfoPopupService($scope.emailSucInfo, function() {
+                    //             $location.path('/me-register');
+                    //         });
+                    //     } else if (resp.result == 0) {
+                    //         // InfoPopupService(resp.info);
+                    //         InfoPopupService($scope.emailFailInfo);
+                    //     }
+                    // }, function(err) {
+                    //     InfoPopupService('网络错误，请重试');
+                    //     console.log(err);
+                    // });
                     // $scope.successPopup();
                 }
             });
@@ -151,7 +215,7 @@ console.log($scope.formData);
                 //转圈圈
                 Loading.show('正在注册…');
                 // var res = cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=yes');
-                AjaxService.register().save({}, $scope.formData, function(resp){
+                AjaxService.register($scope.formData).success(function(resp) {
                     console.log(resp);
                     Loading.hide();
                     if (resp.result == 1) {
@@ -174,13 +238,46 @@ console.log($scope.formData);
                     } else if (resp.result == 0) {
                         InfoPopupService(resp.info);
                     }
-                }, function(resp){
+                }).error(function(resp) {
                     //失败
                     Loading.hide();
                     console.log('注册失败');
                     console.log(resp);
                     InfoPopupService(resp.info);
                 });
+                
+
+
+                // AjaxService('register').save({}, $scope.formData, function(resp){
+                //     console.log(resp);
+                //     Loading.hide();
+                //     if (resp.result == 1) {
+                //         console.log('注册请求发送成功');
+                //         PersonalInfoMange.update({
+                //             name: $scope.formData.nickname,
+                //             userId: resp.data.userId
+                //         });
+                //         console.log('注册resp：' + resp.userId);
+                //         //加判断方便本地测试
+                //         // if(typeof cordova !== "undefined") {
+                //         //     cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');
+                //         // }   
+                //         window.location.href = 'http://corp.netease.com/coremail/'; 
+                //         // window.open('http://corp.netease.com/coremail/', '_blank'); 
+                //         // InfoPopupService(toBrowserStr, function() {
+                //         //     window.location.href = 'http://www.baidu.com';
+                //         // });
+                //         $scope.showPopup();
+                //     } else if (resp.result == 0) {
+                //         InfoPopupService(resp.info);
+                //     }
+                // }, function(resp){
+                //     //失败
+                //     Loading.hide();
+                //     console.log('注册失败');
+                //     console.log(resp);
+                //     InfoPopupService(resp.info);
+                // });
                 // $scope.showPopup();
             }
         };

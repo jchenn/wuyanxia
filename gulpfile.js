@@ -61,7 +61,7 @@ gulp.task('sass', ['clean'], function() {
     'app/scss/**/*.scss',
     'app/scss/*.scss'
     ])
-    .pipe(sass())
+    .pipe(sass({errLogToConsole: true}))
     .pipe(gulp.dest('.tmp/css'));
 });
 

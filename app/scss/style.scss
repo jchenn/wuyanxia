@@ -17,7 +17,11 @@
 }
 
 .action-sheet .button {
-  color: #000 !important;
+  color: #007aff !important;
+}
+
+.action-sheet .button:first-child {
+  border-top: none;
 }
 
 .popup-container {

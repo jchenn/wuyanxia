@@ -192,16 +192,19 @@
       h1 {
         font-size: 18px;
         line-height: 18px;
+        height: 18px;
         color: #fff;
         margin-top: 6px;
         text-align: center;
 
         small {
+          position: relative;
+          top: 3px;
+          left: 3px;
           display: inline-block;
           width: 54px;
-          height: 16px;
-          background: url(../img/icon-credit-1.png) 50% 50% / contain no-repeat;
-          padding-left: 10px;
+          height: 18px;
+          background: url(../img/icon-credit-2.png) 50% 50% / contain no-repeat;
         }
       }
     }

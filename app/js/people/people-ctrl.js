@@ -16,6 +16,7 @@ angular.module('people.ctrl', [])
     return _fetching ? false : _hasMore;
   }
 
+  // 加载更多
   $scope.loadMore = function() {
 
     _fetching = true;
@@ -29,8 +30,6 @@ angular.module('people.ctrl', [])
     PeopleListQuery.get(params, function(response) {
 
       // console.log('request', params);
-
-      // console.log(response);
 
       if (response.errno === 0) {
 
@@ -52,7 +51,6 @@ angular.module('people.ctrl', [])
         PeopleFilterModel.setUsingCache(true);
       } else {
         // TODO error handling
-        _hasMore = true;
       }
 
       // 关闭 loading 动画
@@ -71,10 +69,48 @@ angular.module('people.ctrl', [])
     });
   };
 
+  // 下拉刷新
   $scope.doRefresh = function() {
-    console.log('do refresh');
-    $scope.$broadcast('scroll.refreshComplete');
-  }
+
+    // 当下拉刷新失败时不会影响原条件
+    var tmpfilter = angular.copy(params);
+
+    tmpfilter.p = 1;
+
+    PeopleListQuery.get(tmpfilter, function(response) {
+
+      // console.log('request', params);
+
+      if (response.errno === 0) {
+
+        _data = response.data;
+
+        if (_data && _data.length > 0) {
+          $scope.list = _data;
+          _hasMore = true;
+        } else {
+          // console.log('no more');
+          _hasMore = false;
+        }
+
+        // 成功后，之后的加载从第二页开始
+        params.p = 2;
+        PeopleFilterModel.setUsingCache(true);
+      } else {
+        // TODO error handling
+      }
+
+      $scope.$broadcast('scroll.refreshComplete');
+
+    }, function(err) {
+
+      console.log('refresh err', err);
+      
+      _hasMore = false;
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+    
+  };
 
   // 当切换到室友列表时，需要判断是使用已有数据还是从数据库重新加载
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {

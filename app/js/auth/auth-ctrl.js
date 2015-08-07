@@ -1,5 +1,5 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
+    .controller('LoginCtrl', function($scope, $http, $window, $location, $ionicHistory, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 模拟
         $scope.formData = {
             'email': "hztest@corp.netease.com",
@@ -46,12 +46,17 @@ angular.module('auth.ctrl', ['ionic'])
                         // InfoPopupService({text:"123"});
                         InfoPopupService(resp.info);
                     } else if (resp.result == 1) {
+
+                        // 在 LocalStorage 中加入 access_token
+                        $window.localStorage.setItem('access_token', resp.access_token || '');
+                        
                         PersonalInfoMange.clear();
                         PersonalInfoMange.update(resp.data);
                         PersonalInfoMange.update({isLogin: 1});
                         console.log(PersonalInfo);
                         // $scope.go('/menu/people-list').replace();
-                        $location.path('/menu/people-list').replace()
+                        // $location.path('/menu/people-list').replace()
+                        $scope.go('/menu/people-list');
                     }
                 }, function(resp) {
                     //失败
@@ -62,7 +67,7 @@ angular.module('auth.ctrl', ['ionic'])
             }
         };
     })
-    .controller('RegisterCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+    .controller('RegisterCtrl', function($scope, $window, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
         $scope.formData = {
             'email': "@corp.netease.com"
         //     'nickname': "黑月",
@@ -109,6 +114,10 @@ console.log($scope.formData);
                     AjaxService.checkEmail().get({userId: userId}, function(resp){
                         if (resp.result == 1) {
                             PersonalInfoMange.update({isLogin: 1});
+
+                            // 在 LocalStorage 中加入 access_token
+                            $window.localStorage.setItem('access_token', resp.access_token || '');
+
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
                                 $location.path('/me-register');

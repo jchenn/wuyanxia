@@ -1,7 +1,9 @@
 angular.module('quiz.ctrl', [])
 
 // 一次性填写个性标签的控制器
-.controller('QuizCtrl', function($scope, $ionicSlideBoxDelegate, QuizModel) {
+.controller('QuizCtrl', 
+  function($scope, $ionicSlideBoxDelegate, $ionicLoading, 
+    QuizModel, QuizSubmit, PersonalInfo, PersonalInfoMange) {
 
   var quiz    = QuizModel.quiz;
 
@@ -9,10 +11,15 @@ angular.module('quiz.ctrl', [])
   $scope.index    = 0;
   $scope.quiz     = quiz;
 
+  // 禁止滑动
+  $scope.disableSlide = function() {
+    $ionicSlideBoxDelegate.enableSlide(false);
+  };
+
   // 记录问卷答案，并判断是到下一题，还是提交
   $scope.select = function(index, value) {
 
-    console.log('quiz select', index, value);
+    // console.log('quiz select', index, value);
     QuizModel.set(index, value);
 
     if (index === quiz.length - 1) {
@@ -35,8 +42,8 @@ angular.module('quiz.ctrl', [])
 
     QuizSubmit.submit(QuizModel.get(), function(response) {
 
-      console.log('quiz submit', QuizModel.get());
-      console.log('quiz response', response);
+      // console.log('quiz submit', QuizModel.get());
+      // console.log('quiz response', response);
 
       if (response.errno === 0) {
 

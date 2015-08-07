@@ -59,7 +59,7 @@ angular.module('menu.ctrl', [])
   return $resource('http://223.252.223.13/Roommates/api/feedback');
 })
 
-.controller('FeedbackCtrl', function($scope, FeedbackSubmit, $ionicPopup) {
+.controller('FeedbackCtrl', function($scope, FeedbackSubmit, $ionicPopup, PersonalInfo) {
   $scope.body = {content: ''};
 
   $scope.send = function() {
@@ -68,6 +68,7 @@ angular.module('menu.ctrl', [])
     if ($scope.body.content.trim().length > 0) {
       FeedbackSubmit.save(
         {
+          userId: PersonalInfo.userId,
           body: $scope.body.content
         },
         function(response) {

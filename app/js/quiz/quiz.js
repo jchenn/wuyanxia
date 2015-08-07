@@ -34,20 +34,51 @@ angular.module('quiz', ['quiz.ctrl', 'quiz.service'])
   return {
     restrict: 'E',
     templateUrl: 'templates/quiz/quiz-progress.html',
-    controller: function($scope) {
+    controller: function($scope, $element) {
+      var meter = $element.find('li');
+
       $scope.$on('next', next);
       $scope.$on('previous', previous);
       $scope.$on('$destroy', function() {
         console.log('destroy quiz-progress');
+
+        meter = null;
+        $scope = null;
       });
 
       function next(event, current) {
-        console.log('next', current);
+        // console.log(typeof current, current);
+        move(current + 1);
       }
 
       function previous(event, current) {
-        console.log('previous', current);
+        move(current - 1);
       }
+
+      // 将当前元素加上 active 类，将之前元素加上 done 类
+      function move(current) {
+        // console.log('move', current);
+        // console.log(meter);
+
+        clear();
+
+        // console.log(meter[current]);
+        // console.log(angular.element(meter[current]));
+
+        for (var i = 0; i < current; ++i) {
+          angular.element(meter[i]).addClass('done');
+        }
+
+        angular.element(meter[current]).addClass('active');
+      }
+
+      function clear() {
+
+        for (var i = 0; i < meter.length; ++i) {
+          angular.element(meter[i]).removeClass('active done');
+        }
+      }
+
     }
   }
 })

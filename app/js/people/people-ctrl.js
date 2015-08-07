@@ -115,9 +115,17 @@ angular.module('people.ctrl', [])
   };
 })
 
-.controller('PeopleDetailWrapperCtrl', 
-  function($scope, $ionicActionSheet, $stateParams, PersonalInfo, $ionicPopup,
-    PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd) {
+.controller('PeopleDetailCtrl', 
+  function($scope, $ionicActionSheet, $stateParams, $ionicLoading, $ionicPopup,
+    PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd, PersonalInfo) {
+
+  $scope.isShowInfo = true;
+  $scope.isShowHouse = false;
+  $scope.isShowTab = $stateParams.hasHouse ? true : false;
+
+  $ionicLoading.show({
+    templateUrl: 'templates/people/people-maching.html'
+  });
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     
@@ -128,17 +136,28 @@ angular.module('people.ctrl', [])
       $scope.house = $scope.people.matchUserHouse;
       // console.log($scope.house);
     }
+
+    $ionicLoading.hide();
+
   }, function(err) {
     // TODO 无法查看室友详情，提示错误信息
     console.log('detail error', err);
+    $ionicLoading.hide();
   });
+
+  $scope.showInfo = function() {
+    $scope.isShowInfo = true;
+    $scope.isShowHouse = false;
+  };
+
+  $scope.showHouse = function() {
+    $scope.isShowInfo = false;
+    $scope.isShowHouse = true;
+  };
 
   // 显示 收藏/屏幕 菜单
   $scope.showMenu = function() {
 
-    // console.log('people', $scope.people);
-
-    // 返回一个关闭菜单的函数
     $ionicActionSheet.show({
       buttons: [
         { text: $scope.people.isFav ? '取消收藏' : '收藏' },
@@ -154,8 +173,6 @@ angular.module('people.ctrl', [])
 
   // 处理添加收藏或者取消收藏
   function handleFav() {
-
-    // console.log('handle fav');
 
     if ($scope.people.isFav) {
 
@@ -228,16 +245,6 @@ angular.module('people.ctrl', [])
   }
 })
 
-.controller('PeopleDetailInfoCtrl', function($scope) {
-  $scope.showInfo = true;
-  // console.log($scope.people);
-})
-
-.controller('PeopleDetailHouseCtrl', function($scope) {
-  $scope.showHouse = true;
-  // console.log($scope.house);
-})
-
 .controller('FavCtrl', function($scope, PersonalInfo, FavQuery) {
 
   FavQuery.get({userId: PersonalInfo.userId}, function(response) {
@@ -264,6 +271,7 @@ angular.module('people.ctrl', [])
 
   $scope.list = [];
   $scope.q = '';
+  $scope.showHint = false;
 
   // 触发搜索
   $scope.search = function() {
@@ -322,6 +330,12 @@ angular.module('people.ctrl', [])
         _fetching = false;
         $ionicLoading.hide();
         $scope.$broadcast('scroll.infiniteScrollComplete');
+
+        if ($scope.list.length === 0) {
+          $scope.showHint = true;
+        } else {
+          $scope.showHint = false;
+        }
       },
       function(err) {
         // console.log('search err', err);

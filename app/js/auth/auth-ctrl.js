@@ -46,7 +46,7 @@ angular.module('auth.ctrl', ['ionic'])
                     Loading.hide();
                     if (resp.result == 0) {
                         // 答应服务器返回的错误信息
-                        InfoPopupService(resp.data.info);
+                        InfoPopupService(resp.info);
                     } else if (resp.result == 1) {
                         //返回正确
                         
@@ -128,7 +128,7 @@ angular.module('auth.ctrl', ['ionic'])
                                 $location.path('/me-register');
                             });
                         } else if (resp.result == 0) {
-                            // InfoPopupService(resp.data.info);
+                            // InfoPopupService(resp.info);
                             InfoPopupService($scope.emailFailInfo);
                         }
                     }).error(function(resp) {
@@ -176,7 +176,7 @@ angular.module('auth.ctrl', ['ionic'])
                         // });
                         $scope.showPopup();
                     } else if (resp.result == 0) {
-                        InfoPopupService(resp.data.info);
+                        InfoPopupService(resp.info);
                     }
                 }).error(function(resp) {
                     //失败

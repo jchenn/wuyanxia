@@ -26,7 +26,7 @@ angular.module('auth.service', ['ngResource'])
 			return $http.post(base_url + 'register', data);
 		},
 		checkEmail: function(data) {
-			return $http.get(base_url + 'check', data);
+			return $http.get(base_url + 'register/check', data);
 		}
 	}
 }])

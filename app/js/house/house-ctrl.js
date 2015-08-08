@@ -47,6 +47,7 @@ angular.module('house.ctrl',[])
             if(data.errno==1){
                 warn("你应该已经有房源了，来编辑吧！");
                 PersonalInfoMange.update({hasHouse:1});
+                event.trigger("house.init");
                 return;
             }
             if(data.errno==0){
@@ -145,6 +146,7 @@ angular.module('house.ctrl',[])
         if(PersonalInfo.hasHouse==0){
             $scope.title="发布房源";
             $scope.send=insert;
+            $scope.showPop=null;
         }
         //有房
         else if(PersonalInfo.hasHouse==1){
@@ -158,6 +160,8 @@ angular.module('house.ctrl',[])
                 }
                 else if(data.errno==1){
                     warn(data.message);
+                    PersonalInfoMange.update({hasHouse:0});
+                    event.trigger("house.init");
                 }
             });
             //弹出框

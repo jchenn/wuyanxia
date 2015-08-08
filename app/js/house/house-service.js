@@ -276,10 +276,11 @@ angular.module('house.service',[])
             this.clearPics();
             this.clearFormData();
         },
-        formDataIn:function(form){
+        formDataIn:function(form,tag){
             for(var i in form){
                 if(typeof data[i]!=undefined) data[i]=form[i];
             }
+            if(tag) return;
             event.trigger("house.data.update");
         },
         formDataOut:function(){
@@ -558,7 +559,7 @@ angular.module('house.service',[])
         },
         getFormData:function($scope){
             if(!$scope) throw new Error('参数忘加了');
-            Data.formDataIn($scope.data);
+            Data.formDataIn($scope.data,true);
         },
         deletePics:function(callback){
             var arr=Data.getDeletes();

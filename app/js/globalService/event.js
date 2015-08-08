@@ -9,6 +9,7 @@ ServiceModule
             events[event].push(fn);
         },
         trigger:function(event){
+            console.log("trigger:"+event);
             if(events[event]){
                 var arr=events[event];
                 for(var i=0;i<arr.length;i++){

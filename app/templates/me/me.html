@@ -1,8 +1,8 @@
-<ion-view class="m-me-show" ng-controller="InfoShow">
+<ion-view class="m-me-show" hide-nav-bar="true">
   <ion-content>
     <div class="header">
       <div class="nav header-bar">
-        <i class="icon ion-chevron-left m-backicon" ng-click="$ionicGoBack()"></i>
+        <i class="ion-ios-arrow-left " ng-click="$ionicGoBack()"></i>
         <h1 class="title" align="center">个人信息</h1>
       </div>
       <div class="head-img" align="center" ng-click="showCamera()">
@@ -25,9 +25,9 @@
           <div class="item identify">
             <p class="">信用等级</p>
             <p class="">
-              <a href="#/phone-validate" class="grade-phone"></a>
-              <a href="#/id-validate" class="grade-id"></a>
-              <a href="#/email-validate" class="grade-email"></a>
+              <a href="#/menu/phone-validate" class="grade-phone"></a>
+              <a href="#/menu/id-validate" class="grade-id"></a>
+              <a href="#menu/email-validate" class="grade-email"></a>
             </p>
           </div>
         </div>
@@ -47,9 +47,9 @@
           </div>
         </div>
         <div class="part3">
-          <div class="item"  ng-click="openBirth()">
+          <div class="item" ng-click="showDate()">
             <p class="">出生日期</p>
-            <p class="">{{data.birthday != "" ? data.birthday : ""}}</p>
+            <p class="">{{data.birthday | date:'yyyy-MM-dd'}}</p>
           </div>
           <div class="item company">
             <p class="">公司</p>

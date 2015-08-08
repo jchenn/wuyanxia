@@ -113,23 +113,18 @@ angular.module('me.ctrl', [])
         console.log(PersonalInfo);
 
         $scope.showCamera = function(){
-            TakePhoto.showCamera();
+            console.log(PersonalInfo);
+            console.log('wo shi pai zhao zhiqian');
+            TakePhoto.showCamera($scope);
+            console.log('wo shi pai zhao zhihou ');
+            console.log(PersonalInfo);
+            console.log($scope.data);
         };
-
 
         $scope.showDate = function(){
             dateSelect.showDate($scope , $http,1);
 
         };
-
-       /* if(PersonalInfoMange.get('birthday') != ""){
-            $scope.data.birthday =  new Date(PersonalInfoMange.get('birthday')).toLocaleDateString().replace(/\//g,"-");
-        }else{
-            $scope.data.birthday = "";
-        }*/
-        //angular.extend(PersonalInfo, DayInit);
-        //console.log(PersonalInfo);
-        //console.log(PersonalInfo);
         console.log($scope.data);
 
 

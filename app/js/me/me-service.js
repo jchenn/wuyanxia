@@ -35,8 +35,12 @@ angular.module('me.service', [])
           function onSuccess(imageData) {
               //显示图片
               var image = document.getElementById('myImage');
-              image.src = "data:image/jpeg;base64," + imageData;
-              console.log(imageData);
+              var picData = "data:image/jpeg;base64," + imageData;
+              image.src = picData;
+              //更新本地缓存
+              PersonalInfoMange.update({'avatar' : picData});
+              console.log('wo shi service');
+
               self.uploadPic(imageData);
               console.log(111);
 
@@ -75,7 +79,7 @@ angular.module('me.service', [])
 
     },
      //显示选择框
-    showCamera : function() {
+    showCamera : function(scope) {
         var self = this;
         var hideSheet = $ionicActionSheet.show({
             buttons: [
@@ -164,7 +168,10 @@ angular.module('me.service', [])
                     method: 'post',
                     url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
                     data: obj,
-                    timeout: 2000
+                    timeout: 2000,
+                    headers:{
+                        'If-Modified-Since': new Date()
+                    }
                 });
 
                 res.success(function(response, status, headers, config){

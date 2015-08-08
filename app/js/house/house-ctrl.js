@@ -222,7 +222,7 @@ angular.module('house.ctrl',[])
     /**********/
 })
 
-.controller('picviewCtrl',function($scope,$stateParams,Data){
+.controller('picviewCtrl',function($scope,$stateParams,Data,Cmn,Form){
     var id=$stateParams.id;
     function deletePic(){
         var pic=Data.deleteFile(id);
@@ -230,12 +230,16 @@ angular.module('house.ctrl',[])
         if(!/data:image\/jpeg;base64,/.test(pic)){
             var imgId=pic.slice(pic.lastIndexOf('/')+1);
             Form.deletePics([imgId],function(data){
-                console.log(data);
+                $scope.back();
             })
             
+        }else{
+            $scope.back();
         }
+        
     }
     $scope.src=Data.getFile(id);
     $scope.onDelete=deletePic;
+    $scope.back=Cmn.back;
 })
 ;

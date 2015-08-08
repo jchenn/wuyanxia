@@ -120,7 +120,7 @@ console.log($scope.formData);
 
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $location.path('/me-register');
+                                $location.path('/menu/me-register');
                             });
                         } else if (resp.result == 0) {
                             // InfoPopupService(resp.info);

@@ -1,6 +1,5 @@
 angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,PersonalInfo,$ionicScrollDelegate,event,$ionicPopup){
-    console.log("newCtrl");
     $scope.safeApply = function(fn) {
         if(!this.$root) {
             console.log('这好像有点错啊！！');
@@ -15,19 +14,20 @@ angular.module('house.ctrl',[])
             this.$apply(fn);
         }
     };
-    
+    event.off("house.data.update").off("house.init");
     event.on('house.data.update',function(){
-        console.log("update event");
+       
         $scope.safeApply(function(){
-            console.log('update');
+
             house.refreshForm1($scope);
             $scope.pics=Data.getFiles();
         });
     });
     
     event.on('house.init',function(){
-        console.log('init event');
+       
         $scope.safeApply(function(){init();});
+        
     });
     /**控制器中用到的函数**/
     
@@ -138,7 +138,6 @@ angular.module('house.ctrl',[])
     }
     
     function init(){
-        console.log("init");
         house.resetForm1($scope);
     
         $scope.pics=[];
@@ -188,10 +187,11 @@ angular.module('house.ctrl',[])
         });
     };
     
-    $scope.onFocus=function(){
-        $timeout(function(){
-            $ionicScrollDelegate.scrollBottom();
-        },500);
+    $scope.onFocus=function(event){
+       console.log(event);
+        //$timeout(function(){
+          //  $ionicScrollDelegate.scrollBottom();
+        //},500);
         
     };
 

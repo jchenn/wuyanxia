@@ -224,6 +224,9 @@ angular.module('house.service',[])
     var fileList=[];
     //var delList=[];
     return {
+        get:function(key){
+            return data[key];
+        },
         getAll:function(){
             var res={};
             for(var i in data){

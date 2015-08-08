@@ -1,6 +1,6 @@
 angular.module('menu.ctrl', [])
 
-.controller('SideMenuCtrl', function($scope, PersonalInfo, PeopleFilterModel) {
+.controller('SideMenuCtrl', function($scope, PersonalInfo, PeopleFilterModel, event) {
 
   // bind data
   $scope.me = PersonalInfo;
@@ -20,13 +20,18 @@ angular.module('menu.ctrl', [])
       $scope.go('/me-register');
     }
   };
+
+  $scope.editHouse = function() {
+    event.trigger('house.init');
+  };
 })
 
 .factory('LogoutSubmit', function($resource) {
   return $resource('http://223.252.223.13/Roommates/api/logout');
 })
 
-.controller('SettingCtrl', function($scope, $window, $ionicHistory, PersonalInfoMange, LogoutSubmit) {
+.controller('SettingCtrl', function($scope, $window, $ionicHistory, 
+  PersonalInfoMange, LogoutSubmit, Data, PeopleFilterModel) {
   $scope.logout = function() {
 
     LogoutSubmit.save({
@@ -38,6 +43,12 @@ angular.module('menu.ctrl', [])
 
     // 删除 access_token
     $window.localStorage.removeItem('access_token');
+
+    // 维伟同学需要删
+    Data.clear();
+
+    // 重置筛选条件
+    PeopleFilterModel.resetFilter();
 
     $scope.go('/login');
 

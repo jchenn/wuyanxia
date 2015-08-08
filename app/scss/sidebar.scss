@@ -15,11 +15,24 @@
 
     .bar-footer {
       height: 61px;
-      border-top-color: #ddd;
+      border-top: 1px solid #ddd;
       padding: 0 31px;
+      background-color: transparent;
 
-      .icon {
-        padding-right: 14px;
+      .search-bar {
+        width: 100%;
+        text-align: left;
+        color: #575757;
+        line-height: 60px;
+
+        .icon {
+          padding-right: 14px;
+        }
+
+        .icon:before {
+          line-height: 60px;
+          margin: 0;
+        }
       }
     }
   }
@@ -39,14 +52,18 @@
       }
     }
 
-    & > p {
+    h1 {
       overflow: hidden;
       color: #575757;
-      line-height: 38px;
+      line-height: 24px;
+      font-size: 16px;
+      margin: 18px 0 0 0;
 
-      .badge {
-        font-size: smaller;
-        background-color: #fcf231;
+      small {
+        display: block;
+        width: 54px;
+        height: 16px;
+        background: url(../img/icon-credit-2.png) 50% 50% / contain no-repeat;
       }
     }
   }

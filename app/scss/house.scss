@@ -47,12 +47,13 @@
                 z-index: 10;
                 right:18px;
                 height: 100%;
-                line-height: $hd-h;
+                
             }
             .m-btn{
                 color: #fff;
                 background: transparent;
                 font-size: $hd-fs;
+                line-height: $hd-h;
             }
             .m-backicon{
                 position: absolute;

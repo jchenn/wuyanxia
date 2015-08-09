@@ -286,6 +286,14 @@
       .slider-pager .slider-pager-page {
         color: #63c3d3;
       }
+
+      .slider-pager {
+        visibility: hidden;
+      }
+
+      .pager .slider-pager {
+        visibility: visible;
+      }
     }
 
     section.item {

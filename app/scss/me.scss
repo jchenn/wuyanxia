@@ -97,7 +97,10 @@
         text-align: right;
         padding-right: 38px;
         border-bottom: 1px solid #f8f8f8;
-        height: 32px;
+        height: 34px;
+      }
+      .date-label{
+        border-bottom: none;
       }
 
       input{
@@ -112,7 +115,7 @@
         color: #747273!important;
       }
     }
-    .sex, .job{
+    .date, .job{
       margin-bottom: 19px;
     }
     .phone{
@@ -219,23 +222,27 @@
     .tag{
       margin-top: 3px;
       overflow: hidden;
+      padding-left: 3%;
+
 
       a{
-        padding: 3px 3%;
         border: 1px solid #eee;
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
         border-radius: 3px;
         background: #fff;
         margin-bottom: 5px;
-        font-size: 16px;
         line-height: 16px;
         text-align: center;
         min-width: 35px;
         float: left;
-        margin-right: 10%;
+        margin-right: 8%;
         font-size: 12px;
         font-family: "Microsoft Yahe";
+        width: 25%;
+        text-align: center;
+        padding: 4px;
+
       }
     }
 
@@ -446,5 +453,52 @@
   }
   .email{
     margin: 85px auto 150px;
+  }
+}
+.m-me-editor{
+  background: #f8f8f8;
+
+  .header{
+    padding: 0 3%!important;
+    background: #63c3d3;
+    height: 43px;
+    line-height: 43px;
+    color: #fff;
+
+    .editor-button{
+      color: #fff!important;
+    }
+    .editor-save{
+      right: 20%
+    }
+  }
+
+  .content{
+    padding: 0;
+    margin-top: 20px;
+
+    .editor-input{
+      height: 42px;
+      text-indent: 20px;
+      width: 100%;
+    }
+    .scroll{
+      background: #fff;
+    }
+    .editor-input-label{
+      padding: 0;
+      width: 80%;
+      max-width: 80%;
+    }
+    .clear-value{
+      width: 20%;
+      height: 42px;
+      background: url("../img/clear-bg.png") no-repeat center;
+      background-size: 12px;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+    }
   }
 }

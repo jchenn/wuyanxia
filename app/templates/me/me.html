@@ -41,16 +41,12 @@
             <p class="">性别</p>
             <p class="">{{data.gender}}</p>
           </div>
-          <div class="item phone"  ng-click="modify({'title':'手机','val':data.phone,'key':'phone'})">
-            <p class="">手机</p>
-            <p class="">{{data.phone}}</p>
-          </div>
-        </div>
-        <div class="part3">
           <div class="item" ng-click="showDate()">
             <p class="">出生日期</p>
             <p class="">{{data.birthday | date:'yyyy-MM-dd'}}</p>
           </div>
+        </div>
+        <div class="part3">
           <div class="item company">
             <p class="">公司</p>
             <p class="">{{data.company}}</p>
@@ -58,6 +54,10 @@
           <div class="item"  ng-click="modify({'title':'岗位','val':data.job,'key':'job'})">
             <p class="">岗位</p>
             <p class="">{{data.job}}</p>
+          </div>
+          <div class="item phone"  ng-click="modify({'title':'手机','val':data.phone,'key':'phone'})">
+            <p class="">手机</p>
+            <p class="">{{data.phone}}</p>
           </div>
         </div>
     </div>

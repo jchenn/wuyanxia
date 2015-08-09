@@ -15,12 +15,12 @@
                 <label class="input-label">昵称</label>
                 <input type="text" name="name" ng-model="data.nickName" value="{{data.nickName}}"/>
             </p>
-            <p class="item item-input sex">
+            <p class="item item-input">
                 <label class="input-label">性别</label>
                 <input type="text" name="sex"  ng-click="openSex()" value="{{data.gender}}" ng-model="data.gender"/>
             </p>
-            <p class="item item-input"  ng-click="showDate()">
-                <label class="input-label">出生日期</label>
+            <p class="item item-input date"  ng-click="showDate()">
+                <label class="input-label date-label">出生日期</label>
                 <span class="date-input">{{data.birthday | date:'yyyy-MM-dd'}}</span>
                <!-- <input type="text" name="birth" ng-click="showDate()" value="{{ data.birthday | date:'yy-MM-dd'}}" ng-model="data.birthday"/>-->
            <!--     <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>-->

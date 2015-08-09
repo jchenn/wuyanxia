@@ -131,15 +131,9 @@ angular.module('me.service', [])
             showDate : function(scope, http, flag){
 
             var options = {
-                date: new Date(),
+                date: new Date('1992-05-05'),
                 mode: 'date',
                 minDate: new Date(),
-                allowOldDates: true,
-                allowFutureDates: false,
-                doneButtonLabel: '确定',
-                doneButtonColor: '#F2F3F4',
-                cancelButtonLabel: '取消',
-                cancelButtonColor: '#cccccc',
                 androidTheme: 3
 
             };

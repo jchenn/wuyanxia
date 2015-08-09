@@ -267,6 +267,10 @@ angular.module('me.ctrl', [])
                 alert(response.message);
             });
         }
+
+        $scope.clearValue = function(){
+            document.getElementById('textField').value = "";
+        }
     }).controller('scrollCalendar',function($scope){
 
         $scope.scrollUp = function(){

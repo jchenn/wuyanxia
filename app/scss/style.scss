@@ -71,16 +71,23 @@
 
     .button:first-child {
       border-radius: 0 0 0 2px;
-      border-right: 1px solid #ccc;
     }
 
     .button:last-child {
       border-radius: 0 0 2px 0;
     }
+
+    .button + .button {
+      border-left: 1px solid #ccc;
+    }
   }
 }
 
 .popup-container.toast {
+  .popup {
+    background-color: rgba(234,234,234,.95);
+  }
+
   .popup-head {
     .popup-title {
       color: #63c3d3;

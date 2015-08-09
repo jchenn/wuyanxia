@@ -60,7 +60,8 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
       if (response.status === 0) {
         
         // 用户无权限时跳转到登录页
-        $rootScope.go('/login');
+        // 跳到登录界面太霸道了，所以把下面的语句注释掉
+        // $rootScope.go('/login');
       }
 
       return $q.reject(response);

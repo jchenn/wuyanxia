@@ -64,6 +64,9 @@
                 height: 100%;
                 line-height: $hd-h;
                 font-size: $hd-fs;
+                &:before{
+                    font-size: 32px;
+                }
             }
         }
         .has-header{

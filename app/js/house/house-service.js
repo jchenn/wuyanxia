@@ -354,7 +354,9 @@ angular.module('house.service',[])
             var self=this;
             var opts={
                 method:1,
-                quality:50
+                quality:50,
+                targetHeight:1000,
+                targetWidth:1000
             };
             if(type==2){ opts.method=0;}
             
@@ -372,7 +374,7 @@ angular.module('house.service',[])
                 
                callback(url);
             };
-            var onFail=function(d){alert(d);};
+            var onFail=function(d){self.warn(d);};
            Camera.getPic(onSuccess,onFail,opts,1);
         }
     };

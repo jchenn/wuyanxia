@@ -1,22 +1,32 @@
 angular.module('house',['house.ctrl','house.service'])
 .config(function($stateProvider){
-    $stateProvider.state('houseNew',{
+    $stateProvider.state('menu.houseNew',{
         url:'/house-new',
-        //cache:false,
-        templateUrl:'templates/house/house-new.html',
-        controller:'newCtrl'
+        views:{
+            'menu-content':{
+                templateUrl:'templates/house/house-new.html',
+                controller:'newCtrl'
+            }
+        }
     })
-    .state('housedesc',{
+    .state('menu.housedesc',{
         url:'/house-decoration',
-        //cache:false,
-        templateUrl:'templates/house/house-decoration.html',
-        controller:'descCtrl'
+        views:{
+            'menu-content':{
+                templateUrl:'templates/house/house-decoration.html',
+                controller:'descCtrl'
+            }
+        }
     })   
-    .state('picView',{
+    .state('menu.picView',{
         url:'/pic-view/:id',
-        templateUrl:'templates/house/pic-view.html',
-        cache:false,
-        controller:'picviewCtrl'
+        views:{
+            'menu-content':{
+                templateUrl:'templates/house/pic-view.html',
+                controller:'picviewCtrl',
+                cache:false
+            }
+        }
     })
     ;
 })

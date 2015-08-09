@@ -242,13 +242,13 @@ angular.module('house.ctrl',[])
     };
 
     $scope.toView=function(index){
-        location.href="#/pic-view/"+index;
+        location.href="#/menu/pic-view/"+index;
     };
     
     //跳转到描述
     $scope.toDesc=function(){
         house.getFormData($scope);
-        location.href="#/house-decoration";
+        location.href="#/menu/house-decoration";
     };
     
     $scope.getStyle=function(index){
@@ -273,7 +273,7 @@ angular.module('house.ctrl',[])
     $scope.back=Cmn.back;
     $scope.descComplete=function(){
         house.getFormData($scope);
-        location.href="#/house-new";
+        location.href="#/menu/house-new";
     };
     /********************/
     

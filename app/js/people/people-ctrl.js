@@ -189,8 +189,9 @@ angular.module('people.ctrl', [])
   };
 
   $scope.showHouse = function() {
-    $scope.isShowInfo = false;
+    $scope.isShowInfo  = false;
     $scope.isShowHouse = true;
+    $scope.isShowPager = $scope.house.images.length > 1;
     $timeout(function() {
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
     });

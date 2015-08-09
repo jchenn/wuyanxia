@@ -33,7 +33,7 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
 
   if ($window.localStorage.access_token) {
     // 自动登录
-    console.log('token', $window.localStorage.access_token);
+    // console.log('token', $window.localStorage.access_token);
     angular.extend(PersonalInfo, JSON.parse($window.localStorage.PersonalInfo));
     $rootScope.go('/menu/people-list');
   } else {

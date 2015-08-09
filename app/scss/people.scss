@@ -129,11 +129,17 @@
           font-size: 12px;
 
           em {
+            display: inline-block;
+            height: 23px;
+            line-height: 23px;
+            min-width: 48px;
+            text-align: center;
             background-color: #63c3d3;
             color: #fff;
-            padding: 4px 8px;
+            padding: 0 8px;
             border-radius: 12px;
             margin-left: .5em;
+
           }
         }
 

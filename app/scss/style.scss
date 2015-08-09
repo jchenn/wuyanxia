@@ -24,41 +24,54 @@
   border-top: none;
 }
 
+// 覆盖默认的对话框样式
 .popup-container {
   .popup {
-    background-color: #fff;
+    background-color: rgba(255,255,255,.95);
     border-radius: 4px;
   }
 
   .popup-head {
+    padding: 25px 0 0 0;
     border-bottom: none;
+
+    .popup-title {
+      font-size: 18px;
+      color: #333;
+    }
   }
 
   .popup-body {
-    padding: 10px 40px 40px;
-    color: #575757;
+    padding: 10px 35px 35px;
+    color: #666;
   }
 
   .popup-buttons {
     padding: 0;
     min-height: 40px;
+    border-top: 1px solid #ccc;
 
     .button {
       margin: 0;
       min-height: 40px;
       border-radius: 0;
       border: none;
-      background-color: #ddd;
-      color: #575757;
+      background-color: transparent;
+      color: #06f;
     }
 
     .button.button-positive {
-      background-color: #63c3d3;
-      color: #fff;
+      background-color: transparent;
+      color: #06f;
+    }
+
+    .button.activated {
+      box-shadow: none;
     }
 
     .button:first-child {
       border-radius: 0 0 0 2px;
+      border-right: 1px solid #ccc;
     }
 
     .button:last-child {
@@ -66,6 +79,19 @@
     }
   }
 }
+
+.popup-container.toast {
+  .popup-head {
+    .popup-title {
+      color: #63c3d3;
+    }
+  }
+
+  .popup-body {
+    color: #7d7d7d;
+  }
+}
+
 /* 滚轮样式 */
 .region-picker-wrapper {
     height: 259px;

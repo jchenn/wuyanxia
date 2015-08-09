@@ -118,9 +118,6 @@ angular.module('me.service', [])
                 hideSheet();
             }
         });
-        $timeout(function () {
-            hideSheet();
-        }, 2000);
     }
   };
 }).factory('dateSelect',function(PersonalInfoMange){

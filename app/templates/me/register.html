@@ -20,8 +20,8 @@
                 <input type="text" name="sex"  ng-click="openSex()" value="{{data.gender}}" ng-model="data.gender"/>
             </p>
             <p class="item item-input date"  ng-click="showDate()">
-                <label class="input-label date-label">出生日期</label>
-                <span class="date-input">{{data.birthday | date:'yyyy-MM-dd'}}</span>
+                <label class="input-label date-label no-border">出生日期</label>
+                <span class="date-input no-border">{{data.birthday | date:'yyyy-MM-dd'}}</span>
                <!-- <input type="text" name="birth" ng-click="showDate()" value="{{ data.birthday | date:'yy-MM-dd'}}" ng-model="data.birthday"/>-->
            <!--     <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>-->
             </p>
@@ -30,12 +30,12 @@
                 <input type="text" name="company" contenteditable="false" readonly="readonly" ng-model="data.company" style="background:none;"/>
             </p>
             <p class="item item-input job">
-                <label class="input-label">岗位</label>
-                <input type="text" name="job" ng-model="data.job"/>
+                <label class="input-label no-border">岗位</label>
+                <input type="text" name="job" ng-model="data.job" class="no-border"/>
 
             <p class="item item-input phone">
-                <label class="input-label">手机</label>
-            <input type="tel" name="phone" ng-model="data.phone"/>
+                <label class="input-label no-border">手机</label>
+                <input type="tel" name="phone" class="no-border" ng-model="data.phone"/>
             </p>
             <div class="padding">
                 <button class="button button-block" ng-click="finishRegister()">完成</button>

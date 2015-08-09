@@ -167,9 +167,6 @@ angular.module('me.ctrl', [])
                     hideSheet();
                 }
             });
-            $timeout(function() {
-                hideSheet();
-            }, 2000);
         };
 
         $scope.modify = function(obj){

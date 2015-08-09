@@ -1,6 +1,6 @@
 angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,PersonalInfo,$ionicScrollDelegate,event,$ionicPopup){
-    $scope.safeApply = function(fn) {
+    /*$scope.safeApply = function(fn) {
         if(!this.$root) {
             console.log('这好像有点错啊！！');
             return;
@@ -13,21 +13,58 @@ angular.module('house.ctrl',[])
         } else {
             this.$apply(fn);
         }
-    };
+    };*/
     event.off("house.data.update").off("house.init");
     event.on('house.data.update',function(){
        
-        $scope.safeApply(function(){
+        /*$scope.safeApply(function(){
 
             house.refreshForm1($scope);
             $scope.pics=Data.getFiles();
+        });*/
+        
+        var arr=Data.getFiles();
+        var size=[];
+        var len=arr.length;
+        var num=0;
+        function step(){
+            num++;
+            if(num>=len){
+                $timeout(function(){
+                    $scope.pics=arr;
+                    $scope.picSize=size;
+                });
+            }
+        }
+        for(var i=0;i<len;i++){
+            var img=new Image();
+            size[i]=0;
+            img.src=arr[i];
+            img.onload=(function(i){
+                return function(){
+                var index=i;
+                if(this.width<this.height) size[index]=1;
+                step();
+                
+            };
+            })(i);
+            img.onerror=function(){
+                step();
+            };
+        }
+        
+        $timeout(function(){
+            house.refreshForm1($scope);
+            $scope.pics=arr;
         });
     });
     
     event.on('house.init',function(){
        
-        $scope.safeApply(function(){init();});
-        
+        //$scope.safeApply(function(){init();});
+        $timeout(function(){
+            init();
+        });
     });
     /**控制器中用到的函数**/
     
@@ -55,6 +92,9 @@ angular.module('house.ctrl',[])
                 PersonalInfoMange.update({hasHouse:1});
                 location.href="#/menu/people-list";
             }
+        },function(){
+            $ionicLoading.hide();
+            warn("可能是图片太大了，上传失败~~");
         });
     }
     
@@ -105,9 +145,12 @@ angular.module('house.ctrl',[])
                 }
                 
             }
+        },function(){
+            warn("可能图片太大了，上传失败了~~");
         });
         
     }
+    
     
     function showPop(){
         $ionicPopup.confirm(
@@ -137,10 +180,13 @@ angular.module('house.ctrl',[])
             });
     }
     
+    
     function init(){
         house.resetForm1($scope);
     
         $scope.pics=[];
+        
+        $scope.picSize=[];
         //无房
         if(PersonalInfo.hasHouse==0){
             $scope.title="发布房源";
@@ -205,7 +251,12 @@ angular.module('house.ctrl',[])
         location.href="#/house-decoration";
     };
     
-    
+    $scope.getStyle=function(index){
+        if($scope.picSize[index]==1)
+            return "width:100%;height:auto;";
+        else 
+            return "";
+    };
     /**********/
 
    

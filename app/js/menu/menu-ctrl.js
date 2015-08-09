@@ -81,7 +81,9 @@ angular.module('menu.ctrl', [])
   return $resource('http://223.252.223.13/Roommates/api/feedback');
 })
 
-.controller('FeedbackCtrl', function($scope, FeedbackSubmit, $ionicPopup, PersonalInfo) {
+.controller('FeedbackCtrl', 
+  function($scope, $timeout, $ionicLoading, FeedbackSubmit, $ionicPopup, PersonalInfo) {
+
   $scope.body = {content: ''};
 
   $scope.send = function() {
@@ -94,19 +96,23 @@ angular.module('menu.ctrl', [])
           body: $scope.body.content
         },
         function(response) {
-
-          // 发送成功
-          $scope.body.content = '';
-
-          $ionicPopup.alert({
-            template: '发送成功',
-            okText:'确定'
-          });
+          // 发送成功，清空反馈信息的事情在定时后自动完成
+          // $scope.body.content = '';
         },
         function(err) {
           console.log('feedback err', err);
         }
       );
+
+      $ionicLoading.show();
+      $timeout(function() {
+        $ionicLoading.hide();
+        $ionicPopup.alert({
+          template: '发送成功',
+          okText:'确定'
+        });
+        $scope.body.content = '';
+      }, 1500);
     }
   };
 })

@@ -159,14 +159,6 @@ angular.module('people.ctrl', [])
   $scope.isShowHouse = false;
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
 
-  // $scope.people = {};
-  // $scope.house = {
-  //   images:["http://223.252.223.13/Roommates/photo/house/29_92087288451520.jpg",
-  //   "http://223.252.223.13/Roommates/photo/house/29_92087972032065.jpg",
-  //   "http://223.252.223.13/Roommates/photo/house/29_92092029115712.jpg"]
-  // };
-  // $ionicSlideBoxDelegate.update();
-
   $ionicLoading.show();
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
@@ -176,7 +168,11 @@ angular.module('people.ctrl', [])
     if (response.errno === 0) {
       $scope.people = response.data;
       $scope.house  = response.data.matchUserHouse;
-      // console.log($scope.house);
+      
+      // 设置默认照片
+      if ($scope.house && !$scope.house.images) {
+        $scope.house.images = ['img/placeholder-house.png'];
+      }
     }
 
     $ionicLoading.hide();

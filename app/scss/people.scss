@@ -392,7 +392,7 @@
 
     .col.active {
       background-color: #63c3d3;
-      padding: 2px;
+      padding: 10px 0;
     }
 
     .col:last-child {
@@ -401,8 +401,9 @@
 
     .button-block {
       margin: 0;
-      height: 28px;
-      line-height: 28px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 14px;
       color: #fff;
 
       .icon {
@@ -410,9 +411,9 @@
       }
 
       .icon:before {
-        height: 28px;
-        line-height: 28px;
-        font-size: 28px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 22px;
       }
     }
   }

@@ -19,7 +19,7 @@
 //reset end
 .house-view{
     $hd-h: 44px;
-    $hd-fs: 16.6666px ;
+    $hd-fs: 17px ;
     $bd-fs:  15.3333px;
     font-family: "Microsoft Yahei";
     background: #f8f8f8;
@@ -212,7 +212,6 @@
             bottom: 0;
             left: 0;
             right: 0;
-           
             .img-wrapper{
                 position: relative;
                 width: 100%;
@@ -347,6 +346,8 @@
                 left:0;
                 bottom: 0;
                 right: 0;
+                width: 100%;
+                height: 100%;
                 background: transparent;
                 overflow: hidden;
                 img{

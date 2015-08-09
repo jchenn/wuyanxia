@@ -354,20 +354,20 @@ angular.module('house.service',[])
             var self=this;
             var opts={
                 method:1,
-                quality:50,
-                targetHeight:1000,
-                targetWidth:1000
+                quality:60,
+                height:1000,
+                width:1000
             };
             if(type==2){ opts.method=0;}
             
             var onSuccess=function(data){
                 
                 var url="data:image/jpeg;base64," + data;
-                //console.log(data.length);
-                if(url.length>700000){
+                console.log(data.length);
+                /*if(url.length>700000){
                     self.warn("图片太大啦，换一张吧！");
                     return;
-                }
+                }*/
                 
                 
                 Data.addFile(url);

@@ -41,6 +41,7 @@
                 width: 100%;
                 line-height: $hd-h !important;
                 font-size: $hd-fs !important;
+                font-weight: normal;
             }
             .buttons{
                 position: absolute;
@@ -65,7 +66,9 @@
                 line-height: $hd-h;
                 font-size: $hd-fs;
                 &:before{
+                    content: "\f3d2";
                     font-size: 32px;
+                    line-height: 44px;
                 }
             }
         }
@@ -120,6 +123,7 @@
         .pic-wrapper{
             margin-top: 20px;
             background: #fff;
+            padding-bottom: 20px;
         }
         .m-list{
             margin-top: 20px;

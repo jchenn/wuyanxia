@@ -26,7 +26,7 @@ angular.module('me.service', [])
           navigator.camera.cleanup( function(){
               console.log("Camera cleanup success.")
           }, function(message) {
-              alert('Failed because: ' + message);
+              console.log('Failed because: ' + message);
           });
 
           navigator.camera.getPicture(onSuccess, onFail, method);
@@ -35,16 +35,20 @@ angular.module('me.service', [])
           function onSuccess(imageData) {
               //显示图片
               var image = document.getElementById('myImage');
-              image.src = "data:image/jpeg;base64," + imageData;
-              console.log(imageData);
+              var picData = "data:image/jpeg;base64," + imageData;
+              image.src = picData;
+              //更新本地缓存
+              PersonalInfoMange.update({'avatar' : picData});
+              console.log('wo shi service');
+
               self.uploadPic(imageData);
-              alert(111);
+              console.log(111);
 
               //上传图片
           }
 
           function onFail(message) {
-              alert('Failed because: ' + message);
+              console.log('Failed because: ' + message);
           }
       },
         //上传图片
@@ -63,10 +67,11 @@ angular.module('me.service', [])
         res.success(function(response){
             if(response.errono == 0){
                 //$scope.data.avatar = response.imgUrl;
-                console.log(response.imgUrl);
-                PersonalInfoMange.update({'userId' : response.imgUrl})
+                //console.log(response.imgUrl);
+                //PersonalInfoMange.update({'avatar' : response.imgUrl})
+                return response.imgUrl;
             }else if(response.errono == 1){
-                alert('上传图片失败' + response.message);
+                console.log('上传图片失败' + response.message);
             }
         }).error(function(response){
             console.log(response);
@@ -74,7 +79,7 @@ angular.module('me.service', [])
 
     },
      //显示选择框
-    showCamera : function() {
+    showCamera : function(scope) {
         var self = this;
         var hideSheet = $ionicActionSheet.show({
             buttons: [
@@ -87,7 +92,7 @@ angular.module('me.service', [])
             },
             buttonClicked: function (index) {
                 if (index == 0) {
-                    alert('我要拍照2');
+                    console.log('我要拍照2');
                     self.takePhoto({
                         quality: 100,
                         destinationType: Camera.DestinationType.DATA_URL,
@@ -98,7 +103,7 @@ angular.module('me.service', [])
                         sourceType: Camera.PictureSourceType.CAMERA
                     });
                 } else if (index == 1) {
-                    alert('我要选照片');
+                    console.log('我要选照片');
                     self.takePhoto({
                         quality: 100,
                         destinationType: Camera.DestinationType.DATA_URL,
@@ -113,10 +118,75 @@ angular.module('me.service', [])
                 hideSheet();
             }
         });
-        $timeout(function () {
-            hideSheet();
-        }, 2000);
     }
   };
-})
+}).factory('dateSelect',function(PersonalInfoMange){
+
+        return {
+
+
+            showDate : function(scope, http, flag){
+
+            var options = {
+                date: new Date('1992-05-05'),
+                mode: 'date',
+                minDate: new Date(),
+                androidTheme: 3
+
+            };
+            function success(date){
+
+                var time = new Date(date).valueOf();
+                PersonalInfoMange.update({'birthday' : time});
+                scope.$apply(function () {
+                    scope.data.birthday = time;
+                });
+
+                if(!!flag){
+                    sendRequest(time);
+                }
+            }
+            function fail(err){
+                console.log(err);
+            }
+
+            function sendRequest(time){
+
+                var obj = {};
+                obj['birthday'] = time;
+                //给服务器发请求
+                var res = http({
+                    method: 'post',
+                    url: 'http://223.252.223.13/Roommates/api/user/updateUserBasicInfo',
+                    data: obj,
+                    timeout: 2000,
+                    headers:{
+                        'If-Modified-Since': new Date()
+                    }
+                });
+
+                res.success(function(response, status, headers, config){
+                    if(response.errno == 0){
+                        if(response.finishInfo == 1){
+                            PersonalInfoMange.update({'completeInfo' : true});
+                        }
+
+                        scope.go('/menu/me');
+
+                    }else if(response.errno == 1){
+                        alert(response.message);
+                    }
+                }).error(function(response, status, headers, config){
+                    alert(response.message);
+                });
+
+            }
+            datePicker.show(options, success, fail);
+
+        }
+
+        }
+
+
+    })
 ;

@@ -138,7 +138,7 @@ angular.module('quiz.ctrl', [])
         PersonalInfo.tags = response.tags;
         PersonalInfoMange.update(PersonalInfo);
 
-        $scope.go('/me');
+        $scope.go('/menu/me');
 
       } else {
 

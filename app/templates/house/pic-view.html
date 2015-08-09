@@ -1,0 +1,12 @@
+<ion-view view-title="{{title}}" class="house-view picview-view" hide-nav-bar="true">
+    <ion-header-bar align-title="center">
+        <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
+        <h1>{{title}}</h1>
+         <div class="buttons">
+            <button class="m-btn"  ng-click="onDelete()">删除</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <img ng-src="{{src}}" class="image"/>
+    </ion-content>
+</ion-view>

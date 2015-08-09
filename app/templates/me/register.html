@@ -1,6 +1,5 @@
-<ion-view class="m-me-register"  ng-controller="InfoRegister">
+<ion-view class="m-me-register" hide-nav-bar="true">
     <ion-header-bar align-title="center" class="bar-stable padding">
-        <!--<i class="icon ion-chevron-left m-backicon" ng-click="go('menu/people-list')"></i>-->
         <h1 class="title">个人信息填写</h1>
         <a class="ignore " ng-click="ignoreRegister()" >跳过</a>
     </ion-header-bar>
@@ -16,25 +15,27 @@
                 <label class="input-label">昵称</label>
                 <input type="text" name="name" ng-model="data.nickName" value="{{data.nickName}}"/>
             </p>
-            <p class="item item-input sex">
+            <p class="item item-input">
                 <label class="input-label">性别</label>
                 <input type="text" name="sex"  ng-click="openSex()" value="{{data.gender}}" ng-model="data.gender"/>
             </p>
-            <p class="item item-input">
-                <label class="input-label">出生日期</label>
-                <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>
+            <p class="item item-input date"  ng-click="showDate()">
+                <label class="input-label date-label no-border">出生日期</label>
+                <span class="date-input no-border">{{data.birthday | date:'yyyy-MM-dd'}}</span>
+               <!-- <input type="text" name="birth" ng-click="showDate()" value="{{ data.birthday | date:'yy-MM-dd'}}" ng-model="data.birthday"/>-->
+           <!--     <input type="text" name="birth" ng-click="openBirth()" value="{{data.birthday ? data.birthday : ''}}" ng-model="data.birthday"/>-->
             </p>
             <p class="item item-input">
                 <label class="input-label">公司</label>
                 <input type="text" name="company" contenteditable="false" readonly="readonly" ng-model="data.company" style="background:none;"/>
             </p>
             <p class="item item-input job">
-                <label class="input-label">岗位</label>
-                <input type="text" name="job" ng-model="data.job"/>
+                <label class="input-label no-border">岗位</label>
+                <input type="text" name="job" ng-model="data.job" class="no-border"/>
 
             <p class="item item-input phone">
-                <label class="input-label">手机</label>
-            <input type="tel" name="phone" ng-model="data.phone"/>
+                <label class="input-label no-border">手机</label>
+                <input type="tel" name="phone" class="no-border" ng-model="data.phone"/>
             </p>
             <div class="padding">
                 <button class="button button-block" ng-click="finishRegister()">完成</button>

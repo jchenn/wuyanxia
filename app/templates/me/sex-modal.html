@@ -1,15 +1,15 @@
 <ion-modal-view class="sex-modal">
     <ion-header-bar>
+        <i class="ion-ios-arrow-left backBtn" ng-click="closeSex()"></i>
         <h3 class="title">选择性别</h3>
-        <i class="button alignright" ng-click="closeSex()">完成</i>
     </ion-header-bar>
-    <ion-content>
-        <ion-list>
-            <ion-item ng-click="selectSex('男')">
-                <p>男</p>
+    <ion-content class="content">
+        <ion-list class="sex-list">
+            <ion-item class="men" ng-class="data.gender == '男' ? 'sex-selected' : ''">
+                <p ng-click="selectSex('男')">男</p>
             </ion-item>
-            <ion-item ng-click="selectSex('女')">
-                <p>女</p>
+            <ion-item class="women" ng-class="data.gender == '女' ? 'sex-selected' : '' ">
+                <p  ng-click="selectSex('女')">女</p>
             </ion-item>
         </ion-list>
     </ion-content>

@@ -165,12 +165,13 @@ angular.module('house.service',[])
                 userId:PersonalInfo.userId
             };
             var form=Data.getAll();
+            console.log(form);
             for(var i in form) data[i]=form[i];
             $http.post(host+updatePath,data).success(callback);
         },
         
         
-        add:function(callback){
+        add:function(callback,error){
             
             var data={
                 userId:PersonalInfo.userId,
@@ -179,7 +180,7 @@ angular.module('house.service',[])
             var form=Data.getAll();
             for(var i in form) data[i]=form[i];
             
-            $http.post(host+addPath,data).success(callback);
+            $http.post(host+addPath,data).success(callback).error(error);
         },
         
         
@@ -204,16 +205,16 @@ angular.module('house.service',[])
         },
         
         
-        addPics:function(data,callback){
+        addPics:function(data,callback,error){
             var d={
                 userId:PersonalInfo.userId,
                 images:data
             };
-            $http.post(host+addpicPath,d).success(callback);
+            $http.post(host+addpicPath,d).success(callback).error(error);
         }
     };
 })
-.factory('Data',function(){
+.factory('Data',function(event){
     var data={
         title:'',
         price:'',
@@ -222,13 +223,10 @@ angular.module('house.service',[])
         description:''
     };
     var fileList=[];
-    var delList=[];
+    //var delList=[];
     return {
         get:function(key){
-            return data[key]||"";
-        },
-        set:function(key,value){
-            data[key]=value;
+            return data[key];
         },
         getAll:function(){
             var res={};
@@ -237,19 +235,24 @@ angular.module('house.service',[])
             }
             return res;
         },
-        fill:function(target){
-            for(var i in target){
-                data[i]=target[i];
-            }
-        },
         addFile:function(file){
             fileList.push(file);
+            event.trigger("house.data.update");
+        },
+        setFiles:function(arr){
+            fileList=arr;
+            event.trigger("house.data.update");
+        },
+        getFile:function(id){
+            return fileList[id];
         },
         getFiles:function(){
             return fileList.slice(0);
         },
         deleteFile:function(index){
-            return fileList.splice(index,1)[0];
+            var res= fileList.splice(index,1)[0];
+            event.trigger("house.data.update");
+            return res;
         },
         addDelete:function(pic){
             delList.push(pic);
@@ -259,15 +262,27 @@ angular.module('house.service',[])
         },
         clearPics:function(){
             fileList=[];
+            event.trigger("house.data.update");
+        },
+        replacePic:function(indexs,pics){
+            if(indexs.length!==pics.length){
+                return -1;
+            }
+            for(var i=0;i<indexs.length;i++){
+                fileList.splice(indexs[i],1,pics[i]);
+            }
+            event.trigger("house.data.update");
         },
         clear:function(){
             this.clearPics();
             this.clearFormData();
         },
-        formDataIn:function(form){
+        formDataIn:function(form,tag){
             for(var i in form){
-                if(typeof data[i]!=undefined) data[i]=form[i];
+                if(typeof data[i]!="undefined") data[i]=form[i];
             }
+            if(tag) return;
+            event.trigger("house.data.update");
         },
         formDataOut:function(){
             return this.getAll();
@@ -280,6 +295,7 @@ angular.module('house.service',[])
                 area:'',
                 description:''
             };
+            event.trigger("house.data.update");
         }
     };
 })
@@ -305,15 +321,61 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Cmn',function(Popup,$ionicHistory){
+.factory('Cmn',function(Popup,$ionicHistory,$ionicActionSheet,Camera,Data){
     
     return {
         warn:function(str,callback,time,unclick){
             return Popup.show(str,callback,time,unclick);
         },
         back:function(){
-            console.log('back');
+            //console.log('back');
             $ionicHistory.goBack();
+        },
+        optionShow:function(callback){
+            var self=this;
+            $ionicActionSheet.show({
+                 buttons: [
+                   { text: '拍照' },
+                   { text: '从相册中选取' }
+                 ],
+                 cancelText: '取消',
+                 buttonClicked: function(index) {
+                     if(index==0){
+                         self.addPic(1,callback);
+                     }
+                     else if(index==1){
+                         self.addPic(2,callback);
+                     }
+                   return true;
+                 }
+            });
+        },
+        addPic:function(type,callback){
+            var self=this;
+            var opts={
+                method:1,
+                quality:60,
+                height:1000,
+                width:1000
+            };
+            if(type==2){ opts.method=0;}
+            
+            var onSuccess=function(data){
+                
+                var url="data:image/jpeg;base64," + data;
+                console.log(data.length);
+                /*if(url.length>700000){
+                    self.warn("图片太大啦，换一张吧！");
+                    return;
+                }*/
+                
+                
+                Data.addFile(url);
+                
+               callback(url);
+            };
+            var onFail=function(d){self.warn(d);};
+           Camera.getPic(onSuccess,onFail,opts,1);
         }
     };
 })
@@ -507,7 +569,7 @@ angular.module('house.service',[])
         },
         getFormData:function($scope){
             if(!$scope) throw new Error('参数忘加了');
-            Data.formDataIn($scope.data);
+            Data.formDataIn($scope.data,true);
         },
         deletePics:function(callback){
             var arr=Data.getDeletes();

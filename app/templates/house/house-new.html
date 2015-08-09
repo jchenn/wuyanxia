@@ -1,4 +1,4 @@
-<ion-view view-title="{{title}}" class="house-view new-view" >
+<ion-view view-title="{{title}}" class="house-view new-view" hide-nav-bar="true" >
     <ion-header-bar align-title="center">
         <i class="icon ion-chevron-left m-backicon" ng-click="back()"></i>
         <h1>{{title}}</h1>
@@ -6,13 +6,10 @@
             <button class="m-btn"  ng-click="showPop()" ng-if="showPop">撤销房源</button>
         </div>
     </ion-header-bar>
-    <style ng-if="pics.length<=1">
-        .new-view .slider-pager{
-            display: none; 
-        }
-    </style>
+    <!--<ion-header-bar>
+    </ion-header-bar>-->
     <ion-content>
-        <div class="m-show" >
+        <!--<div class="m-show" >
             <div class="m-show-content" ng-click="onSlideboxClick()">
                 <ion-slide-box >
                   <ion-slide ng-repeat=" pic in pics">
@@ -21,25 +18,35 @@
                   </ion-slide>
                 </ion-slide-box>
             </div>
-        </div>
-        <div class="m-list">
-            <div class="m-list-item"><label>标题</label><input type="text"  ng-model="data.title" ng-focus="onFocus()" id="house-form-title"></div>
-            <div class="m-list-item"><label>价格</label><input type="text"  ng-model="data.price" ng-focus="onFocus()" id="house-form-price">元/月</div>
-        </div>
-        <div class="m-list g-1">
-            <div class="m-list-item"><label>小区</label><input type="text"  ng-model="data.community" ng-focus="onFocus()" id="house-form-community"></div>
-            <div class="m-list-item"><label>区域</label><input type="text"  ng-model="data.area" ng-focus="onFocus()" id="house-form-area"></div>
-            <div class="m-list-item"><a ng-click="toDesc()">描述</a><i class="ion-chevron-right"></i></div>
-        </div>
-        
-        <!--<div class="g-2">
-            <button class="m-btn" ng-click="send()">发布</button>
         </div>-->
         
-    </ion-content>
-    <ion-footer-bar>
+        <div class="pic-wrapper clearfix">
+            <div class="m-square m-item " ng-repeat="pic in pics" ng-click="toView($index)">
+                <div class="m-square-content">
+                    <img ng-src="{{pic}}" style="{{getStyle($index)}}">
+                </div>
+            </div>
+            <div class="m-square m-item" ng-click="onAddClick()" ng-if="pics.length<6">
+            
+                <img src="img/house/add-pic.jpg" class="m-square-content">
+        </div>
+        </div>
+        <div class="m-list">
+            <div class="m-list-item"><label>标题</label><input type="text"  ng-model="data.title" ng-focus="onFocus($event)" id="house-form-title"></div>
+            <div class="m-list-item"><label>价格</label><input type="text"  ng-model="data.price" ng-focus="onFocus($event)" id="house-form-price">元/月</div>
+        </div>
+        <div class="m-list g-1">
+            <div class="m-list-item"><label>小区</label><input type="text"  ng-model="data.community" ng-focus="onFocus($event)" id="house-form-community"></div>
+            <div class="m-list-item"><label>区域</label><input type="text"  ng-model="data.area" ng-focus="onFocus($event)" id="house-form-area"></div>
+            <div class="m-list-item"><a ng-click="toDesc()">描述</a><i class="ion-chevron-right"></i></div>
+        </div>
         <div class="btn-wrapper">
             <button class="m-btn" ng-click="send()">发布</button>
         </div>
-    </ion-footer-bar>
+    </ion-content>
+    <!--<ion-footer-bar>
+        <div class="btn-wrapper">
+            <button class="m-btn" ng-click="send()">发布</button>
+        </div>
+    </ion-footer-bar>-->
 </ion-view>

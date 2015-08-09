@@ -132,7 +132,7 @@ angular.module('auth.ctrl', ['ionic'])
 
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
-                                $location.path('/me-register');
+                                $location.path('/menu/me-register');
                             });
                         } else if (resp.result == 0) {
                             // InfoPopupService(resp.info);
@@ -171,6 +171,13 @@ angular.module('auth.ctrl', ['ionic'])
                             name: $scope.formData.nickname,
                             userId: resp.data.userId
                         });
+
+                        // by @meniac 注册完成也会接收 access_token
+                        if (resp.access_token) {
+                            // 加了之后，自动登录会有问题
+                            // $window.localStorage.setItem('access_token', resp.access_token);
+                        }
+
                         console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试
                         // if(typeof cordova !== "undefined") {

@@ -2,7 +2,7 @@ angular.module('people.ctrl', [])
 
 // 主页：室友列表
 .controller('PeopleListCtrl', 
-  function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
+  function($scope, $timeout, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
     PeopleListQuery, PeopleFilterModel, PersonalInfo, PermissionChecker) {
 
   var _hasMore  = true,
@@ -19,6 +19,8 @@ angular.module('people.ctrl', [])
   // 加载更多
   $scope.loadMore = function() {
 
+    // console.log('load more', $scope.list, _hasMore, _fetching);
+
     _fetching = true;
 
     // 显示 loading 动画
@@ -30,6 +32,7 @@ angular.module('people.ctrl', [])
     PeopleListQuery.get(params, function(response) {
 
       // console.log('request', params);
+      // console.log('response', response);
 
       if (response.errno === 0) {
 
@@ -50,9 +53,12 @@ angular.module('people.ctrl', [])
       }
 
       // 关闭 loading 动画
-      $ionicLoading.hide();
-      _fetching = false;
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $ionicLoading.hide();      
+      $timeout(function() {
+        _fetching = false;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      }, 500);
+      
 
     }, function(err) {
 
@@ -159,14 +165,6 @@ angular.module('people.ctrl', [])
   $scope.isShowHouse = false;
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
 
-  // $scope.people = {};
-  // $scope.house = {
-  //   images:["http://223.252.223.13/Roommates/photo/house/29_92087288451520.jpg",
-  //   "http://223.252.223.13/Roommates/photo/house/29_92087972032065.jpg",
-  //   "http://223.252.223.13/Roommates/photo/house/29_92092029115712.jpg"]
-  // };
-  // $ionicSlideBoxDelegate.update();
-
   $ionicLoading.show();
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
@@ -176,7 +174,11 @@ angular.module('people.ctrl', [])
     if (response.errno === 0) {
       $scope.people = response.data;
       $scope.house  = response.data.matchUserHouse;
-      // console.log($scope.house);
+      
+      // 设置默认照片
+      if ($scope.house && !$scope.house.images) {
+        $scope.house.images = ['img/placeholder-house.png'];
+      }
     }
 
     $ionicLoading.hide();
@@ -193,8 +195,9 @@ angular.module('people.ctrl', [])
   };
 
   $scope.showHouse = function() {
-    $scope.isShowInfo = false;
+    $scope.isShowInfo  = false;
     $scope.isShowHouse = true;
+    $scope.isShowPager = $scope.house.images.length > 1;
     $timeout(function() {
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
     });

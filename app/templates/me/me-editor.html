@@ -1,16 +1,17 @@
-<ion-view  style="background:#f8f8f8" ng-controller="EditorInfo">
-    <ion-header-bar style="background:#f8f8f8">
+<ion-view hide-nav-bar="true" class="m-me-editor">
+    <ion-header-bar class="header">
         <div class="buttons buttons-left"  ng-click="$ionicGoBack()">
-            <button class="button button-positive button-clear">取消</button>
+            <button class="button button-positive button-clear editor-button">取消</button>
         </div>
         <div class="title title-center header-item">{{data.title}}</div>
         <div class="buttons buttons-right" ng-click="saveModify()">
-            <button class="button button-positive button-clear">保存</button>
+            <button class="button button-positive button-clear editor-button editor-save">保存</button>
         </div>
     </ion-header-bar>
-    <ion-content class="padding">
-        <label class=" item item-input-inset item-borderless">
-            <input type="text" name="name" value="{{data.val}}" class="" ng-model="data.val">
+    <ion-content class="content">
+        <label class=" item item-input-inset item-borderless editor-input-label">
+            <input type="text" name="name" id="textField" value="{{data.val}}" class="editor-input" ng-model="data.val">
         </label>
+        <i class="clear-value" ng-click="clearValue()"></i>
     </ion-content>
 </ion-view>

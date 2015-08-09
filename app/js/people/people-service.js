@@ -35,7 +35,7 @@ angular.module('people.service', ['ngResource'])
       ]},
       {name: 'zx', label: '作息', choices: [
         {label: '不限', value: '1'}, {label: '夜猫子', value: '2'}, 
-        {label: '晨型人', value: '3'}
+        {label: '早睡狗', value: '3'}
       ]},
       {name: 'ws', label: '个人卫生', choices: [
         {label: '不限', value: '1'}, {label: '小洁癖', value: '2'}, 
@@ -146,7 +146,7 @@ angular.module('people.service', ['ngResource'])
           cancelText: '稍后再说'
         }).then(function(res) {
           if (res) {
-            $rootScope.go('/me-register');
+            $rootScope.go('/menu/me-register');
           } else {
             // do nothing
           }
@@ -161,7 +161,7 @@ angular.module('people.service', ['ngResource'])
           cancelText: '稍后再说'
         }).then(function(res) {
           if (res) {
-            $rootScope.go('/me-register');
+            $rootScope.go('/menu/me-register');
           } else {
             // do nothing
           }

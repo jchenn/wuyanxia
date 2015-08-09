@@ -7,30 +7,47 @@
       padding-left: 20px;
       background-color: #f8f8f8;
 
+      &:active {
+        background-color: #daedf1;
+      }
+
       .item-content {
-        background-color: #f8f8f8;
+        background-color: transparent;
         color: #666;
       }
+    }
+
+    .has-footer {
+      bottom: 61px;
     }
 
     .bar-footer {
       height: 61px;
       border-top: 1px solid #ddd;
-      padding: 0 31px;
+      padding: 0;
+      margin: 0;
       background-color: transparent;
 
       .search-bar {
         width: 100%;
-        text-align: left;
-        color: #575757;
+        height: 60px;
         line-height: 60px;
+        padding: 0 31px;
+        text-align: left;
+        text-decoration: none;
+        color: #575757;
+        font-size: 16px;
+
+        &:active {
+          background-color: #daedf1;
+        }
 
         .icon {
           padding-right: 14px;
         }
 
         .icon:before {
-          line-height: 60px;
+          font-size: 28px;
           margin: 0;
         }
       }
@@ -39,6 +56,10 @@
 
   .header {
     padding: 40px 30px;
+
+    &:active {
+      background-color: #daedf1;
+    }
 
     .avatar {
       float: left;
@@ -63,7 +84,7 @@
         display: block;
         width: 54px;
         height: 16px;
-        background: url(../img/icon-credit-1.png) 50% 50% / contain no-repeat;
+        background: url(../img/icon-credit-2.png) 50% 50% / contain no-repeat;
       }
     }
   }

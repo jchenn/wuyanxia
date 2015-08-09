@@ -7,6 +7,7 @@ ServiceModule
                 events[event]=[];
             }
             events[event].push(fn);
+            return this;
         },
         trigger:function(event){
             if(events[event]){
@@ -15,6 +16,11 @@ ServiceModule
                     arr[i].apply(null,[].slice.call(arguments,1));
                 }
             }
+            return this;
+        },
+        off:function(event){
+            events[event]=undefined;
+            return this;
         }
     };
 })

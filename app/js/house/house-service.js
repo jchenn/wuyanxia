@@ -165,12 +165,13 @@ angular.module('house.service',[])
                 userId:PersonalInfo.userId
             };
             var form=Data.getAll();
+            console.log(form);
             for(var i in form) data[i]=form[i];
             $http.post(host+updatePath,data).success(callback);
         },
         
         
-        add:function(callback){
+        add:function(callback,error){
             
             var data={
                 userId:PersonalInfo.userId,
@@ -179,7 +180,7 @@ angular.module('house.service',[])
             var form=Data.getAll();
             for(var i in form) data[i]=form[i];
             
-            $http.post(host+addPath,data).success(callback);
+            $http.post(host+addPath,data).success(callback).error(error);
         },
         
         
@@ -204,12 +205,12 @@ angular.module('house.service',[])
         },
         
         
-        addPics:function(data,callback){
+        addPics:function(data,callback,error){
             var d={
                 userId:PersonalInfo.userId,
                 images:data
             };
-            $http.post(host+addpicPath,d).success(callback);
+            $http.post(host+addpicPath,d).success(callback).error(error);
         }
     };
 })
@@ -278,7 +279,7 @@ angular.module('house.service',[])
         },
         formDataIn:function(form,tag){
             for(var i in form){
-                if(typeof data[i]!=undefined) data[i]=form[i];
+                if(typeof data[i]!="undefined") data[i]=form[i];
             }
             if(tag) return;
             event.trigger("house.data.update");
@@ -327,7 +328,7 @@ angular.module('house.service',[])
             return Popup.show(str,callback,time,unclick);
         },
         back:function(){
-            console.log('back');
+            //console.log('back');
             $ionicHistory.goBack();
         },
         optionShow:function(callback){
@@ -350,6 +351,7 @@ angular.module('house.service',[])
             });
         },
         addPic:function(type,callback){
+            var self=this;
             var opts={
                 method:1,
                 quality:50
@@ -359,6 +361,12 @@ angular.module('house.service',[])
             var onSuccess=function(data){
                 
                 var url="data:image/jpeg;base64," + data;
+                //console.log(data.length);
+                if(url.length>700000){
+                    self.warn("图片太大啦，换一张吧！");
+                    return;
+                }
+                
                 
                 Data.addFile(url);
                 

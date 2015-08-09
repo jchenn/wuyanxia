@@ -23,7 +23,7 @@
         <div class="pic-wrapper clearfix">
             <div class="m-square m-item " ng-repeat="pic in pics" ng-click="toView($index)">
                 <div class="m-square-content">
-                    <img ng-src="{{pic}}">
+                    <img ng-src="{{pic}}" style="{{getStyle($index)}}">
                 </div>
             </div>
             <div class="m-square m-item" ng-click="onAddClick()" ng-if="pics.length<6">

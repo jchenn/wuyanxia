@@ -161,7 +161,7 @@
         margin: 0;
         width: 10%;
         text-align: center;
-        font-size: 32px;
+        font-size: 25px;
       }
 
       .title{
@@ -352,7 +352,7 @@
         height: 44px;
         line-height: 44px;
         width: 10%;
-        font-size: 32px;
+        font-size: 25px;
         color: #fff;
         text-align: center;
       }
@@ -396,18 +396,18 @@
         background-position: 0 0;
       }
       .id{
-        background-position: 0 -100px;
+        background-position: 0 -200px;
       }
       .email-bg{
-        background-position: 0 -200px;
+        background-position: 0 -100px;
       }
     }
 
   }
   .list{
     background: transparent;
-    margin-top: 48px;
-    padding: 0 13.6%;
+    margin-top: 46px;
+    padding: 0 13%;
 
 
     label{
@@ -432,9 +432,10 @@
         line-height: 24px;
         color: #fff;
         background: #f39801;
-        width: 78%;
+        width: 43%;
         font-size: 11px;
         text-align: center;
+        margin-left: 6%;
       }
       .getcode{
         margin-right: 12px;
@@ -443,7 +444,7 @@
     }
   }
   .sendvalidate{
-    width: 74%;
+    width: 74.5%;
     margin: 32px auto;
     height: 38px;
     background: #63c3d3;

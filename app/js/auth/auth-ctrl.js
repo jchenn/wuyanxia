@@ -12,6 +12,13 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearHistory();
             $ionicHistory.clearCache();
         });
+        //处理底部栏随键盘上浮
+        var eContent = document.getElementById("login");
+        var contentH = eContent.offsetHeight;
+        eContent.style.height = contentH + 'px';
+        // document.querySelector("#login > div").style.height = contentH + 'px';
+        // document.querySelector("#login > div").style.position = "relative";
+        // console.log(contentH);
         /**
          * 忘记密码函数
          * @return {[type]} [description]

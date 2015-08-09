@@ -2,7 +2,7 @@ angular.module('people.ctrl', [])
 
 // 主页：室友列表
 .controller('PeopleListCtrl', 
-  function($scope, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
+  function($scope, $timeout, $ionicLoading, $ionicScrollDelegate, $ionicPopup, $ionicHistory,
     PeopleListQuery, PeopleFilterModel, PersonalInfo, PermissionChecker) {
 
   var _hasMore  = true,
@@ -19,6 +19,8 @@ angular.module('people.ctrl', [])
   // 加载更多
   $scope.loadMore = function() {
 
+    // console.log('load more', $scope.list, _hasMore, _fetching);
+
     _fetching = true;
 
     // 显示 loading 动画
@@ -30,6 +32,7 @@ angular.module('people.ctrl', [])
     PeopleListQuery.get(params, function(response) {
 
       // console.log('request', params);
+      // console.log('response', response);
 
       if (response.errno === 0) {
 
@@ -50,9 +53,12 @@ angular.module('people.ctrl', [])
       }
 
       // 关闭 loading 动画
-      $ionicLoading.hide();
-      _fetching = false;
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $ionicLoading.hide();      
+      $timeout(function() {
+        _fetching = false;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      }, 500);
+      
 
     }, function(err) {
 

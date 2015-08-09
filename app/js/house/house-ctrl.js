@@ -55,7 +55,6 @@ angular.module('house.ctrl',[])
         
         $timeout(function(){
             house.refreshForm1($scope);
-            $scope.pics=arr;
         });
     });
     

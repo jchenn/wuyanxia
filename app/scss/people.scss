@@ -3,8 +3,6 @@
     padding: 0;
     margin: 8px auto;
     width: 100%;
-    -webkit-transition: all ease-in .3s;
-            transition: all ease-in .3s;
 
     .item {
       float: left;
@@ -13,8 +11,6 @@
       border: none;
       padding: 10px 8px;
       background-color: #f8f8f8;
-      -webkit-transition: all ease-in .3s;
-              transition: all ease-in .3s;
 
       // n * 172
       @media (min-width: 344px) {
@@ -117,9 +113,9 @@
             top: 12px;
             left: 0;
             content: '有房';
-            color: #575759;
-            background-color: #eae01f;
-            padding: 1px 3px;
+            color: #575757;
+            background-color: rgba(234,223,33,.75);
+            padding: 3px 6px;
           }
         }
 
@@ -129,11 +125,17 @@
           font-size: 12px;
 
           em {
+            display: inline-block;
+            height: 23px;
+            line-height: 23px;
+            min-width: 48px;
+            text-align: center;
             background-color: #63c3d3;
             color: #fff;
-            padding: 4px 8px;
+            padding: 0 8px;
             border-radius: 12px;
             margin-left: .5em;
+
           }
         }
 
@@ -339,18 +341,22 @@
 
       .tags {
         overflow: hidden;
+        margin: 0 -10px;
 
         & > li {
           float: left;
           width: 33.3%;
-          margin: 8px 0;
+          margin: 4px 0;
 
           span {
-            padding: 5px 16px;
+            display: block;
+            margin: 0 10px;
+            padding: 3px 16px;
             border-radius: 6px;
             border: 1px solid #ccc;
             color: #575757;
             font-size: 12px;
+            text-align: center;
           }
         }
       }
@@ -382,11 +388,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 14px;
     }
 
     .col.active {
       background-color: #63c3d3;
-      padding: 2px;
+      padding: 10px 0;
     }
 
     .col:last-child {
@@ -395,8 +402,9 @@
 
     .button-block {
       margin: 0;
-      height: 28px;
-      line-height: 28px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 14px;
       color: #fff;
 
       .icon {
@@ -404,9 +412,9 @@
       }
 
       .icon:before {
-        height: 28px;
-        line-height: 28px;
-        font-size: 28px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 22px;
       }
     }
   }

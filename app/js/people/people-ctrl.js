@@ -203,9 +203,9 @@ angular.module('people.ctrl', [])
     $scope.isShowHouse = true;
     $scope.isShowPager = $scope.house&&$scope.house.images&&$scope.house.images.length > 1;
     $timeout(function() {
-        console.log('start');
+        
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-        console.log('end');
+        
     },1000);
     
   };

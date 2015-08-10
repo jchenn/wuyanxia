@@ -1,7 +1,7 @@
 angular.module('me.ctrl', [])
 
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $timeout, $http, $ionicModal, $ionicPopover,$ionicActionSheet,TakePhoto,dateSelect, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
+    .controller('InfoRegister', function($scope, $timeout,$ionicPopup, $http, $ionicModal, $ionicPopover,$ionicActionSheet,TakePhoto,dateSelect, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
 
         console.log(PersonalInfo);
 
@@ -55,19 +55,27 @@ angular.module('me.ctrl', [])
         $scope.finishRegister = function(){
             //检查数据
             if(Check.getLen($scope.data.gender) < 1){
-                alert("请选择性别");
+                $ionicPopup.alert({
+                    template:"请选择性别"
+                });
                 return false;
             }
             if(Check.getLen($scope.data.company) < 1 || Check.getLen($scope.data.company) > 30){
-                alert("公司名称不能为空或过长");
+                $ionicPopup.alert({
+                    template: "公司名称不能为空或过长"
+                });
                 return false;
             }
             if(Check.getLen($scope.data.job) < 1 || Check.getLen($scope.data.job) > 30){
-                alert("岗位名称不能为空或过长");
+                $ionicPopup.alert({
+                    template: "岗位名称不能为空或过长"
+                });
                 return false;
             }
             if(!Check.checkPrice($scope.data.phone)  || Check.getLen($scope.data.phone) != 11){
-                alert("电话必须为11位的数字");
+                $ionicPopup.alert({
+                    template: "电话必须为11位的数字"
+                });
                 return false;
             }
 
@@ -99,13 +107,15 @@ angular.module('me.ctrl', [])
                         $scope.go('/menu/people-list');
                     }
                 }else if(response.errno == 1){
-                    alert(response);
+                    $ionicPopup.alert({
+                        template: response
+                    });
                 }
             }).error(function(response, status, headers, config){
                 console.log(response);
             });
         }
-    }).controller('InfoShow', function($scope, $ionicActionSheet, $ionicModal,dateSelect,TakePhoto, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
+    }).controller('InfoShow', function($scope, $ionicActionSheet,$ionicPopup, $ionicModal,dateSelect,TakePhoto, $ionicPopover, $timeout, PersonalInfo ,$http, PersonalInfoMange, DayInit){
         console.log(1111);
         console.log(PersonalInfo);
         angular.extend(PersonalInfo, DayInit);
@@ -215,7 +225,9 @@ angular.module('me.ctrl', [])
                         }
                         return true;
                     }else if(response.errno == 1){
-                        alert(response);
+                        $ionicPopup.alert({
+                            template: response
+                        });
                     }
                 }).error(function(response, status, headers, config){
                     console.log(response);
@@ -225,7 +237,7 @@ angular.module('me.ctrl', [])
         };
     })
     //修改个人信息控制器
-    .controller('EditorInfo', function($scope, $http, PersonalInfo, PersonalInfoMange, Check){
+    .controller('EditorInfo', function($scope, $http,$ionicPopup, PersonalInfo, PersonalInfoMange, Check){
         $scope.data = PersonalInfo;
         $scope.saveModify = function(){
 
@@ -233,12 +245,16 @@ angular.module('me.ctrl', [])
             obj[$scope.data.key] = $scope.data.val;
 
             if(Check.getLen( $scope.data.val) < 1 || Check.getLen( $scope.data.val) > 30){
-                alert("不能为空或过长");
+                $ionicPopup.alert({
+                    template: '不能为空或过长'
+                });
                 return false;
             }
             if($scope.data.key == 'phone'){
                 if(!Check.checkPrice($scope.data.val)  || Check.getLen( $scope.data.val) != 11){
-                    alert("电话必须为11位的数字");
+                    $ionicPopup.alert({
+                        template: '电话必须为11位的数字'
+                    });
                     return false;
                 }
             }
@@ -258,25 +274,19 @@ angular.module('me.ctrl', [])
 
                     $scope.go('/menu/me');
                 }else if(response.errno == 1){
-                    alert(response.message);
+                    $ionicPopup.alert({
+                            template: response.message
+                        });
                 }
             }).error(function(response, status, headers, config){
-                alert(response.message);
+                $ionicPopup.alert({
+                    template: response.message
+                });
             });
         }
 
         $scope.clearValue = function(){
             document.getElementById('textField').value = "";
         }
-    }).controller('scrollCalendar',function($scope){
-
-        $scope.scrollUp = function(){
-            alert('scroll up');
-        };
-        $scope.scrollDown = function(){
-            alert('scroll down');
-        }
-
     })
-
 ;

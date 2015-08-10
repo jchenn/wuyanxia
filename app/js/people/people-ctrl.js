@@ -143,6 +143,9 @@ angular.module('people.ctrl', [])
 
   // 在跳转到室友详情之前，先判断是否填完个人信息
   $scope.jumpToDetail = PermissionChecker.goto;
+  // $scope.jumpToDetail = function(p) {
+  //   PermissionChecker.goto('/menu/people-list/' + p.userId + '/' + (p.hasHouse ? '1' : ''));
+  // };
 })
 
 .controller('PeopleFilterCtrl', function($scope, PeopleFilterModel) {
@@ -172,6 +175,8 @@ angular.module('people.ctrl', [])
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
 
   $ionicLoading.show();
+
+  // console.log($stateParams);
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     

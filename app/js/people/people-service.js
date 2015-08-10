@@ -131,10 +131,13 @@ angular.module('people.service', ['ngResource'])
 .factory('PermissionChecker', function(PersonalInfo, $ionicPopup, $rootScope) {
   var factory = {
     goto: function(hash) {
+
+      // console.log('hash', hash);
       
       if (PersonalInfo.completeInfo && PersonalInfo.tags) {
 
         // 有个性标签，有个人信息
+        // console.log('go to people list');
         $rootScope.go(hash);
 
       } else if (!PersonalInfo.tags && !PersonalInfo.completeInfo) {

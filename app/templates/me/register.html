@@ -6,7 +6,7 @@
     <ion-content>
         <div class="header" ng-click="showCamera()">
             <div class="head-img" align="center">
-                <img src="{{data.avatar}}" alt="头像" id="myImage"/>
+                <img ng-src="{{data.avatar}}" id="myImage"/>
                 <i class="camera"></i>
             </div>
         </div>
@@ -38,7 +38,7 @@
                 <input type="tel" name="phone" class="no-border" ng-model="data.phone"/>
             </p>
             <div class="padding">
-                <button class="button button-block" ng-click="finishRegister()">完成</button>
+                <button class="button button-block complete" ng-click="finishRegister()">完成</button>
             </div>
         </div>
     </ion-content>

@@ -2,16 +2,26 @@ angular.module('me.service', [])
 
 .factory('DayInit', function(){
 
-    return {
+        var initData = {
+            'nickName' : '',
+            'sex' : '',
+            'birthday' : '',
+            'job' : '',
+            'phone' : '',
+            'avatar' : ''
+        };
 
-        'yearArr' : [1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995],
-        'monthArr' : [1,2,3,4,5,6,7,8,9,10,11,12],
-        'dayArr' : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
-        'year' : 1985,
-        'month' : 1,
-        'day' : 1
+        return {
 
-    }
+            saveTempData : function(dataObj){
+
+                for(var key in dataObj){
+                    initData[key] = dataObj[key];
+                }
+
+            }
+
+        }
 
 })
 .factory('TakePhoto',function($ionicActionSheet, $http, $timeout, PersonalInfoMange){
@@ -128,9 +138,10 @@ angular.module('me.service', [])
             showDate : function(scope, http, flag){
 
             var options = {
-                date: new Date('1992-05-05'),
+                date: new Date('3-20-1985'),
                 mode: 'date',
-                minDate: new Date(),
+                minDate: new Date('3-20-1985'),
+                maxDate: new Date('3-20-1985'),
                 androidTheme: 3
 
             };

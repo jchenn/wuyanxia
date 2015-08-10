@@ -3,6 +3,7 @@
     padding: 0;
     margin: 8px auto;
     width: 100%;
+    // overflow: hidden;
 
     .item {
       float: left;
@@ -383,7 +384,9 @@
     }
 
     p {
-      margin: 10px 20px;
+      width: 100%;
+      margin: 10px 0;
+      padding: 0 20px;
       line-height: 15px;
       overflow: hidden;
       text-overflow: ellipsis;

@@ -329,14 +329,14 @@ angular.module('house.service',[])
         },
         warn:function(str,callback,time){
             var res=$ionicPopup.alert({
-                template:str
-            });
-            res.then(callback);
-            if(time){
-                $timeout(function(){
-                    res.close();
-                },time);
-            }
+                template:str,
+                okText: '确定'
+            }).then(callback);
+            // if(time){
+            //     $timeout(function(){
+            //         res.close();
+            //     },time);
+            // }
         },
         back:function(){
             //console.log('back');

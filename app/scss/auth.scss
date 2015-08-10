@@ -45,6 +45,22 @@
 				width: 20px;
 				height: 20px;
 			}
+			.email_list {
+			    position: absolute;
+			    left: 29px;
+				width: 391px;
+				border: 1px solid gray;
+			    background: #fff;
+			    z-index: 10;
+			    border-radius: 1px;
+			    padding: 0 24px 0 60px;
+			    li {
+			    	height: 31px;
+				    line-height: 31px;
+				    margin: 0;
+				    overflow: hidden;
+			    }
+			}
 			.item-input {
 				box-sizing: border-box;
     			height: 38px;
@@ -55,8 +71,11 @@
 					margin-left: 20px;
 				}
 			}
-			.item-input + .item-input {
-				margin-top: 20px;
+			.item-input {
+				margin-top: 25px;
+				&:first-child {
+					margin-top: 0;
+				}
 			}
 			.button {
 				min-height: 38px;
@@ -65,14 +84,31 @@
 				background-color: #66C3D2;
 				border-width: 0;
 				border-radius: 0;
+				&[disabled] {
+					opacity:1;
+				}
 			}
 			.has-error {
-				border-color: red;
+				border-color: #E66464 !important;
 			}
 			.errorInfo {
 			    position: absolute;
 			    top: 106px;
-			    color: red;			
+			    color: #E66464;			
+			}
+			.help-block {
+				position: absolute;
+			    color: #E66464;
+			    font-size: 12px;
+			}
+			.help-email {
+				top: 49px;
+			}
+			.help-password {
+				top: 111px;
+			}
+			.help-nickname {
+				top: 111px;
 			}
 			.is-focus {
 				border-left-color: #66C3D2;
@@ -134,7 +170,7 @@
 			}
 		}
 	}
-	.m-form .log-list.list .errorInfo {
-	    top: 160px;		
+	.m-form .log-list.list .help-password {
+		top: 173px;
 	}
 } 

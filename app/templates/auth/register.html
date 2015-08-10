@@ -8,21 +8,30 @@
 		<div class="logo-wrap">
 			<div class="logo"></div>
 		</div>
+		<!-- <pre>{{formData.email}}</pre> -->
 		<div class="m-form">
-			<form class="log-list list padding" ng-submit="register()" ng-init="fcousFlag = 0">
-				<label class="item item-input" ng-class="{ 'has-error' : errorEmail, 'is-focus' : fcousFlag==1}">
+			<form name="userForm" class="log-list list padding" ng-submit="register(userForm.$valid)" ng-init="fcousFlag = 0">
+				<!-- email -->
+				<label class="item item-input" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine, 'is-focus' : fcousFlag==1}">
 					<span class="input-label icon icon-email"></span>
-    				<input type="text" name="email" placeholder="公司邮箱" ng-model="formData.email" ng-focus="fcousFlag = 1" ng-blur="fcousFlag = 0">
+    				<input type="email" name="email" placeholder="公司邮箱" ng-model="formData.email" ng-focus="fcousFlag = 1" ng-blur="fcousFlag = 0" required ng-pattern="/^(\w)+(\.\w+)*@((corp.netease.com)|(yixin.im))$/">
 				</label>
-				<label class="item item-input" ng-class="{ 'has-error' : errorNickName, 'is-focus' : fcousFlag==2}">
+				<div class="help-block help-email" ng-show="userForm.email.$error.required && !userForm.email.$pristine">请输入企业邮箱</div>
+	    		<div class="help-block help-email" ng-show="!userForm.email.$error.required && userForm.email.$error.pattern && !userForm.email.$pristine">企业邮箱格式错误</div>
+	    		<!-- nickname -->
+				<label class="item item-input" ng-class="{ 'has-error' : userForm.nickname.$invalid && !userForm.nickname.$pristine, 'is-focus' : fcousFlag==2}">
 				    <span class="input-label icon icon-nickname"></span>
-    				<input type="text" ng-model="formData.nickname" placeholder="昵称" ng-focus="fcousFlag = 2" ng-blur="fcousFlag = 0">
+    				<input type="text" name='nickname' ng-model="formData.nickname" placeholder="昵称" ng-focus="fcousFlag = 2" ng-blur="fcousFlag = 0" required ng-maxlength="20">
 				</label>
-				<label class="item item-input" ng-class="{ 'has-error' : errorPwd, 'is-focus' : fcousFlag==3}">
+				<div class="help-block help-nickname" ng-show="userForm.nickname.$error.required && !userForm.nickname.$pristine">请输入昵称</div>
+				<div class="help-block help-nickname" ng-show="!userForm.nickname.$error.required && userForm.nickname.$error.maxlength && !userForm.nickname.$pristine">熊孩子，昵称要少于20位</div>
+				<!-- password -->
+				<label class="item item-input" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine, 'is-focus' : fcousFlag==3}">
 				    <span class="input-label icon icon-pwd" ></span>
-    				<input type="password" name="password" placeholder="登录密码" ng-model="formData.password" ng-focus="fcousFlag = 3" ng-blur="fcousFlag = 0">
+    				<input type="password" name="password" placeholder="登录密码" ng-model="formData.password" ng-focus="fcousFlag = 3" ng-blur="fcousFlag = 0" required ng-minlength="6">
 				</label>
-				<span class="errorInfo" ng-show="errorData.text">{{errorData.text}}</span>
+				<div class="help-block help-password" ng-show="userForm.password.$error.required && !userForm.password.$pristine">请输入登录密码</div>
+	    		<div class="help-block help-password" ng-show="!userForm.password.$error.required && userForm.password.$error.minlength && !userForm.password.$pristine">为确保账户安全，密码请至少设置6位</div>
 				<button type="submit" class="button button-block button-positive">
 					邮箱验证
 				</button>

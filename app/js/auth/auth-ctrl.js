@@ -1,5 +1,5 @@
 angular.module('auth.ctrl', ['ionic'])
-    .controller('LoginCtrl', function($scope, $http, $window, $location, $ionicHistory, $timeout, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
+    .controller('LoginCtrl', function($scope, $http, $window, $location, $ionicHistory, $timeout, Loading,  AjaxService, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 数据
         $scope.formData = {
             // 'email': "hzlbl4@corp.netease.com",
@@ -13,7 +13,6 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearCache();
         });
 
-
         //处理底部栏随键盘上浮
         $scope.focusFlag = 0;
         var eFooterBar = document.getElementById('m-bar');
@@ -21,10 +20,13 @@ angular.module('auth.ctrl', ['ionic'])
             $scope.focusFlag = num;
             eFooterBar.classList.add('is-focus');
         };
-        $scope.inputBlur = function(num) {
-            $scope.focusFlag = num;
+        $scope.inputBlur = function() {
+            $scope.focusFlag = 0;
             $timeout(function() {
-                eFooterBar.classList.remove('is-focus');
+                // 处理输入框之间直接切换的情况
+                if (!$scope.focusFlag) {
+                    eFooterBar.classList.remove('is-focus');
+                } 
             }, 250);
         };
         
@@ -35,24 +37,18 @@ angular.module('auth.ctrl', ['ionic'])
         $scope.changePwd = function() {
             InfoPopupService('窝还没被整出来%>_<%');
         };
+
         /**
          * 登录函数
          * @return {[type]} [description]
          */
-        $scope.login = function() {
-            $scope.errorEmail = false;
-            $scope.errorPwd = false;
-            // 验证表单
-            console.log($scope.formData);
-            var flag = Validate($scope, $scope.formData, false);
-
-            if (!flag) {
+        $scope.login = function(isValid) {
+            if (isValid) {
                 // 显示loading
                 Loading.show('正在登录…');
                 // 调试
                 console.log("登录");
                 console.log($scope.formData);
-                console.log(JSON.stringify($scope.formData));
                 //数据字符串化
                 var stringData = JSON.stringify($scope.formData);
                 //ajax
@@ -74,9 +70,9 @@ angular.module('auth.ctrl', ['ionic'])
                         PersonalInfoMange.update({isLogin: 1});
                         console.log(PersonalInfo);
                         // 清楚缓存
-                        console.log('clear history 1');
                         $ionicHistory.clearHistory();
                         $ionicHistory.clearCache();
+                        console.log('clear history 1');
                         //跳转个人信息页
                         $scope.go('/menu/people-list');
                     }
@@ -90,7 +86,7 @@ angular.module('auth.ctrl', ['ionic'])
             }
         };
     })
-    .controller('RegisterCtrl', function($scope, $window, $location, $ionicPopup, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+    .controller('RegisterCtrl', function($scope, $window, $location, $ionicPopup, Loading, AjaxService, PersonalInfoMange, InfoPopupService) {
         $scope.formData = {
             // 'email': "@corp.netease.com"
         //     'nickname': "黑月",
@@ -158,18 +154,9 @@ angular.module('auth.ctrl', ['ionic'])
             });
         };
 
-        $scope.register = function() {
-            $scope.errorEmail = false;
-            $scope.errorPwd = false;
-            $scope.errorNickName = false;
-            /**
-             * 验证表单
-             */
-            var flag = Validate($scope, $scope.formData, true);
-            // 模拟
-            // $scope.errorData = {};
+        $scope.register = function(isVaild) {
             //验证结果
-            if (!flag) {
+            if (isVaild) {
                 console.log("注册");
                 //转圈圈
                 Loading.show('正在注册…');
@@ -195,14 +182,11 @@ angular.module('auth.ctrl', ['ionic'])
 
                         console.log('注册resp：' + resp.userId);
                         //加判断方便本地测试
-                        // if(typeof cordova !== "undefined") {
-                        //     cordova.InAppBrowser.open('http://corp.netease.com/coremail/', '_blank', 'location=no');
-                        // }   
-                        window.location.href = 'http://corp.netease.com/coremail/'; 
-                        // window.open('http://corp.netease.com/coremail/', '_blank'); 
-                        // InfoPopupService(toBrowserStr, function() {
-                        //     window.location.href = 'http://www.baidu.com';
-                        // });
+                        if(typeof cordova !== "undefined") {
+                            window.location.href = 'http://corp.netease.com/coremail/'; 
+                        } else {
+                            window.open('http://corp.netease.com/coremail/', '_blank'); 
+                        }
                         $scope.showPopup();
                     } else if (resp.result === 0) {
                         InfoPopupService(resp.info);
@@ -218,7 +202,7 @@ angular.module('auth.ctrl', ['ionic'])
             }
         };
     });
-    // .controller('TestCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+    // .controller('TestCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService) {
     //     /**
     //      * 该控制器专为滚轮组件测试，无实际作用
     //      */

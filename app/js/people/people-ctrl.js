@@ -36,7 +36,11 @@ angular.module('people.ctrl', [])
 
       if (response.errno === 0) {
 
-        _data = response.data;
+        _data = response.data || [];
+
+        if (params.p === 1) {
+          $scope.list = _data;
+        }
 
         if (_data && _data.length > 0) {
           $scope.list = (params.p === 1) ? _data : $scope.list.concat(_data);
@@ -145,6 +149,8 @@ angular.module('people.ctrl', [])
   $scope.buttons = PeopleFilterModel.radio;
   $scope.list = PeopleFilterModel.list;
   $scope.params = PeopleFilterModel.params();
+
+  // console.log('params', $scope.params);
 
   $scope.finish = function() {
     PeopleFilterModel.setUsingCache(false);

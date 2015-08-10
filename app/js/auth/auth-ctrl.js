@@ -13,9 +13,11 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearCache();
         });
         //处理底部栏随键盘上浮
-        var eContent = document.getElementById("login");
-        var contentH = eContent.offsetHeight;
-        eContent.style.height = contentH + 'px';
+        // var eContent = document.getElementById("login");
+        // var contentH = eContent.offsetHeight;
+        // if (window.sessionStorge) {}
+        // console.log(123);
+        // eContent.style.height = contentH + 'px';
         // document.querySelector("#login > div").style.height = contentH + 'px';
         // document.querySelector("#login > div").style.position = "relative";
         // console.log(contentH);
@@ -125,10 +127,12 @@ angular.module('auth.ctrl', ['ionic'])
                     console.log(userId);
                     AjaxService.checkEmail({userId: userId}).success(function(resp) {
                         if (resp.result == 1) {
-                            PersonalInfoMange.update({isLogin: 1});
 
                             // 在 LocalStorage 中加入 access_token
                             $window.localStorage.setItem('access_token', resp.access_token || '');
+                            //标示登录状态
+                            PersonalInfoMange.update({isLogin: 1});
+                            console.log(PersonalInfo);
 
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {
@@ -167,10 +171,13 @@ angular.module('auth.ctrl', ['ionic'])
                     Loading.hide();
                     if (resp.result == 1) {
                         console.log('注册请求发送成功');
+                        
+                        //更新PersonalInfo
+                        PersonalInfoMange.clear();
                         PersonalInfoMange.update({
-                            name: $scope.formData.nickname,
-                            userId: resp.data.userId
+                            name: $scope.formData.nickname
                         });
+                        PersonalInfoMange.update(resp.data);
 
                         // by @meniac 注册完成也会接收 access_token
                         if (resp.access_token) {
@@ -204,6 +211,9 @@ angular.module('auth.ctrl', ['ionic'])
         };
     })
     .controller('TestCtrl', function($scope, $location, $ionicBackdrop, $ionicPopup, $timeout, Loading, AjaxService, PersonalInfoMange, InfoPopupService, Validate) {
+        /**
+         * 该控制器专为滚轮组件测试，无实际作用
+         */
         //公司数据
         var data1 = [
             {

@@ -83,6 +83,10 @@
     background: #f8f8f8;
     overflow: hidden;
 
+    .complete{
+      border: none;
+    }
+
     .item{
       border: none;
       height: 36px;
@@ -436,6 +440,7 @@
         font-size: 11px;
         text-align: center;
         margin-left: 6%;
+        margin-bottom: 4px;
       }
       .getcode{
         margin-right: 12px;

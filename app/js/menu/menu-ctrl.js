@@ -18,6 +18,7 @@ angular.module('menu.ctrl', [])
       $scope.go('/menu/me');
     } else {
       $scope.go('/menu/me-register');
+      event.trigger('me.initData');
     }
   };
 

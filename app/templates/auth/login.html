@@ -1,4 +1,4 @@
-<ion-view hide-nav-bar="true" class="g-login" >
+<ion-view hide-nav-bar="true" class="g-login" id='login'>
 	<ion-content class="g-content">
 		<div class="logo-wrap">
 			<div class="logo"></div>
@@ -28,13 +28,13 @@
 				</button>
 			</form>
 		</div>
-		<ion-footer-bar  class="m-bar bar bar-footer" ng-hide="fcousFlag !== 0">
-			<div class="buttons" ng-click="changePwd()">
-			  <button class="button">忘记密码</button>
-			</div>
-			<div class="buttons" ng-click="go('/register')">
-			  <button class="button">注册账号</button>
-			</div>
-		</ion-footer-bar>
 	</ion-content>
+	<ion-footer-bar  class="m-bar bar bar-footer" >
+		<div class="buttons" ng-click="changePwd()">
+		  <button class="button">忘记密码</button>
+		</div>
+		<div class="buttons" ng-click="go('/register')">
+		  <button class="button">注册账号</button>
+		</div>
+	</ion-footer-bar>
 </ion-view>

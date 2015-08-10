@@ -233,7 +233,7 @@ angular.module('house.ctrl',[])
     };
     
     $scope.onFocus=function(event){
-       console.log(event);
+      // console.log(event);
         //$timeout(function(){
           //  $ionicScrollDelegate.scrollBottom();
         //},500);

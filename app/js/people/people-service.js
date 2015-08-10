@@ -169,7 +169,7 @@ angular.module('people.service', ['ngResource'])
 
       } else if (!PersonalInfo.tags) {
 
-        // 无个人信息，有个性标签
+        // 有个人信息，无个性标签
         $ionicPopup.confirm({
           template: '请回答以下6个问题，以便为您更精确匹配室友。',
           okText: '现在回答',

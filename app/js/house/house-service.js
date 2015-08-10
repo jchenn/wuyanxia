@@ -321,11 +321,22 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Cmn',function(Popup,$ionicHistory,$ionicActionSheet,Camera,Data){
+.factory('Cmn',function(Popup,$ionicHistory,$ionicActionSheet,Camera,Data,$ionicPopup,$timeout){
     
     return {
-        warn:function(str,callback,time,unclick){
-            return Popup.show(str,callback,time,unclick);
+        warn1:function(str,callback,time){
+            return Popup.show(str,callback,time);
+        },
+        warn:function(str,callback,time){
+            var res=$ionicPopup.alert({
+                template:str,
+                okText: '确定'
+            }).then(callback);
+            // if(time){
+            //     $timeout(function(){
+            //         res.close();
+            //     },time);
+            // }
         },
         back:function(){
             //console.log('back');

@@ -42,6 +42,7 @@ angular.module('me', ['me.ctrl', 'me.service', 'quiz'])
     //手机验证
     .state('menu.phoneValidate', {
         url: '/phone-validate',
+        cache:false,
         views: {
             'menu-content': {
                 templateUrl: 'templates/me/phone-validate.html'
@@ -51,6 +52,7 @@ angular.module('me', ['me.ctrl', 'me.service', 'quiz'])
     //身份认证
     .state('menu.idValidate', {
         url: '/id-validate',
+        cache:false,
         views: {
             'menu-content': {
                 templateUrl: 'templates/me/id-validate.html'
@@ -61,6 +63,7 @@ angular.module('me', ['me.ctrl', 'me.service', 'quiz'])
     //邮箱认证
     .state('menu.emailValidate', {
         url: '/email-validate',
+        cache:false,
         views: {
             'menu-content': {
                 templateUrl: 'templates/me/email-validate.html'

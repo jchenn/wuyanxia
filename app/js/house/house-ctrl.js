@@ -14,19 +14,16 @@ angular.module('house.ctrl',[])
             this.$apply(fn);
         }
     };*/
-    event.off("house.data.update").off("house.init");
-    event.on('house.data.update',function(){
-       
-        /*$scope.safeApply(function(){
-
-            house.refreshForm1($scope);
-            $scope.pics=Data.getFiles();
-        });*/
-        
+    event.off("house.data.update").off("house.init").off("house.file.update");
+    event.on('house.file.update',function(){
         var arr=Data.getFiles();
         var size=[];
         var len=arr.length;
         var num=0;
+        if(len==0){
+            step();
+            return;
+        }
         function step(){
             num++;
             if(num>=len){
@@ -53,9 +50,13 @@ angular.module('house.ctrl',[])
             };
         }
         
+        
+    });
+    event.on('house.data.update',function(){
         $timeout(function(){
             house.refreshForm1($scope);
         });
+        
     });
     
     event.on('house.init',function(){

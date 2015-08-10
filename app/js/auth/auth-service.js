@@ -21,12 +21,20 @@ angular.module('auth.service', ['ngResource'])
 	return  {
 		login: function(data) {
 			return $http.post(base_url + 'login', data);
+			// return $http.post(base_url + 'login', data, {headers:{
+   //                      'If-Modified-Since': '0'
+   //                  }});
 		},
 		register: function(data) {
 			return $http.post(base_url + 'register', data);
 		},
 		checkEmail: function(data) {
-			return $http.get(base_url + 'register/check', data);
+			return $http({
+				method: 'GET',
+				url: base_url + 'register/check',
+				params: data
+			})
+			// return $http.get(base_url + 'register/check', data);
 		}
 	}
 }])

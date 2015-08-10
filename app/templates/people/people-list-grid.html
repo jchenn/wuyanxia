@@ -1,7 +1,7 @@
 <ul class="grid">
   <li class="item" collection-repeat="p in list">
     <div class="content-wrapper" 
-         ng-click="jumpToDetail('/menu/people-detail/{{p.userId}}/{{p.hasHouse ? '1' : ''}}')">
+         ng-click="jumpToDetail('/menu/people-detail/' + p.userId + '/' + (p.hasHouse ? '1' : ''))">
       <div class="img-response" ng-class="{ 'ribbon': p.hasHouse }">
         <img ng-src="{{ p.photoId }}" alt=""  width="156" height="156">
       </div>

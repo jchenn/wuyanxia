@@ -387,8 +387,8 @@ angular.module('house.service',[])
                 }
                 
                 Data.addFile(url);
-                
-               callback(url);
+                if(callback) callback(url);
+               
             };
             var onFail=function(d){};
            Camera.getPic(onSuccess,onFail,opts,1);

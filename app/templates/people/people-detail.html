@@ -49,7 +49,7 @@
     <!-- 房源详情栏 -->
     <section class="house" ng-if="people.hasHouse" ng-class="{active: isShowHouse}">
       <section class="image-wrapper">
-        <ion-slide-box delegate-handle="image-viewer" ng-class="{pager: isShowPager}">
+        <ion-slide-box delegate-handle="image-viewer" ng-class="{pager: isShowPager}" >
           <ion-slide ng-repeat="image in house.images track by $index" >
             <img ng-src="{{ image }}" width="100%" height="270">
           </ion-slide>

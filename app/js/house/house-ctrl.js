@@ -214,18 +214,9 @@ angular.module('house.ctrl',[])
     
     
     $scope.onAddClick=function(){
-        Cmn.optionShow(function(url){
-            
-        });
+        Cmn.optionShow();
     };
     
-    $scope.onFocus=function(event){
-      // console.log(event);
-        //$timeout(function(){
-          //  $ionicScrollDelegate.scrollBottom();
-        //},500);
-        
-    };
 
     $scope.toView=function(index){
         location.href="#/menu/pic-view/"+index;

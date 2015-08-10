@@ -167,7 +167,7 @@ angular.module('people.ctrl', [])
 })
 
 .controller('PeopleDetailCtrl', 
-  function($scope, $ionicActionSheet, $stateParams, $ionicLoading, $ionicPopup, $ionicSlideBoxDelegate,
+  function($scope, $ionicActionSheet, $stateParams, $ionicLoading, $ionicPopup, $ionicSlideBoxDelegate, $ionicModal,
     $timeout, PeopleDetailQuery, FavAdd, FavRemove, ForbidAdd, PersonalInfo) {
 
   $scope.isShowInfo = true;
@@ -184,16 +184,13 @@ angular.module('people.ctrl', [])
     
     if (response.errno === 0) {
         
-        $scope.people = response.data;
-        $scope.house  = response.data.matchUserHouse;
-       
-      
+      $scope.people = response.data;
+      $scope.house  = response.data.matchUserHouse;
       
       // 设置默认照片
       if ($scope.house && !$scope.house.images) {
         $scope.house.images = ['img/placeholder-house.png'];
       }
-        
     }
 
     $ionicLoading.hide();
@@ -212,13 +209,52 @@ angular.module('people.ctrl', [])
   $scope.showHouse = function() {
     $scope.isShowInfo  = false;
     $scope.isShowHouse = true;
-    $scope.isShowPager = $scope.house&&$scope.house.images&&$scope.house.images.length > 1;
+    $scope.isShowPager = $scope.house && $scope.house.images && $scope.house.images.length > 1;
+
     $timeout(function() {
-        
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-        
     },1000);
-    
+
+  };
+
+  $ionicModal.fromTemplateUrl('image-modal.html', {
+    scope: $scope,
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.openModal = function(index) {
+    console.log(index);
+    $ionicSlideBoxDelegate.$getByHandle('full-image-viewer').slide(index);
+    $scope.modal.show();
+  };
+
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    console.log('[destroy] PeopleDetailCtrl');
+    $scope.modal.remove();
+  });
+
+  // Execute action on hide modal
+  $scope.$on('modal.hide', function() {
+    // Execute action
+  });
+
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
+  $scope.$on('modal.shown', function() {
+    console.log('Modal is shown!');
+  });
+
+  $scope.showImage = function(index) {
+    $scope.openModal(index);
   };
 
   // 显示 收藏/屏幕 菜单

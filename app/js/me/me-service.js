@@ -25,13 +25,18 @@ angular.module('me.service', [])
 
 })
 .factory('TakePhoto',function($ionicActionSheet, $http, $timeout, PersonalInfoMange){
+
+        var flag = '';
+
   return {
+
 
       //选择拍照或者上传照片
 
-      takePhoto : function (method) {
+      takePhoto : function (method,callBack) {
             var self = this;
-
+          console.log('out success');
+          callBack('1111');
           //清除缓存
           navigator.camera.cleanup( function(){
               console.log("Camera cleanup success.")
@@ -47,14 +52,19 @@ angular.module('me.service', [])
               var image = document.getElementById('myImage');
               var picData = "data:image/jpeg;base64," + imageData;
               image.src = picData;
+              console.log('in success');
+              callBack(picData);
               //更新本地缓存
-              PersonalInfoMange.update({'avatar' : picData});
               console.log('wo shi service');
 
-              self.uploadPic(imageData);
-              console.log(111);
+              //如果是个人信息填写 就不用上传图片；
+              if(flag != 0){
+                  //上传图片
+                  self.uploadPic(imageData);
+                  console.log(111);
+              }
+              console.log(2222);
 
-              //上传图片
           }
 
           function onFail(message) {
@@ -65,7 +75,7 @@ angular.module('me.service', [])
     uploadPic : function(imageData){
 
         var data = {
-            'file' : "data:image/jpg:base64," + imageData,
+            'file' : "data:image/jpeg;base64," + imageData,
             'userId' : PersonalInfoMange.get('userId')
         };
         var res = $http({
@@ -78,8 +88,9 @@ angular.module('me.service', [])
             if(response.errono == 0){
                 //$scope.data.avatar = response.imgUrl;
                 //console.log(response.imgUrl);
-                //PersonalInfoMange.update({'avatar' : response.imgUrl})
-                return response.imgUrl;
+                //PersonalInfoMange.update({'avatar' : response.imgUrl});
+                PersonalInfoMange.update({'avatar' : "data:image/jpeg;base64," + imageData});
+                //return response.imgUrl;
             }else if(response.errono == 1){
                 console.log('上传图片失败' + response.message);
             }
@@ -89,7 +100,8 @@ angular.module('me.service', [])
 
     },
      //显示选择框
-    showCamera : function(scope) {
+    showCamera : function(num, callBack) {
+        flag = num;
         var self = this;
         var hideSheet = $ionicActionSheet.show({
             buttons: [
@@ -111,7 +123,7 @@ angular.module('me.service', [])
                         targetWidth: 200,
                         targetHeight: 200,
                         sourceType: Camera.PictureSourceType.CAMERA
-                    });
+                    },callBack);
                 } else if (index == 1) {
                     console.log('我要选照片');
                     self.takePhoto({
@@ -122,7 +134,7 @@ angular.module('me.service', [])
                         targetWidth: 200,
                         targetHeight: 200,
                         sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-                    });
+                    },callBack);
 
                 }
                 hideSheet();
@@ -148,7 +160,7 @@ angular.module('me.service', [])
             function success(date){
 
                 var time = new Date(date).valueOf();
-                PersonalInfoMange.update({'birthday' : time});
+                //PersonalInfoMange.update({'birthday' : time});
                 scope.$apply(function () {
                     scope.data.birthday = time;
                 });

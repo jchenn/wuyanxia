@@ -50,8 +50,9 @@
     <section class="house" ng-if="people.hasHouse" ng-class="{active: isShowHouse}">
       <section class="image-wrapper">
         <ion-slide-box delegate-handle="image-viewer" ng-class="{pager: isShowPager}"  >
-          <ion-slide ng-repeat="image in house.images track by $index" >
-            <img ng-src="{{ image }}" width="100%" height="270">
+          <ion-slide ng-repeat="image in house.images track by $index" ng-click="showImage($index)">
+            <!-- <img ng-src="{{ image }}"> -->
+            <div class="img-bg" ng-style="{'background-image': 'url(' + image + ')'}"></div>
           </ion-slide>
         </ion-slide-box>
       </section>
@@ -101,3 +102,13 @@
     </div>
   </div>
 </ion-view>
+
+<script id="image-modal.html" type="text/ng-template">
+<div class="modal house-image-modal" ng-click="closeModal()">
+  <ion-slide-box delegate-handle="full-image-viewer" show-pager="false">
+    <ion-slide ng-repeat="image in house.images track by $index">
+      <img ng-src="{{ image }}" class="fullscreen-image" />
+    </ion-slide>
+  </ion-slide-box>
+</div>
+</script>

@@ -47,6 +47,7 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
 .factory('authInterceptor', function ($rootScope, $q, $window) {
   return {
     request: function (config) {
+      // console.log(config);
       config.headers = config.headers || {};
       if ($window.localStorage.access_token) {
         // config.headers.Authorization = 'Bearer ' + $window.localStorage.access_token;

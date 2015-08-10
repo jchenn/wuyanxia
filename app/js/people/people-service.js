@@ -18,7 +18,7 @@ angular.module('people.service', ['ngResource'])
   var condition = {
     buttons: [
       {name: 'f', choices: [{label: '有房', value: '2'}, {label: '无房', value: '3'}, {label: '不限', value: '1'}]},
-      {name: 'xb', choices: [{label: '男', value: '2'}, {label: '女', value: '3'}, {label: '全部', value: '1'}]}
+      {name: 'xb', choices: [{label: '只看帅哥', value: '2'}, {label: '只看美女', value: '3'}, {label: '全部', value: '1'}]}
     ],
     list: [
       {name: 'gs', label: '公司', choices: [
@@ -131,10 +131,13 @@ angular.module('people.service', ['ngResource'])
 .factory('PermissionChecker', function(PersonalInfo, $ionicPopup, $rootScope) {
   var factory = {
     goto: function(hash) {
+
+      // console.log('hash', hash);
       
       if (PersonalInfo.completeInfo && PersonalInfo.tags) {
 
         // 有个性标签，有个人信息
+        // console.log('go to people list');
         $rootScope.go(hash);
 
       } else if (!PersonalInfo.tags && !PersonalInfo.completeInfo) {

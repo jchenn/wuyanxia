@@ -1,41 +1,37 @@
-
-<ion-view hide-nav-bar="true" class="g-login" id='login'>
-	<ion-content class="g-content">
-		<div class="logo-wrap">
-			<div class="logo"></div>
-		</div>
-<!-- 		<ul class="related-log clearfix">
-			<li>微信</li>
-			<li>易信</li>
-		</ul> -->
-
-		<div class="m-form">
-<!-- 			<div class="header">
-				<span>或从以下方式登录</span>
-			</div> -->
-			<form class="log-list list padding" ng-submit="login()" ng-init="fcousFlag = 0">
-				<label class="item item-input" ng-class="{ 'has-error' : errorEmail, 'is-focus' : fcousFlag==1}" >
-					<span class="input-label icon icon-email"></span>
-    			<input type="text" name="email" ng-model="formData.email" placeholder="公司邮箱" ng-focus="fcousFlag = 1" ng-blur="fcousFlag = 0">
-    			<!-- <span class="help-block" ng-show="errorEmail">123123{{errorEmail}}</span> -->
-				</label>
-				<label class="item item-input" ng-class="{ 'has-error' : errorPwd, 'is-focus' : fcousFlag==2 }" >
-				    <span class="input-label icon icon-pwd" ></span>
-    				<input type="password" name="password" ng-model="formData.password" placeholder="登录密码" ng-focus="fcousFlag = 2" ng-blur="fcousFlag = 0">
-				</label>
-				<span class="errorInfo" ng-show="errorData.text">{{errorData.text}}</span>
-				<button type="submit" class="button button-block button-positive" >
-					登录
-				</button>
-			</form>
-		</div>
-	</ion-content>
-	<ion-footer-bar  class="m-bar bar bar-footer" >
-		<div class="buttons" ng-click="changePwd()">
-		  <button class="button">忘记密码</button>
-		</div>
-		<div class="buttons" ng-click="go('/register')">
-		  <button class="button">注册账号</button>
-		</div>
-	</ion-footer-bar>
-</ion-view>
+	<ion-view hide-nav-bar="true" class="g-login" id='login'>
+		<ion-content class="g-content" id='content'>
+			<div class="logo-wrap">
+				<div class="logo"></div>
+			</div>
+			<div class="m-form">
+				<!-- <pre>{{formData.email}}</pre> -->
+				<form class="log-list list padding" ng-submit="login()" >
+					<label class="item item-input" ng-class="{ 'has-error' : errorEmail, 'is-focus' : focusFlag===1}" >
+						<span class="input-label icon icon-email"></span>
+	    			<!-- <input type="text" name="email" ng-model="formData.email" placeholder="公司邮箱" ng-focus="focusFlag = 1" ng-blur="focusFlag = 0"> -->
+	    			<input type="text" name="email" ng-model="formData.email" placeholder="公司邮箱" ng-focus="inputFocus(1)" ng-blur="inputBlur(0)">
+	    			<!-- <span class="help-block" ng-show="errorEmail">123123{{errorEmail}}</span> -->
+					</label>
+					<label class="item item-input" ng-class="{ 'has-error' : errorPwd, 'is-focus' : focusFlag===2 }" >
+					    <span class="input-label icon icon-pwd" ></span>
+	    				<!-- <input type="password" name="password" ng-model="formData.password" placeholder="登录密码" ng-focus="focusFlag = 2" ng-blur="focusFlag = 0"> -->
+	    				<input type="password" name="password" ng-model="formData.password" placeholder="登录密码" ng-focus="inputFocus(2)" ng-blur="inputBlur(0)">
+					</label>
+					<span class="errorInfo" ng-show="errorData.text">{{errorData.text}}</span>
+					<button type="submit" class="button button-block button-positive" >
+						登录
+					</button>
+				</form>
+			</div>
+			<!-- <pre>{{focusFlag}}</pre> -->
+			<ion-footer-bar  class="m-bar bar bar-footer" id="m-bar">
+			<!-- <ion-footer-bar  class="m-bar bar bar-footer"> -->
+				<div class="buttons" ng-click="changePwd()">
+				  <button class="button">忘记密码</button>
+				</div>
+				<div class="buttons" ng-click="go('/register')">
+				  <button class="button">注册账号</button>
+				</div>
+			</ion-footer-bar>
+		</ion-content>
+	</ion-view>

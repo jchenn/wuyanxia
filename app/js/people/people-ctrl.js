@@ -143,6 +143,9 @@ angular.module('people.ctrl', [])
 
   // 在跳转到室友详情之前，先判断是否填完个人信息
   $scope.jumpToDetail = PermissionChecker.goto;
+  // $scope.jumpToDetail = function(p) {
+  //   PermissionChecker.goto('/menu/people-list/' + p.userId + '/' + (p.hasHouse ? '1' : ''));
+  // };
 })
 
 .controller('PeopleFilterCtrl', function($scope, PeopleFilterModel) {
@@ -172,6 +175,8 @@ angular.module('people.ctrl', [])
   $scope.isShowTab = $stateParams.hasHouse ? true : false;
 
   $ionicLoading.show();
+
+  // console.log($stateParams);
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     
@@ -207,13 +212,10 @@ angular.module('people.ctrl', [])
   $scope.showHouse = function() {
     $scope.isShowInfo  = false;
     $scope.isShowHouse = true;
-    $scope.isShowPager = $scope.house&&$scope.house.images&&$scope.house.images.length > 1;
+    $scope.isShowPager = $scope.house && $scope.house.images && $scope.house.images.length > 1;
     $timeout(function() {
-        
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-        
     },1000);
-    
   };
 
   // 显示 收藏/屏幕 菜单

@@ -1,6 +1,12 @@
 .g-login, .g-register {
 	background: url('../img/auth/bg.jpg') no-repeat;
 	background-size: cover;
+	.g-content .scroll {
+		height: 100%;
+	}
+	.g-content .scroll-bar{
+		display: none;
+	}
 	.logo-wrap {
 		position: relative;
 		width: 100%;
@@ -18,40 +24,8 @@
 			border-radius: 5px;
 		}
 	}
-
-	.related-log {
-		margin-bottom: 20px;
-		li {
-			float: left;
-			padding-left: 10px;
-			font-size: 18px;
-			display: inline-block;
-			box-sizing: border-box;
-			width: 50%;
-			&:first-child {
-				border-right: 1px solid gray;
-				padding-right: 10px;
-				text-align: right;
-			}
-		}
-	}
-
 	.m-form {
-		.header {
-			display: flex;
-			align-items: center;
-			&:before, &:after{
-				content: '';
-				display: block;
-				flex: 1;
-				border-top:1px solid gray;
-				height: 0;
-			}
-			span {
-			    display: inline-block;
-			    padding: 0 15px;			
-			}
-		}
+		margin-bottom: 50px;
 		.log-list.list {
 			padding: 10px 30px;
 			.input-label.icon {
@@ -90,6 +64,7 @@
 				margin-top: 25px;
 				background-color: #66C3D2;
 				border-width: 0;
+				border-radius: 0;
 			}
 			.has-error {
 				border-color: red;
@@ -111,6 +86,10 @@
 		width: 100%;
 		background: transparent;
 		border-top-width: 0;
+		&.is-focus {
+			// position: static;
+			display: none;
+		}
 		& > .buttons {
 			width: 50%;
 			height: 100%;

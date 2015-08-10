@@ -178,13 +178,17 @@ angular.module('people.ctrl', [])
     // console.log('detail', response);
     
     if (response.errno === 0) {
-      $scope.people = response.data;
-      $scope.house  = response.data.matchUserHouse;
+        
+        $scope.people = response.data;
+        $scope.house  = response.data.matchUserHouse;
+       
+      
       
       // 设置默认照片
       if ($scope.house && !$scope.house.images) {
         $scope.house.images = ['img/placeholder-house.png'];
       }
+        
     }
 
     $ionicLoading.hide();
@@ -203,10 +207,12 @@ angular.module('people.ctrl', [])
   $scope.showHouse = function() {
     $scope.isShowInfo  = false;
     $scope.isShowHouse = true;
-    $scope.isShowPager = $scope.house.images.length > 1;
+    $scope.isShowPager = $scope.house&&$scope.house.images&&$scope.house.images.length > 1;
     $timeout(function() {
+        
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-    });
+        
+    },1000);
     
   };
 

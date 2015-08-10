@@ -165,7 +165,6 @@ angular.module('house.service',[])
                 userId:PersonalInfo.userId
             };
             var form=Data.getAll();
-            console.log(form);
             for(var i in form) data[i]=form[i];
             $http.post(host+updatePath,data).success(callback);
         },
@@ -382,14 +381,14 @@ angular.module('house.service',[])
             var onSuccess=function(data){
                 
                 var url="data:image/jpeg;base64," + data;
-                if(Data.ifFileIn(url)){
+                if(Data.isFileIn(url)){
                     self.warn("图片已经存在！");
                     return;
                 }
                 
                 Data.addFile(url);
-                
-               callback(url);
+                if(callback) callback(url);
+               
             };
             var onFail=function(d){};
            Camera.getPic(onSuccess,onFail,opts,1);

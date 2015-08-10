@@ -1,6 +1,12 @@
 .g-login, .g-register {
 	background: url('../img/auth/bg.jpg') no-repeat;
 	background-size: cover;
+	.g-content .scroll {
+		height: 100%;
+	}
+	.g-content .scroll-bar{
+		display: none;
+	}
 	.logo-wrap {
 		position: relative;
 		width: 100%;
@@ -37,6 +43,7 @@
 	}
 
 	.m-form {
+		margin-bottom: 100px;
 		.header {
 			display: flex;
 			align-items: center;
@@ -90,6 +97,7 @@
 				margin-top: 25px;
 				background-color: #66C3D2;
 				border-width: 0;
+				border-radius: 0;
 			}
 			.has-error {
 				border-color: red;
@@ -111,6 +119,10 @@
 		width: 100%;
 		background: transparent;
 		border-top-width: 0;
+		&.is-focus {
+			// position: static;
+			display: none;
+		}
 		& > .buttons {
 			width: 50%;
 			height: 100%;

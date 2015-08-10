@@ -9,18 +9,47 @@ angular.module('auth.ctrl', ['ionic'])
         console.log($scope.myForm);
         $scope.$on('$stateChangeSuccess', function(event, toState) {
             console.log('clear history 1');
+
+        var eContent = document.getElementById("login");
+            console.log('clear history 1');
             $ionicHistory.clearHistory();
             $ionicHistory.clearCache();
         });
+
+
         //处理底部栏随键盘上浮
-        // var eContent = document.getElementById("login");
+        // var eLogin = document.getElementById("login");
+        // var eContent = document.getElementById("content");
+        // var eScroll = document.getElementsByClassName("scroll")[0];
+        // var eFooter = document.getElementsByClassName("bar-footer")[0];
+        // var loginH = eLogin.offsetHeight;
         // var contentH = eContent.offsetHeight;
-        // if (window.sessionStorge) {}
-        // console.log(123);
-        // eContent.style.height = contentH + 'px';
+        // var scrollH = eScroll.offsetHeight;
+        // console.log(loginH);
+        // console.log(contentH);
+        // console.log(scrollH);
+        // eScroll.style.height = loginH + 'px';
+        // eScroll.style.height = '100%';
+        // eFooter.style.position = 'static';
+        // eScroll.classList.add('height');
+        // eContent.style.height = loginH + 'px';
+        // eScroll.style.height = contentH + 'px';
         // document.querySelector("#login > div").style.height = contentH + 'px';
         // document.querySelector("#login > div").style.position = "relative";
         // console.log(contentH);
+        // window.onresize = function() {
+        //     console.log('resize');
+        //     console.log($scope.focusFlag);
+        //     if($scope.focusFlag && $scope.focusFlag!== 0) {
+        //         eFooter.classList.add('is-focus');
+        //     } else {
+        //         eFooter.classList.remove('is-focus');
+        //     }
+        // };
+        $scope.inputFocus = function(num) {
+
+        };
+        
         /**
          * 忘记密码函数
          * @return {[type]} [description]
@@ -132,7 +161,6 @@ angular.module('auth.ctrl', ['ionic'])
                             $window.localStorage.setItem('access_token', resp.access_token || '');
                             //标示登录状态
                             PersonalInfoMange.update({isLogin: 1});
-                            console.log(PersonalInfo);
 
                             // 验证成功并跳转
                             InfoPopupService($scope.emailSucInfo, function() {

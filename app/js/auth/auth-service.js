@@ -64,7 +64,8 @@ angular.module('auth.service', ['ngResource'])
 }])
 
 .factory('Validate', function() {
-	var emailReg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+	// var emailReg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+	var emailReg = /^(\w)+(\.\w+)*@(corp.netease.com)|(yixin.im)$/;
 
 	var checkData = function(data, hasNickName) {
 		var data = data || {},

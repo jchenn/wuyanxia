@@ -217,7 +217,7 @@ angular.module('people.ctrl', [])
         
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
         
-    });
+    },1000);
     
   };
 

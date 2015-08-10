@@ -2,8 +2,8 @@ angular.module('auth.ctrl', ['ionic'])
     .controller('LoginCtrl', function($scope, $http, $window, $location, $ionicHistory, $timeout, Loading,  AjaxService, Validate, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 数据
         $scope.formData = {
-            'email': "hzlbl4@corp.netease.com",
-            'password': "123456"
+            // 'email': "hzlbl4@corp.netease.com",
+            // 'password': "123456"
         };
         $scope.errorData = {};
         console.log($scope.myForm);

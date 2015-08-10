@@ -53,7 +53,8 @@ angular.module('auth.service', ['ngResource'])
 		console.log(data);
         var myPopup = $ionicPopup.show({
             title: title || "",
-            template: template || ""
+            template: template || "",
+            cssClass: 'toast'
         });
         $timeout(function() {
             myPopup.close();

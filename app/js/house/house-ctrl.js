@@ -1,19 +1,5 @@
 angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,PersonalInfo,$ionicScrollDelegate,event,$ionicPopup){
-    /*$scope.safeApply = function(fn) {
-        if(!this.$root) {
-            console.log('这好像有点错啊！！');
-            return;
-        }
-        var phase = this.$root.$$phase;
-        if(phase == '$apply' || phase == '$digest') {
-            if(fn && (typeof(fn) === 'function')) {
-                fn();
-            }
-        } else {
-            this.$apply(fn);
-        }
-    };*/
     event.off("house.data.update").off("house.init").off("house.file.update");
     event.on('house.file.update',function(){
         var arr=Data.getFiles();

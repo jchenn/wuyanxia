@@ -32,6 +32,7 @@ angular.module('people', ['people.ctrl', 'people.service', 'people.directive'])
     // 筛选
     .state('menu.people-filter', {
       url: '/people-filter',
+      cache: false,
       views: {
         'menu-content': {
           templateUrl: 'templates/people/people-filter.html',

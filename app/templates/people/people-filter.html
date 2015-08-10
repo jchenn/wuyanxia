@@ -15,7 +15,8 @@
       <li class="item item-input item-select" ng-repeat="v in list">
         <div class="input-label">{{ v.label }}</div>
         <select ng-model="params[v.name]">
-          <option ng-repeat="c in v.choices" value="{{ c.value }}">{{ c.label }}</option>
+          <option ng-repeat="c in v.choices" value="{{ c.value }}"
+                  ng-selected="{{ params[v.name] == c.value }}">{{ c.label }}</option>
         </select>
       </li>
     </ul>

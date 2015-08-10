@@ -164,5 +164,6 @@ angular.module('quiz.ctrl', [])
 
 .controller('QuizHouseCtrl', function($ionicHistory) {
   $ionicHistory.clearHistory();
+  $ionicHistory.clearCache();
 })
 ;

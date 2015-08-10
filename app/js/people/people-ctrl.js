@@ -36,7 +36,11 @@ angular.module('people.ctrl', [])
 
       if (response.errno === 0) {
 
-        _data = response.data;
+        _data = response.data || [];
+
+        if (params.p === 1) {
+          $scope.list = _data;
+        }
 
         if (_data && _data.length > 0) {
           $scope.list = (params.p === 1) ? _data : $scope.list.concat(_data);
@@ -139,12 +143,17 @@ angular.module('people.ctrl', [])
 
   // 在跳转到室友详情之前，先判断是否填完个人信息
   $scope.jumpToDetail = PermissionChecker.goto;
+  // $scope.jumpToDetail = function(p) {
+  //   PermissionChecker.goto('/menu/people-list/' + p.userId + '/' + (p.hasHouse ? '1' : ''));
+  // };
 })
 
 .controller('PeopleFilterCtrl', function($scope, PeopleFilterModel) {
   $scope.buttons = PeopleFilterModel.radio;
   $scope.list = PeopleFilterModel.list;
   $scope.params = PeopleFilterModel.params();
+
+  // console.log('params', $scope.params);
 
   $scope.finish = function() {
     PeopleFilterModel.setUsingCache(false);
@@ -167,18 +176,24 @@ angular.module('people.ctrl', [])
 
   $ionicLoading.show();
 
+  // console.log($stateParams);
+
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     
     // console.log('detail', response);
     
     if (response.errno === 0) {
-      $scope.people = response.data;
-      $scope.house  = response.data.matchUserHouse;
+        
+        $scope.people = response.data;
+        $scope.house  = response.data.matchUserHouse;
+       
+      
       
       // 设置默认照片
       if ($scope.house && !$scope.house.images) {
         $scope.house.images = ['img/placeholder-house.png'];
       }
+        
     }
 
     $ionicLoading.hide();
@@ -197,10 +212,12 @@ angular.module('people.ctrl', [])
   $scope.showHouse = function() {
     $scope.isShowInfo  = false;
     $scope.isShowHouse = true;
-    $scope.isShowPager = $scope.house.images.length > 1;
+    $scope.isShowPager = $scope.house&&$scope.house.images&&$scope.house.images.length > 1;
     $timeout(function() {
+        
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-    });
+        
+    },1000);
     
   };
 

@@ -1,19 +1,27 @@
 angular.module('me.ctrl', [])
 
     //注册页面个人信息
-    .controller('InfoRegister', function($scope, $timeout,$ionicPopup, $http, $ionicModal, $ionicPopover,$ionicActionSheet,TakePhoto,dateSelect, PersonalInfo, PersonalInfoMange,Check, $ionicHistory, DayInit){
-
-        console.log(PersonalInfo);
-
-        PersonalInfoMange.update(DayInit);
+    .controller('InfoRegister', function($scope, $timeout,$ionicPopup, $http, $ionicModal, $ionicPopover,$ionicActionSheet,event,TakePhoto,dateSelect, PersonalInfo, PersonalInfoMange,Check, $ionicHistory){
 
         console.log(PersonalInfo);
         $scope.data =  PersonalInfo;
         //angular.extend($scope.data, TakePhoto);
+        //绑定进入页面事件
+   /*     event.on('me.initData', function(){
+
+         $timeout(function(){
+         $scope.data =  PersonalInfo;
+         alert('wo yi jing zhi xing');
+         },0);
+
+         });
+         event.trigger('me.initData');*/
+
+
         $scope.showCamera = function(){
-            var url = TakePhoto.showCamera();
-            PersonalInfoMange.update({'avatar':url});
-            $scope.data.avatar = url;
+            TakePhoto.showCamera();
+            /*PersonalInfoMange.update({'avatar':url});
+            $scope.data.avatar = url;*/
         };
 
         $ionicModal.fromTemplateUrl('templates/me/sex-modal.html', {
@@ -54,9 +62,24 @@ angular.module('me.ctrl', [])
         //提交数据
         $scope.finishRegister = function(){
             //检查数据
+
+
+            if(Check.getLen($scope.data.avatar) < 1 || $scope.data.avatar == "http://223.252.223.13/Roommates/photo/photo_default.jpg"){
+                $ionicPopup.alert({
+                    template: '请上传头像'
+                });
+                return false;
+            }
+
             if(Check.getLen($scope.data.gender) < 1){
                 $ionicPopup.alert({
                     template:"请选择性别"
+                });
+                return false;
+            }
+            if(Check.getLen($scope.data.birthday) < 1){
+                $ionicPopup.alert({
+                    template:"请选择出生日期"
                 });
                 return false;
             }

@@ -86,7 +86,8 @@
         display: block;
         width: 54px;
         height: 16px;
-        background: url(../img/icon-credit-2.png) 50% 50% / contain no-repeat;
+        background: url(../img/icon-credit-2.png) 50% 50% no-repeat;
+        background-size: contain;
       }
     }
   }
@@ -97,7 +98,8 @@
     left: 11px;
     height: 100%;
     width: 32px;
-    background: 50% 50% / contain no-repeat;
+    background: 50% 50% no-repeat;
+    background-size: contain;
   }
 
   .icon-bookmark {

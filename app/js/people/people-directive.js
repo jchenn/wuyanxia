@@ -10,8 +10,10 @@ angular.module('people.directive', [])
 .directive('peopleListGrid', function($window) {
   return {
     restrict: 'E',
+    replace: true,
     link: function(scope, element) {
-      var grid = element.find('ul')[0];
+      // var grid = element.find('ul')[0];
+      var grid = element[0].childNodes[0];
 
       addPadding();
       $window.addEventListener('resize', addPadding);

@@ -212,13 +212,10 @@ angular.module('people.ctrl', [])
   $scope.showHouse = function() {
     $scope.isShowInfo  = false;
     $scope.isShowHouse = true;
-    $scope.isShowPager = $scope.house&&$scope.house.images&&$scope.house.images.length > 1;
+    $scope.isShowPager = $scope.house && $scope.house.images && $scope.house.images.length > 1;
     $timeout(function() {
-        
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-        
     },1000);
-    
   };
 
   // 显示 收藏/屏幕 菜单

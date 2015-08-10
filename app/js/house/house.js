@@ -20,11 +20,12 @@ angular.module('house',['house.ctrl','house.service'])
     })   
     .state('menu.picView',{
         url:'/pic-view/:id',
+        cache:false,
         views:{
             'menu-content':{
                 templateUrl:'templates/house/pic-view.html',
-                controller:'picviewCtrl',
-                cache:false
+                controller:'picviewCtrl'
+                //cache:false
             }
         }
     })

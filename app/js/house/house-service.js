@@ -237,11 +237,11 @@ angular.module('house.service',[])
         },
         addFile:function(file){
             fileList.push(file);
-            event.trigger("house.data.update");
+            event.trigger("house.file.update");
         },
         setFiles:function(arr){
             fileList=arr;
-            event.trigger("house.data.update");
+            event.trigger("house.file.update");
         },
         getFile:function(id){
             return fileList[id];
@@ -251,8 +251,16 @@ angular.module('house.service',[])
         },
         deleteFile:function(index){
             var res= fileList.splice(index,1)[0];
-            event.trigger("house.data.update");
+            event.trigger("house.file.update");
             return res;
+        },
+        isFileIn:function(str){
+            for(var i=0;i<fileList.length;i++){
+                if(fileList[i]==str){
+                    return true;
+                }
+            }
+            return false;
         },
         addDelete:function(pic){
             delList.push(pic);
@@ -262,7 +270,7 @@ angular.module('house.service',[])
         },
         clearPics:function(){
             fileList=[];
-            event.trigger("house.data.update");
+            event.trigger("house.file.update");
         },
         replacePic:function(indexs,pics){
             if(indexs.length!==pics.length){
@@ -271,7 +279,7 @@ angular.module('house.service',[])
             for(var i=0;i<indexs.length;i++){
                 fileList.splice(indexs[i],1,pics[i]);
             }
-            event.trigger("house.data.update");
+            event.trigger("house.file.update");
         },
         clear:function(){
             this.clearPics();
@@ -374,18 +382,16 @@ angular.module('house.service',[])
             var onSuccess=function(data){
                 
                 var url="data:image/jpeg;base64," + data;
-                console.log(data.length);
-                /*if(url.length>700000){
-                    self.warn("图片太大啦，换一张吧！");
+                if(Data.ifFileIn(url)){
+                    self.warn("图片已经存在！");
                     return;
-                }*/
-                
+                }
                 
                 Data.addFile(url);
                 
                callback(url);
             };
-            var onFail=function(d){self.warn(d);};
+            var onFail=function(d){};
            Camera.getPic(onSuccess,onFail,opts,1);
         }
     };

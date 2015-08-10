@@ -18,16 +18,17 @@ ServiceModule
             return false;
         },
         getLen:function(str){
-            var realLength = 0;  
-            for (var i = 0; i < str.length; i++)   
-            {  
-                charCode = str.charCodeAt(i);  
-                if (charCode >= 0 && charCode <= 128)   
-                realLength += 1;  
-                else   
-                realLength += 2;  
-            }  
-            return realLength;  
+            var realLength = 0;
+            str = str + '';
+            for (var i = 0; i < str.length; i++)
+            {
+                charCode = str.charCodeAt(i);
+                if (charCode >= 0 && charCode <= 128)
+                realLength += 1;
+                else
+                realLength += 2;
+            }
+            return realLength;
         },
         parse:function(str){
             var reg=/[<>]/g;

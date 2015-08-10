@@ -3,23 +3,18 @@ angular.module('me.ctrl', [])
     //注册页面个人信息
     .controller('InfoRegister', function($scope, $timeout,$ionicPopup, $http, $ionicModal, $ionicPopover,$ionicActionSheet,event,TakePhoto,dateSelect, PersonalInfo, PersonalInfoMange,Check, $ionicHistory){
 
-        console.log(PersonalInfo);
-        $scope.data =  PersonalInfo;
-        //angular.extend($scope.data, TakePhoto);
-        //绑定进入页面事件
-   /*     event.on('me.initData', function(){
-
-         $timeout(function(){
-         $scope.data =  PersonalInfo;
-         alert('wo yi jing zhi xing');
-         },0);
-
-         });
-         event.trigger('me.initData');*/
+        $scope.data = {};
+        angular.extend($scope.data,PersonalInfo);
+        console.log($scope.data);
 
 
         $scope.showCamera = function(){
-            TakePhoto.showCamera();
+            TakePhoto.showCamera(0,function(imageData){
+                $scope.data.avatar = imageData;
+                console.log(PersonalInfo);
+                console.log($scope.data);
+                //alert(imageData);
+            });
             /*PersonalInfoMange.update({'avatar':url});
             $scope.data.avatar = url;*/
         };
@@ -64,12 +59,12 @@ angular.module('me.ctrl', [])
             //检查数据
 
 
-            if(Check.getLen($scope.data.avatar) < 1 || $scope.data.avatar == "http://223.252.223.13/Roommates/photo/photo_default.jpg"){
+           /* if(Check.getLen($scope.data.avatar) < 1 || $scope.data.avatar == "http://223.252.223.13/Roommates/photo/photo_default.jpg"){
                 $ionicPopup.alert({
                     template: '请上传头像'
                 });
                 return false;
-            }
+            }*/
 
             if(Check.getLen($scope.data.gender) < 1){
                 $ionicPopup.alert({
@@ -111,6 +106,10 @@ angular.module('me.ctrl', [])
                 'phone' : $scope.data.phone
             };
 
+            //先上传头像
+            TakePhoto.uploadPic($scope.data.avatar);
+            PersonalInfoMange.update({'avatar' : $scope.data.avatar});
+
             //给服务器发请求
             var res = $http({
                 method: 'post',
@@ -148,7 +147,9 @@ angular.module('me.ctrl', [])
         $scope.showCamera = function(){
             console.log(PersonalInfo);
             console.log('wo shi pai zhao zhiqian');
-            TakePhoto.showCamera($scope);
+            TakePhoto.showCamera(1,function(imageData){
+                $scope.data.avatar = imageData;
+            });
             console.log('wo shi pai zhao zhihou ');
             console.log(PersonalInfo);
             console.log($scope.data);

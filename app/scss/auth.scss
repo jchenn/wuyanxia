@@ -24,41 +24,8 @@
 			border-radius: 5px;
 		}
 	}
-
-	.related-log {
-		margin-bottom: 20px;
-		li {
-			float: left;
-			padding-left: 10px;
-			font-size: 18px;
-			display: inline-block;
-			box-sizing: border-box;
-			width: 50%;
-			&:first-child {
-				border-right: 1px solid gray;
-				padding-right: 10px;
-				text-align: right;
-			}
-		}
-	}
-
 	.m-form {
-		margin-bottom: 100px;
-		.header {
-			display: flex;
-			align-items: center;
-			&:before, &:after{
-				content: '';
-				display: block;
-				flex: 1;
-				border-top:1px solid gray;
-				height: 0;
-			}
-			span {
-			    display: inline-block;
-			    padding: 0 15px;			
-			}
-		}
+		margin-bottom: 50px;
 		.log-list.list {
 			padding: 10px 30px;
 			.input-label.icon {

@@ -75,6 +75,8 @@
 
     h1 {
       overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       color: #575757;
       line-height: 24px;
       font-size: 16px;

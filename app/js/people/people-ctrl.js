@@ -300,7 +300,7 @@ angular.module('people.ctrl', [])
     // console.log('fav list', response);
 
     if (response.errno === 0) {
-      $scope.list = response.data;
+      $scope.list = response.data || [];
     }
   }, function(err) {
     console.log('fav list err', err);

@@ -18,11 +18,20 @@ ServiceModule
             return false;
         },
         getLen:function(str){
+                        
+            console.log(str);
             var realLength = 0;
-            str = str + '';
             if(typeof str ==='undefined'){
                 return 0;
             }
+            if(!!str){
+            
+                
+            }else{
+                return 0;
+            }
+            
+            str = str + '';
             for (var i = 0; i < str.length; i++)
             {
                 charCode = str.charCodeAt(i);

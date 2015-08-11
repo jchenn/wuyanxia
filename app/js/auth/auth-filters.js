@@ -1,11 +1,4 @@
 angular.module('auth.filters', [])
-// .filter('emailFront', function() {
-// 	return function(str) {
-// 		str = str || '';
-// 		var obj = str.match(/^(\w+([-+.]\w+)*@).*$/);
-// 		return obj === null ? str : obj[1];
-// 	};
-// })
 
 .filter('AEFliter', function() {
 	return function(arr, inputStr) {

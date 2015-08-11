@@ -30,6 +30,11 @@ angular.module('people.directive', [])
         // console.log('padding', p);
         grid.style.padding = '0 ' + (p + 8) + 'px'
       }
+
+      scope.$on('$destroy', function() {
+        console.log('[destroy] peopleListGrid');
+        $window.removeEventListener('resize', addPadding);
+      });
     },
     templateUrl: 'templates/people/people-list-grid.html'
   }

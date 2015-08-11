@@ -6,6 +6,9 @@
   </ion-header-bar>
   <ion-content>
     <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()"></ion-refresher>
+    <p class="hint" ng-if="showHint">
+      没有筛选到您要找的室友，试试别的条件吧。
+    </p>
     <people-list-grid></people-list-grid>
     <ion-infinite-scroll ng-if="hasMore()" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>

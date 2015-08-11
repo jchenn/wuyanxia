@@ -1,6 +1,10 @@
 angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,PersonalInfo,$ionicScrollDelegate,event,$ionicPopup){
     event.off("house.data.update").off("house.init").off("house.file.update");
+    $scope.$on('$destroy',function(){
+        event.off("house.data.update").off("house.init").off("house.file.update");
+        Data.clear();
+    });
     event.on('house.file.update',function(){
         var arr=Data.getFiles();
         var size=[];

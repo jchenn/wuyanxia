@@ -11,19 +11,13 @@ angular.module('people.directive', [])
   return {
     restrict: 'E',
     replace: true,
-    controller: function($scope, $element) {
-      // var grid = element.find('ul')[0];
-      var grid = $element[0].childNodes[0];
+    link: function(scope, element) {
+      var grid = element[0].childNodes[0];
 
-      addPadding();
-      $window.addEventListener('resize', addPadding);
+      // addPadding();
+      // $window.addEventListener('resize', addPadding);
 
-      $scope.$on('remove', function() {
-        console.log('remove', $element);
-        // angular.element($element).remove();
-      });
-
-      $scope.$on('$destroy', function() {
+      scope.$on('$destroy', function() {
         console.log('[destroy] peopleListGrid');
         $window.removeEventListener('resize', addPadding);
       });
@@ -37,9 +31,20 @@ angular.module('people.directive', [])
             break;
           }
         }
-        // console.log('padding', p);
+        console.log('padding', p);
         grid.style.padding = '0 ' + (p + 8) + 'px'
       }
+    },
+    controller: function($scope, $element) {
+      // var grid = element.find('ul')[0];
+      $scope.$on('remove', function() {
+        console.log('remove', $element);
+        // angular.element($element).remove();
+      });
+
+      $scope.$on('$destroy', function() {
+        console.log('[destroy] peopleListGrid');
+      });
     },
     templateUrl: 'templates/people/people-list-grid.html'
   }

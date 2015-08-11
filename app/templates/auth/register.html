@@ -13,7 +13,7 @@
 				<!-- email -->
 				<label class="item item-input" ng-class="{ 'has-error' : (userForm.email.$error.required || ((userForm.email.$error.email || userForm.email.$error.pattern) && !isEmailFocus)) && (!userForm.email.$pristine || submitted), 'is-focus' : isEmailFocus}">
 					<span class="input-label icon icon-email"></span>
-    				<input type="email" name="email" placeholder="公司邮箱" ng-model="formData.email" ng-focus="isEmailFocus = true" ng-blur="isEmailFocus = false" required ng-pattern="/^(\w)+(\.\w+)*@((corp.netease.com)|(yixin.im))$/">
+    				<input type="email" name="email" placeholder="企业邮箱" ng-model="formData.email" ng-focus="isEmailFocus = true" ng-blur="isEmailFocus = false" required ng-pattern="/^(\w)+(\.\w+)*@((corp.netease.com)|(yixin.im))$/">
 				</label>
 				<input type="hidden" name="test" ng-model="userForm.email.$viewValue" ng-pattern="/^(\w)+(\.\w+)*@((c(o(r(p(\.(n(e(t(e(a(s(e(\.(c(o(m)?)?)?)?)?)?)?)?)?)?)?)?)?)?)?)|(y(i(x(i(n(\.(i(m)?)?)?)?)?)?)?))?$/">
 				<ul class="email_list" ng-show="userForm.test.$valid && userForm.email.$viewValue && isEmailFocus" ng-click="autoInputEmail($event)">

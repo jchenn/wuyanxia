@@ -38,7 +38,7 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
     $rootScope.go('/menu/people-list');
   } else {
     // 到登录界面
-    console.log('no token');
+    // console.log('no token');
     $rootScope.go('/login');
   }
 
@@ -47,7 +47,6 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
 .factory('authInterceptor', function ($rootScope, $q, $window) {
   return {
     request: function (config) {
-      // console.log(config);
       config.headers = config.headers || {};
       if ($window.localStorage.access_token) {
         // config.headers.Authorization = 'Bearer ' + $window.localStorage.access_token;
@@ -58,10 +57,8 @@ angular.module('wuyanxia', ['ionic', 'menu', 'house', 'people', 'me', 'auth', 'g
     responseError: function (response) {
       // console.log('intercept error response', response.status);
       if (response.status === 401 || response.status === 403) {
-      // if (response.status === 0) {
         
         // 用户无权限时跳转到登录页
-        // 跳到登录界面太霸道了，所以把下面的语句注释掉
         $rootScope.go('/login');
       }
 

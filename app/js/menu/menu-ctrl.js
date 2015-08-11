@@ -37,24 +37,30 @@ angular.module('menu.ctrl', [])
 
     LogoutSubmit.save({
       access_token: $window.localStorage.access_token
+    }, function(response) {
+      doLogout();
+    }, function(err) {
+      doLogout();
     });
-    
-    // 删除用户信息
-    PersonalInfoMange.clear();
 
-    // 删除 access_token
-    $window.localStorage.removeItem('access_token');
+    function doLogout() {
+      // 删除用户信息
+      PersonalInfoMange.clear();
 
-    // 维伟同学需要删
-    Data.clear();
+      // 删除 access_token
+      $window.localStorage.removeItem('access_token');
 
-    // 重置筛选条件
-    PeopleFilterModel.resetFilter();
+      // 维伟同学需要删
+      Data.clear();
 
-    $scope.go('/login');
+      // 重置筛选条件
+      PeopleFilterModel.resetFilter();
 
-    // $ionicHistory.clearHistory();
-    // $ionicHistory.clearCache();
+      $scope.go('/login');
+
+      // $ionicHistory.clearHistory();
+      // $ionicHistory.clearCache();
+    }
   }
 })
 

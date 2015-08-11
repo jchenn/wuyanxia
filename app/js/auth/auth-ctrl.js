@@ -191,7 +191,7 @@ angular.module('auth.ctrl', ['ionic'])
                         //更新PersonalInfo
                         PersonalInfoMange.clear();
                         PersonalInfoMange.update({
-                            nickname: $scope.formData.nickname
+                            nickName: $scope.formData.nickname
                         });
                         PersonalInfoMange.update(resp.data);
 

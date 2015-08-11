@@ -10,7 +10,8 @@ angular.module('people.ctrl', [])
       params    = PeopleFilterModel.params(),
       _data;
 
-  $scope.list = [];
+  $scope.list     = [];
+  $scope.showHint = false;
   
   $scope.hasMore = function() {
     return _fetching ? false : _hasMore;
@@ -42,27 +43,36 @@ angular.module('people.ctrl', [])
           $scope.list = _data;
         }
 
-        if (_data && _data.length > 0) {
+        if (_data.length > 0) {
           $scope.list = (params.p === 1) ? _data : $scope.list.concat(_data);
-          _hasMore = true;
-        } else {
-          // console.log('no more');
-          _hasMore = false;
         }
 
+        if (_data.length < PeopleFilterModel.SIZE) {
+          _hasMore = false;
+        } else {
+          _hasMore = true;
+        }
+
+        // console.log('length', $scope.list.length);
+        $scope.showHint = $scope.list.length === 0 ? true : false;
         PeopleFilterModel.increasePage();
         PeopleFilterModel.setUsingCache(true);
+
+        // $scope.$broadcast('remove');
       } else {
         // TODO error handling
       }
 
       // 关闭 loading 动画
-      $ionicLoading.hide();      
+      $ionicLoading.hide();
+
       $timeout(function() {
         _fetching = false;
         $scope.$broadcast('scroll.infiniteScrollComplete');
+
+        // TODO 不确定是否能解决下拉到底部不能继续滑动的问题
+        // $ionicScrollDelegate.resize();
       }, 500);
-      
 
     }, function(err) {
 
@@ -89,14 +99,16 @@ angular.module('people.ctrl', [])
 
       if (response.errno === 0) {
 
-        _data = response.data;
+        _data = response.data || [];
 
-        if (_data && _data.length > 0) {
+        if (_data.length > 0) {
           $scope.list = _data;
-          _hasMore = true;
-        } else {
-          // console.log('no more');
+        }
+
+        if (_data.length < PeopleFilterModel.SIZE) {
           _hasMore = false;
+        } else {
+          _hasMore = true;
         }
 
         // 成功后，之后的加载从第二页开始
@@ -141,6 +153,10 @@ angular.module('people.ctrl', [])
     }
   });
 
+  $scope.$on('$destroy', function() {
+    console.log('[destroy] PeopleListCtrl');
+  });
+
   // 在跳转到室友详情之前，先判断是否填完个人信息
   $scope.jumpToDetail = PermissionChecker.goto;
   // $scope.jumpToDetail = function(p) {
@@ -176,7 +192,7 @@ angular.module('people.ctrl', [])
 
   $ionicLoading.show();
 
-  // console.log($stateParams);
+  // console.log('detail', $stateParams);
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     
@@ -224,34 +240,14 @@ angular.module('people.ctrl', [])
   });
 
   $scope.openModal = function(index) {
-    console.log(index);
+    // console.log(index);
     $ionicSlideBoxDelegate.$getByHandle('full-image-viewer').slide(index);
     $scope.modal.show();
   };
 
   $scope.closeModal = function() {
     $scope.modal.hide();
-  };
-
-  //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    console.log('[destroy] PeopleDetailCtrl');
-    $scope.modal.remove();
-  });
-
-  // Execute action on hide modal
-  $scope.$on('modal.hide', function() {
-    // Execute action
-  });
-
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
-  });
-
-  $scope.$on('modal.shown', function() {
-    console.log('Modal is shown!');
-  });
+  };  
 
   $scope.showImage = function(index) {
     $scope.openModal(index);
@@ -272,6 +268,12 @@ angular.module('people.ctrl', [])
       }
     });
   };
+
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    console.log('[destroy] PeopleDetailCtrl');
+    $scope.modal.remove();
+  });
 
   // 处理添加收藏或者取消收藏
   function handleFav() {
@@ -349,12 +351,17 @@ angular.module('people.ctrl', [])
 
 .controller('FavCtrl', function($scope, PersonalInfo, FavQuery) {
 
+  $scope.showHint = false;
+
   FavQuery.get({userId: PersonalInfo.userId}, function(response) {
     // console.log('fav list', response);
 
     if (response.errno === 0) {
       $scope.list = response.data || [];
     }
+
+    $scope.showHint = $scope.list.length === 0 ? true : false;
+
   }, function(err) {
     console.log('fav list err', err);
   });
@@ -394,9 +401,7 @@ angular.module('people.ctrl', [])
   $scope.loadMore = function() {
 
     // 显示 loading 动画
-    $ionicLoading.show({
-      templateUrl: 'templates/people/people-maching.html'
-    });
+    $ionicLoading.show();
 
     _fetching = true;
 
@@ -412,17 +417,21 @@ angular.module('people.ctrl', [])
 
         if (response.errno === 0) {
 
-          _data = response.data;
+          _data = response.data || [];
 
           if (_p === 1) {
             $scope.list = [];
           }
 
-          if (_data && _data.length > 0) {
+          if (_data.length > 0) {
             $scope.list = $scope.list.concat(_data);
             _hasMore = true;
-          } else {
+          }
+
+          if (_data.length < PeopleFilterModel.SIZE) {
             _hasMore = false;
+          } else {
+            _hasMore = true;
           }
         } else {
           // TODO catched err

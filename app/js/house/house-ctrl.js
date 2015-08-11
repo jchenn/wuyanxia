@@ -1,6 +1,12 @@
 angular.module('house.ctrl',[])
 .controller('newCtrl',function($scope,$ionicSlideBoxDelegate,$timeout,Form,Cmn,Camera,$ionicLoading,house,Data,PersonalInfoMange,PersonalInfo,$ionicScrollDelegate,event,$ionicPopup){
     event.off("house.data.update").off("house.init").off("house.file.update");
+    
+    $scope.$on('$destroy',function(){
+        event.off("house.data.update").off("house.init").off("house.file.update");
+        Data.clear();
+    });
+    
     event.on('house.file.update',function(){
         var arr=Data.getFiles();
         var size=[];
@@ -38,6 +44,7 @@ angular.module('house.ctrl',[])
         
         
     });
+    
     event.on('house.data.update',function(){
         $timeout(function(){
             house.refreshForm1($scope);
@@ -47,7 +54,7 @@ angular.module('house.ctrl',[])
     
     event.on('house.init',function(){
        
-        //$scope.safeApply(function(){init();});
+        
         $timeout(function(){
             init();
         });
@@ -149,25 +156,28 @@ angular.module('house.ctrl',[])
                 if(res){
                     Form.delete(function(data){
                 
-                if(data.errno==1){
-                    warn(data.message);
-                    return;
-                }
-                else if(data.errno==0){
-                    PersonalInfoMange.update({
-                        "hasHouse":0
+                        if(data.errno==1){
+                            warn(data.message);
+                            return;
+                        }
+                        else if(data.errno==0){
+                            PersonalInfoMange.update({
+                                "hasHouse":0
+                            });
+                            Data.clearPics();
+                            Data.clearFormData();
+                            location.href="#/menu/people-list";
+                        }
                     });
-                    Data.clearPics();
-                    Data.clearFormData();
-                    location.href="#/menu/people-list";
-                }
-            });
                 }
             });
     }
     
     
     function init(){
+        
+        Data.clear();
+        
         house.resetForm1($scope);
     
         $scope.pics=[];
@@ -178,6 +188,7 @@ angular.module('house.ctrl',[])
             $scope.title="发布房源";
             $scope.send=insert;
             $scope.showPop=null;
+            
         }
         //有房
         else if(PersonalInfo.hasHouse==1){

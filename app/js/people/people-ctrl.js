@@ -43,17 +43,22 @@ angular.module('people.ctrl', [])
           $scope.list = _data;
         }
 
-        if (_data && _data.length > 0) {
+        if (_data.length > 0) {
           $scope.list = (params.p === 1) ? _data : $scope.list.concat(_data);
-          _hasMore = true;
-        } else {
-          // console.log('no more');
-          _hasMore = false;
         }
 
+        if (_data.length < PeopleFilterModel.SIZE) {
+          _hasMore = false;
+        } else {
+          _hasMore = true;
+        }
+
+        // console.log('length', $scope.list.length);
         $scope.showHint = $scope.list.length === 0 ? true : false;
         PeopleFilterModel.increasePage();
         PeopleFilterModel.setUsingCache(true);
+
+        // $scope.$broadcast('remove');
       } else {
         // TODO error handling
       }
@@ -94,14 +99,16 @@ angular.module('people.ctrl', [])
 
       if (response.errno === 0) {
 
-        _data = response.data;
+        _data = response.data || [];
 
-        if (_data && _data.length > 0) {
+        if (_data.length > 0) {
           $scope.list = _data;
-          _hasMore = true;
-        } else {
-          // console.log('no more');
+        }
+
+        if (_data.length < PeopleFilterModel.SIZE) {
           _hasMore = false;
+        } else {
+          _hasMore = true;
         }
 
         // 成功后，之后的加载从第二页开始
@@ -410,17 +417,21 @@ angular.module('people.ctrl', [])
 
         if (response.errno === 0) {
 
-          _data = response.data;
+          _data = response.data || [];
 
           if (_p === 1) {
             $scope.list = [];
           }
 
-          if (_data && _data.length > 0) {
+          if (_data.length > 0) {
             $scope.list = $scope.list.concat(_data);
             _hasMore = true;
-          } else {
+          }
+
+          if (_data.length < PeopleFilterModel.SIZE) {
             _hasMore = false;
+          } else {
+            _hasMore = true;
           }
         } else {
           // TODO catched err

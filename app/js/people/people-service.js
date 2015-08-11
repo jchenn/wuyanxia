@@ -62,6 +62,7 @@ angular.module('people.service', ['ngResource'])
   var factory = {
     radio: condition.buttons,
     list: condition.list,
+    SIZE: 20,
     getDefaultChoice: function() {
       return angular.copy(DefaultChoice);
     },

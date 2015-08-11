@@ -51,17 +51,14 @@
 				width: 100%;
 			    z-index: 10;
 			    li {
-			    	height: 31px;
-				    line-height: 31px;
-				    margin: 0 29px 0 83px;
+			    	height: 38px;
+				    line-height: 38px;
+				    margin: 0 29px 0 29px;
 			    	background: RGBA(255,255,255,0.85);
-					border: 1px solid #B6B6B6;
+					border: 1px solid #ccc;
 				    overflow: hidden;
-				    padding-left: 5px;
+				    padding-left: 59px;
 			    	border-radius: 1px;
-				    &:first-child {
-				    	// border-bottom-width: 0;
-				    }
 			    }
 			    li + li {
 			    	border-top-width: 0;

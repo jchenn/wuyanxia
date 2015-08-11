@@ -341,12 +341,17 @@ angular.module('people.ctrl', [])
 
 .controller('FavCtrl', function($scope, PersonalInfo, FavQuery) {
 
+  $scope.showHint = false;
+
   FavQuery.get({userId: PersonalInfo.userId}, function(response) {
     // console.log('fav list', response);
 
     if (response.errno === 0) {
       $scope.list = response.data || [];
     }
+
+    $scope.showHint = $scope.list.length === 0 ? true : false;
+    
   }, function(err) {
     console.log('fav list err', err);
   });

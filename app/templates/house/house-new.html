@@ -8,11 +8,13 @@
     </ion-header-bar>
     <ion-content>
         <div class="pic-wrapper clearfix">
-            <div class="m-square m-item " ng-repeat="pic in pics" ng-click="toView($index)">
+            <a ng-href="#/menu/pic-view/{{$index}}" ng-repeat="pic in pics">
+            <div class="m-square m-item " >
                 <div class="m-square-content">
                     <img ng-src="{{pic}}" style="{{getStyle($index)}}">
                 </div>
             </div>
+            </a>
             <div class="m-square m-item" ng-click="onAddClick()" ng-if="pics.length<6">
             
                 <img src="img/house/add-pic.jpg" class="m-square-content">

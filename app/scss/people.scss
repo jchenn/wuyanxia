@@ -125,6 +125,18 @@
           line-height: 25px;
           font-size: 12px;
 
+          .nickname {
+            display: inline-block;
+            max-width: 64px;
+            line-height: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 16px;
+            padding: 0px;
+            margin: 0px;
+            vertical-align: middle;
+          }
+
           em {
             display: inline-block;
             height: 23px;

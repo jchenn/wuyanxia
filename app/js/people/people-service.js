@@ -34,8 +34,8 @@ angular.module('people.service', ['ngResource'])
         {label: '喜欢宠物', value: '3'}, {label: '不喜欢', value: '4'}
       ]},
       {name: 'zx', label: '作息', choices: [
-        {label: '不限', value: '1'}, {label: '夜猫子', value: '2'}, 
-        {label: '早睡狗', value: '3'}
+        {label: '不限', value: '1'}, {label: '早睡狗', value: '2'}, 
+        {label: '夜猫子', value: '3'}
       ]},
       {name: 'ws', label: '个人卫生', choices: [
         {label: '不限', value: '1'}, {label: '小洁癖', value: '2'}, 

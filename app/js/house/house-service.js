@@ -1,151 +1,7 @@
 angular.module('house.service',[])
-.factory('myHttp',function(){
-    function Http(method,url,data,callback){
-        var xhr=new XMLHttpRequest();
-        xhr.open(method,url);
-        xhr.onreadystatechange=function(){
-            if(xhr.readyState==4){
-                callback(xhr.responseText);
-            }
-            //console.log(xhr.readyState);
-        };
-        xhr.send(data);
-        //console.log('send');
-    }
-    return {
-        http:Http
-    };
-})
-.factory('Popup',function($timeout){
-    
-    var cover=document.createElement('div');
-        
-    cover.style.display="none";
-    
-    cover.classList.add('m-cover');
-    
-    cover.classList.add('house-view');
-    
-    cover.innerHTML=
-    '<div class="m-cover">'+
-        '<div class="m-pop">'+
-            '<div class="m-pop-head">提示'+
-            '</div>'+
-            '<div class="m-pop-content f-wwa">'+
-            '</div>'+
-        '</div>'+
-    '</div>';
-    
-    //是否初始化
-    var isInited=false;
-    var fn=function(){};
-    return {
-        
-        
-        init:function(){
-            if(isInited) return;
-            var self=this;
-            var parent=document.body;
-            parent.appendChild(cover);
-            cover.addEventListener('click',function(event){
-                self.hide();
-                fn();
-                console.log('click');
-            });
-            isInited=true;
-        },
-        show:function(str,callback,time){
-            fn=function(){};
-            if(callback) fn=callback;
-            var self=this;
-            if(!isInited) this.init();
-            cover.querySelector('.m-pop-content').innerHTML=str;
-            cover.style.display='block';
-            if(time) 
-                $timeout(function(){
-                    self.hide();
-                    fn();
-                },time);
-        },
-        hide:function(){
-            cover.style.display='none';
-        },
-        destroy:function(){
-            cover.parentNode.removeChild(cover);
-            isInited=false;
-        }
-    };
-    
-})
-.factory('Pop',function(){
-    
-    var cover=document.createElement('div');
-    
-    cover.style.display="none";
-    
-    cover.classList.add('m-cover');
-    
-    cover.classList.add('house-view');
-    
-    cover.innerHTML=
-    '<div class="m-cover">'+
-        '<div class="m-pop">'+
-            '<div class="m-pop-content f-wwa">'+
-                '撤销房源后，将变为"我无房源，找室友合租"状态'+
-            '</div>'+
-            '<div class="m-pop-btns">'+
-                '<button class="m-btn t-cancel">取消</button>'+
-                '<button class="m-btn t-sure">确定</button>'+
-            '</div>'+
-        '</div>'+
-    '</div>';
-    
-    //是否初始化
-    var isInited=false;
-    
-    return {
-        
-        /**
-         *@para {Object} options
-         *      -sure {Function} 点击确定时执行
-         *      -cancel {Function} 点击取消时执行
-         */
-        init:function(o){
-            if(isInited) return;
-            var self=this;
-            var parent=document.body;
-            parent.appendChild(cover);
-            cover.addEventListener('click',function(event){
-                var ele=event.target;
-                if(ele.classList.contains('t-sure')){
-                    self.hide();
-                    if(o.sure){
-                        o.sure.call(this,event);
-                    }
-                }
-                else if(ele.classList.contains('t-cancel')){
-                    self.hide();
-                    if(o.cancel){
-                        o.cancel.call(this,event);
-                    }
-                }
-            });
-            isInited=true;
-        },
-        show:function(){
-            if(!isInited) this.init({});
-            cover.style.display='block';
-        },
-        hide:function(){
-            cover.style.display='none';
-        },
-        destroy:function(){
-            cover.parentNode.removeChild(cover);
-            isInited=false;
-        }
-    };
-})
-.factory('Form',function($http,Data,PersonalInfo,Check,myHttp){
+
+
+.factory('Form',function($http,Data,PersonalInfo,Check){
     //var host="http://10.240.35.18:8080";    
     var host="http://223.252.223.13";
     var updatePath="/Roommates/api/userhouse/update";
@@ -328,12 +184,9 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Cmn',function(Popup,$ionicHistory,$ionicActionSheet,Camera,Data,$ionicPopup,$timeout){
+.factory('Cmn',function($ionicHistory,$ionicActionSheet,Camera,Data,$ionicPopup,$timeout){
     
     return {
-        warn1:function(str,callback,time){
-            return Popup.show(str,callback,time);
-        },
         warn:function(str,callback,time){
             var res=$ionicPopup.alert({
                 template:str,

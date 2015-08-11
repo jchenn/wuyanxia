@@ -175,6 +175,9 @@ angular.module('house.ctrl',[])
     
     
     function init(){
+        
+        Data.clear();
+        
         house.resetForm1($scope);
     
         $scope.pics=[];
@@ -185,6 +188,7 @@ angular.module('house.ctrl',[])
             $scope.title="发布房源";
             $scope.send=insert;
             $scope.showPop=null;
+            
         }
         //有房
         else if(PersonalInfo.hasHouse==1){

@@ -20,6 +20,9 @@ ServiceModule
         getLen:function(str){
             var realLength = 0;
             str = str + '';
+            if(typeof str ==='undefined'){
+                return 0;
+            }
             for (var i = 0; i < str.length; i++)
             {
                 charCode = str.charCodeAt(i);

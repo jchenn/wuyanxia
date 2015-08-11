@@ -21,7 +21,7 @@ angular.module('me.service', [])
               //如果是个人信息填写 就不用上传图片；
               if(flag != 0){
                   //上传图片
-                  self.uploadPic(imageData);
+                  self.uploadPic(picData);
               }
 
           }
@@ -34,7 +34,7 @@ angular.module('me.service', [])
       uploadPic : function(imageData){
 
         var data = {
-            'file' : "data:image/jpeg;base64," + imageData,
+            'file' : imageData,
             'userId' : PersonalInfoMange.get('userId')
         };
         var res = $http({
@@ -48,7 +48,7 @@ angular.module('me.service', [])
         });
         res.success(function(response){
             if(response.errono == 0){
-                PersonalInfoMange.update({'avatar' : "data:image/jpeg;base64," + imageData});
+                PersonalInfoMange.update({'avatar' :  imageData});
             }else if(response.errono == 1){
                 console.log('上传图片失败' + response.message);
             }

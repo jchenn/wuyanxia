@@ -71,7 +71,7 @@ angular.module('people.ctrl', [])
         $scope.$broadcast('scroll.infiniteScrollComplete');
 
         // TODO 不确定是否能解决下拉到底部不能继续滑动的问题
-        $ionicScrollDelegate.resize();
+        // $ionicScrollDelegate.resize();
       }, 500);
 
     }, function(err) {
@@ -192,7 +192,7 @@ angular.module('people.ctrl', [])
 
   $ionicLoading.show();
 
-  // console.log($stateParams);
+  // console.log('detail', $stateParams);
 
   PeopleDetailQuery.get({id: $stateParams.id}, function(response) {
     

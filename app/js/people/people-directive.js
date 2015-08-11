@@ -17,23 +17,23 @@ angular.module('people.directive', [])
       // addPadding();
       // $window.addEventListener('resize', addPadding);
 
-      scope.$on('$destroy', function() {
-        console.log('[destroy] peopleListGrid');
-        $window.removeEventListener('resize', addPadding);
-      });
+      // scope.$on('$destroy', function() {
+      //   console.log('[destroy] peopleListGrid');
+      //   $window.removeEventListener('resize', addPadding);
+      // });
 
-      function addPadding() {
-        var w = grid.offsetWidth, m, p = 0;
-        for (m = 16; m >= 1; --m) {
-          if (m * 172 <= w) {
-            // console.log(m);
-            p = (w - 172 * m - 16) / (2 + 2 * m);
-            break;
-          }
-        }
-        console.log('padding', p);
-        grid.style.padding = '0 ' + (p + 8) + 'px'
-      }
+      // function addPadding() {
+      //   var w = grid.offsetWidth, m, p = 0;
+      //   for (m = 16; m >= 1; --m) {
+      //     if (m * 172 <= w) {
+      //       // console.log(m);
+      //       p = (w - 172 * m - 16) / (2 + 2 * m);
+      //       break;
+      //     }
+      //   }
+      //   console.log('padding', p);
+      //   grid.style.padding = '0 ' + (p + 8) + 'px'
+      // }
     },
     controller: function($scope, $element) {
       // var grid = element.find('ul')[0];
@@ -44,6 +44,7 @@ angular.module('people.directive', [])
 
       $scope.$on('$destroy', function() {
         console.log('[destroy] peopleListGrid');
+        this.$parent = this.$$nextSibling = this.$$prevSibling = this.$$childHead = this.$$childTail = null;
       });
     },
     templateUrl: 'templates/people/people-list-grid.html'

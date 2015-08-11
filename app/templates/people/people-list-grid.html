@@ -1,6 +1,8 @@
 <ion-list class="grid">
   <ion-item collection-repeat="p in list" 
             ng-click="jumpToDetail('/menu/people-detail/' + p.userId + '/' + (p.hasHouse ? '1' : ''))">
+            <!-- > -->
+            <!-- href="#/menu/people-detail/{{ p.userId }}/{{ p.hasHouse ? '1' : '' }}"> -->
     <div class="content-wrapper">
       <div class="img-response" ng-class="{ 'ribbon': p.hasHouse }">
         <img ng-src="{{ p.photoId }}" alt=""  width="156" height="156">

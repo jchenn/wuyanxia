@@ -24,6 +24,8 @@ angular.module('people.ctrl', [])
 
     _fetching = true;
 
+    $scope.showHint = false;
+
     // 显示 loading 动画
     $ionicLoading.show({
       templateUrl: 'templates/people/people-maching.html'
@@ -97,6 +99,8 @@ angular.module('people.ctrl', [])
     var tmpfilter = angular.copy(params);
 
     tmpfilter.p = 1;
+
+    $scope.showHint = false;
 
     PeopleListQuery.get(tmpfilter, function(response) {
 

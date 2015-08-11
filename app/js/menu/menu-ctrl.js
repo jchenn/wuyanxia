@@ -34,7 +34,8 @@ angular.module('menu.ctrl', [])
 .controller('SettingCtrl', function($scope, $window, $ionicHistory, 
   PersonalInfoMange, LogoutSubmit, Data, PeopleFilterModel) {
 
-  // console.log('setting');
+  console.log('setting');
+  $scope.isHidden = false;
 
   $scope.logout = function() {
 
@@ -45,25 +46,31 @@ angular.module('menu.ctrl', [])
     }, function(err) {
       doLogout();
     });
+  };
 
-    function doLogout() {
-      // 删除用户信息
-      PersonalInfoMange.clear();
+  $scope.$on('$destroy', function() {
+    console.log('[destroy] SettingCtrl');
+  });
 
-      // 删除 access_token
-      $window.localStorage.removeItem('access_token');
+  function doLogout() {
+    // 删除用户信息
+    PersonalInfoMange.clear();
 
-      // 维伟同学需要删
-      Data.clear();
+    // 删除 access_token
+    $window.localStorage.removeItem('access_token');
 
-      // 重置筛选条件
-      PeopleFilterModel.resetFilter();
+    // 维伟同学需要删
+    Data.clear();
 
-      $scope.go('/login');
+    // 重置筛选条件
+    PeopleFilterModel.resetFilter();
 
-      // $ionicHistory.clearHistory();
-      // $ionicHistory.clearCache();
-    }
+    $scope.go('/login');
+
+    $scope.isHidden = true;
+
+    // $ionicHistory.clearHistory();
+    // $ionicHistory.clearCache();
   }
 })
 

@@ -33,6 +33,9 @@ angular.module('menu.ctrl', [])
 
 .controller('SettingCtrl', function($scope, $window, $ionicHistory, 
   PersonalInfoMange, LogoutSubmit, Data, PeopleFilterModel) {
+
+  // console.log('setting');
+
   $scope.logout = function() {
 
     LogoutSubmit.save({

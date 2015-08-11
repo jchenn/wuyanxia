@@ -54,7 +54,6 @@ angular.module('people.ctrl', [])
         }
 
         // console.log('length', $scope.list.length);
-        $scope.showHint = $scope.list.length === 0 ? true : false;
         PeopleFilterModel.increasePage();
         PeopleFilterModel.setUsingCache(true);
 
@@ -65,6 +64,12 @@ angular.module('people.ctrl', [])
 
       // 关闭 loading 动画
       $ionicLoading.hide();
+
+      if ($scope.list.length > 0) {
+        $scope.showHint = false;
+      } else {
+        $scope.showHint = true;
+      }
 
       $timeout(function() {
         _fetching = false;
@@ -118,6 +123,12 @@ angular.module('people.ctrl', [])
         // TODO error handling
       }
 
+      if ($scope.list.length > 0) {
+        $scope.showHint = false;
+      } else {
+        $scope.showHint = true;
+      }
+
       $scope.$broadcast('scroll.refreshComplete');
 
     }, function(err) {
@@ -155,6 +166,7 @@ angular.module('people.ctrl', [])
 
   $scope.$on('$destroy', function() {
     console.log('[destroy] PeopleListCtrl');
+    $scope.list = null;
   });
 
   // 在跳转到室友详情之前，先判断是否填完个人信息

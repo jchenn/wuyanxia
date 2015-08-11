@@ -1,7 +1,7 @@
 angular.module('house.service',[])
 
 
-.factory('Form',function($http,Data,PersonalInfo,Check,myHttp){
+.factory('Form',function($http,Data,PersonalInfo,Check){
     //var host="http://10.240.35.18:8080";    
     var host="http://223.252.223.13";
     var updatePath="/Roommates/api/userhouse/update";
@@ -184,12 +184,9 @@ angular.module('house.service',[])
         }
     };
 })
-.factory('Cmn',function(Popup,$ionicHistory,$ionicActionSheet,Camera,Data,$ionicPopup,$timeout){
+.factory('Cmn',function($ionicHistory,$ionicActionSheet,Camera,Data,$ionicPopup,$timeout){
     
     return {
-        warn1:function(str,callback,time){
-            return Popup.show(str,callback,time);
-        },
         warn:function(str,callback,time){
             var res=$ionicPopup.alert({
                 template:str,

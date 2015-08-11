@@ -1,4 +1,4 @@
-angular.module('auth', ['auth.ctrl', 'auth.service'])
+angular.module('auth', ['auth.ctrl', 'auth.service', 'auth.filters'])
 
 .config(function($stateProvider) {
 

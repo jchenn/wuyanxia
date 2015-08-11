@@ -1,11 +1,7 @@
 angular.module('auth.ctrl', ['ionic'])
     .controller('LoginCtrl', function($scope, $http, $window, $location, $ionicHistory, $timeout, Loading,  AjaxService, InfoPopupService, PersonalInfo, PersonalInfoMange) {
         // 数据
-        $scope.formData = {
-            // 'email': "hzlbl4@corp.netease.com",
-            // 'password': "123456"
-        };
-        $scope.errorData = {};
+        $scope.formData = {};
         console.log($scope.myForm);
         $scope.$on('$stateChangeSuccess', function(event, toState) {
             console.log('clear history 1');
@@ -13,18 +9,34 @@ angular.module('auth.ctrl', ['ionic'])
             $ionicHistory.clearCache();
         });
 
+        // 企业邮箱后缀数组
+        $scope.dataset = ['corp.netease.com', 'yixin.im'];
+        /**
+         * email输入框后缀补全
+         */
+        $scope.autoInputEmail = function(e) {
+            $scope.formData.email = e.target.innerHTML;
+        };
+
         //处理底部栏随键盘上浮
-        $scope.focusFlag = 0;
+        $scope.isEmailFocus = false;
+        $scope.isPwdFocus = false;
         var eFooterBar = document.getElementById('m-bar');
-        $scope.inputFocus = function(num) {
-            $scope.focusFlag = num;
+        $scope.inputFocus = function(e) {
+            if (e.target.name === 'email') {
+                $scope.isEmailFocus = true;
+            } else if (e.target.name === 'password') {
+                $scope.isPwdFocus = true;
+            }
             eFooterBar.classList.add('is-focus');
         };
-        $scope.inputBlur = function() {
-            $scope.focusFlag = 0;
+        $scope.inputBlur = function(e) {
+            // console.log($scope.userForm.email.$error.pattern);
+            $scope.isEmailFocus = false;
+            $scope.isPwdFocus = false;
             $timeout(function() {
                 // 处理输入框之间直接切换的情况
-                if (!$scope.focusFlag) {
+                if (!$scope.isEmailFocus && !$scope.isPwdFocus) {
                     eFooterBar.classList.remove('is-focus');
                 } 
             }, 250);
@@ -42,7 +54,9 @@ angular.module('auth.ctrl', ['ionic'])
          * 登录函数
          * @return {[type]} [description]
          */
+        $scope.submitted = false;
         $scope.login = function(isValid) {
+            $scope.submitted = true;
             if (isValid) {
                 // 显示loading
                 Loading.show('正在登录…');
@@ -87,13 +101,7 @@ angular.module('auth.ctrl', ['ionic'])
         };
     })
     .controller('RegisterCtrl', function($scope, $window, $location, $ionicPopup, Loading, AjaxService, PersonalInfoMange, InfoPopupService) {
-        $scope.formData = {
-            // 'email': "@corp.netease.com"
-        //     'nickname': "黑月",
-        //     'password': "123123"
-        };
-        // $scope.formData = {};
-        $scope.errorData = {};
+        $scope.formData = {};
         // 弹层文案
         $scope.emailSucInfo = {
             title: "验证成功",
@@ -105,6 +113,14 @@ angular.module('auth.ctrl', ['ionic'])
         };
         // var toBrowserStr = '正在为您跳转';
         console.log($scope.formData);
+        // 企业邮箱后缀数组
+        $scope.dataset = ['corp.netease.com', 'yixin.im'];
+        /**
+         * email输入框后缀补全
+         */
+        $scope.autoInputEmail = function(e) {
+            $scope.formData.email = e.target.innerHTML;
+        };
         /**
          * 弹层
          */
@@ -153,8 +169,13 @@ angular.module('auth.ctrl', ['ionic'])
                 }
             });
         };
-
+        /**
+         * 注册
+         */
+        $scope.submitted = false;
         $scope.register = function(isVaild) {
+            $scope.submitted = true;
+            console.log($scope.submitted);
             //验证结果
             if (isVaild) {
                 console.log("注册");
@@ -170,7 +191,7 @@ angular.module('auth.ctrl', ['ionic'])
                         //更新PersonalInfo
                         PersonalInfoMange.clear();
                         PersonalInfoMange.update({
-                            name: $scope.formData.nickname
+                            nickname: $scope.formData.nickname
                         });
                         PersonalInfoMange.update(resp.data);
 

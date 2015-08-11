@@ -25,7 +25,7 @@
 		}
 	}
 	.m-form {
-		margin-bottom: 50px;
+		margin-bottom: 100px;
 		.log-list.list {
 			padding: 10px 30px;
 			.input-label.icon {
@@ -47,18 +47,25 @@
 			}
 			.email_list {
 			    position: absolute;
-			    left: 29px;
-				width: 391px;
-				border: 1px solid gray;
-			    background: #fff;
+			    left: 0;
+				width: 100%;
 			    z-index: 10;
-			    border-radius: 1px;
-			    padding: 0 24px 0 60px;
 			    li {
 			    	height: 31px;
 				    line-height: 31px;
-				    margin: 0;
+				    margin: 0 29px 0 83px;
+			    	background: RGBA(255,255,255,0.85);
+					border: 1px solid #B6B6B6;
 				    overflow: hidden;
+				    padding-left: 5px;
+			    	border-radius: 1px;
+				    &:first-child {
+				    	// border-bottom-width: 0;
+				    }
+			    }
+			    li + li {
+			    	border-top-width: 0;
+			    	margin-top: -1px;
 			    }
 			}
 			.item-input {
@@ -67,14 +74,13 @@
 				border-width: 0;
 				border-left-width: 4px;
 				border-color: transparent;
-				input {
-					margin-left: 20px;
-				}
-			}
-			.item-input {
-				margin-top: 25px;
+			    border-radius: 1px;
+			    margin-top: 25px;
 				&:first-child {
 					margin-top: 0;
+				}
+				input {
+					margin-left: 20px;
 				}
 			}
 			.button {
@@ -83,7 +89,7 @@
 				margin-top: 25px;
 				background-color: #66C3D2;
 				border-width: 0;
-				border-radius: 0;
+				border-radius: 1px;
 				&[disabled] {
 					opacity:1;
 				}

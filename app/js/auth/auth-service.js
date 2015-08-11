@@ -33,10 +33,10 @@ angular.module('auth.service', ['ngResource'])
 				method: 'GET',
 				url: base_url + 'register/check',
 				params: data
-			})
+			});
 			// return $http.get(base_url + 'register/check', data);
 		}
-	}
+	};
 }])
 
 .factory('InfoPopupService', ['$ionicPopup', '$timeout', function($ionicPopup, $timeout){
@@ -61,4 +61,4 @@ angular.module('auth.service', ['ngResource'])
             if (typeof callback === 'function') callback();
         }, 1500);
     };
-}])
+}]);

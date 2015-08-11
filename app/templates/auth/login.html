@@ -1,41 +1,39 @@
-	<ion-view hide-nav-bar="true" class="g-login" id='login'>
-		<ion-content class="g-content" id='content'>
-			<div class="logo-wrap">
-				<div class="logo"></div>
+<ion-view hide-nav-bar="true" class="g-login" id='login'>
+	<ion-content class="g-content" id='content'>
+		<div class="logo-wrap">
+			<div class="logo"></div>
+		</div>
+		<div class="m-form">
+			<form name="userForm" class="log-list list padding" ng-submit="login(userForm.$valid)" novalidate>
+				<!-- email -->
+				<label class="item item-input" ng-class="{ 'has-error' : ((userForm.email.$error.required || ((userForm.email.$error.email || userForm.email.$error.pattern) && !isEmailFocus)) && (!userForm.email.$pristine || submitted)), 'is-focus' : isEmailFocus}" >
+					<span class="input-label icon icon-email"></span>
+    				<input type="email" name="email" ng-model="formData.email" placeholder="公司邮箱" ng-focus="inputFocus($event)" ng-blur="inputBlur()" required ng-pattern="/^(\w)+(\.\w+)*@?(corp.netease.com)|(yixin.im)$/">
+				</label>
+				<input type="hidden" name="test" ng-model="userForm.email.$viewValue" ng-pattern="/^(\w)+(\.\w+)*@((c(o(r(p(\.(n(e(t(e(a(s(e(\.(c(o(m)?)?)?)?)?)?)?)?)?)?)?)?)?)?)?)|(y(i(x(i(n(\.(i(m)?)?)?)?)?)?)?))?$/">
+				<ul class="email_list" ng-show="userForm.test.$valid && userForm.email.$viewValue && isEmailFocus" ng-click="autoInputEmail($event)">
+					<li ng-repeat="autoEmail in dataset | AEFliter:userForm.email.$viewValue">{{autoEmail}}</li>
+				</ul>
+				<div class="help-block help-email" ng-show="userForm.email.$error.required && (!userForm.email.$pristine || submitted)">请输入企业邮箱</div>
+				<div class="help-block help-email" ng-show="(!userForm.email.$error.required && ((userForm.email.$error.email || userForm.email.$error.pattern) && !isEmailFocus)) && (!userForm.email.$pristine || submitted)">企业邮箱格式错误</div>
+				<!-- password -->
+				<label class="item item-input" ng-class="{ 'has-error' : userForm.password.$invalid && (!userForm.password.$pristine || submitted), 'is-focus' : isPwdFocus }" >
+				    <span class="input-label icon icon-pwd" ></span>
+    				<input type="password" name="password" ng-model="formData.password" placeholder="登录密码" ng-focus="inputFocus($event)" ng-blur="inputBlur()" required>
+				</label>
+				<div class="help-block help-password" ng-show="userForm.password.$error.required && (!userForm.password.$pristine || submitted)">请输入密码</div>
+				<button type="submit" class="button button-block button-positive" >
+					登录
+				</button>
+			</form>
+		</div>
+		<ion-footer-bar  class="m-bar bar bar-footer" id="m-bar">
+			<div class="buttons" ng-click="changePwd()">
+			  <button class="button">忘记密码</button>
 			</div>
-			<!-- <pre>{{userForm.test}}</pre> -->
-			<div class="m-form">
-				<form name="userForm" class="log-list list padding" ng-submit="login(userForm.$valid)" novalidate>
-					<!-- email -->
-					<label class="item item-input" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine, 'is-focus' : focusFlag===1}" >
-						<span class="input-label icon icon-email"></span>
-	    			<input type="email" name="email" ng-model="formData.email" placeholder="公司邮箱" ng-focus="inputFocus(1)" ng-blur="inputBlur()" required ng-pattern="/^(\w)+(\.\w+)*@((corp.netease.com)|(yixin.im))$/">
-					</label>
-<!-- 					<input type="hidden" name="test" ng-model="userForm.email.$viewValue" ng-pattern="/^(\w)+(\.\w+)*@([\w-]+(\.[\w-]+)+)?$/">
-					<ul class="email_list" id="email_list" ng-show="userForm.test.$valid && userForm.email.$viewValue">
-						<li id="emailTips_0" class="hover">{{userForm.email.$viewValue}}corp.netease.com</li> 
-						<li id="emailTips_1">{{userForm.email.$viewValue}}yixin.im</li> 
-					</ul> -->
-	    		<div class="help-block help-email" ng-show="userForm.email.$error.required && !userForm.email.$pristine">请输入企业邮箱</div>
-	    		<div class="help-block help-email" ng-show="!userForm.email.$error.required && userForm.email.$error.pattern && !userForm.email.$pristine">企业邮箱格式错误</div>
-	    		<!-- password -->
-					<label class="item item-input" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine, 'is-focus' : focusFlag===2 }" >
-					    <span class="input-label icon icon-pwd" ></span>
-	    				<input type="password" name="password" ng-model="formData.password" placeholder="登录密码" ng-focus="inputFocus(2)" ng-blur="inputBlur()" required>
-					</label>
-					<div class="help-block help-password" ng-show="userForm.password.$error.required && !userForm.password.$pristine">请输入密码</div>
-					<button type="submit" class="button button-block button-positive" >
-						登录
-					</button>
-				</form>
+			<div class="buttons" ng-click="go('/register')">
+			  <button class="button">注册账号</button>
 			</div>
-			<ion-footer-bar  class="m-bar bar bar-footer" id="m-bar">
-				<div class="buttons" ng-click="changePwd()">
-				  <button class="button">忘记密码</button>
-				</div>
-				<div class="buttons" ng-click="go('/register')">
-				  <button class="button">注册账号</button>
-				</div>
-			</ion-footer-bar>
-		</ion-content>
-	</ion-view>
+		</ion-footer-bar>
+	</ion-content>
+</ion-view>

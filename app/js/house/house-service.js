@@ -225,9 +225,9 @@ angular.module('house.service',[])
             var self=this;
             var opts={
                 method:1,
-                quality:60,
-                height:1000,
-                width:1000
+                quality:50,
+                height:800,
+                width:800
             };
             if(type==2){ opts.method=0;}
             
@@ -417,19 +417,19 @@ angular.module('house.service',[])
                 }
                 switch(type){
                     case 'title':
-                        warn('标题长度不对',todo,2000,true);
+                        warn('请输入标题信息哟',todo,2000,true);
                         break;
                     case 'price':
-                        warn('价格格式不对',todo,2000,true);
+                        warn('请输入正确的价格格式哟',todo,2000,true);
                         break;
                     case 'community':
-                        warn('小区长度不对',todo,2000,true);
+                        warn('请输入小区信息哟',todo,2000,true);
                         break;
                     case 'area':
-                        warn('地址或区域长度不对',todo,2000,true);
+                        warn('请输入区域信息哟',todo,2000,true);
                         break;
                     case 'description':
-                        warn('描述信息长度不对',function(){
+                        warn('请输入描述信息哟',function(){
                             location.href="#/house-decoration";
                         },2000);
                         break;

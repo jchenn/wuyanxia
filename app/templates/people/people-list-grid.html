@@ -6,7 +6,7 @@
         <img ng-src="{{ p.photoId }}" alt=""  width="156" height="156">
       </div>
       <p><span class="nickname">{{ p.nickName }}</span> / {{ p.company }} / {{ p.age }}</p>
-      <p>匹配度 <em>{{ p.matchScore }}%</em></p>
+      <p><span class="gender" ng-class="{'male': p.gender === '男'}"></span>匹配度 <em>{{ p.matchScore }}%</em></p>
       <div class="footer">
         <p>{{ '"' + p.matchMessage + '"' }}</p>
       </div>

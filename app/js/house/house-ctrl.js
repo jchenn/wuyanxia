@@ -67,6 +67,7 @@ angular.module('house.ctrl',[])
     
     //向服务器添加数据
     function insert(){
+        console.log('insert');
         house.getFormData($scope);
         if(!house.checkWarnForm()) return;
         $ionicLoading.show({
@@ -93,6 +94,7 @@ angular.module('house.ctrl',[])
     
     //向服务器更新数据
     function update(){
+        console.log('update');
         //提交表单
         house.getFormData($scope);
         if(!house.checkWarnForm()){
@@ -175,6 +177,7 @@ angular.module('house.ctrl',[])
     
     
     function init(){
+        console.log('init');
         
         Data.clear();
         
@@ -219,6 +222,8 @@ angular.module('house.ctrl',[])
     
     /**执行部分**/
     event.trigger("house.init");
+    
+    console.log("house-ctrl");
     //缓存弹窗函数，方便调用
     var warn=Cmn.warn;
     

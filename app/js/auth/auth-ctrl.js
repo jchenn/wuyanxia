@@ -39,7 +39,7 @@ angular.module('auth.ctrl', ['ionic'])
                 if (!$scope.isEmailFocus && !$scope.isPwdFocus) {
                     eFooterBar.classList.remove('is-focus');
                 } 
-            }, 250);
+            }, 400);
         };
         
         /**
@@ -89,6 +89,7 @@ angular.module('auth.ctrl', ['ionic'])
                         console.log('clear history 1');
                         //跳转个人信息页
                         $scope.go('/menu/people-list');
+                        // $location.path('/menu/people-list').replace();
                     }
                 }).error(function(resp){
                     //请求失败

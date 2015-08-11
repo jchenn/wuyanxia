@@ -35,15 +35,6 @@ angular.module('me.service', [])
 
       takePhoto : function (method,callBack) {
             var self = this;
-          console.log('out success');
-          callBack('1111');
-          //清除缓存
-          navigator.camera.cleanup( function(){
-              console.log("Camera cleanup success.")
-          }, function(message) {
-              console.log('Failed because: ' + message);
-          });
-
           navigator.camera.getPicture(onSuccess, onFail, method);
 
 
@@ -52,18 +43,14 @@ angular.module('me.service', [])
               var image = document.getElementById('myImage');
               var picData = "data:image/jpeg;base64," + imageData;
               image.src = picData;
-              console.log('in success');
+
               callBack(picData);
-              //更新本地缓存
-              console.log('wo shi service');
 
               //如果是个人信息填写 就不用上传图片；
               if(flag != 0){
                   //上传图片
                   self.uploadPic(imageData);
-                  console.log(111);
               }
-              console.log(2222);
 
           }
 

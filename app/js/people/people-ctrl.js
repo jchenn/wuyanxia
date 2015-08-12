@@ -171,6 +171,7 @@ angular.module('people.ctrl', [])
   $scope.$on('$destroy', function() {
     console.log('[destroy] PeopleListCtrl');
     $scope.list = null;
+    this.$parent = this.$$nextSibling = this.$$prevSibling = this.$$childHead = this.$$childTail = null;
   });
 
   // 在跳转到室友详情之前，先判断是否填完个人信息
@@ -245,7 +246,33 @@ angular.module('people.ctrl', [])
 
     $timeout(function() {
       $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
-    },1000);
+    }, 1000);
+
+    // $timeout(function() {
+    //   $ionicSlideBoxDelegate.$getByHandle('image-viewer').update();
+    //   $ionicSlideBoxDelegate.$getByHandle('image-viewer').slide(0);
+    //   // console.log($ionicSlideBoxDelegate.currentIndex());
+    // });
+
+    // $timeout(function() {
+    //   $ionicSlideBoxDelegate.update();
+    //   console.log($ionicSlideBoxDelegate.currentIndex());
+    // },300);
+
+    // $timeout(function() {
+    //   $ionicSlideBoxDelegate.update();
+    //   console.log($ionicSlideBoxDelegate.currentIndex());
+    // },600);
+
+    // $timeout(function() {
+    //   $ionicSlideBoxDelegate.update();
+    //   console.log($ionicSlideBoxDelegate.currentIndex());
+    // },900);
+
+    // $timeout(function() {
+    //   $ionicSlideBoxDelegate.update();
+    //   console.log($ionicSlideBoxDelegate.currentIndex());
+    // },1200);
 
   };
 
@@ -266,7 +293,10 @@ angular.module('people.ctrl', [])
   };  
 
   $scope.showImage = function(index) {
-    $scope.openModal(index);
+    // console.log(index);
+    // try {
+      $scope.openModal(index);
+    // } catch (e) {}
   };
 
   // 显示 收藏/屏幕 菜单
@@ -387,7 +417,7 @@ angular.module('people.ctrl', [])
 })
 
 .controller('PeopleSearchCtrl', 
-  function($scope, $ionicLoading, PersonalInfo, PeopleSearchQuery, PermissionChecker) {
+  function($scope, $ionicLoading, PersonalInfo, PeopleSearchQuery, PermissionChecker, PeopleFilterModel) {
 
   var _fetching   = false,
       _hasMore    = false,
